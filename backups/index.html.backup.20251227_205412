@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jan Russel E. Peñafiel - Freelance Student Web Developer</title>
+    <title>Jan Russel E. Peñafielss - Freelance Student Web Developer</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -933,6 +933,7 @@
             background: rgba(0, 255, 247, 0.15);
             box-shadow: 0 0 15px rgba(0, 255, 247, 0.3);
         }
+
     </style>
 </head>
 <body>
@@ -960,30 +961,85 @@
     </div>
     
     <!-- Upload Modal -->
-    <div id="uploadModal" class="upload-modal">
-        <div class="upload-content">
+    <div id="uploadModal" class="upload-modal" style="display: none;">
+        <div class="upload-content" style="max-width: 900px;">
             <button class="upload-close" onclick="closeUploadModal()">&times;</button>
-            <h3 class="text-center mb-3" style="color: #00fff7;">Upload Project Image</h3>
-            <p class="text-center" style="color: #e0e0e0;">This will update the HTML code and save the image permanently</p>
-            <p class="text-center text-muted" style="font-size: 0.85rem;">Press <kbd>Ctrl+Alt+E</kbd> to toggle upload buttons</p>
+            <h3 class="text-center mb-4" style="color: #00fff7;">Upload Images</h3>
             
-            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon"></div>
-                <p style="color: #00fff7; font-weight: 600;">Click to upload or drag & drop</p>
-                <p style="color: #e0e0e0; font-size: 0.9rem;">Supports: JPG, PNG, GIF, WebP (Max 5MB)</p>
+            <div class="row">
+                <!-- Project Image Upload -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-center mb-3" style="color: #00fff7;">Project Image</h5>
+                    <p class="text-center" style="color: #e0e0e0; font-size: 0.85rem;">Update project card image</p>
+                    <p class="text-center text-muted" style="font-size: 0.75rem;">Press <kbd>Ctrl+Alt+E</kbd> to toggle upload buttons</p>
+                    
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()" style="min-height: 150px;">
+                        <div class="upload-icon"></div>
+                        <p style="color: #00fff7; font-weight: 600; font-size: 0.9rem;">Click to upload or drag & drop</p>
+                        <p style="color: #e0e0e0; font-size: 0.8rem;">JPG, PNG, GIF, WebP (Max 5MB each) • Multiple files supported</p>
+                    </div>
+                    
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(event)">
+                    
+                    <img id="uploadPreview" class="upload-preview" alt="Preview" style="max-height: 120px;">
+                    
+                    <div class="text-center mt-3">
+                        <button id="uploadBtn" class="btn btn-primary btn-sm" onclick="uploadImage()" style="display: none;">
+                            <i class="fas fa-cloud-upload-alt me-1"></i>Upload Project Image
+                        </button>
+                    </div>
+                    
+                    <div id="uploadStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.85rem;"></div>
+                </div>
+                
+                <!-- Profile Picture Upload -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-center mb-3" style="color: #00fff7;">Profile Picture</h5>
+                    <p class="text-center" style="color: #e0e0e0; font-size: 0.85rem;">Update your profile picture across the site</p>
+                    <p class="text-center text-muted" style="font-size: 0.75rem; opacity: 0;">Spacing</p>
+                    
+                    <div class="upload-zone" id="profileUploadZone" onclick="document.getElementById('profileFileInput').click()" style="min-height: 150px;">
+                        <div class="upload-icon"></div>
+                        <p style="color: #00fff7; font-weight: 600; font-size: 0.9rem;">Click to upload or drag & drop</p>
+                        <p style="color: #e0e0e0; font-size: 0.8rem;">JPG, PNG, GIF, WebP (Max 5MB)</p>
+                    </div>
+                    
+                    <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
+                    
+                    <img id="profileUploadPreview" class="upload-preview" alt="Preview" style="max-height: 120px;">
+                    
+                    <div class="text-center mt-3">
+                        <button id="profileUploadBtn" class="btn btn-primary btn-sm" onclick="uploadProfilePicture()" style="display: none;">
+                            <i class="fas fa-cloud-upload-alt me-1"></i>Upload Profile Picture
+                        </button>
+                    </div>
+                    
+                    <div id="profileUploadStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.85rem;"></div>
+                </div>
             </div>
-            
-            <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
-            
-            <img id="uploadPreview" class="upload-preview" alt="Preview">
-            
-            <div class="text-center mt-3">
-                <button id="uploadBtn" class="btn btn-primary" onclick="uploadImage()" style="display: none;">
-                    <i class="fas fa-cloud-upload-alt me-2"></i>Upload Image
-                </button>
+        </div>
+    </div>
+    
+    <!-- Gallery Modal (manual viewer, no slideshow) -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" style="color: #00fff7;">Project Gallery</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-outline-light btn-sm" id="galleryPrevBtn"><i class="fas fa-chevron-left"></i></button>
+                        <div id="galleryCounter" class="text-center" style="flex:1; color:#00fff7; font-weight:600;"></div>
+                        <button class="btn btn-outline-light btn-sm" id="galleryNextBtn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="text-center mb-3">
+                        <img id="galleryMainImage" src="" alt="Gallery" class="img-fluid" style="max-height:480px; object-fit:contain; border:2px solid #00fff7; border-radius:8px;">
+                    </div>
+                    <div class="text-center small text-muted">Press Ctrl + Alt + X to delete the current image</div>
+                </div>
             </div>
-            
-            <div id="uploadStatus" class="text-center mt-3" style="color: #00fff7;"></div>
         </div>
     </div>
     
@@ -1060,7 +1116,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#home">
-                <img src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                <div style="position: relative; display: inline-block;">
+                    <img id="profilePicture" src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
+                    <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
+                </div>
                 Russel's Portfolio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -1209,12 +1268,12 @@
             </div>
             
             <div class="text-center">
-                <h4 class="fw-bold">Freelance Student Web Developer | Founder of CTRL J</h4>
+                <h4 class="fw-bold">Freelance Student Web Developer | Founder of Asyncs Innovations</h4>
                 <p class="lead fst-italic">Transforming ideas into impactful digital solutions while pursuing academic excellence</p>
             </div>
             
             <div class="highlight-box">
-                <h5 class="fw-bold mb-3">Highlights</h5>
+                <h5 class="fw-bold mb-3 text-center">Highlights</h5>
                 <div class="text-center">
                     <span class="badge-custom me-2 mb-2">Healthcare Systems Specialist</span>
                     <span class="badge-custom me-2 mb-2">Government Services Expert</span>
@@ -1242,32 +1301,26 @@
                 <div class="row text-center">
                     <div class="col-md-4 mb-3">
                         <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Personal Info</h6>
-                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
-                            <strong>Jan Russel E. Peñafiel</strong><br>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;" id="personalInfo" contenteditable="false"><strong>Jan Russel E. Peñafiel</strong><br>
                             Freelance Student Developer<br>
-                            Founder of CTRL J
-                        </div>
+                            Founder of Asyncs Innovations</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Education</h6>
-                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
-                            3rd Year IT Student<br>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;" id="educationInfo" contenteditable="false">This is a 3rd Year IT Student<br>
                             Sultan Kudarat State University<br>
-                            Web Development Passionate
-                        </div>
+                            Web Development Passionate</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Focus Areas</h6>
-                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
-                            Healthcare Systems<br>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;" id="focusAreas" contenteditable="false">Healthcare Systems<br>
                             Government Services<br>
-                            Educational Technology
-                        </div>
+                            Educational Technology</div>
                     </div>
                 </div>
                 
                 <div class="highlight-box mt-3" style="padding: 15px;">
-                    <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Key Achievements</h6>
+                    <h6 class="fw-bold mb-2 text-center" style="font-size: 0.9rem;">Key Achievements</h6>
                     <div class="text-center">
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded CTRL J as a student</span>
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Deployed Electronic Health Record System</span>
@@ -1296,7 +1349,7 @@
             </div>
             
             <div class="quote-box">
-                <h5 class="fw-bold">My Journey Summary</h5>
+                <h5 class="fw-bold text-center">My Journey Summary</h5>
                 <p class="mb-0">"From struggling with C++ in first year to building 15+ web systems and earning 100k+ as a student developer. Founded CTRL J while pursuing my IT degree at SKSU."</p>
             </div>
             
@@ -1342,6 +1395,7 @@
             
             <!-- All Projects -->
             <div class="row mb-5" id="flagshipMainRow">
+
 
 
                 
@@ -1407,11 +1461,12 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./KES-SMART.png" target="_blank">
-                                    <img src="./KES-SMART.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;">
-                                </a>
-                            </div>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/placeholder.png&quot;]'>
+            <a href="./placeholder.png" target="_blank" class="project-image-link" data-images='[&quot;.\/placeholder.png&quot;]'>
+                <img src="./placeholder.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/placeholder.png&quot;]'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of 1</div>
+        </div>
                             <h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
                             <h6 class="text-center text-warning mb-3">📱 Student Monitoring with QR & SMS</h6>
                             <p class="card-text text-center">Smart student monitoring system with QR code attendance and automated SMS notifications for parents and administrators.</p>
@@ -1424,9 +1479,7 @@
                                 <button class="delete-btn-card" onclick="deleteCard('kes-smart')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
                                 </button>
-                            </div>
-                        </div>
-                    </div>
+                            </div></div></div>
                 </div>
 
                 <div class="col-lg-6 mb-3">
@@ -1435,12 +1488,13 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./BHC.png" target="_blank">
-                                    <img src="./BHC.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;">
-                                </a>
-                            </div>
-                            <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
+            <a href="./uploads/project_6950392b8ec0a9.23708258.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
+                <img src="./uploads/project_6950392b8ec0a9.23708258.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of 1</div>
+        </div>
+<h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
                             <h6 class="text-center text-warning mb-3">🏥 Digital Barangay Health Center</h6>
                             <p class="card-text text-center">Comprehensive digital health center management system for barangay health services with patient records, appointments, and medicine tracking.</p>
                             <div class="text-center mb-3">
@@ -1452,9 +1506,7 @@
                                 <button class="delete-btn-card" onclick="deleteCard('bhc-connect')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
                                 </button>
-                            </div>
-                        </div>
-                    </div>
+                            </div></div></div>
                 </div>
 
                 <div class="col-lg-6 mb-3">
@@ -1673,11 +1725,14 @@
         
         // Upload Modal Functions
         let currentProjectId = null;
-        let selectedFile = null;
+        let selectedFiles = [];
         let uploadButtonsEnabled = false;
         let editModeActive = false;
         let originalTexts = new Map();
         let editableElements = [];
+        let galleryModalInstance = null;
+        let currentGalleryImages = [];
+        let currentGalleryIndex = 0;
         
         // Keyboard shortcut: Ctrl+Alt+E to open main menu or toggle edit mode
         document.addEventListener('keydown', function(e) {
@@ -1688,6 +1743,11 @@
                 } else {
                     openMainMenu();
                 }
+            }
+            // Ctrl + Alt + X to delete current gallery image
+            if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'x') {
+                e.preventDefault();
+                deleteCurrentGalleryImage();
             }
         });
         
@@ -1751,16 +1811,65 @@
         }
         
         function openUploadModal(projectId) {
+            // Direct file selection without modal
+            if (!uploadButtonsEnabled) {
+                alert('Upload buttons are disabled. Press Ctrl+Alt+E to enable them.');
+                return;
+            }
             currentProjectId = projectId;
-            const modal = document.getElementById('uploadModal');
-            modal.classList.add('active');
-            resetUploadForm();
+            // Create a temporary file input
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.multiple = true;
+            fileInput.onchange = function(e) {
+                const files = Array.from(e.target.files || []);
+                if (files.length > 0) {
+                    selectedFiles = files;
+                    uploadImageDirectly();
+                }
+            };
+            fileInput.click();
+        }
+        
+        function uploadImageDirectly() {
+            if (!selectedFiles.length || !currentProjectId) {
+                return;
+            }
+            
+            const formData = new FormData();
+            selectedFiles.forEach(file => formData.append('images[]', file));
+            formData.append('project_id', currentProjectId);
+            formData.append('action', 'upload');
+            
+            // Show notification
+            showToggleNotification('Uploading image...');
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToggleNotification('✓ Image uploaded! Reloading...');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showToggleNotification('✗ Upload failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                showToggleNotification('✗ Error: ' + error.message);
+            });
         }
         
         function closeUploadModal() {
             const modal = document.getElementById('uploadModal');
             modal.classList.remove('active');
             resetUploadForm();
+            resetProfileUploadForm();
         }
         
         function resetUploadForm() {
@@ -1768,7 +1877,7 @@
             document.getElementById('uploadPreview').classList.remove('show');
             document.getElementById('uploadBtn').style.display = 'none';
             document.getElementById('uploadStatus').innerHTML = '';
-            selectedFile = null;
+            selectedFiles = [];
         }
         
         // Drag and drop functionality
@@ -1789,34 +1898,38 @@
             uploadZone.classList.remove('dragover');
             const files = e.dataTransfer.files;
             if (files.length > 0) {
-                handleFile(files[0]);
+                handleFiles(Array.from(files));
             }
         });
         
         function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                handleFile(file);
+            const files = Array.from(event.target.files || []);
+            if (files.length) {
+                handleFiles(files);
             }
         }
         
-        function handleFile(file) {
-            // Validate file type
+        function handleFiles(files) {
             const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-            if (!validTypes.includes(file.type)) {
-                showStatus('Invalid file type. Please select an image file.', 'error');
+            const validFiles = [];
+
+            files.forEach(file => {
+                if (!validTypes.includes(file.type)) {
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    return;
+                }
+                validFiles.push(file);
+            });
+
+            if (!validFiles.length) {
+                showStatus('Invalid files selected. Please choose images under 5MB.', 'error');
                 return;
             }
-            
-            // Validate file size (5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                showStatus('File size exceeds 5MB limit.', 'error');
-                return;
-            }
-            
-            selectedFile = file;
-            
-            // Show preview
+
+            selectedFiles = validFiles;
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 const preview = document.getElementById('uploadPreview');
@@ -1824,18 +1937,24 @@
                 preview.classList.add('show');
                 document.getElementById('uploadBtn').style.display = 'inline-block';
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(validFiles[0]);
+
+            const statusMessage = validFiles.length === 1
+                ? '1 image ready to upload.'
+                : `${validFiles.length} images ready. First image will be used as the display image.`;
+            showStatus(statusMessage, 'info');
         }
         
         function uploadImage() {
-            if (!selectedFile || !currentProjectId) {
-                showStatus('Please select a file first.', 'error');
+            if (!selectedFiles.length || !currentProjectId) {
+                showStatus('Please select at least one image first.', 'error');
                 return;
             }
             
             const formData = new FormData();
-            formData.append('image', selectedFile);
+            selectedFiles.forEach(file => formData.append('images[]', file));
             formData.append('project_id', currentProjectId);
+            formData.append('action', 'upload');
             
             showStatus('Uploading and updating HTML...', 'info');
             document.getElementById('uploadBtn').disabled = true;
@@ -1872,14 +1991,23 @@
             });
         }
         
-        function updateProjectImage(projectId, imagePath) {
+        function updateProjectImage(projectId, imagePaths) {
+            const paths = Array.isArray(imagePaths) ? imagePaths : [imagePaths];
+            if (!paths.length) return;
             const projectCard = document.querySelector(`[data-project-id="${projectId}"]`);
             if (projectCard) {
                 const img = projectCard.querySelector('img');
+                const link = img ? img.parentElement : null;
                 if (img) {
-                    img.src = imagePath;
-                    img.parentElement.href = imagePath;
+                    img.src = paths[0];
+                    img.setAttribute('data-images', JSON.stringify(paths));
                 }
+                if (link) {
+                    link.href = paths[0];
+                    link.setAttribute('data-images', JSON.stringify(paths));
+                    link.classList.add('project-image-link');
+                }
+                projectCard.setAttribute('data-images', JSON.stringify(paths));
             }
         }
         
@@ -1888,6 +2016,152 @@
             statusDiv.innerHTML = message;
             statusDiv.style.color = type === 'error' ? '#ff4444' : type === 'success' ? '#00ff00' : '#00fff7';
         }
+
+        // Gallery modal helpers
+        function prepareGalleryLinks() {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                const link = card.querySelector('.card-body .text-center a');
+                const img = link ? link.querySelector('img') : null;
+                if (!link || !img) return;
+
+                let images = [];
+                const data = link.getAttribute('data-images') || img.getAttribute('data-images') || card.getAttribute('data-images');
+                if (data) {
+                    try {
+                        images = JSON.parse(data);
+                    } catch (err) {
+                        images = [];
+                    }
+                }
+                if (!images.length) {
+                    const src = img.getAttribute('src');
+                    if (src) images = [src];
+                }
+                const json = JSON.stringify(images);
+                link.setAttribute('data-images', json);
+                img.setAttribute('data-images', json);
+                card.setAttribute('data-images', json);
+                link.classList.add('project-image-link');
+            });
+        }
+
+        function renderGalleryViewer() {
+            const mainImg = document.getElementById('galleryMainImage');
+            const counter = document.getElementById('galleryCounter');
+            if (!mainImg || !counter || !currentGalleryImages.length) return;
+            currentGalleryIndex = Math.max(0, Math.min(currentGalleryIndex, currentGalleryImages.length - 1));
+            mainImg.src = currentGalleryImages[currentGalleryIndex];
+            counter.textContent = `Image ${currentGalleryIndex + 1} of ${currentGalleryImages.length}`;
+        }
+
+        function openGalleryModal(images, startIndex = 0) {
+            if (!Array.isArray(images) || !images.length) {
+                return;
+            }
+            const modalEl = document.getElementById('galleryModal');
+            if (!modalEl) return;
+
+            currentGalleryImages = images;
+            currentGalleryIndex = startIndex;
+            renderGalleryViewer();
+
+            if (!galleryModalInstance) {
+                galleryModalInstance = new bootstrap.Modal(modalEl);
+            }
+            galleryModalInstance.show();
+        }
+
+        function showGalleryNext() {
+            if (!currentGalleryImages.length) return;
+            currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+            renderGalleryViewer();
+        }
+
+        function showGalleryPrev() {
+            if (!currentGalleryImages.length) return;
+            currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+            renderGalleryViewer();
+        }
+
+        function syncCardGalleryState(projectId, images) {
+            const card = document.querySelector(`[data-project-id="${projectId}"]`);
+            if (!card) return;
+            const json = JSON.stringify(images.length ? images : ['./placeholder.png']);
+            const link = card.querySelector('.project-image-link');
+            const img = link ? link.querySelector('img') : card.querySelector('img');
+            const counterEl = card.querySelector('.project-gallery .small.text-muted');
+            const mainSrc = images.length ? images[0] : './placeholder.png';
+            card.setAttribute('data-images', json);
+            if (link) {
+                link.href = mainSrc;
+                link.setAttribute('data-images', json);
+            }
+            if (img) {
+                img.src = mainSrc;
+                img.setAttribute('data-images', json);
+            }
+            if (counterEl && images.length) {
+                counterEl.textContent = `Image 1 of ${images.length}`;
+            }
+        }
+
+        function deleteCurrentGalleryImage() {
+            if (!currentProjectId || !currentGalleryImages.length) return;
+            const imagePath = currentGalleryImages[currentGalleryIndex];
+            const formData = new FormData();
+            formData.append('action', 'delete_image');
+            formData.append('project_id', currentProjectId);
+            formData.append('image_path', imagePath);
+
+            fetch('upload.php', { method: 'POST', body: formData })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.success) {
+                        currentGalleryImages.splice(currentGalleryIndex, 1);
+                        if (!currentGalleryImages.length) {
+                            if (galleryModalInstance) galleryModalInstance.hide();
+                            window.location.reload();
+                            return;
+                        }
+                        if (currentGalleryIndex >= currentGalleryImages.length) {
+                            currentGalleryIndex = currentGalleryImages.length - 1;
+                        }
+                        syncCardGalleryState(currentProjectId, currentGalleryImages);
+                        renderGalleryViewer();
+                    } else {
+                        alert('Delete failed: ' + data.message);
+                    }
+                })
+                .catch(err => alert('Delete error: ' + err.message));
+        }
+
+        const nextBtn = document.getElementById('galleryNextBtn');
+        const prevBtn = document.getElementById('galleryPrevBtn');
+        if (nextBtn) nextBtn.addEventListener('click', showGalleryNext);
+        if (prevBtn) prevBtn.addEventListener('click', showGalleryPrev);
+
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('.project-image-link');
+            if (!link) return;
+            e.preventDefault();
+            let images = [];
+            try {
+                images = JSON.parse(link.getAttribute('data-images') || '[]');
+            } catch (err) {
+                images = [];
+            }
+            if (!images.length && link.href) {
+                images = [link.href];
+            }
+            const card = link.closest('.project-card');
+            currentProjectId = card ? card.getAttribute('data-project-id') : null;
+            openGalleryModal(images, 0);
+        });
+
+        document.addEventListener('DOMContentLoaded', prepareGalleryLinks);
+        // Ensure gallery links are prepared even if DOMContentLoaded has already fired
+        prepareGalleryLinks();
         
         // Close modal when clicking outside
         document.getElementById('uploadModal').addEventListener('click', function(e) {
@@ -1901,6 +2175,26 @@
             editModeActive = true;
             originalTexts.clear();
             editableElements = [];
+            
+            // Enable About Me sections editing and track them for saving
+            const personalInfo = document.getElementById('personalInfo');
+            const educationInfo = document.getElementById('educationInfo');
+            const focusAreas = document.getElementById('focusAreas');
+            
+            [personalInfo, educationInfo, focusAreas].forEach(element => {
+                if (element) {
+                    const originalText = element.innerHTML;
+                    element.setAttribute('contenteditable', 'true');
+                    element.classList.add('edit-mode-active');
+                    element.setAttribute('data-original', originalText);
+                    originalTexts.set(element, originalText);
+                    editableElements.push(element);
+                }
+            });
+            
+            // Show profile picture upload button
+            const profileBtn = document.getElementById('profileUploadBtn');
+            if (profileBtn) profileBtn.style.opacity = '1';
             
             // Select all editable text elements
             const selectors = [
@@ -1972,6 +2266,17 @@
         function exitEditMode() {
             editModeActive = false;
             
+            // Disable About Me sections editing
+            document.getElementById('personalInfo').setAttribute('contenteditable', 'false');
+            document.getElementById('educationInfo').setAttribute('contenteditable', 'false');
+            document.getElementById('focusAreas').setAttribute('contenteditable', 'false');
+            document.getElementById('personalInfo').classList.remove('edit-mode-active');
+            document.getElementById('educationInfo').classList.remove('edit-mode-active');
+            document.getElementById('focusAreas').classList.remove('edit-mode-active');
+            
+            // Hide profile picture upload button
+            document.getElementById('profileUploadBtn').style.opacity = '0';
+            
             editableElements.forEach(element => {
                 element.removeAttribute('contenteditable');
                 element.classList.remove('edit-mode-active');
@@ -2024,13 +2329,16 @@
             
             editableElements.forEach(element => {
                 const oldText = originalTexts.get(element);
-                const newText = element.textContent.trim();
+                // Use innerHTML for About Me sections to preserve formatting
+                const isAboutSection = element.id === 'personalInfo' || element.id === 'educationInfo' || element.id === 'focusAreas';
+                const newText = isAboutSection ? element.innerHTML.trim() : element.textContent.trim();
                 
                 if (oldText && newText && oldText !== newText) {
                     edits.push({
-                        selector: element.tagName,
+                        selector: element.id || element.tagName,
                         oldText: oldText,
-                        newText: newText
+                        newText: newText,
+                        useHtml: isAboutSection
                     });
                 }
             });
@@ -2068,19 +2376,19 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    statusDiv.innerHTML = '? Saved! Reloading...';
+                    statusDiv.innerHTML = '✓ Saved! Reloading...';
                     statusDiv.style.color = '#00ff00';
                     exitEditMode();
                     setTimeout(() => {
                         window.location.reload();
                     }, 1500);
                 } else {
-                    statusDiv.innerHTML = '? Failed: ' + data.message;
+                    statusDiv.innerHTML = '✗ Failed: ' + data.message;
                     statusDiv.style.color = '#ff4444';
                 }
             })
             .catch(error => {
-                statusDiv.innerHTML = '? Error: ' + error.message;
+                statusDiv.innerHTML = '✗ Error: ' + error.message;
                 statusDiv.style.color = '#ff4444';
             });
         }
@@ -2497,13 +2805,67 @@
             });
         }
         
+        // Profile Picture Upload Functions
+        let selectedProfileFile = null;
+        
+        function handleProfileFileSelect(event) {
+            const file = event.target.files[0];
+            if (file && editModeActive) {
+                uploadProfilePictureDirectly(file);
+            }
+        }
+        
+        function uploadProfilePictureDirectly(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('action', 'update_profile');
+            
+            showToggleNotification('Uploading profile picture...');
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToggleNotification('✓ Profile picture updated! Reloading...');
+                    
+                    // Update profile picture on page
+                    document.getElementById('profilePicture').src = data.data.path;
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showToggleNotification('✗ ' + data.message);
+                }
+            })
+            .catch(error => {
+                showToggleNotification('✗ Upload failed: ' + error.message);
+            });
+        }
+        
         // Close modals when clicking outside
         ['mainMenuModal'].forEach(modalId => {
-            document.getElementById(modalId).addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            }
         });
     </script>
 </body>

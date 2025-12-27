@@ -52,8 +52,34 @@ function createBackup($htmlFile) {
     return ['success' => true, 'message' => 'Backup created'];
 }
 
-// Function to update HTML file with new image
-function updateHtmlImage($htmlFile, $projectId, $imagePath) {
+// Normalize $_FILES array to a flat array of files
+function normalizeFilesArray($files) {
+    if (!isset($files['name'])) {
+        return [];
+    }
+
+    // Single file
+    if (!is_array($files['name'])) {
+        return [$files];
+    }
+
+    $normalized = [];
+    $fileCount = count($files['name']);
+    for ($i = 0; $i < $fileCount; $i++) {
+        $normalized[] = [
+            'name' => $files['name'][$i],
+            'type' => $files['type'][$i],
+            'tmp_name' => $files['tmp_name'][$i],
+            'error' => $files['error'][$i],
+            'size' => $files['size'][$i]
+        ];
+    }
+
+    return $normalized;
+}
+
+// Function to update HTML file with multiple images (first image becomes display image)
+function updateHtmlImages($htmlFile, $projectId, $imagePaths) {
     $backupResult = createBackup($htmlFile);
     if (!$backupResult['success']) {
         return $backupResult;
@@ -64,64 +90,112 @@ function updateHtmlImage($htmlFile, $projectId, $imagePath) {
         return ['success' => false, 'message' => 'Failed to read HTML file'];
     }
     
-    $patterns = [
-        'sksu-monitoring' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="SKSU Scholarship Monitoring System"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="SKSU Scholarship Monitoring System"'
-        ],
-        'russels-hr' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="Russel\'s Chicken Delights HR System"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="Russel\'s Chicken Delights HR System"'
-        ],
-        'kes-smart' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="KES-SMART"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="KES-SMART"'
-        ],
-        'bhc-connect' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="BHC CONNECT"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="BHC CONNECT"'
-        ],
-        'healthconnect' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="HealthConnect"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="HealthConnect"'
-        ],
-        'immucare' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="ImmuCare"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="ImmuCare"'
-        ],
-        'aidtrack' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="AidTrack"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="AidTrack"'
-        ],
-        'bm-scapis' => [
-            'search' => '/<img\s+src="[^"]+"\s+alt="BM-SCaPIS"/i',
-            'replace' => '<img src="' . $imagePath . '" alt="BM-SCaPIS"'
-        ]
-    ];
-    
-    if (!isset($patterns[$projectId])) {
-        return ['success' => false, 'message' => 'Unknown project ID'];
+    $pattern = '/<div class="project-card card h-100" data-project-id="' . preg_quote($projectId, '/') . '">(.*?)<\/div>\s*<\/div>\s*<\/div>/s';
+
+    if (!preg_match($pattern, $htmlContent, $matches)) {
+        return ['success' => false, 'message' => 'Card not found in HTML'];
     }
+
+    if (empty($imagePaths)) {
+        return ['success' => false, 'message' => 'No images provided'];
+    }
+
+    $cardContent = $matches[1];
+
+    // Determine alt text from existing image if present
+    $altText = $projectId;
+    if (preg_match('/alt="([^"]*)"/i', $cardContent, $altMatch)) {
+        $altText = $altMatch[1];
+    }
+
+    $galleryJson = htmlspecialchars(json_encode($imagePaths), ENT_QUOTES);
+    $firstImage = $imagePaths[0];
+    $totalImages = count($imagePaths);
+
+    $replacement = '<div class="text-center project-gallery" data-images=\'' . $galleryJson . '\'>
+            <a href="' . $firstImage . '" target="_blank" class="project-image-link" data-images=\'' . $galleryJson . '\'>
+                <img src="' . $firstImage . '" alt="' . $altText . '" class="img-fluid rounded mb-2" style="max-height:150px;" data-images=\'' . $galleryJson . '\'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of ' . $totalImages . '</div>
+        </div>';
+
+    // Remove ALL existing gallery/image blocks from the card first
+    $imageBlockPattern = '/<div class="text-center[^"]*"[^>]*>.*?<\/div>\s*(?=<h[1-6]|<div class="text-center mb-3">|$)/s';
+    $cardContent = preg_replace($imageBlockPattern, '', $cardContent);
     
-    $pattern = $patterns[$projectId];
-    $updatedContent = preg_replace($pattern['search'], $pattern['replace'], $htmlContent, 1, $count);
+    // Inject the single new gallery block after card-body opening
+    $cardBodyPattern = '/(<div class="card-body[^>]*>)/s';
+    $cardContent = preg_replace($cardBodyPattern, '$1' . "\n                            " . $replacement, $cardContent, 1, $count);
     
+    // Fallback: prepend if injection failed
     if ($count === 0) {
-        return ['success' => false, 'message' => 'Image tag not found in HTML'];
+        $cardContent = $replacement . "\n" . $cardContent;
     }
+
+    $updatedHtml = preg_replace($pattern, '<div class="project-card card h-100" data-project-id="' . $projectId . '">' . $cardContent . '</div></div></div>', $htmlContent, 1);
     
-    $updatedContent = preg_replace(
-        '/<a\s+href="[^"]+"\s+target="_blank">\s*' . preg_quote($pattern['replace'], '/') . '/i',
-        '<a href="' . $imagePath . '" target="_blank">' . $pattern['replace'],
-        $updatedContent,
-        1
-    );
-    
-    if (file_put_contents($htmlFile, $updatedContent) === false) {
+    if (file_put_contents($htmlFile, $updatedHtml) === false) {
         return ['success' => false, 'message' => 'Failed to write HTML file'];
     }
     
     return ['success' => true, 'message' => 'HTML file updated successfully'];
+}
+
+// Remove a specific image from a project's gallery and update HTML
+function removeProjectImage($htmlFile, $projectId, $imagePath) {
+    $htmlContent = file_get_contents($htmlFile);
+    if ($htmlContent === false) {
+        return ['success' => false, 'message' => 'Failed to read HTML file'];
+    }
+
+    $pattern = '/<div class="project-card card h-100" data-project-id="' . preg_quote($projectId, '/') . '">(.*?)<\/div>\s*<\/div>\s*<\/div>/s';
+    if (!preg_match($pattern, $htmlContent, $matches)) {
+        return ['success' => false, 'message' => 'Card not found'];
+    }
+
+    $cardHtml = $matches[0];
+    $imagesJson = null;
+    if (preg_match('/data-images=\'(.*?)\'/s', $cardHtml, $imgMatch)) {
+        $imagesJson = html_entity_decode($imgMatch[1], ENT_QUOTES);
+    } elseif (preg_match('/data-images="(.*?)"/s', $cardHtml, $imgMatch)) {
+        $imagesJson = html_entity_decode($imgMatch[1], ENT_QUOTES);
+    }
+
+    if ($imagesJson === null) {
+        return ['success' => false, 'message' => 'No gallery data found'];
+    }
+
+    $images = json_decode($imagesJson, true);
+    if (!is_array($images)) {
+        return ['success' => false, 'message' => 'Invalid gallery data'];
+    }
+
+    $originalCount = count($images);
+    $images = array_values(array_filter($images, function($img) use ($imagePath) {
+        return $img !== $imagePath;
+    }));
+
+    if (count($images) === $originalCount) {
+        return ['success' => false, 'message' => 'Image not found in gallery'];
+    }
+
+    if (empty($images)) {
+        $images = ['./placeholder.png'];
+    }
+
+    $result = updateHtmlImages($htmlFile, $projectId, $images);
+    if (!$result['success']) {
+        return $result;
+    }
+
+    // Delete file from uploads folder if it resides there
+    $normalized = str_replace(['../', '..\\'], '', $imagePath);
+    $fullPath = realpath(__DIR__ . '/' . ltrim($normalized, './'));
+    if ($fullPath && strpos($fullPath, realpath(__DIR__ . '/uploads/')) === 0 && file_exists($fullPath)) {
+        @unlink($fullPath);
+    }
+
+    return ['success' => true, 'message' => 'Image removed'];
 }
 
 // Function to add new project card
@@ -141,6 +215,7 @@ function addProjectCard($htmlFile, $cardData) {
     $description = htmlspecialchars($cardData['description'] ?? 'Project description');
     $category = htmlspecialchars($cardData['category'] ?? 'General');
     $imagePath = $cardData['image'] ?? './placeholder.png';
+    $galleryJson = htmlspecialchars(json_encode([$imagePath]), ENT_QUOTES);
     $badges = isset($cardData['badges']) ? $cardData['badges'] : [];
     
     $badgesHtml = '';
@@ -161,10 +236,11 @@ function addProjectCard($htmlFile, $cardData) {
                             <i class="fas fa-trash"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="' . $imagePath . '" target="_blank">
-                                    <img src="' . $imagePath . '" alt="' . $title . '" class="img-fluid rounded mb-2" style="max-height:150px;">
+                            <div class="text-center project-gallery" data-images="' . $galleryJson . '">
+                                <a href="' . $imagePath . '" target="_blank" class="project-image-link" data-images="' . $galleryJson . '">
+                                    <img src="' . $imagePath . '" alt="' . $title . '" class="img-fluid rounded mb-2" style="max-height:150px;" data-images="' . $galleryJson . '">
                                 </a>
+                                <div class="text-center small text-muted mb-2">Image 1 of 1</div>
                             </div>
                             <h5 class="card-title fw-bold text-center text-primary">' . $title . '</h5>
                             <h6 class="text-center text-warning mb-3">' . $category . '</h6>
@@ -307,52 +383,83 @@ $action = $_POST['action'] ?? 'upload';
 
 switch ($action) {
     case 'upload':
-        // Handle image upload
-        if (!isset($_FILES['image']) || $_FILES['image']['error'] === UPLOAD_ERR_NO_FILE) {
+        // Handle image upload (single or multiple)
+        $projectId = $_POST['project_id'] ?? null;
+
+        // Prefer multiple files via images[] but keep backward compatibility with image
+        $files = [];
+        if (isset($_FILES['images'])) {
+            $files = normalizeFilesArray($_FILES['images']);
+        } elseif (isset($_FILES['image'])) {
+            $files = normalizeFilesArray($_FILES['image']);
+        }
+
+        if (empty($files)) {
             sendResponse(false, 'No file uploaded');
         }
-        
-        $file = $_FILES['image'];
-        
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            sendResponse(false, 'Upload error: ' . $file['error']);
+
+        $savedPaths = [];
+        foreach ($files as $file) {
+            if ($file['error'] !== UPLOAD_ERR_OK) {
+                sendResponse(false, 'Upload error: ' . $file['error']);
+            }
+
+            if ($file['size'] > $maxFileSize) {
+                sendResponse(false, 'File size exceeds 5MB limit');
+            }
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+
+            if (!in_array($mimeType, $allowedTypes)) {
+                sendResponse(false, 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed');
+            }
+
+            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $newFilename = uniqid('project_', true) . '.' . $extension;
+            $targetPath = $uploadDir . $newFilename;
+
+            if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+                sendResponse(false, 'Failed to save file');
+            }
+
+            $savedPaths[] = './uploads/' . $newFilename;
         }
-        
-        if ($file['size'] > $maxFileSize) {
-            sendResponse(false, 'File size exceeds 5MB limit');
-        }
-        
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $file['tmp_name']);
-        finfo_close($finfo);
-        
-        if (!in_array($mimeType, $allowedTypes)) {
-            sendResponse(false, 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed');
-        }
-        
-        $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-        $newFilename = uniqid('project_', true) . '.' . $extension;
-        $targetPath = $uploadDir . $newFilename;
-        
-        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            sendResponse(false, 'Failed to save file');
-        }
-        
-        $projectId = $_POST['project_id'] ?? null;
-        $imagePath = './uploads/' . $newFilename;
-        
+
         $htmlUpdateResult = ['success' => true, 'message' => 'No HTML update requested'];
         if ($projectId) {
-            $htmlUpdateResult = updateHtmlImage($htmlFile, $projectId, $imagePath);
+            $htmlUpdateResult = updateHtmlImages($htmlFile, $projectId, $savedPaths);
         }
-        
-        sendResponse(true, 'File uploaded successfully', [
-            'filename' => $newFilename,
-            'path' => $imagePath,
+
+        sendResponse(true, 'Files uploaded successfully', [
+            'paths' => $savedPaths,
+            'first_image' => $savedPaths[0] ?? null,
             'project_id' => $projectId,
             'html_updated' => $htmlUpdateResult['success'],
             'html_message' => $htmlUpdateResult['message']
         ]);
+        break;
+
+    case 'delete_image':
+        $projectId = $_POST['project_id'] ?? null;
+        $imagePath = $_POST['image_path'] ?? null;
+
+        if (!$projectId || !$imagePath) {
+            sendResponse(false, 'Project ID and image path are required');
+        }
+
+        $backupResult = createBackup($htmlFile);
+        if (!$backupResult['success']) {
+            sendResponse(false, 'Failed to create backup: ' . $backupResult['message']);
+        }
+
+        $result = removeProjectImage($htmlFile, $projectId, $imagePath);
+        if ($result['success']) {
+            sendResponse(true, 'Image deleted', ['project_id' => $projectId, 'image_path' => $imagePath]);
+        } else {
+            sendResponse(false, $result['message']);
+        }
         break;
         
     case 'add_card':

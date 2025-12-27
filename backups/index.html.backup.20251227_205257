@@ -1,7 +1,18 @@
 ﻿<!DOCTYPE html>
-<?xml encoding="UTF-8"><p>&#65279;
-
-</p><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Jan Russel E. Pe&#65533;afiel - Freelance Student Web Developer</title><!-- Bootstrap CSS --><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><!-- Font Awesome --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><!-- Google Fonts --><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"><style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan Russel E. Peñafielss - Freelance Student Web Developer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
@@ -687,117 +698,6 @@
             outline-color: #00bcd4 !important;
             background: #1f2129 !important;
         }
-
-        /* Drag and Drop Styles */
-        .project-card.draggable {
-            cursor: move;
-        }
-
-        .project-card.dragging {
-            opacity: 0.5;
-            transform: scale(0.95);
-            box-shadow: 0 0 40px #00fff7;
-        }
-
-        .drop-zone {
-            position: relative;
-            min-height: 150px;
-            transition: all 0.3s ease;
-        }
-
-        .drop-zone.drag-over {
-            background: rgba(0, 255, 247, 0.1);
-            border: 3px dashed #00fff7;
-            border-radius: 15px;
-            box-shadow: 0 0 30px #00fff7 inset;
-        }
-
-        .drop-zone::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: transparent;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-
-        .drop-zone.drag-over::after {
-            background: rgba(0, 255, 247, 0.05);
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        .drag-handle {
-            position: absolute;
-            top: 10px;
-            right: 50px;
-            background: #00fff7;
-            color: #0a0a0f;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: move;
-            z-index: 100;
-            box-shadow: 0 0 10px #00fff7;
-            transition: all 0.3s ease;
-        }
-
-        .drag-handle:hover {
-            background: #00bcd4;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px #00fff7;
-        }
-
-        .project-card.draggable .drag-handle {
-            display: flex;
-        }
-        
-        /* Card Selection Styles */
-        .project-card.card-selected {
-            box-shadow: 0 0 40px #00ff00;
-            border: 3px solid #00ff00;
-            transform: scale(1.02);
-        }
-        
-        .project-card.card-selectable {
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .project-card.card-selectable:hover {
-            box-shadow: 0 0 30px #ffff00;
-        }
-        
-        .select-indicator {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 30px;
-            height: 30px;
-            background: #00ff00;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            color: #0a0a0f;
-            font-weight: bold;
-            z-index: 100;
-            box-shadow: 0 0 10px #00ff00;
-        }
-        
-        .project-card.card-selected .select-indicator {
-            display: flex;
-        }
         
         .edit-mode-active:focus {
             outline: 3px solid #00fff7 !important;
@@ -905,6 +805,41 @@
             transform: translateY(-2px);
             box-shadow: 0 0 25px #00ff00;
         }
+        .category-selection-options {
+            display: grid;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .category-selection-option {
+            border: 1.5px solid #00fff7;
+            background: #12131b;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: left;
+            color: #e0e0e0;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+        .category-selection-option .option-title {
+            display: block;
+            font-size: 1rem;
+            color: #00fff7;
+        }
+        .category-selection-option small {
+            display: block;
+            font-weight: 400;
+            color: #c0c0c0;
+            margin-top: 5px;
+        }
+        .category-selection-option:hover,
+        .category-selection-option:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px #00fff7;
+            color: #ffffff;
+        }
         
         .category-header {
             display: inline-block;
@@ -998,7 +933,10 @@
             background: rgba(0, 255, 247, 0.15);
             box-shadow: 0 0 15px rgba(0, 255, 247, 0.3);
         }
-    </style><body>
+
+    </style>
+</head>
+<body>
     <!-- Main Menu Modal -->
     <div id="mainMenuModal" class="upload-modal">
         <div class="upload-content">
@@ -1023,30 +961,85 @@
     </div>
     
     <!-- Upload Modal -->
-    <div id="uploadModal" class="upload-modal">
-        <div class="upload-content">
+    <div id="uploadModal" class="upload-modal" style="display: none;">
+        <div class="upload-content" style="max-width: 900px;">
             <button class="upload-close" onclick="closeUploadModal()">&times;</button>
-            <h3 class="text-center mb-3" style="color: #00fff7;">Upload Project Image</h3>
-            <p class="text-center" style="color: #e0e0e0;">This will update the HTML code and save the image permanently</p>
-            <p class="text-center text-muted" style="font-size: 0.85rem;">Press <kbd>Ctrl+Alt+E</kbd> to toggle upload buttons</p>
+            <h3 class="text-center mb-4" style="color: #00fff7;">Upload Images</h3>
             
-            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon"></div>
-                <p style="color: #00fff7; font-weight: 600;">Click to upload or drag &amp; drop</p>
-                <p style="color: #e0e0e0; font-size: 0.9rem;">Supports: JPG, PNG, GIF, WebP (Max 5MB)</p>
+            <div class="row">
+                <!-- Project Image Upload -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-center mb-3" style="color: #00fff7;">Project Image</h5>
+                    <p class="text-center" style="color: #e0e0e0; font-size: 0.85rem;">Update project card image</p>
+                    <p class="text-center text-muted" style="font-size: 0.75rem;">Press <kbd>Ctrl+Alt+E</kbd> to toggle upload buttons</p>
+                    
+                    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()" style="min-height: 150px;">
+                        <div class="upload-icon"></div>
+                        <p style="color: #00fff7; font-weight: 600; font-size: 0.9rem;">Click to upload or drag & drop</p>
+                        <p style="color: #e0e0e0; font-size: 0.8rem;">JPG, PNG, GIF, WebP (Max 5MB each) • Multiple files supported</p>
+                    </div>
+                    
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;" onchange="handleFileSelect(event)">
+                    
+                    <img id="uploadPreview" class="upload-preview" alt="Preview" style="max-height: 120px;">
+                    
+                    <div class="text-center mt-3">
+                        <button id="uploadBtn" class="btn btn-primary btn-sm" onclick="uploadImage()" style="display: none;">
+                            <i class="fas fa-cloud-upload-alt me-1"></i>Upload Project Image
+                        </button>
+                    </div>
+                    
+                    <div id="uploadStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.85rem;"></div>
+                </div>
+                
+                <!-- Profile Picture Upload -->
+                <div class="col-md-6 mb-3">
+                    <h5 class="text-center mb-3" style="color: #00fff7;">Profile Picture</h5>
+                    <p class="text-center" style="color: #e0e0e0; font-size: 0.85rem;">Update your profile picture across the site</p>
+                    <p class="text-center text-muted" style="font-size: 0.75rem; opacity: 0;">Spacing</p>
+                    
+                    <div class="upload-zone" id="profileUploadZone" onclick="document.getElementById('profileFileInput').click()" style="min-height: 150px;">
+                        <div class="upload-icon"></div>
+                        <p style="color: #00fff7; font-weight: 600; font-size: 0.9rem;">Click to upload or drag & drop</p>
+                        <p style="color: #e0e0e0; font-size: 0.8rem;">JPG, PNG, GIF, WebP (Max 5MB)</p>
+                    </div>
+                    
+                    <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
+                    
+                    <img id="profileUploadPreview" class="upload-preview" alt="Preview" style="max-height: 120px;">
+                    
+                    <div class="text-center mt-3">
+                        <button id="profileUploadBtn" class="btn btn-primary btn-sm" onclick="uploadProfilePicture()" style="display: none;">
+                            <i class="fas fa-cloud-upload-alt me-1"></i>Upload Profile Picture
+                        </button>
+                    </div>
+                    
+                    <div id="profileUploadStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.85rem;"></div>
+                </div>
             </div>
-            
-            <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
-            
-            <img id="uploadPreview" class="upload-preview" alt="Preview">
-            
-            <div class="text-center mt-3">
-                <button id="uploadBtn" class="btn btn-primary" onclick="uploadImage()" style="display: none;">
-                    <i class="fas fa-cloud-upload-alt me-2"></i>Upload Image
-                </button>
+        </div>
+    </div>
+    
+    <!-- Gallery Modal (manual viewer, no slideshow) -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" style="color: #00fff7;">Project Gallery</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-outline-light btn-sm" id="galleryPrevBtn"><i class="fas fa-chevron-left"></i></button>
+                        <div id="galleryCounter" class="text-center" style="flex:1; color:#00fff7; font-weight:600;"></div>
+                        <button class="btn btn-outline-light btn-sm" id="galleryNextBtn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="text-center mb-3">
+                        <img id="galleryMainImage" src="" alt="Gallery" class="img-fluid" style="max-height:480px; object-fit:contain; border:2px solid #00fff7; border-radius:8px;">
+                    </div>
+                    <div class="text-center small text-muted">Press Ctrl + Alt + X to delete the current image</div>
+                </div>
             </div>
-            
-            <div id="uploadStatus" class="text-center mt-3" style="color: #00fff7;"></div>
         </div>
     </div>
     
@@ -1056,53 +1049,11 @@
             <i class="fas fa-edit me-2"></i>Edit Mode Active
         </h5>
         <p class="text-center mb-3" style="color: #e0e0e0; font-size: 0.9rem;">
-            Click text to edit &#65533; Red buttons to delete cards &#65533; Add new card below
+            Click text to edit • Red buttons to delete cards
         </p>
-        
-        <!-- Resize Controls -->
-        <div class="text-center mb-3" style="background: #1a1c25; padding: 15px; border-radius: 10px; border: 1px solid #00fff7;">
-            <h6 style="color: #00fff7; margin-bottom: 10px;">
-                <i class="fas fa-expand-arrows-alt me-2"></i>Resize Cards
-            </h6>
-            
-            <!-- Category Selection -->
-            <div class="mb-3">
-                <label style="color: #00fff7; font-size: 0.9rem; margin-bottom: 5px; display: block;">Select Category:</label>
-                <select id="resizeCategorySelect" style="background: #16181e; border: 1px solid #00fff7; color: #e0e0e0; padding: 8px; border-radius: 6px; width: 100%; max-width: 300px; margin: 0 auto;">
-                    <option value="all">All Cards</option>
-                    <option value="flagship">🌟 Flagship Projects</option>
-                    <option value="business">💼 Business Solutions</option>
-                    <option value="smart">📱 Smart Applications</option>
-                    <option value="healthcare">🏥 Healthcare Systems</option>
-                    <option value="side">🎯 Side Projects</option>
-                    <option value="selected">✓ Selected Cards Only</option>
-                </select>
-            </div>
-            
-            <!-- Size Buttons -->
-            <div class="btn-group" role="group" style="flex-wrap: wrap; gap: 5px; display: flex; justify-content: center;">
-                <button class="btn btn-sm btn-info" onclick="resizeCards('small')" title="Resize to small (3 per row)">
-                    <i class="fas fa-compress me-1"></i>Small
-                </button>
-                <button class="btn btn-sm btn-info" onclick="resizeCards('medium')" title="Resize to medium (2 per row)">
-                    <i class="fas fa-expand me-1"></i>Medium
-                </button>
-                <button class="btn btn-sm btn-info" onclick="resizeCards('large')" title="Resize to large (1 per row)">
-                    <i class="fas fa-arrows-alt me-1"></i>Large
-                </button>
-            </div>
-            
-            <div class="mt-2">
-                <small style="color: #888;">Choose category above, then click size. Click cards to select/deselect them.</small>
-            </div>
-        </div>
-        
         <div class="text-center">
-            <button class="btn btn-success btn-lg me-2" onclick="showInlineAddCard(event)">
-                <i class="fas fa-plus-circle me-2"></i>Add Card
-            </button>
             <button class="btn btn-primary btn-lg me-2" onclick="saveAllEdits()">
-                <i class="fas fa-save me-2"></i>Save &amp; Exit
+                <i class="fas fa-save me-2"></i>Save & Exit
             </button>
             <button class="btn btn-danger" onclick="cancelEditMode()">
                 <i class="fas fa-times me-2"></i>Cancel
@@ -1121,16 +1072,16 @@
         <input type="text" id="inlineCardTitle" placeholder="e.g., My Awesome Project" required>
         
         <label style="color: #00fff7;">Institution/Organization *</label>
-        <input type="text" id="inlineCardInstitution" placeholder="e.g., &#127963;&#65039; Your Institution Name" required>
+        <input type="text" id="inlineCardInstitution" placeholder="e.g., 🏛️ Your Institution Name" required>
         
         <label style="color: #00fff7;">Category *</label>
         <select id="inlineCardCategory" style="background: #1a1c25; border: 1px solid #00fff7; color: #e0e0e0; padding: 10px; border-radius: 8px; width: 100%; margin-bottom: 15px;" required>
             <option value="">Select a category...</option>
-            <option value="flagship">&#127775; Flagship Projects</option>
-            <option value="business">&#128188; Business Solutions</option>
-            <option value="smart">&#128241; Smart Applications</option>
-            <option value="healthcare">&#127973; Healthcare Systems</option>
-            <option value="side">&#127919; Side Projects</option>
+            <option value="flagship">🌟 Flagship Projects</option>
+            <option value="business">💼 Business Solutions</option>
+            <option value="smart">📱 Smart Applications</option>
+            <option value="healthcare">🏥 Healthcare Systems</option>
+            <option value="side">🎯 Side Projects</option>
         </select>
         
         <label style="color: #00fff7;">Description *</label>
@@ -1165,7 +1116,10 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#home">
-                <img src="./RUSSEL.jpg" alt="Jan Russel E. Pe&#65533;afiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                <div style="position: relative; display: inline-block;">
+                    <img id="profilePicture" src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
+                    <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
+                </div>
                 Russel's Portfolio
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -1199,7 +1153,7 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section">
         <div class="container text-center">
-            <h1 class="display-4 fw-bold">Jan Russel E. Pe&#65533;afiel</h1>            
+            <h1 class="display-4 fw-bold">Jan Russel E. Peñafiel</h1>            
             <div class="typing-animation">
                 <span id="typing-text"></span>
             </div>
@@ -1208,7 +1162,7 @@
                 <a href="https://github.com/Jan-Russel-Penafiel" class="badge-custom" target="_blank">
                     <i class="fab fa-github me-2"></i>GitHub - View My Projects
                 </a>
-                <a href="https://www.linkedin.com/in/jan-russel-pe%EF%BF%BDafiel-a1799036b" class="badge-custom" target="_blank">
+                <a href="https://www.linkedin.com/in/jan-russel-peñafiel-a1799036b" class="badge-custom" target="_blank">
                     <i class="fab fa-linkedin me-2"></i>LinkedIn - Connect With Me
                 </a>
                 <a href="./resume.pdf" class="badge-custom" download>
@@ -1221,7 +1175,7 @@
                     <i class="fas fa-building me-2"></i>Company: Asyncs Innovations
                 </span>
                 <span class="badge-custom">
-                    <i class="fas fa-map-marker-alt me-2"></i> Location: Panay, Santo Ni&#65533;o, South Cotabato
+                    <i class="fas fa-map-marker-alt me-2"></i> Location: Panay, Santo Niño, South Cotabato
                 </span>
             </div>
         </div>
@@ -1235,36 +1189,36 @@
             </div>
             
             <div class="row">
-                <div class="col-lg-4 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3 mb-3">
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100">
                         <div class="card-body p-3">
                             <h6 class="text-center mb-3 fw-bold">Current Stacks</h6>
                             <div class="text-center mb-3">
-                                <h6 class="fw-bold mb-2">Languages &amp; Frameworks</h6>
+                                <h6 class="fw-bold mb-2">Languages & Frameworks</h6>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codeigniter/codeigniter-plain.svg" alt="CodeIgniter" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="tech-icon" style="height:40px; width:40px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codeigniter/codeigniter-plain.svg" alt="CodeIgniter" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="tech-icon" style="height:40px; width:40px;" />
                                 </div>
                             </div>
                             <div class="text-center mb-3">
-                                <h6 class="fw-bold mb-2">Database &amp; Tools</h6>
+                                <h6 class="fw-bold mb-2">Database & Tools</h6>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" alt="Apache" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="tech-icon" style="height:40px; width:40px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" alt="Apache" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="tech-icon" style="height:40px; width:40px;" />
                                     <span class="tech-icon" style="display:inline-flex; align-items:center; justify-content:center; background:#fff; border-radius:50%; padding:2px; height:40px; width:40px;">
-                                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="height:36px; width:36px;">
+                                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="height:36px; width:36px;" />
                                     </span>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <h6 class="fw-bold mb-2">IDEs &amp; Tools</h6>
+                                <h6 class="fw-bold mb-2">IDEs & Tools</h6>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" alt="Windows" class="tech-icon" style="height:40px; width:40px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" alt="Windows" class="tech-icon" style="height:40px; width:40px;" />
                                 </div>
                             </div>
                         </div>
@@ -1276,27 +1230,27 @@
                         <div class="card-body p-3">
                             <h6 class="text-center mb-3 fw-bold">Target Stack</h6>
                             <div class="text-center mb-3">
-                                <h6 class="fw-bold mb-2">Backend &amp; Frameworks</h6>
+                                <h6 class="fw-bold mb-2">Backend & Frameworks</h6>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-plain.svg" alt="ASP.NET" class="tech-icon" style="height:40px; width:40px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-plain.svg" alt="ASP.NET" class="tech-icon" style="height:40px; width:40px;" />
                                 </div>
                             </div>
                             <div class="text-center mb-3">
-                                <h6 class="fw-bold mb-2">Frontend &amp; JavaScript</h6>
+                                <h6 class="fw-bold mb-2">Frontend & JavaScript</h6>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" alt="Svelte" class="tech-icon" style="height:40px; width:40px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" alt="Svelte" class="tech-icon" style="height:40px; width:40px;" />
                                 </div>
                             </div>
                             <div class="text-center">
-                                <h6 class="fw-bold mb-2">Database &amp; Cloud</h6>
+                                <h6 class="fw-bold mb-2">Database & Cloud</h6>
                                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" class="tech-icon" style="height:40px; width:40px;">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon" style="height:40px; width:40px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon" style="height:40px; width:40px;" />
                                 </div>
                             </div>
                         </div>
@@ -1314,18 +1268,18 @@
             </div>
             
             <div class="text-center">
-                <h4 class="fw-bold">Freelance Student Web Developer | Founder of CTRL J</h4>
+                <h4 class="fw-bold">Freelance Student Web Developer | Founder of Asyncs Innovations</h4>
                 <p class="lead fst-italic">Transforming ideas into impactful digital solutions while pursuing academic excellence</p>
             </div>
             
             <div class="highlight-box">
-                <h5 class="fw-bold mb-3">Highlights</h5>
+                <h5 class="fw-bold mb-3 text-center">Highlights</h5>
                 <div class="text-center">
                     <span class="badge-custom me-2 mb-2">Healthcare Systems Specialist</span>
                     <span class="badge-custom me-2 mb-2">Government Services Expert</span>
                     <span class="badge-custom me-2 mb-2">15+ Web Projects Delivered</span>
                     <span class="badge-custom me-2 mb-2">3rd Year IT Student at SKSU</span>
-                    <span class="badge-custom me-2 mb-2">PHP &amp; MySQL Expert</span>
+                    <span class="badge-custom me-2 mb-2">PHP & MySQL Expert</span>
                     <span class="badge-custom me-2 mb-2">Open for Freelance</span>
                 </div>
             </div>
@@ -1347,32 +1301,26 @@
                 <div class="row text-center">
                     <div class="col-md-4 mb-3">
                         <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Personal Info</h6>
-                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
-                            <strong>Jan Russel E. Pe&#65533;afiel</strong><br>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;" id="personalInfo" contenteditable="false"><strong>Jan Russel E. Peñafiel</strong><br>
                             Freelance Student Developer<br>
-                            Founder of CTRL J
-                        </div>
+                            Founder of Asyncs Innovations</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Education</h6>
-                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
-                            3rd Year IT Student<br>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;" id="educationInfo" contenteditable="false">This is a 3rd Year IT Student<br>
                             Sultan Kudarat State University<br>
-                            Web Development Passionate
-                        </div>
+                            Web Development Passionate</div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Focus Areas</h6>
-                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
-                            Healthcare Systems<br>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;" id="focusAreas" contenteditable="false">Healthcare Systems<br>
                             Government Services<br>
-                            Educational Technology
-                        </div>
+                            Educational Technology</div>
                     </div>
                 </div>
                 
                 <div class="highlight-box mt-3" style="padding: 15px;">
-                    <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Key Achievements</h6>
+                    <h6 class="fw-bold mb-2 text-center" style="font-size: 0.9rem;">Key Achievements</h6>
                     <div class="text-center">
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded CTRL J as a student</span>
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Deployed Electronic Health Record System</span>
@@ -1401,7 +1349,7 @@
             </div>
             
             <div class="quote-box">
-                <h5 class="fw-bold">My Journey Summary</h5>
+                <h5 class="fw-bold text-center">My Journey Summary</h5>
                 <p class="mb-0">"From struggling with C++ in first year to building 15+ web systems and earning 100k+ as a student developer. Founded CTRL J while pursuing my IT degree at SKSU."</p>
             </div>
             
@@ -1409,7 +1357,7 @@
                 <div class="col-md-3 mb-3">
                     <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
                         <h6 class="fw-bold text-primary mb-1" style="font-size: 0.9rem;">Year 1</h6>
-                        <p class="mb-0" style="font-size: 0.8rem;">Discovered PHP &amp; MySQL</p>
+                        <p class="mb-0" style="font-size: 0.8rem;">Discovered PHP & MySQL</p>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
@@ -1427,7 +1375,7 @@
                 <div class="col-md-3 mb-3">
                     <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
                         <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">Year 4</h6>
-                        <p class="mb-0" style="font-size: 0.8rem;">Deploying SKSU Access Campus System with copyright &amp; certification</p>
+                        <p class="mb-0" style="font-size: 0.8rem;">Deploying SKSU Access Campus System with copyright & certification</p>
                     </div>
                 </div>
             </div>
@@ -1438,17 +1386,20 @@
     <section id="projects" class="py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-6 fw-bold">&#127919; Featured Projects</h2>
+                <h2 class="display-6 fw-bold">🎯 Featured Projects</h2>
                 <div>
-                    <h4 class="text-primary category-header">&#127775; Flagship Projects &#127775;</h4>
-                    <button class="category-add-btn" onclick="showCategoryAddCard(event, 'flagship')" title="Add New Card">+</button>
+                    <h4 class="text-primary category-header">🌟 Flagship Projects 🌟</h4>
+                    <button class="category-add-btn" onclick="showCategoryAddCard(event, 'flagship-main')" title="Add New Card">+</button>
                 </div>
             </div>
             
-            <!-- Main Flagship Project -->
-            <div class="row mb-5 justify-content-center">
+            <!-- All Projects -->
+            <div class="row mb-5" id="flagshipMainRow">
+
+
+
                 
-            <div class="mx-auto mb-3 col-lg-6">
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="sksu-monitoring">
                         <button class="upload-btn-card" onclick="openUploadModal('sksu-monitoring')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
@@ -1459,12 +1410,12 @@
                                 </a>
                             </div>
                             <h5 class="card-title fw-bold text-center text-primary">Monitoring of Liquidation of the Scholarship Recipients</h5>
-                            <h6 class="text-center text-warning mb-3">&#127963;&#65039; Sultan Kudarat State University</h6>
-                            <p class="card-text text-center">&#127891; Comprehensive system for tracking and managing scholarship liquidation processes, ensuring transparency and accountability in scholarship fund management.</p>
+                            <h6 class="text-center text-warning mb-3">🏛️ Sultan Kudarat State University</h6>
+                            <p class="card-text text-center">🎓 Comprehensive system for tracking and managing scholarship liquidation processes, ensuring transparency and accountability in scholarship fund management.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-graduation-cap me-1"></i> Scholarship Management</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-file-invoice-dollar me-1"></i> Liquidation Tracking</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-line me-1"></i> Reports &amp; Analytics</span>
+                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-line me-1"></i> Reports & Analytics</span>
                                 <span class="badge bg-warning me-1 mb-1"><i class="fas fa-university me-1"></i> SKSU Official System</span>
                             </div>
                             <div class="text-center">
@@ -1474,72 +1425,8 @@
                             </div>
                         </div>
                     </div>
-                </div></div>
-            
-            <!-- Additional Flagship Projects -->
-            <div class="row mb-4 justify-content-center">
-                
-                
-                <div class="mb-3 col-lg-4">
-                    <div class="project-card card h-100" data-project-id="project-694bc3f666aab">
-                        <button class="upload-btn-card" onclick="openUploadModal('project-694bc3f666aab')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <button class="delete-btn-card" onclick="deleteCard('project-694bc3f666aab')" title="Delete Card">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./uploads/card_694bc3f662ead.png" target="_blank">
-                                    <img src="./uploads/card_694bc3f662ead.png" alt="fr" class="img-fluid rounded mb-2" style="max-height:150px;">
-                                </a>
-                            </div>
-                            <h5 class="card-title fw-bold text-center text-primary">fr</h5>
-                            <h6 class="text-center text-warning mb-3">flagship</h6>
-                            <p class="card-text text-center">dgd</p>
-                            <div class="text-center">
-                                <span class="badge bg-primary me-1 mb-1">dfgd</span>
-                            </div>
-                        </div>
-                    </div>
-                </div></div>
-                <div class="col-lg-6 mb-3 mb-3">
-                    <div class="project-card card h-100" data-project-id="project-694bbe81b3977">
-                        <button class="upload-btn-card" onclick="openUploadModal('project-694bbe81b3977')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <button class="delete-btn-card" onclick="deleteCard('project-694bbe81b3977')" title="Delete Card">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./uploads/card_694bbe81b1244.png" target="_blank">
-                                    <img src="./uploads/card_694bbe81b1244.png" alt="asda" class="img-fluid rounded mb-2" style="max-height:150px;">
-                                </a>
-                            </div>
-                            <h5 class="card-title fw-bold text-center text-primary">asda</h5>
-                            <h6 class="text-center text-warning mb-3">flagship</h6>
-                            <p class="card-text text-center">dad</p>
-                            <div class="text-center">
-                                <span class="badge bg-primary me-1 mb-1">ada</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            
-            <!-- Business Solutions -->
-            <div class="row mb-4 justify-content-center">
-                <div class="col-12 text-center">
-                    <div>
-                        <h3 class="fw-bold category-header" style="display: inline-block;">&#128188; Business Solutions</h3>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row mb-4 justify-content-center">
-                
-            <div class="mx-auto mb-3 col-lg-4">
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="russels-hr">
                         <button class="upload-btn-card" onclick="openUploadModal('russels-hr')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
@@ -1547,11 +1434,12 @@
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <a href="./RUSSELS.png" target="_blank">
-                                    <img src="./RUSSELS.png" alt="Russel's Chicken Delights HR System" class="img-fluid rounded mb-2" style="max-height:50px;">
+                                    <img src="./RUSSELS.png" alt="Russel's Chicken Delights HR System" class="img-fluid rounded mb-2" style="max-height:150px;">
                                 </a>
                             </div>
-                            <h6 class="card-title fw-bold text-center">Russel's Chicken Delights HR System</h6>
-                            <p class="card-text text-center small">&#127963;&#65039; Complete HR Management for Restaurant Chain</p>
+                            <h5 class="card-title fw-bold text-center text-primary">Russel's Chicken Delights HR System</h5>
+                            <h6 class="text-center text-warning mb-3">🏛️ Complete HR Management for Restaurant Chain</h6>
+                            <p class="card-text text-center">Comprehensive HR management system for restaurant chain operations including employee management, time tracking, scheduling, and payroll processing.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users me-1"></i> Employee Management</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-clock me-1"></i> Time Tracking</span>
@@ -1565,72 +1453,69 @@
                             </div>
                         </div>
                     </div>
-                </div></div>
-            
-            <!-- Smart Applications -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div>
-                        <h3 class="fw-bold category-header" style="display: inline-block;">&#128241; Smart Applications</h3>
-                    </div>
                 </div>
-                
-                
-
-                
-
-                
-            <div class="mb-3 col-lg-4">
+            
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="kes-smart">
                         <button class="upload-btn-card" onclick="openUploadModal('kes-smart')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./KES-SMART.png" target="_blank">
-                                    <img src="./KES-SMART.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:50px;">
-                                </a>
-                            </div>
-                            <h6 class="card-title fw-bold text-center">KES-SMART</h6>
-                            <p class="card-text text-center small">&#128241; Student Monitoring with QR &amp; SMS</p>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_695039128f5c74.12135465.png&quot;,&quot;.\/uploads\/project_69503912963da3.64721017.png&quot;]'>
+            <a href="./uploads/project_695039128f5c74.12135465.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_695039128f5c74.12135465.png&quot;,&quot;.\/uploads\/project_69503912963da3.64721017.png&quot;]'>
+                <img src="./uploads/project_695039128f5c74.12135465.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_695039128f5c74.12135465.png&quot;,&quot;.\/uploads\/project_69503912963da3.64721017.png&quot;]'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of 2</div>
+        </div>
+<h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
+                            <h6 class="text-center text-warning mb-3">📱 Student Monitoring with QR & SMS</h6>
+                            <p class="card-text text-center">Smart student monitoring system with QR code attendance and automated SMS notifications for parents and administrators.</p>
                             <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1">&#128241; QR Attendance</span>
-                                <span class="badge bg-success me-1 mb-1">&#128233; SMS Alerts</span>
-                                <span class="badge bg-info me-1 mb-1">&#128101; Multi-User</span>
+                                <span class="badge bg-primary me-1 mb-1">📱 QR Attendance</span>
+                                <span class="badge bg-success me-1 mb-1">📩 SMS Alerts</span>
+                                <span class="badge bg-info me-1 mb-1">👥 Multi-User</span>
                             </div>
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('kes-smart')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="mb-3 col-lg-4">
+                            </div></div></div>
+                </div>
+
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="bhc-connect">
                         <button class="upload-btn-card" onclick="openUploadModal('bhc-connect')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./BHC.png" target="_blank">
-                                    <img src="./BHC.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:50px;">
-                                </a>
-                            </div>
-                            <h6 class="card-title fw-bold text-center">BHC CONNECT</h6>
-                            <p class="card-text text-center small">&#127973; Digital Barangay Health Center</p>
+<div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+            <a href="./uploads/project_695038267ed8e8.79932532.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+                <img src="./uploads/project_695038267ed8e8.79932532.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of 1</div>
+        </div>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_695038267d9140.95945206.png&quot;,&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+            <a href="./uploads/project_695038267d9140.95945206.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_695038267d9140.95945206.png&quot;,&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+                <img src="./uploads/project_695038267d9140.95945206.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_695038267d9140.95945206.png&quot;,&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of 2</div>
+        </div>
+                            <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
+                            <h6 class="text-center text-warning mb-3">🏥 Digital Barangay Health Center</h6>
+                            <p class="card-text text-center">Comprehensive digital health center management system for barangay health services with patient records, appointments, and medicine tracking.</p>
                             <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1">&#128203; Patient Records</span>
-                                <span class="badge bg-success me-1 mb-1">&#128197; Appointments</span>
-                                <span class="badge bg-info me-1 mb-1">&#128138; Medicine Tracker</span>
+                                <span class="badge bg-primary me-1 mb-1">📋 Patient Records</span>
+                                <span class="badge bg-success me-1 mb-1">📅 Appointments</span>
+                                <span class="badge bg-info me-1 mb-1">💊 Medicine Tracker</span>
                             </div>
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('bhc-connect')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="mb-3 col-lg-4">
+                            </div></div></div>
+                </div>
+
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="healthconnect">
                         <button class="upload-btn-card" onclick="openUploadModal('healthconnect')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
@@ -1638,15 +1523,16 @@
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <a href="./HealthConnect.png" target="_blank">
-                                    <img src="./HealthConnect.png" alt="HealthConnect" class="img-fluid rounded mb-2" style="max-height:50px;">
+                                    <img src="./HealthConnect.png" alt="HealthConnect" class="img-fluid rounded mb-2" style="max-height:150px;">
                                 </a>
                             </div>
-                            <h6 class="card-title fw-bold text-center">HealthConnect</h6>
-                            <p class="card-text text-center small">&#127973; Mobile Health Center App</p>
+                            <h5 class="card-title fw-bold text-center text-primary">HealthConnect</h5>
+                            <h6 class="text-center text-warning mb-3">🏥 Mobile Health Center App</h6>
+                            <p class="card-text text-center">Mobile health center application with patient management, immunization tracking, and comprehensive analytics for healthcare providers.</p>
                             <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1">&#128101; Patient Management</span>
-                                <span class="badge bg-success me-1 mb-1">&#128137; Immunization</span>
-                                <span class="badge bg-info me-1 mb-1">&#128202; Analytics</span>
+                                <span class="badge bg-primary me-1 mb-1">👥 Patient Management</span>
+                                <span class="badge bg-success me-1 mb-1">💉 Immunization</span>
+                                <span class="badge bg-info me-1 mb-1">📊 Analytics</span>
                             </div>
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('healthconnect')" title="Delete Card">
@@ -1655,17 +1541,9 @@
                             </div>
                         </div>
                     </div>
-                </div></div>
-            
-            <!-- Healthcare Systems -->
-            <div class="row mb-4 justify-content-center">
-                <div class="col-12 text-center">
-                    <div>
-                        <h3 class="fw-bold category-header" style="display: inline-block;">&#127973; Healthcare Systems</h3>
-                    </div>
                 </div>
-                
-            <div class="mx-auto col-lg-4">
+            
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="immucare">
                         <button class="upload-btn-card" onclick="openUploadModal('immucare')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
@@ -1673,11 +1551,12 @@
                         <div class="card-body p-3">
                             <div class="text-center">
                                 <a href="./IMMUCARE.png" target="_blank">
-                                    <img src="./IMMUCARE.png" alt="ImmuCare" class="img-fluid rounded mb-2" style="max-height:50px;">
+                                    <img src="./IMMUCARE.png" alt="ImmuCare" class="img-fluid rounded mb-2" style="max-height:150px;">
                                 </a>
                             </div>
-                            <h6 class="card-title fw-bold text-center">ImmuCare</h6>
-                            <p class="card-text text-center small">Smart Immunization Registry</p>
+                            <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
+                            <h6 class="text-center text-warning mb-3">Smart Immunization Registry</h6>
+                            <p class="card-text text-center">Intelligent immunization registry system with automated scheduling, smart alerts, tracking dashboard, and comprehensive progress reports.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1">Auto Scheduling</span>
                                 <span class="badge bg-success me-1 mb-1">? Smart Alerts</span>
@@ -1691,34 +1570,27 @@
                             </div>
                         </div>
                     </div>
-                </div></div>
-
-            <!-- Government Services -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <h3 class="fw-bold mb-3">&#127963;&#65039; Government Services</h3>
                 </div>
-                
-                
-                
-            <div class="mb-3 col-lg-6">
+
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="aidtrack">
                         <button class="upload-btn-card" onclick="openUploadModal('aidtrack')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
                             <div class="text-center">
-                                <a href="./AID%20TRACk.png" target="_blank">
-                                    <img src="./AID%20TRACk.png" alt="AidTrack" class="img-fluid rounded mb-2" style="max-height:50px;">
+                                <a href="./AID TRACk.png" target="_blank">
+                                    <img src="./AID TRACk.png" alt="AidTrack" class="img-fluid rounded mb-2" style="max-height:150px;">
                                 </a>
                             </div>
-                            <h6 class="card-title fw-bold text-center">AidTrack</h6>
-                            <p class="card-text text-center small">&#128202; Aid Distribution System for Barangay Bual</p>
+                            <h5 class="card-title fw-bold text-center text-primary">AidTrack</h5>
+                            <h6 class="text-center text-warning mb-3">📊 Aid Distribution System for Barangay Bual</h6>
+                            <p class="card-text text-center">Comprehensive aid distribution tracking system with SMS alerts, analytics dashboard, and feedback mechanisms for efficient barangay aid management.</p>
                             <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1">&#128230; Aid Tracking</span>
-                                <span class="badge bg-success me-1 mb-1">&#128241; SMS Alerts</span>
-                                <span class="badge bg-info me-1 mb-1">&#128202; Analytics</span>
-                                <span class="badge bg-warning me-1 mb-1">&#128172; Feedback</span>
+                                <span class="badge bg-primary me-1 mb-1">📦 Aid Tracking</span>
+                                <span class="badge bg-success me-1 mb-1">📱 SMS Alerts</span>
+                                <span class="badge bg-info me-1 mb-1">📊 Analytics</span>
+                                <span class="badge bg-warning me-1 mb-1">💬 Feedback</span>
                             </div>
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('aidtrack')" title="Delete Card">
@@ -1727,19 +1599,22 @@
                             </div>
                         </div>
                     </div>
-                </div><div class="mb-3 col-lg-6">
+                </div>
+                
+                <div class="col-lg-6 mb-3">
                     <div class="project-card card h-100" data-project-id="bm-scapis">
                         <button class="upload-btn-card" onclick="openUploadModal('bm-scapis')" title="Upload Image (Ctrl+Alt+E)">
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
                             <div class="text-center">
-                                <a href="./BC%20CAPS.png" target="_blank">
-                                    <img src="./BC%20CAPS.png" alt="BM-SCaPIS" class="img-fluid rounded mb-2" style="max-height:50px;">
+                                <a href="./BC CAPS.png" target="_blank">
+                                    <img src="./BC CAPS.png" alt="BM-SCaPIS" class="img-fluid rounded mb-2" style="max-height:150px;">
                                 </a>
                             </div>
-                            <h6 class="card-title fw-bold text-center">BM-SCaPIS</h6>
-                            <p class="card-text text-center small">&#127963;&#65039; Smart Clearance &amp; Permit System</p>
+                            <h5 class="card-title fw-bold text-center text-primary">BM-SCaPIS</h5>
+                            <h6 class="text-center text-warning mb-3">🏛️ Smart Clearance & Permit System</h6>
+                            <p class="card-text text-center">Smart clearance and permit issuance system with online forms, status tracking, scheduling, and comprehensive reporting for barangay services.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-file-alt me-1"></i> Online Forms</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-tasks me-1"></i> Status Tracking</span>
@@ -1753,198 +1628,10 @@
                             </div>
                         </div>
                     </div>
-                </div></div>
-
-            <!-- Side Projects -->
-            
-
-                <!-- Educational Systems -->
-                
-                    
-                
-
-                <!-- Business Management Systems -->
-                <div class="col-lg-3 mb-3">
-                    <div class="project-card card h-100" data-project-id="business-systems">
-                        <button class="upload-btn-card" onclick="openUploadModal('business-systems')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <h6 class="fw-bold mb-2 text-center text-primary">&#127963;&#65039; Business</h6>
-                            <div class="small">
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Employee Time Tracking</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Efficient time management with comprehensive reporting.</p>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Catering Service Management</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Complete catering business solution for event planning.</p>
-                                </div>
-                                
-                                <div class="text-center mb-3">
-                                    <span class="badge bg-success me-1 mb-1" style="font-size: 0.7rem;">&#128338; Time Logs</span>
-                                    <span class="badge bg-primary me-1 mb-1" style="font-size: 0.7rem;">&#127874; Events</span>
-                                    <span class="badge bg-info me-1 mb-1" style="font-size: 0.7rem;">&#128202; Reports</span>
-                                </div>
-                                <div class="text-center">
-                                    <button class="delete-btn-card" onclick="deleteCard('business-systems')" title="Delete Card">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Event & Ticketing Systems -->
-                <div class="col-lg-3 mb-3">
-                    <div class="project-card card h-100" data-project-id="ticketing-systems">
-                        <button class="upload-btn-card" onclick="openUploadModal('ticketing-systems')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <h6 class="fw-bold mb-2 text-center text-primary">&#127915; Ticketing</h6>
-                            <div class="small">
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Event Registration System</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Digital event registration with payment processing.</p>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Airport &amp; Bus Ticketing</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Flight and bus booking with seat selection and scheduling.</p>
-                                </div>
-                                
-                                <div class="text-center mb-3">
-                                    <span class="badge bg-warning me-1 mb-1" style="font-size: 0.7rem;">&#127967;&#65039; Booking</span>
-                                    <span class="badge bg-info me-1 mb-1" style="font-size: 0.7rem;">&#128179; Payment</span>
-                                    <span class="badge bg-success me-1 mb-1" style="font-size: 0.7rem;">&#9992;&#65039; Travel</span>
-                                </div>
-                                <div class="text-center">
-                                    <button class="delete-btn-card" onclick="deleteCard('ticketing-systems')" title="Delete Card">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            
-            <!-- Additional Side Projects Row -->
-            <div class="row mb-4">
-                <!-- Institutional Management Systems -->
-                
-                
-                <!-- Portfolio Summary & Achievement Highlights -->
-                
-            <div class="mb-3 col-lg-6">
-                    <div class="project-card card h-100" data-project-id="institutional-systems">
-                        <button class="upload-btn-card" onclick="openUploadModal('institutional-systems')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <h6 class="fw-bold mb-2 text-center text-primary">&#127963;&#65039; Institutional Management</h6>
-                            <div class="small">
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Visitor Tracking System</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Digital visitor management with access control and security reporting.</p>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Church Management System</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Church administration platform for member management and events.</p>
-                                </div>
-                                
-                                <div class="text-center mb-3">
-                                    <span class="badge bg-primary me-1 mb-1" style="font-size: 0.7rem;">&#128101; Visitors</span>
-                                    <span class="badge bg-success me-1 mb-1" style="font-size: 0.7rem;">&#9962; Church</span>
-                                    <span class="badge bg-info me-1 mb-1" style="font-size: 0.7rem;">&#128202; Reports</span>
-                                    <span class="badge bg-warning me-1 mb-1" style="font-size: 0.7rem;">&#128274; Access</span>
-                                </div>
-                                <div class="text-center">
-                                    <button class="delete-btn-card" onclick="deleteCard('institutional-systems')" title="Delete Card">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="mb-3 col-lg-6">
-                    <div class="project-card card h-100" data-project-id="portfolio-summary">
-                        <button class="upload-btn-card" onclick="openUploadModal('portfolio-summary')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <h6 class="fw-bold mb-2 text-center text-primary">&#127775; Portfolio Summary</h6>
-                            <div class="small">
-                                <div class="text-center mb-2">
-                                    <h5 class="fw-bold mb-1" style="color: #00fff7; font-size: 1.1rem;">15+ Projects Delivered</h5>
-                                    <p class="mb-2" style="font-size: 0.8rem;">From Student Projects to Professional Solutions</p>
-                                </div>
-                                
-                                <div class="highlight-box mb-2" style="background: #16181e; padding: 15px; border-radius: 8px; border: 1px solid #00fff7;">
-                                    <h6 class="fw-bold mb-2 text-center" style="color: #00fff7; font-size: 0.9rem;">&#127919; Specializations</h6>
-                                    <div class="text-center">
-                                        <span class="badge bg-success me-1 mb-1" style="font-size: 0.7rem;">&#127973; Healthcare</span>
-                                        <span class="badge bg-info me-1 mb-1" style="font-size: 0.7rem;">&#128218; Education</span>
-                                        <span class="badge bg-warning me-1 mb-1" style="font-size: 0.7rem;">&#127963;&#65039; Government</span>
-                                        <span class="badge bg-primary me-1 mb-1" style="font-size: 0.7rem;">&#127963;&#65039; Business</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="text-center mb-3">
-                                    <p class="mb-0 fst-italic" style="color: #00fff7; font-size: 0.8rem;">
-                                        <strong>Building Digital Solutions That Transform Communities</strong>
-                                    </p>
-                                </div>
-                                <div class="text-center">
-                                    <button class="delete-btn-card" onclick="deleteCard('portfolio-summary')" title="Delete Card">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div></div>
-        
-    <div class="row mb-4 col-lg-4">
-                <div class="col-12">
-                    <h3 class="fw-bold mb-3 text-center">&#127919; Side Projects</h3>
-                    <p class="text-center mb-3">Specialized systems and applications</p>
-                </div>
-
-                <!-- Healthcare & Medical Systems -->
-                <div class="col-lg-3 mb-3">
-                
-                </div>
-                    <div class="project-card card h-100" data-project-id="healthcare-systems">
-                        <button class="upload-btn-card" onclick="openUploadModal('healthcare-systems')" title="Upload Image (Ctrl+Alt+E)">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                        <div class="card-body p-3">
-                            <h6 class="fw-bold mb-2 text-center text-primary">&#127973; Healthcare</h6>
-                            <div class="small">
-                                <div class="mb-2">
-                                    <h6 class="fw-bold mb-1" style="font-size: 0.9rem;">Electronic Health Record System</h6>
-                                    <p class="mb-2 text-white" style="font-size: 0.8rem;">Patient management with secure data handling and HIPAA compliance.</p>
-                                </div>
-                                
-                                <div class="text-center mb-3">
-                                    <span class="badge bg-primary me-1 mb-1" style="font-size: 0.7rem;">&#128202; Records</span>
-                                    <span class="badge bg-success me-1 mb-1" style="font-size: 0.7rem;">&#128138; Prescriptions</span>
-                                    <span class="badge bg-info me-1 mb-1" style="font-size: 0.7rem;">&#128197; Scheduling</span>
-                                </div>
-                                <div class="text-center">
-                                    <button class="delete-btn-card" onclick="deleteCard('healthcare-systems')" title="Delete Card">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div></section>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-5 bg-light">
@@ -2044,11 +1731,14 @@
         
         // Upload Modal Functions
         let currentProjectId = null;
-        let selectedFile = null;
+        let selectedFiles = [];
         let uploadButtonsEnabled = false;
         let editModeActive = false;
         let originalTexts = new Map();
         let editableElements = [];
+        let galleryModalInstance = null;
+        let currentGalleryImages = [];
+        let currentGalleryIndex = 0;
         
         // Keyboard shortcut: Ctrl+Alt+E to open main menu or toggle edit mode
         document.addEventListener('keydown', function(e) {
@@ -2059,6 +1749,11 @@
                 } else {
                     openMainMenu();
                 }
+            }
+            // Ctrl + Alt + X to delete current gallery image
+            if (e.ctrlKey && e.altKey && e.key.toLowerCase() === 'x') {
+                e.preventDefault();
+                deleteCurrentGalleryImage();
             }
         });
         
@@ -2106,8 +1801,8 @@
             const notificationText = document.getElementById('notificationText');
             
             notificationText.innerHTML = enabled 
-                ? '<i class="fas fa-check-circle me-2">Upload buttons enabled!' 
-                : '<i class="fas fa-times-circle me-2">Upload buttons disabled!';
+                ? '<i class="fas fa-check-circle me-2"></i>Upload buttons enabled!' 
+                : '<i class="fas fa-times-circle me-2"></i>Upload buttons disabled!';
             
             notification.classList.add('show');
             
@@ -2122,16 +1817,65 @@
         }
         
         function openUploadModal(projectId) {
+            // Direct file selection without modal
+            if (!uploadButtonsEnabled) {
+                alert('Upload buttons are disabled. Press Ctrl+Alt+E to enable them.');
+                return;
+            }
             currentProjectId = projectId;
-            const modal = document.getElementById('uploadModal');
-            modal.classList.add('active');
-            resetUploadForm();
+            // Create a temporary file input
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.multiple = true;
+            fileInput.onchange = function(e) {
+                const files = Array.from(e.target.files || []);
+                if (files.length > 0) {
+                    selectedFiles = files;
+                    uploadImageDirectly();
+                }
+            };
+            fileInput.click();
+        }
+        
+        function uploadImageDirectly() {
+            if (!selectedFiles.length || !currentProjectId) {
+                return;
+            }
+            
+            const formData = new FormData();
+            selectedFiles.forEach(file => formData.append('images[]', file));
+            formData.append('project_id', currentProjectId);
+            formData.append('action', 'upload');
+            
+            // Show notification
+            showToggleNotification('Uploading image...');
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToggleNotification('✓ Image uploaded! Reloading...');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showToggleNotification('✗ Upload failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                showToggleNotification('✗ Error: ' + error.message);
+            });
         }
         
         function closeUploadModal() {
             const modal = document.getElementById('uploadModal');
             modal.classList.remove('active');
             resetUploadForm();
+            resetProfileUploadForm();
         }
         
         function resetUploadForm() {
@@ -2139,7 +1883,7 @@
             document.getElementById('uploadPreview').classList.remove('show');
             document.getElementById('uploadBtn').style.display = 'none';
             document.getElementById('uploadStatus').innerHTML = '';
-            selectedFile = null;
+            selectedFiles = [];
         }
         
         // Drag and drop functionality
@@ -2160,34 +1904,38 @@
             uploadZone.classList.remove('dragover');
             const files = e.dataTransfer.files;
             if (files.length > 0) {
-                handleFile(files[0]);
+                handleFiles(Array.from(files));
             }
         });
         
         function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                handleFile(file);
+            const files = Array.from(event.target.files || []);
+            if (files.length) {
+                handleFiles(files);
             }
         }
         
-        function handleFile(file) {
-            // Validate file type
+        function handleFiles(files) {
             const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-            if (!validTypes.includes(file.type)) {
-                showStatus('Invalid file type. Please select an image file.', 'error');
+            const validFiles = [];
+
+            files.forEach(file => {
+                if (!validTypes.includes(file.type)) {
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    return;
+                }
+                validFiles.push(file);
+            });
+
+            if (!validFiles.length) {
+                showStatus('Invalid files selected. Please choose images under 5MB.', 'error');
                 return;
             }
-            
-            // Validate file size (5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                showStatus('File size exceeds 5MB limit.', 'error');
-                return;
-            }
-            
-            selectedFile = file;
-            
-            // Show preview
+
+            selectedFiles = validFiles;
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 const preview = document.getElementById('uploadPreview');
@@ -2195,18 +1943,24 @@
                 preview.classList.add('show');
                 document.getElementById('uploadBtn').style.display = 'inline-block';
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(validFiles[0]);
+
+            const statusMessage = validFiles.length === 1
+                ? '1 image ready to upload.'
+                : `${validFiles.length} images ready. First image will be used as the display image.`;
+            showStatus(statusMessage, 'info');
         }
         
         function uploadImage() {
-            if (!selectedFile || !currentProjectId) {
-                showStatus('Please select a file first.', 'error');
+            if (!selectedFiles.length || !currentProjectId) {
+                showStatus('Please select at least one image first.', 'error');
                 return;
             }
             
             const formData = new FormData();
-            formData.append('image', selectedFile);
+            selectedFiles.forEach(file => formData.append('images[]', file));
             formData.append('project_id', currentProjectId);
+            formData.append('action', 'upload');
             
             showStatus('Uploading and updating HTML...', 'info');
             document.getElementById('uploadBtn').disabled = true;
@@ -2243,14 +1997,23 @@
             });
         }
         
-        function updateProjectImage(projectId, imagePath) {
+        function updateProjectImage(projectId, imagePaths) {
+            const paths = Array.isArray(imagePaths) ? imagePaths : [imagePaths];
+            if (!paths.length) return;
             const projectCard = document.querySelector(`[data-project-id="${projectId}"]`);
             if (projectCard) {
                 const img = projectCard.querySelector('img');
+                const link = img ? img.parentElement : null;
                 if (img) {
-                    img.src = imagePath;
-                    img.parentElement.href = imagePath;
+                    img.src = paths[0];
+                    img.setAttribute('data-images', JSON.stringify(paths));
                 }
+                if (link) {
+                    link.href = paths[0];
+                    link.setAttribute('data-images', JSON.stringify(paths));
+                    link.classList.add('project-image-link');
+                }
+                projectCard.setAttribute('data-images', JSON.stringify(paths));
             }
         }
         
@@ -2259,6 +2022,152 @@
             statusDiv.innerHTML = message;
             statusDiv.style.color = type === 'error' ? '#ff4444' : type === 'success' ? '#00ff00' : '#00fff7';
         }
+
+        // Gallery modal helpers
+        function prepareGalleryLinks() {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                const link = card.querySelector('.card-body .text-center a');
+                const img = link ? link.querySelector('img') : null;
+                if (!link || !img) return;
+
+                let images = [];
+                const data = link.getAttribute('data-images') || img.getAttribute('data-images') || card.getAttribute('data-images');
+                if (data) {
+                    try {
+                        images = JSON.parse(data);
+                    } catch (err) {
+                        images = [];
+                    }
+                }
+                if (!images.length) {
+                    const src = img.getAttribute('src');
+                    if (src) images = [src];
+                }
+                const json = JSON.stringify(images);
+                link.setAttribute('data-images', json);
+                img.setAttribute('data-images', json);
+                card.setAttribute('data-images', json);
+                link.classList.add('project-image-link');
+            });
+        }
+
+        function renderGalleryViewer() {
+            const mainImg = document.getElementById('galleryMainImage');
+            const counter = document.getElementById('galleryCounter');
+            if (!mainImg || !counter || !currentGalleryImages.length) return;
+            currentGalleryIndex = Math.max(0, Math.min(currentGalleryIndex, currentGalleryImages.length - 1));
+            mainImg.src = currentGalleryImages[currentGalleryIndex];
+            counter.textContent = `Image ${currentGalleryIndex + 1} of ${currentGalleryImages.length}`;
+        }
+
+        function openGalleryModal(images, startIndex = 0) {
+            if (!Array.isArray(images) || !images.length) {
+                return;
+            }
+            const modalEl = document.getElementById('galleryModal');
+            if (!modalEl) return;
+
+            currentGalleryImages = images;
+            currentGalleryIndex = startIndex;
+            renderGalleryViewer();
+
+            if (!galleryModalInstance) {
+                galleryModalInstance = new bootstrap.Modal(modalEl);
+            }
+            galleryModalInstance.show();
+        }
+
+        function showGalleryNext() {
+            if (!currentGalleryImages.length) return;
+            currentGalleryIndex = (currentGalleryIndex + 1) % currentGalleryImages.length;
+            renderGalleryViewer();
+        }
+
+        function showGalleryPrev() {
+            if (!currentGalleryImages.length) return;
+            currentGalleryIndex = (currentGalleryIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+            renderGalleryViewer();
+        }
+
+        function syncCardGalleryState(projectId, images) {
+            const card = document.querySelector(`[data-project-id="${projectId}"]`);
+            if (!card) return;
+            const json = JSON.stringify(images.length ? images : ['./placeholder.png']);
+            const link = card.querySelector('.project-image-link');
+            const img = link ? link.querySelector('img') : card.querySelector('img');
+            const counterEl = card.querySelector('.project-gallery .small.text-muted');
+            const mainSrc = images.length ? images[0] : './placeholder.png';
+            card.setAttribute('data-images', json);
+            if (link) {
+                link.href = mainSrc;
+                link.setAttribute('data-images', json);
+            }
+            if (img) {
+                img.src = mainSrc;
+                img.setAttribute('data-images', json);
+            }
+            if (counterEl && images.length) {
+                counterEl.textContent = `Image 1 of ${images.length}`;
+            }
+        }
+
+        function deleteCurrentGalleryImage() {
+            if (!currentProjectId || !currentGalleryImages.length) return;
+            const imagePath = currentGalleryImages[currentGalleryIndex];
+            const formData = new FormData();
+            formData.append('action', 'delete_image');
+            formData.append('project_id', currentProjectId);
+            formData.append('image_path', imagePath);
+
+            fetch('upload.php', { method: 'POST', body: formData })
+                .then(resp => resp.json())
+                .then(data => {
+                    if (data.success) {
+                        currentGalleryImages.splice(currentGalleryIndex, 1);
+                        if (!currentGalleryImages.length) {
+                            if (galleryModalInstance) galleryModalInstance.hide();
+                            window.location.reload();
+                            return;
+                        }
+                        if (currentGalleryIndex >= currentGalleryImages.length) {
+                            currentGalleryIndex = currentGalleryImages.length - 1;
+                        }
+                        syncCardGalleryState(currentProjectId, currentGalleryImages);
+                        renderGalleryViewer();
+                    } else {
+                        alert('Delete failed: ' + data.message);
+                    }
+                })
+                .catch(err => alert('Delete error: ' + err.message));
+        }
+
+        const nextBtn = document.getElementById('galleryNextBtn');
+        const prevBtn = document.getElementById('galleryPrevBtn');
+        if (nextBtn) nextBtn.addEventListener('click', showGalleryNext);
+        if (prevBtn) prevBtn.addEventListener('click', showGalleryPrev);
+
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('.project-image-link');
+            if (!link) return;
+            e.preventDefault();
+            let images = [];
+            try {
+                images = JSON.parse(link.getAttribute('data-images') || '[]');
+            } catch (err) {
+                images = [];
+            }
+            if (!images.length && link.href) {
+                images = [link.href];
+            }
+            const card = link.closest('.project-card');
+            currentProjectId = card ? card.getAttribute('data-project-id') : null;
+            openGalleryModal(images, 0);
+        });
+
+        document.addEventListener('DOMContentLoaded', prepareGalleryLinks);
+        // Ensure gallery links are prepared even if DOMContentLoaded has already fired
+        prepareGalleryLinks();
         
         // Close modal when clicking outside
         document.getElementById('uploadModal').addEventListener('click', function(e) {
@@ -2272,6 +2181,26 @@
             editModeActive = true;
             originalTexts.clear();
             editableElements = [];
+            
+            // Enable About Me sections editing and track them for saving
+            const personalInfo = document.getElementById('personalInfo');
+            const educationInfo = document.getElementById('educationInfo');
+            const focusAreas = document.getElementById('focusAreas');
+            
+            [personalInfo, educationInfo, focusAreas].forEach(element => {
+                if (element) {
+                    const originalText = element.innerHTML;
+                    element.setAttribute('contenteditable', 'true');
+                    element.classList.add('edit-mode-active');
+                    element.setAttribute('data-original', originalText);
+                    originalTexts.set(element, originalText);
+                    editableElements.push(element);
+                }
+            });
+            
+            // Show profile picture upload button
+            const profileBtn = document.getElementById('profileUploadBtn');
+            if (profileBtn) profileBtn.style.opacity = '1';
             
             // Select all editable text elements
             const selectors = [
@@ -2322,19 +2251,13 @@
             const categoryAddButtons = document.querySelectorAll('.category-add-btn');
             categoryAddButtons.forEach(btn => btn.classList.add('enabled'));
             
-            // Enable drag and drop for cards
-            enableCardDragAndDrop();
-            
-            // Enable card selection
-            enableCardSelection();
-            
             // Show toolbar
             document.getElementById('editModeToolbar').classList.add('show');
             
             // Show notification
             const notification = document.getElementById('toggleNotification');
             const notificationText = document.getElementById('notificationText');
-            notificationText.innerHTML = '<i class="fas fa-edit me-2">Edit Mode Active - Edit text, add/delete cards, drag to move';
+            notificationText.innerHTML = '<i class="fas fa-edit me-2"></i>Edit Mode Active - Edit text, add/delete cards';
             notification.classList.add('show');
             
             setTimeout(() => {
@@ -2348,6 +2271,17 @@
         
         function exitEditMode() {
             editModeActive = false;
+            
+            // Disable About Me sections editing
+            document.getElementById('personalInfo').setAttribute('contenteditable', 'false');
+            document.getElementById('educationInfo').setAttribute('contenteditable', 'false');
+            document.getElementById('focusAreas').setAttribute('contenteditable', 'false');
+            document.getElementById('personalInfo').classList.remove('edit-mode-active');
+            document.getElementById('educationInfo').classList.remove('edit-mode-active');
+            document.getElementById('focusAreas').classList.remove('edit-mode-active');
+            
+            // Hide profile picture upload button
+            document.getElementById('profileUploadBtn').style.opacity = '0';
             
             editableElements.forEach(element => {
                 element.removeAttribute('contenteditable');
@@ -2365,12 +2299,6 @@
             // Hide category add buttons
             const categoryAddButtons = document.querySelectorAll('.category-add-btn');
             categoryAddButtons.forEach(btn => btn.classList.remove('enabled'));
-            
-            // Disable drag and drop
-            disableCardDragAndDrop();
-            
-            // Disable card selection
-            disableCardSelection();
             
             document.getElementById('editModeToolbar').classList.remove('show');
             document.getElementById('addCardForm').classList.remove('show');
@@ -2390,7 +2318,7 @@
             // Show notification
             const notification = document.getElementById('toggleNotification');
             const notificationText = document.getElementById('notificationText');
-            notificationText.innerHTML = '<i class="fas fa-times-circle me-2">Edit mode cancelled';
+            notificationText.innerHTML = '<i class="fas fa-times-circle me-2"></i>Edit mode cancelled';
             notification.classList.add('show');
             
             setTimeout(() => {
@@ -2407,13 +2335,16 @@
             
             editableElements.forEach(element => {
                 const oldText = originalTexts.get(element);
-                const newText = element.textContent.trim();
+                // Use innerHTML for About Me sections to preserve formatting
+                const isAboutSection = element.id === 'personalInfo' || element.id === 'educationInfo' || element.id === 'focusAreas';
+                const newText = isAboutSection ? element.innerHTML.trim() : element.textContent.trim();
                 
                 if (oldText && newText && oldText !== newText) {
                     edits.push({
-                        selector: element.tagName,
+                        selector: element.id || element.tagName,
                         oldText: oldText,
-                        newText: newText
+                        newText: newText,
+                        useHtml: isAboutSection
                     });
                 }
             });
@@ -2422,7 +2353,7 @@
                 exitEditMode();
                 const notification = document.getElementById('toggleNotification');
                 const notificationText = document.getElementById('notificationText');
-                notificationText.innerHTML = '<i class="fas fa-info-circle me-2">No changes to save';
+                notificationText.innerHTML = '<i class="fas fa-info-circle me-2"></i>No changes to save';
                 notification.classList.add('show');
                 
                 setTimeout(() => {
@@ -2451,829 +2382,83 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    statusDiv.innerHTML = '? Saved! Reloading...';
+                    statusDiv.innerHTML = '✓ Saved! Reloading...';
                     statusDiv.style.color = '#00ff00';
                     exitEditMode();
                     setTimeout(() => {
                         window.location.reload();
                     }, 1500);
                 } else {
-                    statusDiv.innerHTML = '? Failed: ' + data.message;
+                    statusDiv.innerHTML = '✗ Failed: ' + data.message;
                     statusDiv.style.color = '#ff4444';
                 }
             })
             .catch(error => {
-                statusDiv.innerHTML = '? Error: ' + error.message;
+                statusDiv.innerHTML = '✗ Error: ' + error.message;
                 statusDiv.style.color = '#ff4444';
             });
         }
         
-        // Drag and Drop Functions
-        let draggedCard = null;
-        let draggedCardCategory = null;
-        let autoScrollInterval = null;
-        let lastDragY = 0;
-        const scrollSpeed = 15;
-        const scrollZone = 100;
-        
-        // Card Selection Functions
-        let selectedCards = new Set();
-        
-        function enableCardSelection() {
-            const allCards = document.querySelectorAll('.project-card[data-project-id]');
-            allCards.forEach(card => {
-                card.classList.add('card-selectable');
-                
-                // Add selection indicator if not already present
-                if (!card.querySelector('.select-indicator')) {
-                    const indicator = document.createElement('div');
-                    indicator.className = 'select-indicator';
-                    indicator.innerHTML = '<i class=\"fas fa-check\"></i>';
-                    card.appendChild(indicator);
-                }
-                
-                // Add click handler for selection
-                card.addEventListener('click', toggleCardSelection);
-            });
-        }
-        
-        function disableCardSelection() {
-            const allCards = document.querySelectorAll('.project-card[data-project-id]');
-            allCards.forEach(card => {
-                card.classList.remove('card-selectable', 'card-selected');
-                card.removeEventListener('click', toggleCardSelection);
-                
-                const indicator = card.querySelector('.select-indicator');
-                if (indicator) {
-                    indicator.remove();
-                }
-            });
-            selectedCards.clear();
-        }
-        
-        function toggleCardSelection(e) {
-            // Don't trigger selection when clicking buttons or editable content
-            if (e.target.closest('button') || e.target.closest('[contenteditable]')) {
-                return;
-            }
-            
-            const card = e.currentTarget;
-            const projectId = card.getAttribute('data-project-id');
-            
-            if (card.classList.contains('card-selected')) {
-                card.classList.remove('card-selected');
-                selectedCards.delete(projectId);
-            } else {
-                card.classList.add('card-selected');
-                selectedCards.add(projectId);
-            }
-            
-            // Update category dropdown if selection mode is active
-            const categorySelect = document.getElementById('resizeCategorySelect');
-            if (categorySelect && selectedCards.size > 0) {
-                categorySelect.value = 'selected';
-            }
-        }
-        
-        function clearCardSelection() {
-            const allCards = document.querySelectorAll('.project-card.card-selected');
-            allCards.forEach(card => {
-                card.classList.remove('card-selected');
-            });
-            selectedCards.clear();
-        }
-        
-        function enableCardDragAndDrop() {
-            const projectCards = document.querySelectorAll('.project-card[data-project-id]');
-            
-            projectCards.forEach(card => {
-                // Make card draggable
-                card.draggable = true;
-                card.classList.add('draggable');
-                
-                // Add drag handle
-                if (!card.querySelector('.drag-handle')) {
-                    const dragHandle = document.createElement('div');
-                    dragHandle.className = 'drag-handle';
-                    dragHandle.innerHTML = '<i class="fas fa-grip-vertical"></i>';
-                    dragHandle.title = 'Drag to move card';
-                    card.appendChild(dragHandle);
-                }
-                
-                // Get current category
-                const categoryHeader = findCategoryForCard(card);
-                if (categoryHeader) {
-                    card.setAttribute('data-category', categoryHeader.textContent.trim());
-                }
-                
-                // Drag start
-                card.addEventListener('dragstart', handleDragStart);
-                card.addEventListener('dragend', handleDragEnd);
-            });
-            
-            // Make category rows drop zones
-            const categoryRows = document.querySelectorAll('#projects .row');
-            categoryRows.forEach(row => {
-                if (row.querySelector('.project-card')) {
-                    row.classList.add('drop-zone');
-                    row.addEventListener('dragover', handleDragOver);
-                    row.addEventListener('drop', handleDrop);
-                    row.addEventListener('dragleave', handleDragLeave);
-                }
-            });
-        }
-        
-        function disableCardDragAndDrop() {
-            const projectCards = document.querySelectorAll('.project-card[data-project-id]');
-            
-            projectCards.forEach(card => {
-                card.draggable = false;
-                card.classList.remove('draggable');
-                
-                // Remove drag handle
-                const dragHandle = card.querySelector('.drag-handle');
-                if (dragHandle) {
-                    dragHandle.remove();
-                }
-                
-                // Remove event listeners
-                card.removeEventListener('dragstart', handleDragStart);
-                card.removeEventListener('dragend', handleDragEnd);
-            });
-            
-            // Remove drop zone functionality
-            const dropZones = document.querySelectorAll('.drop-zone');
-            dropZones.forEach(zone => {
-                zone.classList.remove('drop-zone', 'drag-over');
-                zone.removeEventListener('dragover', handleDragOver);
-                zone.removeEventListener('drop', handleDrop);
-                zone.removeEventListener('dragleave', handleDragLeave);
-            });
-        }
-        
-        function findCategoryForCard(card) {
-            let currentElement = card.closest('.col-lg-4, .col-lg-6');
-            if (!currentElement) return null;
-            
-            // Traverse up to find the category header
-            while (currentElement) {
-                currentElement = currentElement.previousElementSibling;
-                
-                if (!currentElement) {
-                    // Try going up to parent row's previous sibling
-                    const parentRow = card.closest('.row');
-                    if (parentRow) {
-                        currentElement = parentRow.previousElementSibling;
-                    }
-                }
-                
-                if (currentElement) {
-                    const categoryHeader = currentElement.querySelector('.category-header, h3, h4');
-                    if (categoryHeader) {
-                        return categoryHeader;
-                    }
-                }
-            }
-            return null;
-        }
-        
-        function handleDragStart(e) {
-            draggedCard = this;
-            draggedCardCategory = this.getAttribute('data-category');
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', this.innerHTML);
-            
-            // Initialize auto-scroll
-            startAutoScroll();
-            
-            // Show notification
-            const notification = document.getElementById('toggleNotification');
-            const notificationText = document.getElementById('notificationText');
-            notificationText.innerHTML = '<i class="fas fa-hand-rock me-2">Dragging card - drop in any category row';
-            notification.classList.add('show');
-            notification.style.animation = '';
-        }
-        
-        function handleDragEnd(e) {
-            this.classList.remove('dragging');
-            
-            // Stop auto-scroll
-            stopAutoScroll();
-            
-            // Remove drag-over from all drop zones
-            document.querySelectorAll('.drop-zone').forEach(zone => {
-                zone.classList.remove('drag-over');
-            });
-            
-            // Hide notification
-            setTimeout(() => {
-                const notification = document.getElementById('toggleNotification');
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                    notification.style.animation = '';
-                }, 300);
-            }, 1000);
-        }
-        
-        function handleDragOver(e) {
-            if (e.preventDefault) {
-                e.preventDefault();
-            }
-            e.dataTransfer.dropEffect = 'move';
-            
-            // Update mouse position for auto-scroll
-            lastDragY = e.clientY;
-            
-            const dropZone = e.currentTarget;
-            dropZone.classList.add('drag-over');
-            
-            return false;
-        }
-        
-        function handleDragLeave(e) {
-            const dropZone = e.currentTarget;
-            if (e.relatedTarget && !dropZone.contains(e.relatedTarget)) {
-                dropZone.classList.remove('drag-over');
-            }
-        }
-        
-        function handleDrop(e) {
-            if (e.stopPropagation) {
-                e.stopPropagation();
-            }
-            e.preventDefault();
-            
-            const dropZone = e.currentTarget;
-            dropZone.classList.remove('drag-over');
-            
-            if (draggedCard) {
-                // Find the new category
-                const newCategoryHeader = findCategoryForDropZone(dropZone);
-                const newCategory = newCategoryHeader ? newCategoryHeader.textContent.trim() : 'Unknown';
-                
-                // Get the card's parent column
-                const cardColumn = draggedCard.closest('.col-lg-4, .col-lg-6');
-                
-                if (cardColumn) {
-                    // Store old category for comparison
-                    const oldCategory = draggedCard.getAttribute('data-category');
-                    
-                    // Detect target category layout and adjust size
-                    const targetLayout = detectCategoryLayout(dropZone);
-                    adjustCardSize(cardColumn, targetLayout);
-                    
-                    // Remove from old location
-                    cardColumn.remove();
-                    
-                    // Add to new location
-                    dropZone.appendChild(cardColumn);
-                    
-                    // Update category attribute
-                    draggedCard.setAttribute('data-category', newCategory);
-                    
-                    // Reflow the grid layout
-                    reflowCategoryLayout(dropZone);
-                    
-                    // Save the new layout to file
-                    saveCardLayout();
-                    
-                    // Show success notification
-                    const notification = document.getElementById('toggleNotification');
-                    const notificationText = document.getElementById('notificationText');
-                    notificationText.innerHTML = `<i class="fas fa-check-circle me-2">Card moved to: ${newCategory} - Saving...`;
-                    notification.classList.add('show');
-                    notification.style.animation = '';
-                    
-                    setTimeout(() => {
-                        notification.style.animation = 'slideOutRight 0.3s ease';
-                        setTimeout(() => {
-                            notification.classList.remove('show');
-                            notification.style.animation = '';
-                        }, 300);
-                    }, 2000);
-                }
-            }
-            
-            return false;
-        }
-        
-        function findCategoryForDropZone(dropZone) {
-            // Look for the previous sibling with category header
-            let currentElement = dropZone.previousElementSibling;
-            
-            while (currentElement) {
-                const categoryHeader = currentElement.querySelector('.category-header, h3, h4');
-                if (categoryHeader) {
-                    return categoryHeader;
-                }
-                currentElement = currentElement.previousElementSibling;
-            }
-            
-            // If not found, try looking in the same row
-            const categoryHeader = dropZone.querySelector('.category-header, h3, h4');
-            if (categoryHeader) {
-                return categoryHeader;
-            }
-            
-            return null;
-        }
-        
-        function detectCategoryLayout(dropZone) {
-            // Detect the size layout of existing cards in the target category
-            const existingCards = dropZone.querySelectorAll('.project-card[data-project-id]');
-            
-            if (existingCards.length === 0) {
-                // No cards in category, default to medium (col-lg-4)
-                return 'medium';
-            }
-            
-            // Check the most common column size
-            let col4Count = 0;
-            let col6Count = 0;
-            
-            existingCards.forEach(card => {
-                const cardColumn = card.closest('.col-lg-4, .col-lg-6');
-                if (cardColumn) {
-                    if (cardColumn.classList.contains('col-lg-6')) {
-                        col6Count++;
-                    } else if (cardColumn.classList.contains('col-lg-4')) {
-                        col4Count++;
-                    }
-                }
-            });
-            
-            // Return the predominant layout
-            if (col6Count > col4Count) {
-                return 'large'; // col-lg-6
-            } else {
-                return 'medium'; // col-lg-4
-            }
-        }
-        
-        function adjustCardSize(cardColumn, targetLayout) {
-            // Remove existing size classes
-            cardColumn.classList.remove('col-lg-4', 'col-lg-6', 'col-lg-12');
-            
-            // Apply new size based on target layout
-            if (targetLayout === 'large') {
-                cardColumn.classList.add('col-lg-6');
-            } else if (targetLayout === 'medium') {
-                cardColumn.classList.add('col-lg-6');
-            } else {
-                cardColumn.classList.add('col-lg-4');
-            }
-            
-            // Ensure responsive classes are maintained
-            if (!cardColumn.classList.contains('mb-3')) {
-                cardColumn.classList.add('mb-3');
-            }
-        }
-        
-        function reflowCategoryLayout(dropZone) {
-            // Get all cards in the drop zone
-            const cards = dropZone.querySelectorAll('.project-card[data-project-id]');
-            
-            // Count cards and adjust layout if needed
-            const cardCount = cards.length;
-            
-            // For single card in row, center it
-            if (cardCount === 1) {
-                const singleCardCol = cards[0].closest('.col-lg-4, .col-lg-6');
-                if (singleCardCol) {
-                    // Check if parent row has justify-content-center
-                    const parentRow = singleCardCol.closest('.row');
-                    if (parentRow && !parentRow.classList.contains('justify-content-center')) {
-                        parentRow.classList.add('justify-content-center');
-                    }
-                }
-            }
-            
-            // Ensure all cards have consistent spacing
-            cards.forEach(card => {
-                const cardCol = card.closest('.col-lg-4, .col-lg-6');
-                if (cardCol && !cardCol.classList.contains('mb-3')) {
-                    cardCol.classList.add('mb-3');
-                }
-            });
-        }
-        
-        function startAutoScroll() {
-            if (autoScrollInterval) {
-                return; // Already running
-            }
-            
-            autoScrollInterval = setInterval(() => {
-                const viewportHeight = window.innerHeight;
-                
-                // Check if cursor is in scroll zone
-                if (lastDragY < scrollZone) {
-                    // Scroll up
-                    const scrollAmount = Math.min(scrollSpeed, scrollSpeed * (scrollZone - lastDragY) / scrollZone);
-                    window.scrollBy(0, -scrollAmount);
-                } else if (lastDragY > viewportHeight - scrollZone) {
-                    // Scroll down
-                    const scrollAmount = Math.min(scrollSpeed, scrollSpeed * (lastDragY - (viewportHeight - scrollZone)) / scrollZone);
-                    window.scrollBy(0, scrollAmount);
-                }
-            }, 16); // ~60fps
-        }
-        
-        function stopAutoScroll() {
-            if (autoScrollInterval) {
-                clearInterval(autoScrollInterval);
-                autoScrollInterval = null;
-            }
-        }
-        
-        function resizeAllCards(size) {
-            // Legacy function - redirect to new resizeCards
-            resizeCards(size);
-        }
-        
-        function resizeCards(size) {
-            // Get selected category
-            const categorySelect = document.getElementById('resizeCategorySelect');
-            const selectedCategory = categorySelect ? categorySelect.value : 'all';
-            
-            // Determine the column class based on size
-            let columnClass = '';
-            let sizeName = '';
-            
-            switch(size) {
-                case 'small':
-                    columnClass = 'col-lg-4';  // 3 cards per row
-                    sizeName = 'Small (3 per row)';
-                    break;
-                case 'medium':
-                    columnClass = 'col-lg-6';  // 2 cards per row
-                    sizeName = 'Medium (2 per row)';
-                    break;
-                case 'large':
-                    columnClass = 'col-lg-12'; // 1 card per row
-                    sizeName = 'Large (1 per row)';
-                    break;
-                default:
-                    columnClass = 'col-lg-4';
-                    sizeName = 'Small (3 per row)';
-            }
-            
-            // Get cards based on selection
-            let cardsToResize = [];
-            
-            if (selectedCategory === 'selected') {
-                // Only resize selected cards
-                cardsToResize = Array.from(document.querySelectorAll('.project-card.card-selected[data-project-id]'));
-                if (cardsToResize.length === 0) {
-                    showNotification('info', 'No cards selected. Click on cards to select them first.');
-                    return;
-                }
-            } else if (selectedCategory === 'all') {
-                // Resize all cards
-                cardsToResize = Array.from(document.querySelectorAll('.project-card[data-project-id]'));
-            } else {
-                // Resize cards from specific category
-                cardsToResize = Array.from(document.querySelectorAll('.project-card[data-project-id]')).filter(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    return cardCategory && cardCategory.toLowerCase().includes(selectedCategory.toLowerCase());
-                });
-                
-                if (cardsToResize.length === 0) {
-                    showNotification('info', `No cards found in category: ${selectedCategory}`);
-                    return;
-                }
-            }
-            
-            let resizedCount = 0;
-            const totalCards = cardsToResize.length;
-            
-            // Show resizing notification
-            const categoryText = selectedCategory === 'all' ? 'all' : 
-                                selectedCategory === 'selected' ? 'selected' : 
-                                selectedCategory;
-            showNotification('loading', `Resizing ${totalCards} ${categoryText} card(s) to ${sizeName}...`);
-            
-            cardsToResize.forEach((card, index) => {
-                const cardColumn = card.closest('.col-lg-4, .col-lg-6, .col-lg-12');
-                
-                if (cardColumn) {
-                    // Add animation class
-                    card.style.transition = 'transform 0.3s ease';
-                    card.style.transform = 'scale(0.95)';
-                    
-                    setTimeout(() => {
-                        // Remove existing size classes
-                        cardColumn.classList.remove('col-lg-4', 'col-lg-6', 'col-lg-12');
-                        
-                        // Add new size class
-                        cardColumn.classList.add(columnClass);
-                        
-                        // Ensure mb-3 is present
-                        if (!cardColumn.classList.contains('mb-3')) {
-                            cardColumn.classList.add('mb-3');
-                        }
-                        
-                        // Reset animation
-                        card.style.transform = 'scale(1)';
-                        
-                        resizedCount++;
-                        
-                        // If this is the last card, save the layout
-                        if (resizedCount === totalCards) {
-                            // Small delay to ensure DOM is updated
-                            setTimeout(() => {
-                                saveCardLayout();
-                                
-                                // Update notification
-                                showNotification('success', `Resized ${resizedCount} card(s) to ${sizeName}`);
-                                
-                                // Clear selection if selected mode was used
-                                if (selectedCategory === 'selected') {
-                                    clearCardSelection();
-                                }
-                            }, 100);
-                        }
-                    }, index * 20); // Stagger the animations
-                }
-            });
-            
-            // If no cards were found
-            if (cardsToResize.length === 0) {
-                showNotification('info', 'No cards found to resize');
-            }
-        }
-        
-        function showNotification(type, message) {
-            const notification = document.getElementById('toggleNotification');
-            const notificationText = document.getElementById('notificationText');
-            
-            let icon = '';
-            switch(type) {
-                case 'loading':
-                    icon = '<i class=\"fas fa-spinner fa-spin me-2\"></i>';
-                    break;
-                case 'success':
-                    icon = '<i class=\"fas fa-check-circle me-2\"></i>';
-                    break;
-                case 'error':
-                    icon = '<i class=\"fas fa-exclamation-circle me-2\"></i>';
-                    break;
-                case 'info':
-                    icon = '<i class=\"fas fa-info-circle me-2\"></i>';
-                    break;
-                default:
-                    icon = '';
-            }
-            
-            notificationText.innerHTML = icon + message;
-            notification.classList.add('show');
-            notification.style.animation = '';
-            
-            if (type !== 'loading') {
-                setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.3s ease';
-                    setTimeout(() => {
-                        notification.classList.remove('show');
-                        notification.style.animation = '';
-                    }, 300);
-                }, 2000);
-            }
-        }
-        
-        let isSaving = false;
-        
-        function saveCardLayout() {
-            console.log('saveCardLayout() called. Currently saving:', isSaving);
-            console.trace('Called from:'); // Show stack trace
-            
-            // Prevent duplicate saves
-            if (isSaving) {
-                console.log('Save already in progress, skipping...');
-                return;
-            }
-            
-            isSaving = true;
-            
-            // Collect all categories and their cards with positions and sizes
-            const layoutData = [];
-            
-            // Find all category rows
-            const projectSection = document.getElementById('projects');
-            const categoryRows = projectSection.querySelectorAll('.row');
-            
-            categoryRows.forEach(row => {
-                const cards = row.querySelectorAll('.project-card[data-project-id]');
-                
-                if (cards.length > 0) {
-                    // Get category name from previous element or attribute
-                    let categoryName = 'Unknown';
-                    const firstCard = cards[0];
-                    const category = firstCard.getAttribute('data-category');
-                    if (category) {
-                        categoryName = category;
-                    } else {
-                        // Try to find category header before this row
-                        const categoryHeader = findCategoryForDropZone(row);
-                        if (categoryHeader) {
-                            categoryName = categoryHeader.textContent.trim();
-                        }
-                    }
-                    
-                    const categoryData = {
-                        category: categoryName,
-                        cards: []
-                    };
-                    
-                    cards.forEach(card => {
-                        const projectId = card.getAttribute('data-project-id');
-                        const cardColumn = card.closest('.col-lg-4, .col-lg-6, .col-lg-12');
-                        let size = 'col-lg-4';
-                        
-                        if (cardColumn) {
-                            if (cardColumn.classList.contains('col-lg-12')) {
-                                size = 'col-lg-12';
-                            } else if (cardColumn.classList.contains('col-lg-6')) {
-                                size = 'col-lg-6';
-                            } else if (cardColumn.classList.contains('col-lg-4')) {
-                                size = 'col-lg-4';
-                            }
-                        }
-                        
-                        categoryData.cards.push({
-                            projectId: projectId,
-                            size: size,
-                            category: categoryName
-                        });
-                    });
-                    
-                    if (categoryData.cards.length > 0) {
-                        layoutData.push(categoryData);
-                    }
-                }
-            });
-            
-            console.log('Saving layout data:', layoutData);
-            console.log('Number of categories:', layoutData.length);
-            console.log('Total cards to save:', layoutData.reduce((sum, cat) => sum + cat.cards.length, 0));
-            
-            // Send layout data to server
-            const formData = new FormData();
-            formData.append('action', 'save_card_layout');
-            formData.append('layout_data', JSON.stringify(layoutData));
-            
-            fetch('upload.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                console.log('Response status:', response.status);
-                return response.json();
-            })
-            .then(data => {
-                console.log('=== SAVE RESPONSE DETAILS ===');
-                console.log('Success:', data.success);
-                console.log('Message:', data.message);
-                console.log('Updated count:', data.data?.updated_count);
-                console.log('Errors:', data.data?.errors);
-                console.log('Full response:', JSON.stringify(data, null, 2));
-                console.log('=============================');
-                
-                if (data.success) {
-                    // Log debug info if available (it's in data.data)
-                    if (data.data?.debug) {
-                        console.log('Debug info:', data.data.debug);
-                    }
-                    if (data.data?.bytes_written) {
-                        console.log('Bytes written:', data.data.bytes_written);
-                        console.log('File size:', data.data.file_size);
-                        console.log('✅ FILE SAVED SUCCESSFULLY! Press Ctrl+Shift+R to hard refresh the page.');
-                    }
-                    
-                    // Update notification to show success
-                    const notification = document.getElementById('toggleNotification');
-                    const notificationText = document.getElementById('notificationText');
-                    notificationText.innerHTML = '<i class="fas fa-check-circle me-2"></i>' + data.message + ' - Press Ctrl+Shift+R to see changes!';
-                    notification.classList.add('show');
-                    notification.style.animation = '';
-                    
-                    setTimeout(() => {
-                        notification.style.animation = 'slideOutRight 0.3s ease';
-                        setTimeout(() => {
-                            notification.classList.remove('show');
-                            notification.style.animation = '';
-                        }, 300);
-                    }, 2000);
-                    
-                    isSaving = false;
-                } else {
-                    console.error('Failed to save layout:', data.message);
-                    // Show error notification
-                    const notification = document.getElementById('toggleNotification');
-                    const notificationText = document.getElementById('notificationText');
-                    notificationText.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Failed to save: ' + (data.message || 'Unknown error');
-                    notification.classList.add('show');
-                    notification.style.animation = '';
-                    
-                    setTimeout(() => {
-                        notification.style.animation = 'slideOutRight 0.3s ease';
-                        setTimeout(() => {
-                            notification.classList.remove('show');
-                            notification.style.animation = '';
-                        }, 300);
-                    }, 3000);
-                    
-                    isSaving = false;
-                }
-            })
-            .catch(error => {
-                console.error('Error saving layout:', error);
-                // Show error notification
-                const notification = document.getElementById('toggleNotification');
-                const notificationText = document.getElementById('notificationText');
-                notificationText.innerHTML = '<i class="fas fa-exclamation-circle me-2"></i>Network error: ' + error.message;
-                notification.classList.add('show');
-                notification.style.animation = '';
-                
-                setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.3s ease';
-                    setTimeout(() => {
-                        notification.classList.remove('show');
-                        notification.style.animation = '';
-                    }, 300);
-                }, 3000);
-                
-                isSaving = false;
-            });
-        }
-
         // Inline Add Card Functions
         let currentAddCardLocation = null;
         let selectedCategory = '';
         
         function showCategoryAddCard(event, category) {
-            // Close any existing inline card
             const existingInlineCard = document.querySelector('.inline-add-card-container');
             if (existingInlineCard) {
                 existingInlineCard.remove();
             }
             
-            selectedCategory = category;
+            selectedCategory = category || 'flagship-main';
             
-            // Find the button that was clicked
-            const button = event.target;
-            
-            // Get all rows in the projects section
             let targetRow = null;
-            let insertPosition = 'afterbegin'; // Default to start of the row
+            const normalizedCategory = (category || 'flagship-main').toLowerCase();
             
-            // Find all project cards in the same category
-            const allCards = document.querySelectorAll('.project-card[data-project-id]');
-            const categoryCards = Array.from(allCards).filter(card => {
-                const cardRow = card.closest('.row');
-                const cardCategory = card.getAttribute('data-category') || 
-                    (cardRow && cardRow.previousElementSibling?.textContent.toLowerCase().includes(category)) ||
-                    false;
-                return cardCategory || false;
-            });
+            // Direct mapping for flagship sub-categories
+            if (normalizedCategory === 'flagship-main') {
+                targetRow = document.getElementById('flagshipMainRow');
+            } else if (normalizedCategory === 'flagship-additional') {
+                targetRow = document.getElementById('flagshipAdditionalRow');
+            }
             
-            // Find the target row - either the closest row or the next row after the button
-            targetRow = button.closest('.row');
-            
-            // If button is not inside a row, traverse up and find the next row
+            // Fallback to contextual lookup when no explicit row is defined
             if (!targetRow) {
-                // Start from the button and go up to find a container
-                let currentElement = button;
-                let foundRow = false;
-                
-                // Traverse up the DOM tree
-                while (currentElement && !foundRow) {
-                    let nextSibling = currentElement.nextElementSibling;
+                let button = null;
+                if (event) {
+                    button = event.target ? event.target : event;
+                }
+                if (button) {
+                    targetRow = button.closest('.row');
                     
-                    // Check siblings at this level
-                    while (nextSibling) {
-                        if (nextSibling.classList && nextSibling.classList.contains('row')) {
-                            targetRow = nextSibling;
-                            foundRow = true;
-                            break;
+                    if (!targetRow) {
+                        let currentElement = button;
+                        let foundRow = false;
+                        
+                        while (currentElement && !foundRow) {
+                            let nextSibling = currentElement.nextElementSibling;
+                            
+                            while (nextSibling) {
+                                if (nextSibling.classList && nextSibling.classList.contains('row')) {
+                                    targetRow = nextSibling;
+                                    foundRow = true;
+                                    break;
+                                }
+                                nextSibling = nextSibling.nextElementSibling;
+                            }
+                            
+                            if (!foundRow) {
+                                currentElement = currentElement.parentElement;
+                            }
                         }
-                        nextSibling = nextSibling.nextElementSibling;
-                    }
-                    
-                    // If not found, go up one level
-                    if (!foundRow) {
-                        currentElement = currentElement.parentElement;
                     }
                 }
             }
             
-            // Check if targetRow exists
             if (!targetRow) {
                 console.error('Could not find target row for inline card');
                 return;
             }
             
-            // Look for the next row with cards if current row doesn't have any
             if (!targetRow.querySelector('.project-card')) {
                 let nextRow = targetRow.nextElementSibling;
                 while (nextRow && !nextRow.classList.contains('row')) {
@@ -3284,36 +2469,38 @@
                 }
             }
             
-            // Create inline editable card
+            const referenceColumn = targetRow.querySelector('[class*="col-"]:not(.add-card-form-container)');
+            let columnClass = 'col-lg-6 mb-3 inline-add-card-container';
+            
             const cardContainer = document.createElement('div');
-            cardContainer.className = 'col-lg-4 mb-3 inline-add-card-container';
+            cardContainer.className = columnClass.trim();
             cardContainer.innerHTML = `
                 <div class="project-card card h-100" style="border: 3px dashed #00fff7; animation: slideInUp 0.3s ease;">
                     <div class="card-body p-3" style="background: #1a1c25;">
                         <div class="text-center mb-2">
                             <div class="upload-icon" style="font-size: 48px; color: #00fff7; cursor: pointer;" onclick="document.getElementById('inlineCardImageInput').click()">
-                                <i class="fas fa-image">
-                            
+                                <i class="fas fa-image"></i>
+                            </div>
                             <input type="file" id="inlineCardImageInput" accept="image/*" style="display: none;" onchange="handleInlineImageUpload(event)">
                             <img id="inlineCardImagePreview" src="" alt="" class="img-fluid rounded mb-2" style="max-height:50px; display: none;">
-                        
-                        <h6 class="card-title fw-bold text-center" contenteditable="true" data-placeholder="Enter Project Title" style="min-height: 30px; outline: 2px dashed #00fff780; padding: 8px; border-radius: 4px; color: #00fff7;">
-                        <p class="card-text text-center small" contenteditable="true" data-placeholder="Enter Description" style="min-height: 40px; outline: 2px dashed #00fff780; padding: 8px; border-radius: 4px; margin-bottom: 15px;">
+                        </div>
+                        <h6 class="card-title fw-bold text-center" contenteditable="true" data-placeholder="Enter Project Title" style="min-height: 30px; outline: 2px dashed #00fff780; padding: 8px; border-radius: 4px; color: #00fff7;"></h6>
+                        <p class="card-text text-center small" contenteditable="true" data-placeholder="Enter Description" style="min-height: 40px; outline: 2px dashed #00fff780; padding: 8px; border-radius: 4px; margin-bottom: 15px;"></p>
                         <div class="text-center mb-3">
                             <input type="text" id="inlineBadgesInput" placeholder="Enter badges (comma-separated)" class="form-control" style="background: #16181e; border: 1px solid #00fff7; color: #e0e0e0;">
-                        
-                        <div id="inlineBadgesPreview" class="text-center mb-3">
+                        </div>
+                        <div id="inlineBadgesPreview" class="text-center mb-3"></div>
                         <div class="text-center">
                             <button class="btn btn-success me-2" onclick="saveInlineCard('${category}')">
-                                <i class="fas fa-check me-1"> Save Card
-                            
+                                <i class="fas fa-check me-1"></i> Save Card
+                            </button>
                             <button class="btn btn-secondary" onclick="cancelInlineCard()">
-                                <i class="fas fa-times me-1"> Cancel
-                            
-                        
-                        <div id="inlineCardSaveStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.9rem;">
-                    
-                
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </button>
+                        </div>
+                        <div id="inlineCardSaveStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.9rem;"></div>
+                    </div>
+                </div>
             `;
             
             // Insert the card as the first item in the row (leftmost position)
@@ -3325,7 +2512,7 @@
                 const badges = this.value.split(',').map(b => b.trim()).filter(b => b);
                 const preview = document.getElementById('inlineBadgesPreview');
                 preview.innerHTML = badges.map(badge => 
-                    `<span class="badge bg-primary me-1 mb-1">${badge}`
+                    `<span class="badge bg-primary me-1 mb-1">${badge}</span>`
                 ).join('');
             });
             
@@ -3401,13 +2588,13 @@
             const statusDiv = document.getElementById('inlineCardSaveStatus');
             
             if (!title || !description || !badgesInput) {
-                statusDiv.innerHTML = '&#9888;&#65039; Please fill in all fields';
+                statusDiv.innerHTML = '⚠️ Please fill in all fields';
                 statusDiv.style.color = '#ff4444';
                 return;
             }
             
             if (!inlineCardImageFile) {
-                statusDiv.innerHTML = '&#9888;&#65039; Please upload an image';
+                statusDiv.innerHTML = '⚠️ Please upload an image';
                 statusDiv.style.color = '#ff4444';
                 return;
             }
@@ -3417,16 +2604,24 @@
             // Generate a unique project ID based on title
             const projectId = title.toLowerCase().replace(/[^a-z0-9]/g, '');
             
+            const placementCategory = (category || 'flagship-main').toLowerCase();
+            let displayCategory = category || 'flagship';
+            let backendCategory = 'flagship-main';
+            if (placementCategory.startsWith('flagship')) {
+                displayCategory = 'flagship';
+                backendCategory = 'flagship-main';
+            }
             const formData = new FormData();
             formData.append('action', 'add_card');
             formData.append('project_id', projectId);
             formData.append('title', title);
             formData.append('description', description);
             formData.append('badges', JSON.stringify(badges));
-            formData.append('category', category);
+            formData.append('category', displayCategory);
+            formData.append('card_category', backendCategory);
             formData.append('card_image', inlineCardImageFile);
             
-            statusDiv.innerHTML = '&#128190; Saving card...';
+            statusDiv.innerHTML = '💾 Saving card...';
             statusDiv.style.color = '#00fff7';
             
             fetch('upload.php', {
@@ -3436,18 +2631,18 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    statusDiv.innerHTML = '&#9989; Card added! Reloading...';
+                    statusDiv.innerHTML = '✅ Card added! Reloading...';
                     statusDiv.style.color = '#00ff00';
                     setTimeout(() => {
                         window.location.reload();
                     }, 1500);
                 } else {
-                    statusDiv.innerHTML = '&#10060; Failed: ' + data.message;
+                    statusDiv.innerHTML = '❌ Failed: ' + data.message;
                     statusDiv.style.color = '#ff4444';
                 }
             })
             .catch(error => {
-                statusDiv.innerHTML = '&#10060; Error: ' + error.message;
+                statusDiv.innerHTML = '❌ Error: ' + error.message;
                 statusDiv.style.color = '#ff4444';
             });
         }
@@ -3616,15 +2811,68 @@
             });
         }
         
+        // Profile Picture Upload Functions
+        let selectedProfileFile = null;
+        
+        function handleProfileFileSelect(event) {
+            const file = event.target.files[0];
+            if (file && editModeActive) {
+                uploadProfilePictureDirectly(file);
+            }
+        }
+        
+        function uploadProfilePictureDirectly(file) {
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size must be less than 5MB');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('action', 'update_profile');
+            
+            showToggleNotification('Uploading profile picture...');
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToggleNotification('✓ Profile picture updated! Reloading...');
+                    
+                    // Update profile picture on page
+                    document.getElementById('profilePicture').src = data.data.path;
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showToggleNotification('✗ ' + data.message);
+                }
+            })
+            .catch(error => {
+                showToggleNotification('✗ Upload failed: ' + error.message);
+            });
+        }
+        
         // Close modals when clicking outside
         ['mainMenuModal'].forEach(modalId => {
-            document.getElementById(modalId).addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.remove('active');
+                    }
+                });
+            }
         });
     </script>
-
- l&gt; 
 </body>
+</html> l> 
