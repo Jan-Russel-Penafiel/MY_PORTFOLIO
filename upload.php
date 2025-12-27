@@ -667,11 +667,20 @@ switch ($action) {
             sendResponse(false, 'Failed to read HTML file');
         }
         
-        // Update profile picture references
+        // Update profile picture references (both navbar and hero)
         $imagePath = './' . $newFilename;
+        
+        // Update navbar profile picture
         $htmlContent = preg_replace(
             '/<img\s+id="profilePicture"\s+src="[^"]+"/i',
             '<img id="profilePicture" src="' . $imagePath . '"',
+            $htmlContent
+        );
+        
+        // Update hero profile picture
+        $htmlContent = preg_replace(
+            '/<img\s+id="heroProfilePicture"\s+src="[^"]+"/i',
+            '<img id="heroProfilePicture" src="' . $imagePath . '"',
             $htmlContent
         );
         

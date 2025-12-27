@@ -25,6 +25,22 @@
             color: #00fff7;
             padding: 80px 0;
             box-shadow: 0 0 24px #00fff730 inset;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 0 !important;
+        }
+        
+        section .container {
+            width: 100%;
         }
         
         .typing-animation {
@@ -186,6 +202,36 @@
             text-shadow: 0 0 8px #00fff7;
         }
         
+        /* Hide navbar profile picture on desktop */
+        .navbar-brand img {
+            display: none;
+        }
+        
+        /* Navbar text responsive display */
+        .navbar-text-desktop {
+            display: none;
+        }
+        
+        .navbar-text-mobile {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            /* Show navbar profile picture on mobile */
+            .navbar-brand img {
+                display: inline-block !important;
+            }
+            
+            /* Swap navbar text on mobile */
+            .navbar-text-desktop {
+                display: none;
+            }
+            
+            .navbar-text-mobile {
+                display: inline;
+            }
+        }
+        
         .nav-link {
             font-weight: 500;
             transition: color 0.3s ease;
@@ -265,6 +311,42 @@
             color: #0a0a0f;
         }
         
+        /* Hero Profile Picture Styles */
+        .hero-profile-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            width: 100%;
+        }
+        
+        .hero-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-profile-picture {
+            flex-shrink: 0;
+            width: 350px;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 4px solid #00fff7;
+            box-shadow: 0 0 30px #00fff7, 0 0 60px #00fff7;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-profile-picture:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 40px #00fff7, 0 0 80px #00fff7;
+        }
+        
+        .hero-profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         /* General responsive improvements */
         .container {
             padding-left: 15px;
@@ -278,6 +360,18 @@
         
         /* Mobile Responsive Styles */
         @media (max-width: 768px) {
+            .hero-profile-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .hero-content {
+                order: 2;
+            }
+            
+            .hero-profile-picture {
+                display: none;
+            }
             body {
                 font-size: 14px;
             }
@@ -1117,16 +1211,17 @@
         <div class="container">
             <a class="navbar-brand" href="#home">
                 <div style="position: relative; display: inline-block;">
-                    <img id="profilePicture" src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
+                    <img id="profilePicture" src="./RUSSEL.png" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
                     <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
                 </div>
-                Russel's Portfolio
+                <span class="navbar-text-desktop">Welcome to my Portfolio!</span>
+                <span class="navbar-text-mobile">Russel's Portfolio</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse text-center" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link text-center text-lg-start" href="#home">Home</a>
                     </li>
@@ -1152,31 +1247,39 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <div class="container text-center">
-            <h1 class="display-4 fw-bold">Jan Russel E. Peñafiel</h1>            
-            <div class="typing-animation">
-                <span id="typing-text"></span>
-            </div>
-            
-            <div class="mt-4">
-                <a href="https://github.com/Jan-Russel-Penafiel" class="badge-custom" target="_blank">
-                    <i class="fab fa-github me-2"></i>GitHub - View My Projects
-                </a>
-                <a href="https://www.linkedin.com/in/jan-russel-peñafiel-a1799036b" class="badge-custom" target="_blank">
-                    <i class="fab fa-linkedin me-2"></i>LinkedIn - Connect With Me
-                </a>
-                <a href="./resume.pdf" class="badge-custom" download>
-                    <i class="fas fa-file-pdf me-2"></i>Resume - View Complete PDF
-                </a>
-            </div>
-            
-            <div class="mt-3">
-                <span class="badge-custom">
-                    <i class="fas fa-building me-2"></i>Company: Asyncs Innovations
-                </span>
-                <span class="badge-custom">
-                    <i class="fas fa-map-marker-alt me-2"></i> Location: Panay, Santo Niño, South Cotabato
-                </span>
+        <div class="container">
+            <div class="hero-profile-container">
+                <div class="hero-content">
+                    <h1 class="display-4 fw-bold">Jan Russel E. Peñafiel</h1>            
+                    <div class="typing-animation">
+                        <span id="typing-text"></span>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="https://github.com/Jan-Russel-Penafiel" class="badge-custom" target="_blank">
+                            <i class="fab fa-github me-2"></i>GitHub - View My Projects
+                        </a>
+                        <a href="https://www.linkedin.com/in/jan-russel-peñafiel-a1799036b" class="badge-custom" target="_blank">
+                            <i class="fab fa-linkedin me-2"></i>LinkedIn - Connect With Me
+                        </a>
+                        <a href="./resume.pdf" class="badge-custom" download>
+                            <i class="fas fa-file-pdf me-2"></i>Resume - View Complete PDF
+                        </a>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <span class="badge-custom">
+                            <i class="fas fa-building me-2"></i>Company: Asyncs Innovations
+                        </span>
+                        <span class="badge-custom">
+                            <i class="fas fa-map-marker-alt me-2"></i> Location: Panay, Santo Niño, South Cotabato
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="hero-profile-picture">
+                    <img id="heroProfilePicture" src="./RUSSEL.png" alt="Jan Russel E. Peñafiel - Profile Picture" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" style="cursor: pointer;" title="Click to change profile picture (Edit Mode)">
+                </div>
             </div>
         </div>
     </section>
@@ -1331,16 +1434,6 @@
         </div>
     </section>
 
-    <!-- Resume Section -->
-    <section class="py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="display-6 fw-bold mb-4">Resume</h2>
-            <a href="./resume.pdf" class="btn btn-primary btn-lg" download>
-                <i class="fas fa-file-pdf me-2"></i>My Resume - View Complete PDF
-            </a>
-        </div>
-    </section>
-
     <!-- Journey Section -->
     <section id="journey" class="py-5">
         <div class="container">
@@ -1461,18 +1554,12 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-<div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_6950380a1df247.12274488.png&quot;]'>
-            <a href="./uploads/project_6950380a1df247.12274488.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_6950380a1df247.12274488.png&quot;]'>
-                <img src="./uploads/project_6950380a1df247.12274488.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_6950380a1df247.12274488.png&quot;]'>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_69503964c4b7d9.98724346.png&quot;]'>
+            <a href="./uploads/project_69503964c4b7d9.98724346.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69503964c4b7d9.98724346.png&quot;]'>
+                <img src="./uploads/project_69503964c4b7d9.98724346.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69503964c4b7d9.98724346.png&quot;]'>
             </a>
             <div class="text-center small text-muted mb-2">Image 1 of 1</div>
         </div>
-                            <div class="text-center project-gallery" data-images='["./uploads/project_6950354ad691a6.04017544.png","./uploads/project_6950354ad72020.59373512.png"]'>
-                                <a href="./uploads/project_6950354ad691a6.04017544.png" target="_blank" class="project-image-link" data-images='["./uploads/project_6950354ad691a6.04017544.png","./uploads/project_6950354ad72020.59373512.png"]'>
-                                    <img src="./uploads/project_6950354ad691a6.04017544.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='["./uploads/project_6950354ad691a6.04017544.png","./uploads/project_6950354ad72020.59373512.png"]'>
-                                </a>
-                                <div class="text-center small text-muted mb-2">Image 1 of 2</div>
-                            </div>
                             <h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
                             <h6 class="text-center text-warning mb-3">📱 Student Monitoring with QR & SMS</h6>
                             <p class="card-text text-center">Smart student monitoring system with QR code attendance and automated SMS notifications for parents and administrators.</p>
@@ -1494,19 +1581,13 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-<div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
-            <a href="./uploads/project_695038267ed8e8.79932532.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
-                <img src="./uploads/project_695038267ed8e8.79932532.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
+            <a href="./uploads/project_6950392b8ec0a9.23708258.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
+                <img src="./uploads/project_6950392b8ec0a9.23708258.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
             </a>
             <div class="text-center small text-muted mb-2">Image 1 of 1</div>
         </div>
-                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_695038267d9140.95945206.png&quot;,&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
-            <a href="./uploads/project_695038267d9140.95945206.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_695038267d9140.95945206.png&quot;,&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
-                <img src="./uploads/project_695038267d9140.95945206.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_695038267d9140.95945206.png&quot;,&quot;.\/uploads\/project_695038267ed8e8.79932532.png&quot;]'>
-            </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 2</div>
-        </div>
-                            <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
+<h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
                             <h6 class="text-center text-warning mb-3">🏥 Digital Barangay Health Center</h6>
                             <p class="card-text text-center">Comprehensive digital health center management system for barangay health services with patient records, appointments, and medicine tracking.</p>
                             <div class="text-center mb-3">
@@ -1561,13 +1642,13 @@
                                 </a>
                             </div>
                             <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
-                            <h6 class="text-center text-warning mb-3">Smart Immunization Registry</h6>
+                            <h6 class="text-center text-warning mb-3">💉 Smart Immunization Registry</h6>
                             <p class="card-text text-center">Intelligent immunization registry system with automated scheduling, smart alerts, tracking dashboard, and comprehensive progress reports.</p>
                             <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1">Auto Scheduling</span>
-                                <span class="badge bg-success me-1 mb-1">? Smart Alerts</span>
-                                <span class="badge bg-info me-1 mb-1">Tracking Dashboard</span>
-                                <span class="badge bg-warning me-1 mb-1">Progress Reports</span>
+                                <span class="badge bg-primary me-1 mb-1">📅 Auto Scheduling</span>
+                                <span class="badge bg-success me-1 mb-1">🔔 Smart Alerts</span>
+                                <span class="badge bg-info me-1 mb-1">📊 Tracking Dashboard</span>
+                                <span class="badge bg-warning me-1 mb-1">📈 Progress Reports</span>
                             </div>
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('immucare')" title="Delete Card">
@@ -2855,6 +2936,11 @@
                     
                     // Update profile picture on page
                     document.getElementById('profilePicture').src = data.data.path;
+                    // Also update hero profile picture
+                    const heroProfilePic = document.getElementById('heroProfilePicture');
+                    if (heroProfilePic) {
+                        heroProfilePic.src = data.data.path;
+                    }
                     
                     setTimeout(() => {
                         window.location.reload();
@@ -2881,4 +2967,4 @@
         });
     </script>
 </body>
-</html> l> 
+</html> 
