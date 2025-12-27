@@ -1,0 +1,2507 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan Russel E. Peñafiel - Freelance Student Web Developer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background: #0a0a0f;
+            color: #e0e0e0;
+        }
+        
+        .hero-section {
+            background: #101217;
+            color: #00fff7;
+            padding: 80px 0;
+            box-shadow: 0 0 24px #00fff730 inset;
+        }
+        
+        .typing-animation {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #00fff7;
+            display: inline-block;
+            min-width: 250px;
+            min-height: 2.5em;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        #typing-text {
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .badge-custom {
+            background: #00fff7;
+            color: #0a0a0f;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px;
+            font-weight: 600;
+            box-shadow: 0 0 8px #00fff7, 0 0 16px #00fff7;
+            transition: all 0.3s ease;
+        }
+        
+        .badge-custom:hover {
+            background: #00bcd4;
+            color: #fff;
+            text-decoration: none;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 16px #00fff7, 0 0 32px #00fff7;
+        }
+        
+        .section-card {
+            background: #181825;
+            border-radius: 15px;
+            box-shadow: 0 0 24px #00fff7a0;
+            padding: 30px;
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+            border: 1.5px solid #00fff7;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 0 32px #00fff7;
+        }
+        
+        .tech-badge {
+            margin: 5px;
+            font-size: 0.9rem;
+            background: none !important;
+            color: inherit !important;
+            font-weight: 600;
+            box-shadow: none;
+        }
+        
+        .project-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 24px #00fff7a0;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            background: #181825;
+            border: 1.5px solid #00fff7;
+            min-height: 200px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 0 32px #00fff7;
+        }
+        
+        .project-card .card-body {
+            padding: 25px;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .highlight-box {
+            background: #16181e;
+            color: #00fff7;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1.5px solid #00fff7;
+            box-shadow: 0 0 8px #00fff730;
+        }
+        
+        .journey-timeline {
+            position: relative;
+            padding-left: 30px;
+            color: #fff;
+        }
+        
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #00fff7;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #00fff7;
+            box-shadow: 0 0 8px #00fff7, 0 0 16px #00fff7;
+        }
+        
+        .quote-box {
+            background: #181825;
+            border-left: 4px solid #00fff7;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #00fff7;
+            box-shadow: 0 0 8px #00fff7a0;
+        }
+        
+        .social-links a {
+            margin: 10px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 8px #00fff7;
+        }
+        
+        .social-links a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 16px #00fff7;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #00fff7 !important;
+            text-shadow: 0 0 8px #00fff7;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            transition: color 0.3s ease;
+            color: #00fff7 !important;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        
+        .nav-link:hover {
+            color: #fff !important;
+            text-shadow: 0 0 8px #00fff7;
+        }
+        
+        .btn-primary {
+            background: #00fff7;
+            color: #0a0a0f;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 0 8px #00fff7;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background: #00bcd4;
+            color: #fff;
+            box-shadow: 0 0 16px #00fff7;
+        }
+        .btn-danger {
+            background: #00bcd4;
+            color: #fff;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 0 8px #00fff7;
+        }
+        .btn-danger:hover, .btn-danger:focus {
+            background: #00fff7;
+            color: #0a0a0f;
+            box-shadow: 0 0 16px #00fff7;
+        }
+        .btn-success {
+            background: #00fff7;
+            color: #0a0a0f;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 0 8px #00fff7;
+        }
+        .btn-success:hover, .btn-success:focus {
+            background: #00bcd4;
+            color: #fff;
+            box-shadow: 0 0 16px #00fff7;
+        }
+        .bg-light {
+            background: #11131a !important;
+        }
+        .text-primary {
+            color: #00fff7 !important;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        .text-success {
+            color: #00fff7 !important;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        .text-info {
+            color: #00fff7 !important;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        .text-warning {
+            color: #00fff7 !important;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        .text-danger {
+            color: #00fff7 !important;
+            text-shadow: 0 0 4px #00fff7;
+        }
+        .fw-bold {
+            letter-spacing: 1px;
+        }
+        ::selection {
+            background: #00fff7;
+            color: #0a0a0f;
+        }
+        
+        /* General responsive improvements */
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            
+            .hero-section {
+                padding: 60px 0 40px;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.75rem !important;
+            }
+            
+            .typing-animation {
+                font-size: 1rem;
+                min-width: 200px;
+                min-height: 2em;
+            }
+            
+            .badge-custom {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+                margin: 3px;
+                display: inline-block;
+                word-break: break-word;
+            }
+            
+            .section-card {
+                padding: 20px;
+                margin: 15px 0;
+            }
+            
+            .project-card {
+                min-height: auto;
+            }
+            
+            .project-card .card-body {
+                padding: 15px;
+            }
+            
+            .project-card img {
+                max-height: 80px !important;
+            }
+            
+            .highlight-box {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .display-4 {
+                font-size: 2rem !important;
+            }
+            
+            .display-6 {
+                font-size: 1.5rem !important;
+            }
+            
+            .lead {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem !important;
+            }
+            
+            h3 {
+                font-size: 1.25rem !important;
+            }
+            
+            h4 {
+                font-size: 1.1rem !important;
+            }
+            
+            h5 {
+                font-size: 1rem !important;
+            }
+            
+            h6 {
+                font-size: 0.9rem !important;
+            }
+            
+            .navbar-brand {
+                font-size: 1.1rem;
+            }
+            
+            .navbar-brand img {
+                width: 30px !important;
+                height: 30px !important;
+            }
+            
+            .quote-box {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-lg {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+            
+            .social-links a {
+                margin: 5px;
+                font-size: 0.85rem;
+            }
+            
+            .col-md-3, .col-md-4, .col-lg-3, .col-lg-4, .col-lg-6 {
+                margin-bottom: 15px !important;
+            }
+            
+            section {
+                padding: 30px 0 !important;
+            }
+            
+            .py-5 {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+            
+            .mb-5 {
+                margin-bottom: 2rem !important;
+            }
+            
+            .card-title {
+                font-size: 0.95rem !important;
+            }
+            
+            .card-text {
+                font-size: 0.85rem !important;
+            }
+            
+            .badge {
+                font-size: 0.7rem !important;
+                padding: 4px 8px !important;
+            }
+            
+            /* Make tech stack icons smaller on mobile */
+            .tech-icon {
+                height: 30px !important;
+                width: 30px !important;
+            }
+            
+            .tech-icon img {
+                height: 28px !important;
+                width: 28px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-section h1 {
+                font-size: 1.5rem !important;
+            }
+            
+            .typing-animation {
+                font-size: 0.9rem;
+                min-width: 150px;
+            }
+            
+            .badge-custom {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+            }
+            
+            .display-6 {
+                font-size: 1.25rem !important;
+            }
+            
+            .btn-lg {
+                font-size: 0.8rem;
+                padding: 8px 16px;
+            }
+            
+            .project-card img {
+                max-height: 60px !important;
+            }
+        }
+        
+        /* Upload Modal Styles */
+        .upload-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .upload-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .upload-content {
+            background: #181825;
+            border: 2px solid #00fff7;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 40px #00fff7;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .upload-close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            color: #00fff7;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-close:hover {
+            color: #ff0000;
+            transform: rotate(90deg);
+        }
+        
+        .upload-zone {
+            border: 2px dashed #00fff7;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #16181e;
+            margin: 20px 0;
+        }
+        
+        .upload-zone:hover {
+            border-color: #00bcd4;
+            background: #1a1c25;
+            transform: scale(1.02);
+        }
+        
+        .upload-zone.dragover {
+            border-color: #00bcd4;
+            background: #1a1c25;
+            box-shadow: 0 0 20px #00fff7a0;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #00fff7;
+            margin-bottom: 10px;
+        }
+        
+        .upload-btn-card {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #00fff7;
+            color: #0a0a0f;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 0 8px #00fff7;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .upload-btn-card.enabled {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            animation: fadeInPulse 0.5s ease;
+        }
+        
+        @keyframes fadeInPulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .upload-btn-card:hover {
+            background: #00bcd4;
+            color: #fff;
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 0 16px #00fff7;
+        }
+        
+        .project-card {
+            position: relative;
+        }
+        
+        .upload-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            border: 2px solid #00fff7;
+            display: none;
+        }
+        
+        .upload-preview.show {
+            display: block;
+        }
+        
+        .toggle-notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #181825;
+            border: 2px solid #00fff7;
+            border-radius: 10px;
+            padding: 15px 25px;
+            z-index: 10000;
+            box-shadow: 0 0 30px #00fff7;
+            animation: slideInRight 0.3s ease;
+            display: none;
+        }
+        
+        .toggle-notification.show {
+            display: block;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        /* Form Styles */
+        .form-control {
+            background: #16181e;
+            border: 1px solid #00fff7;
+            color: #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .form-control:focus {
+            background: #1a1c25;
+            border-color: #00bcd4;
+            color: #fff;
+            box-shadow: 0 0 8px #00fff7a0;
+            outline: none;
+        }
+        
+        .form-control::placeholder {
+            color: #888;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .btn-warning {
+            background: #00fff7;
+            color: #0a0a0f;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 0 8px #00fff7;
+        }
+        
+        .btn-warning:hover, .btn-warning:focus {
+            background: #ffb800;
+            color: #0a0a0f;
+            box-shadow: 0 0 16px #ffb800;
+        }
+        
+        /* Edit Mode Styles */
+        .edit-mode-active {
+            outline: 2px dashed #00fff7 !important;
+            background: #1a1c25 !important;
+            padding: 8px !important;
+            border-radius: 4px;
+            cursor: text;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-mode-active:hover {
+            outline-color: #00bcd4 !important;
+            background: #1f2129 !important;
+        }
+        
+        .edit-mode-active:focus {
+            outline: 3px solid #00fff7 !important;
+            box-shadow: 0 0 16px #00fff7a0;
+        }
+        
+        .edit-mode-toolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #181825;
+            border: 2px solid #00fff7;
+            border-radius: 15px;
+            padding: 20px 30px;
+            z-index: 10001;
+            box-shadow: 0 0 40px #00fff7;
+            display: none;
+        }
+        
+        .edit-mode-toolbar.show {
+            display: block;
+            animation: slideInUp 0.3s ease;
+        }
+        
+        .delete-btn-card {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #ff4444;
+            border: 2px solid #ff0000;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 100;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px #ff4444;
+            font-size: 14px;
+        }
+        
+        .delete-btn-card.enabled {
+            display: block;
+        }
+        
+        .delete-btn-card:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px #ff0000;
+        }
+        
+        .add-new-card-btn {
+            position: absolute;
+            top: 10px;
+            right: 55px;
+            background: #00ff00;
+            border: 2px solid #00cc00;
+            color: #0a0a0f;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px #00ff00;
+            font-size: 18px;
+            font-weight: bold;
+            width: 35px;
+            height: 35px;
+            line-height: 18px;
+        }
+        
+        .add-new-card-btn.enabled {
+            display: block;
+        }
+        
+        .add-new-card-btn:hover {
+            background: #00cc00;
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 0 25px #00ff00;
+        }
+        
+        .category-add-btn {
+            display: none;
+            background: #00ff00;
+            border: 2px solid #00cc00;
+            color: #0a0a0f;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px #00ff00;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 15px;
+            vertical-align: middle;
+        }
+        
+        .category-add-btn.enabled {
+            display: inline-block;
+        }
+        
+        .category-add-btn:hover {
+            background: #00cc00;
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px #00ff00;
+        }
+        .category-selection-options {
+            display: grid;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .category-selection-option {
+            border: 1.5px solid #00fff7;
+            background: #12131b;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: left;
+            color: #e0e0e0;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+        .category-selection-option .option-title {
+            display: block;
+            font-size: 1rem;
+            color: #00fff7;
+        }
+        .category-selection-option small {
+            display: block;
+            font-weight: 400;
+            color: #c0c0c0;
+            margin-top: 5px;
+        }
+        .category-selection-option:hover,
+        .category-selection-option:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px #00fff7;
+            color: #ffffff;
+        }
+        
+        .category-header {
+            display: inline-block;
+            margin: 0;
+        }
+        
+        .add-card-form {
+            background: #181825;
+            border: 2px solid #00fff7;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 0 40px #00fff7;
+            display: none;
+            width: 100%;
+        }
+        
+        .add-card-form.show {
+            display: block;
+            animation: slideInUp 0.3s ease;
+        }
+        
+        .add-card-form-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .add-card-form input,
+        .add-card-form textarea {
+            background: #1a1c25;
+            border: 1px solid #00fff7;
+            color: #e0e0e0;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .add-card-form input:focus,
+        .add-card-form textarea:focus {
+            outline: none;
+            border-color: #00bcd4;
+            box-shadow: 0 0 10px #00fff7;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .inline-add-card-container [contenteditable]:empty:before {
+            content: attr(data-placeholder);
+            color: #888;
+            font-style: italic;
+        }
+        
+        .inline-add-card-container [contenteditable]:focus {
+            outline: 2px solid #00fff7 !important;
+            background: #1f2129 !important;
+        }
+        
+        /* Editable card content in edit mode */
+        .project-card .card-title.edit-mode-active,
+        .project-card .card-text.edit-mode-active,
+        .project-card .badge.edit-mode-active {
+            cursor: text !important;
+            outline: 2px dashed #00fff780 !important;
+            padding: 8px;
+            border-radius: 4px;
+            background: rgba(0, 255, 247, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card .card-title.edit-mode-active:hover,
+        .project-card .card-text.edit-mode-active:hover,
+        .project-card .badge.edit-mode-active:hover {
+            background: rgba(0, 255, 247, 0.1);
+            outline: 2px solid #00fff7 !important;
+        }
+        
+        .project-card .card-title.edit-mode-active:focus,
+        .project-card .card-text.edit-mode-active:focus,
+        .project-card .badge.edit-mode-active:focus {
+            outline: 2px solid #00fff7 !important;
+            background: rgba(0, 255, 247, 0.15);
+            box-shadow: 0 0 15px rgba(0, 255, 247, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Menu Modal -->
+    <div id="mainMenuModal" class="upload-modal">
+        <div class="upload-content">
+            <button class="upload-close" onclick="closeMainMenu()">&times;</button>
+            <h3 class="text-center mb-3" style="color: #00fff7;">Portfolio Manager</h3>
+            <p class="text-center" style="color: #e0e0e0;">Choose an action to modify your portfolio</p>
+            <p class="text-center text-muted" style="font-size: 0.85rem;">Press <kbd>Ctrl+Alt+E</kbd> to toggle</p>
+            
+            <div class="row mt-4">
+                <div class="col-12 mb-3">
+                    <button class="btn btn-primary w-100 btn-lg" onclick="showUploadModal()">
+                        <i class="fas fa-camera me-2"></i>Upload Project Image
+                    </button>
+                </div>
+                <div class="col-12 mb-3">
+                    <button class="btn btn-warning w-100 btn-lg" onclick="toggleEditMode()">
+                        <i class="fas fa-edit me-2"></i>Edit Mode (Add/Delete/Edit)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="upload-modal">
+        <div class="upload-content">
+            <button class="upload-close" onclick="closeUploadModal()">&times;</button>
+            <h3 class="text-center mb-3" style="color: #00fff7;">Upload Project Image</h3>
+            <p class="text-center" style="color: #e0e0e0;">This will update the HTML code and save the image permanently</p>
+            <p class="text-center text-muted" style="font-size: 0.85rem;">Press <kbd>Ctrl+Alt+E</kbd> to toggle upload buttons</p>
+            
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon"></div>
+                <p style="color: #00fff7; font-weight: 600;">Click to upload or drag & drop</p>
+                <p style="color: #e0e0e0; font-size: 0.9rem;">Supports: JPG, PNG, GIF, WebP (Max 5MB)</p>
+            </div>
+            
+            <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+            
+            <img id="uploadPreview" class="upload-preview" alt="Preview">
+            
+            <div class="text-center mt-3">
+                <button id="uploadBtn" class="btn btn-primary" onclick="uploadImage()" style="display: none;">
+                    <i class="fas fa-cloud-upload-alt me-2"></i>Upload Image
+                </button>
+            </div>
+            
+            <div id="uploadStatus" class="text-center mt-3" style="color: #00fff7;"></div>
+        </div>
+    </div>
+    
+    <!-- Edit Mode Toolbar -->
+    <div id="editModeToolbar" class="edit-mode-toolbar">
+        <h5 class="text-center mb-3" style="color: #00fff7;">
+            <i class="fas fa-edit me-2"></i>Edit Mode Active
+        </h5>
+        <p class="text-center mb-3" style="color: #e0e0e0; font-size: 0.9rem;">
+            Click text to edit • Red buttons to delete cards
+        </p>
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg me-2" onclick="saveAllEdits()">
+                <i class="fas fa-save me-2"></i>Save & Exit
+            </button>
+            <button class="btn btn-danger" onclick="cancelEditMode()">
+                <i class="fas fa-times me-2"></i>Cancel
+            </button>
+        </div>
+        <div id="editModeStatus" class="text-center mt-3" style="color: #00fff7;"></div>
+    </div>
+    
+    <!-- Inline Add Card Form -->
+    <div id="addCardForm" class="add-card-form">
+        <h4 class="text-center mb-4" style="color: #00fff7;">
+            <i class="fas fa-plus-circle me-2"></i>Add New Flagship Project
+        </h4>
+        
+        <label style="color: #00fff7;">Project Title *</label>
+        <input type="text" id="inlineCardTitle" placeholder="e.g., My Awesome Project" required>
+        
+        <label style="color: #00fff7;">Institution/Organization *</label>
+        <input type="text" id="inlineCardInstitution" placeholder="e.g., 🏛️ Your Institution Name" required>
+        
+        <label style="color: #00fff7;">Category *</label>
+        <select id="inlineCardCategory" style="background: #1a1c25; border: 1px solid #00fff7; color: #e0e0e0; padding: 10px; border-radius: 8px; width: 100%; margin-bottom: 15px;" required>
+            <option value="">Select a category...</option>
+            <option value="flagship">🌟 Flagship Projects</option>
+            <option value="business">💼 Business Solutions</option>
+            <option value="smart">📱 Smart Applications</option>
+            <option value="healthcare">🏥 Healthcare Systems</option>
+            <option value="side">🎯 Side Projects</option>
+        </select>
+        
+        <label style="color: #00fff7;">Description *</label>
+        <textarea id="inlineCardDescription" rows="3" placeholder="Brief description of your project..." required></textarea>
+        
+        <label style="color: #00fff7;">Technologies/Badges (comma-separated) *</label>
+        <input type="text" id="inlineCardTechs" placeholder="e.g., PHP, MySQL, Bootstrap" required>
+        
+        <label style="color: #00fff7;">Upload Project Image (optional)</label>
+        <input type="file" id="inlineCardImage" accept="image/*" style="color: #e0e0e0;">
+        
+        <div class="text-center mt-4">
+            <button class="btn btn-success btn-lg me-2" onclick="addInlineCard()">
+                <i class="fas fa-check me-2"></i>Add Card
+            </button>
+            <button class="btn btn-secondary" onclick="closeInlineAddCard()">
+                <i class="fas fa-times me-2"></i>Cancel
+            </button>
+        </div>
+        
+        <div id="inlineCardStatus" class="text-center mt-3" style="color: #00fff7;"></div>
+    </div>
+    
+    <!-- Toggle Notification -->
+    <div id="toggleNotification" class="toggle-notification">
+        <p class="mb-0" style="color: #00fff7; font-weight: 600;">
+            <i class="fas fa-camera me-2"></i><span id="notificationText">Upload buttons enabled!</span>
+        </p>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+                Russel's Portfolio
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-center" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-lg-start" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-lg-start" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-lg-start" href="#journey">Journey</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-lg-start" href="#tech">Tech Stack</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-lg-start" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-center text-lg-start" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold">Jan Russel E. Peñafiel</h1>            
+            <div class="typing-animation">
+                <span id="typing-text"></span>
+            </div>
+            
+            <div class="mt-4">
+                <a href="https://github.com/Jan-Russel-Penafiel" class="badge-custom" target="_blank">
+                    <i class="fab fa-github me-2"></i>GitHub - View My Projects
+                </a>
+                <a href="https://www.linkedin.com/in/jan-russel-peñafiel-a1799036b" class="badge-custom" target="_blank">
+                    <i class="fab fa-linkedin me-2"></i>LinkedIn - Connect With Me
+                </a>
+                <a href="./resume.pdf" class="badge-custom" download>
+                    <i class="fas fa-file-pdf me-2"></i>Resume - View Complete PDF
+                </a>
+            </div>
+            
+            <div class="mt-3">
+                <span class="badge-custom">
+                    <i class="fas fa-building me-2"></i>Company: Asyncs Innovations
+                </span>
+                <span class="badge-custom">
+                    <i class="fas fa-map-marker-alt me-2"></i> Location: Panay, Santo Niño, South Cotabato
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="display-6 fw-bold">Tech Stack</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100">
+                        <div class="card-body p-3">
+                            <h6 class="text-center mb-3 fw-bold">Current Stacks</h6>
+                            <div class="text-center mb-3">
+                                <h6 class="fw-bold mb-2">Languages & Frameworks</h6>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codeigniter/codeigniter-plain.svg" alt="CodeIgniter" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="tech-icon" style="height:40px; width:40px;" />
+                                </div>
+                            </div>
+                            <div class="text-center mb-3">
+                                <h6 class="fw-bold mb-2">Database & Tools</h6>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg" alt="Apache" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="tech-icon" style="height:40px; width:40px;" />
+                                    <span class="tech-icon" style="display:inline-flex; align-items:center; justify-content:center; background:#fff; border-radius:50%; padding:2px; height:40px; width:40px;">
+                                      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="height:36px; width:36px;" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h6 class="fw-bold mb-2">IDEs & Tools</h6>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg" alt="Windows" class="tech-icon" style="height:40px; width:40px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100">
+                        <div class="card-body p-3">
+                            <h6 class="text-center mb-3 fw-bold">Target Stack</h6>
+                            <div class="text-center mb-3">
+                                <h6 class="fw-bold mb-2">Backend & Frameworks</h6>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-plain.svg" alt="ASP.NET" class="tech-icon" style="height:40px; width:40px;" />
+                                </div>
+                            </div>
+                            <div class="text-center mb-3">
+                                <h6 class="fw-bold mb-2">Frontend & JavaScript</h6>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg" alt="Svelte" class="tech-icon" style="height:40px; width:40px;" />
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h6 class="fw-bold mb-2">Database & Cloud</h6>
+                                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 8px;">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" class="tech-icon" style="height:40px; width:40px;" />
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" class="tech-icon" style="height:40px; width:40px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Summary -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">Portfolio Summary</h2>
+            </div>
+            
+            <div class="text-center">
+                <h4 class="fw-bold">Freelance Student Web Developer | Founder of CTRL J</h4>
+                <p class="lead fst-italic">Transforming ideas into impactful digital solutions while pursuing academic excellence</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h5 class="fw-bold mb-3">Highlights</h5>
+                <div class="text-center">
+                    <span class="badge-custom me-2 mb-2">Healthcare Systems Specialist</span>
+                    <span class="badge-custom me-2 mb-2">Government Services Expert</span>
+                    <span class="badge-custom me-2 mb-2">15+ Web Projects Delivered</span>
+                    <span class="badge-custom me-2 mb-2">3rd Year IT Student at SKSU</span>
+                    <span class="badge-custom me-2 mb-2">PHP & MySQL Expert</span>
+                    <span class="badge-custom me-2 mb-2">Open for Freelance</span>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p class="lead"><i>Let's collaborate to bring your web development ideas to life!</i></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">About Me</h2>
+            </div>
+            
+            <div class="section-card">
+                <div class="row text-center">
+                    <div class="col-md-4 mb-3">
+                        <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Personal Info</h6>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
+                            <strong>Jan Russel E. Peñafiel</strong><br>
+                            Freelance Student Developer<br>
+                            Founder of CTRL J
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Education</h6>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
+                            3rd Year IT Student<br>
+                            Sultan Kudarat State University<br>
+                            Web Development Passionate
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Focus Areas</h6>
+                        <div class="bg-dark text-light p-2 rounded" style="font-size: 0.8rem;">
+                            Healthcare Systems<br>
+                            Government Services<br>
+                            Educational Technology
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box mt-3" style="padding: 15px;">
+                    <h6 class="fw-bold mb-2" style="font-size: 0.9rem;">Key Achievements</h6>
+                    <div class="text-center">
+                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded CTRL J as a student</span>
+                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Deployed Electronic Health Record System</span>
+                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">15+ Successful Web Projects</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="display-6 fw-bold mb-4">Resume</h2>
+            <a href="./resume.pdf" class="btn btn-primary btn-lg" download>
+                <i class="fas fa-file-pdf me-2"></i>My Resume - View Complete PDF
+            </a>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section id="journey" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">My Web Development Journey</h2>
+            </div>
+            
+            <div class="quote-box">
+                <h5 class="fw-bold">My Journey Summary</h5>
+                <p class="mb-0">"From struggling with C++ in first year to building 15+ web systems and earning 100k+ as a student developer. Founded CTRL J while pursuing my IT degree at SKSU."</p>
+            </div>
+            
+            <div class="row text-center">
+                <div class="col-md-3 mb-3">
+                    <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
+                        <h6 class="fw-bold text-primary mb-1" style="font-size: 0.9rem;">Year 1</h6>
+                        <p class="mb-0" style="font-size: 0.8rem;">Discovered PHP & MySQL</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
+                        <h6 class="fw-bold text-success mb-1" style="font-size: 0.9rem;">Year 2</h6>
+                        <p class="mb-0" style="font-size: 0.8rem;">Built 15+ systems, earned 13k</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
+                        <h6 class="fw-bold text-warning mb-1" style="font-size: 0.9rem;">Year 3</h6>
+                        <p class="mb-0" style="font-size: 0.8rem;">Accomplished 100k+ earnings</p>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
+                        <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">Year 4</h6>
+                        <p class="mb-0" style="font-size: 0.8rem;">Deploying SKSU Access Campus System with copyright & certification</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">🎯 Featured Projects</h2>
+                <div>
+                    <h4 class="text-primary category-header">🌟 Flagship Projects 🌟</h4>
+                    <button class="category-add-btn" onclick="showCategoryAddCard(event, 'flagship-main')" title="Add New Card">+</button>
+                </div>
+            </div>
+            
+            <!-- All Projects -->
+            <div class="row mb-5" id="flagshipMainRow">
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="sksu-monitoring">
+                        <button class="upload-btn-card" onclick="openUploadModal('sksu-monitoring')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./uploads/project_694bab8882ff38.42646581.png" target="_blank"><img src="./uploads/project_694bab8882ff38.42646581.png" alt="SKSU Scholarship Monitoring System" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">Monitoring of Liquidation of the Scholarship Recipients</h5>
+                            <h6 class="text-center text-warning mb-3">🏛️ Sultan Kudarat State University</h6>
+                            <p class="card-text text-center">🎓 Comprehensive system for tracking and managing scholarship liquidation processes, ensuring transparency and accountability in scholarship fund management.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-graduation-cap me-1"></i> Scholarship Management</span>
+                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-file-invoice-dollar me-1"></i> Liquidation Tracking</span>
+                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-line me-1"></i> Reports & Analytics</span>
+                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-university me-1"></i> SKSU Official System</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('sksu-monitoring')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="russels-hr">
+                        <button class="upload-btn-card" onclick="openUploadModal('russels-hr')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./RUSSELS.png" target="_blank">
+                                    <img src="./RUSSELS.png" alt="Russel's Chicken Delights HR System" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">Russel's Chicken Delights HR System</h5>
+                            <h6 class="text-center text-warning mb-3">🏛️ Complete HR Management for Restaurant Chain</h6>
+                            <p class="card-text text-center">Comprehensive HR management system for restaurant chain operations including employee management, time tracking, scheduling, and payroll processing.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users me-1"></i> Employee Management</span>
+                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-clock me-1"></i> Time Tracking</span>
+                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-calendar-alt me-1"></i> Scheduling</span>
+                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-money-bill-wave me-1"></i> Payroll</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('russels-hr')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="kes-smart">
+                        <button class="upload-btn-card" onclick="openUploadModal('kes-smart')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./KES-SMART.png" target="_blank">
+                                    <img src="./KES-SMART.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
+                            <h6 class="text-center text-warning mb-3">📱 Student Monitoring with QR & SMS</h6>
+                            <p class="card-text text-center">Smart student monitoring system with QR code attendance and automated SMS notifications for parents and administrators.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1">📱 QR Attendance</span>
+                                <span class="badge bg-success me-1 mb-1">📩 SMS Alerts</span>
+                                <span class="badge bg-info me-1 mb-1">👥 Multi-User</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('kes-smart')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="bhc-connect">
+                        <button class="upload-btn-card" onclick="openUploadModal('bhc-connect')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./BHC.png" target="_blank">
+                                    <img src="./BHC.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
+                            <h6 class="text-center text-warning mb-3">🏥 Digital Barangay Health Center</h6>
+                            <p class="card-text text-center">Comprehensive digital health center management system for barangay health services with patient records, appointments, and medicine tracking.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1">📋 Patient Records</span>
+                                <span class="badge bg-success me-1 mb-1">📅 Appointments</span>
+                                <span class="badge bg-info me-1 mb-1">💊 Medicine Tracker</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('bhc-connect')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="healthconnect">
+                        <button class="upload-btn-card" onclick="openUploadModal('healthconnect')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./HealthConnect.png" target="_blank">
+                                    <img src="./HealthConnect.png" alt="HealthConnect" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">HealthConnect</h5>
+                            <h6 class="text-center text-warning mb-3">🏥 Mobile Health Center App</h6>
+                            <p class="card-text text-center">Mobile health center application with patient management, immunization tracking, and comprehensive analytics for healthcare providers.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1">👥 Patient Management</span>
+                                <span class="badge bg-success me-1 mb-1">💉 Immunization</span>
+                                <span class="badge bg-info me-1 mb-1">📊 Analytics</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('healthconnect')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="immucare">
+                        <button class="upload-btn-card" onclick="openUploadModal('immucare')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./IMMUCARE.png" target="_blank">
+                                    <img src="./IMMUCARE.png" alt="ImmuCare" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
+                            <h6 class="text-center text-warning mb-3">Smart Immunization Registry</h6>
+                            <p class="card-text text-center">Intelligent immunization registry system with automated scheduling, smart alerts, tracking dashboard, and comprehensive progress reports.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1">Auto Scheduling</span>
+                                <span class="badge bg-success me-1 mb-1">? Smart Alerts</span>
+                                <span class="badge bg-info me-1 mb-1">Tracking Dashboard</span>
+                                <span class="badge bg-warning me-1 mb-1">Progress Reports</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('immucare')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="aidtrack">
+                        <button class="upload-btn-card" onclick="openUploadModal('aidtrack')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./AID TRACk.png" target="_blank">
+                                    <img src="./AID TRACk.png" alt="AidTrack" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">AidTrack</h5>
+                            <h6 class="text-center text-warning mb-3">📊 Aid Distribution System for Barangay Bual</h6>
+                            <p class="card-text text-center">Comprehensive aid distribution tracking system with SMS alerts, analytics dashboard, and feedback mechanisms for efficient barangay aid management.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1">📦 Aid Tracking</span>
+                                <span class="badge bg-success me-1 mb-1">📱 SMS Alerts</span>
+                                <span class="badge bg-info me-1 mb-1">📊 Analytics</span>
+                                <span class="badge bg-warning me-1 mb-1">💬 Feedback</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('aidtrack')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-3">
+                    <div class="project-card card h-100" data-project-id="bm-scapis">
+                        <button class="upload-btn-card" onclick="openUploadModal('bm-scapis')" title="Upload Image (Ctrl+Alt+E)">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <div class="card-body p-3">
+                            <div class="text-center">
+                                <a href="./BC CAPS.png" target="_blank">
+                                    <img src="./BC CAPS.png" alt="BM-SCaPIS" class="img-fluid rounded mb-2" style="max-height:150px;">
+                                </a>
+                            </div>
+                            <h5 class="card-title fw-bold text-center text-primary">BM-SCaPIS</h5>
+                            <h6 class="text-center text-warning mb-3">🏛️ Smart Clearance & Permit System</h6>
+                            <p class="card-text text-center">Smart clearance and permit issuance system with online forms, status tracking, scheduling, and comprehensive reporting for barangay services.</p>
+                            <div class="text-center mb-3">
+                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-file-alt me-1"></i> Online Forms</span>
+                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-tasks me-1"></i> Status Tracking</span>
+                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-calendar-alt me-1"></i> Scheduling</span>
+                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-chart-bar me-1"></i> Reports</span>
+                            </div>
+                            <div class="text-center">
+                                <button class="delete-btn-card" onclick="deleteCard('bm-scapis')" title="Delete Card">
+                                    <i class="fas fa-trash me-1"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold">Connect With Me</h2>
+            </div>
+            
+                        <div class="text-center social-links">
+                <a href="https://www.facebook.com/russelicioush" class="btn btn-primary btn-lg me-3" target="_blank">
+                    <i class="fab fa-facebook me-2"></i>Facebook
+                </a>
+                <a href="mailto:janrusselpenafiel01172005@gmail.com" class="btn btn-danger btn-lg me-3">
+                    <i class="fas fa-envelope me-2"></i>Email
+                </a>
+                <a href="tel:+639677726912" class="btn btn-success btn-lg">
+                    <i class="fas fa-phone me-2"></i>Call: +63 967 772 6912
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-2">Last updated: 2024-03-19</p>
+            <p class="mb-0">
+                <i class="fas fa-heart text-primary"></i> Made with <span style="color:#00fff7"></span> by Jan Russel
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Typing Animation Script -->
+    <script>
+        const texts = [
+            "Freelance Student Web Developer",
+            "Information Technology Student", 
+            "Building Solutions that Matter",
+            "I'm Open for Freelancing"
+        ];
+        
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+        
+        function typeText() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500; // Pause before next word
+            }
+            
+            setTimeout(typeText, typeSpeed);
+        }
+        
+        // Start typing animation when page loads
+        window.addEventListener('load', typeText);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Auto-close navbar on mobile after click
+                const navbarToggler = document.querySelector('.navbar-toggler');
+                const navbarCollapse = document.getElementById('navbarNav');
+                if (navbarToggler && navbarCollapse.classList.contains('show')) {
+                    navbarToggler.click();
+                }
+            });
+        });
+        
+        // Upload Modal Functions
+        let currentProjectId = null;
+        let selectedFile = null;
+        let uploadButtonsEnabled = false;
+        let editModeActive = false;
+        let originalTexts = new Map();
+        let editableElements = [];
+        
+        // Keyboard shortcut: Ctrl+Alt+E to open main menu or toggle edit mode
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'e') {
+                e.preventDefault();
+                if (editModeActive) {
+                    saveAllEdits();
+                } else {
+                    openMainMenu();
+                }
+            }
+        });
+        
+        // Main Menu Functions
+        function openMainMenu() {
+            document.getElementById('mainMenuModal').classList.add('active');
+        }
+        
+        function closeMainMenu() {
+            document.getElementById('mainMenuModal').classList.remove('active');
+        }
+        
+        function showUploadModal() {
+            closeMainMenu();
+            toggleUploadButtons();
+        }
+        
+        function toggleEditMode() {
+            closeMainMenu();
+            if (editModeActive) {
+                saveAllEdits();
+            } else {
+                enterEditMode();
+            }
+        }
+        
+        function toggleUploadButtons() {
+            uploadButtonsEnabled = !uploadButtonsEnabled;
+            const uploadButtons = document.querySelectorAll('.upload-btn-card');
+            
+            uploadButtons.forEach(button => {
+                if (uploadButtonsEnabled) {
+                    button.classList.add('enabled');
+                } else {
+                    button.classList.remove('enabled');
+                }
+            });
+            
+            // Show notification
+            showToggleNotification(uploadButtonsEnabled);
+        }
+        
+        function showToggleNotification(enabled) {
+            const notification = document.getElementById('toggleNotification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.innerHTML = enabled 
+                ? '<i class="fas fa-check-circle me-2"></i>Upload buttons enabled!' 
+                : '<i class="fas fa-times-circle me-2"></i>Upload buttons disabled!';
+            
+            notification.classList.add('show');
+            
+            // Auto hide after 2 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    notification.style.animation = '';
+                }, 300);
+            }, 2000);
+        }
+        
+        function openUploadModal(projectId) {
+            currentProjectId = projectId;
+            const modal = document.getElementById('uploadModal');
+            modal.classList.add('active');
+            resetUploadForm();
+        }
+        
+        function closeUploadModal() {
+            const modal = document.getElementById('uploadModal');
+            modal.classList.remove('active');
+            resetUploadForm();
+        }
+        
+        function resetUploadForm() {
+            document.getElementById('fileInput').value = '';
+            document.getElementById('uploadPreview').classList.remove('show');
+            document.getElementById('uploadBtn').style.display = 'none';
+            document.getElementById('uploadStatus').innerHTML = '';
+            selectedFile = null;
+        }
+        
+        // Drag and drop functionality
+        const uploadZone = document.getElementById('uploadZone');
+        
+        uploadZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        
+        uploadZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+        });
+        
+        uploadZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+        
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+        
+        function handleFile(file) {
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                showStatus('Invalid file type. Please select an image file.', 'error');
+                return;
+            }
+            
+            // Validate file size (5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                showStatus('File size exceeds 5MB limit.', 'error');
+                return;
+            }
+            
+            selectedFile = file;
+            
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('uploadPreview');
+                preview.src = e.target.result;
+                preview.classList.add('show');
+                document.getElementById('uploadBtn').style.display = 'inline-block';
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function uploadImage() {
+            if (!selectedFile || !currentProjectId) {
+                showStatus('Please select a file first.', 'error');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('image', selectedFile);
+            formData.append('project_id', currentProjectId);
+            
+            showStatus('Uploading and updating HTML...', 'info');
+            document.getElementById('uploadBtn').disabled = true;
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.data.html_updated) {
+                        showStatus('? Upload successful! HTML updated. Reloading page...', 'success');
+                        // Reload page after 2 seconds to show updated HTML
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        showStatus('? Upload successful! Note: ' + data.data.html_message, 'success');
+                        updateProjectImage(currentProjectId, data.data.path);
+                        setTimeout(() => {
+                            closeUploadModal();
+                        }, 1500);
+                    }
+                } else {
+                    showStatus('? Upload failed: ' + data.message, 'error');
+                }
+            })
+            .catch(error => {
+                showStatus('? Upload error: ' + error.message, 'error');
+            })
+            .finally(() => {
+                document.getElementById('uploadBtn').disabled = false;
+            });
+        }
+        
+        function updateProjectImage(projectId, imagePath) {
+            const projectCard = document.querySelector(`[data-project-id="${projectId}"]`);
+            if (projectCard) {
+                const img = projectCard.querySelector('img');
+                if (img) {
+                    img.src = imagePath;
+                    img.parentElement.href = imagePath;
+                }
+            }
+        }
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('uploadStatus');
+            statusDiv.innerHTML = message;
+            statusDiv.style.color = type === 'error' ? '#ff4444' : type === 'success' ? '#00ff00' : '#00fff7';
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('uploadModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeUploadModal();
+            }
+        });
+        
+        // Inline Edit Mode Functions
+        function enterEditMode() {
+            editModeActive = true;
+            originalTexts.clear();
+            editableElements = [];
+            
+            // Select all editable text elements
+            const selectors = [
+                'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                'p:not(.mb-0)', '.card-title', '.card-text',
+                '.lead', '.badge-custom', '.badge',
+                '.quote-box', '.highlight-box h5',
+                '.display-4', '.display-6'
+            ];
+            
+            selectors.forEach(selector => {
+                document.querySelectorAll(selector).forEach(element => {
+                    // Skip if inside navbar, footer, modals, or buttons
+                    if (element.closest('nav') || element.closest('footer') || 
+                        element.closest('.upload-modal') || element.closest('button') ||
+                        element.closest('.edit-mode-toolbar')) {
+                        return;
+                    }
+                    
+                    const originalText = element.textContent.trim();
+                    if (originalText) {
+                        element.setAttribute('contenteditable', 'true');
+                        element.classList.add('edit-mode-active');
+                        element.setAttribute('data-original', originalText);
+                        originalTexts.set(element, originalText);
+                        editableElements.push(element);
+                        
+                        // Special handling for project card elements - set cursor placement
+                        if (element.closest('.project-card')) {
+                            element.style.cursor = 'text';
+                            // Add click handler to ensure cursor placement works
+                            element.addEventListener('click', function(e) {
+                                if (editModeActive) {
+                                    e.stopPropagation();
+                                    this.focus();
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Show delete buttons on all cards
+            const deleteButtons = document.querySelectorAll('.delete-btn-card');
+            deleteButtons.forEach(btn => btn.classList.add('enabled'));
+            
+            // Show category add buttons
+            const categoryAddButtons = document.querySelectorAll('.category-add-btn');
+            categoryAddButtons.forEach(btn => btn.classList.add('enabled'));
+            
+            // Show toolbar
+            document.getElementById('editModeToolbar').classList.add('show');
+            
+            // Show notification
+            const notification = document.getElementById('toggleNotification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.innerHTML = '<i class="fas fa-edit me-2"></i>Edit Mode Active - Edit text, add/delete cards';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    notification.style.animation = '';
+                }, 300);
+            }, 3000);
+        }
+        
+        function exitEditMode() {
+            editModeActive = false;
+            
+            editableElements.forEach(element => {
+                element.removeAttribute('contenteditable');
+                element.classList.remove('edit-mode-active');
+                element.removeAttribute('data-original');
+            });
+            
+            editableElements = [];
+            originalTexts.clear();
+            
+            // Hide delete buttons
+            const deleteButtons = document.querySelectorAll('.delete-btn-card');
+            deleteButtons.forEach(btn => btn.classList.remove('enabled'));
+            
+            // Hide category add buttons
+            const categoryAddButtons = document.querySelectorAll('.category-add-btn');
+            categoryAddButtons.forEach(btn => btn.classList.remove('enabled'));
+            
+            document.getElementById('editModeToolbar').classList.remove('show');
+            document.getElementById('addCardForm').classList.remove('show');
+        }
+        
+        function cancelEditMode() {
+            // Restore original text
+            editableElements.forEach(element => {
+                const original = originalTexts.get(element);
+                if (original) {
+                    element.textContent = original;
+                }
+            });
+            
+            exitEditMode();
+            
+            // Show notification
+            const notification = document.getElementById('toggleNotification');
+            const notificationText = document.getElementById('notificationText');
+            notificationText.innerHTML = '<i class="fas fa-times-circle me-2"></i>Edit mode cancelled';
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    notification.style.animation = '';
+                }, 300);
+            }, 2000);
+        }
+        
+        function saveAllEdits() {
+            const edits = [];
+            
+            editableElements.forEach(element => {
+                const oldText = originalTexts.get(element);
+                const newText = element.textContent.trim();
+                
+                if (oldText && newText && oldText !== newText) {
+                    edits.push({
+                        selector: element.tagName,
+                        oldText: oldText,
+                        newText: newText
+                    });
+                }
+            });
+            
+            if (edits.length === 0) {
+                exitEditMode();
+                const notification = document.getElementById('toggleNotification');
+                const notificationText = document.getElementById('notificationText');
+                notificationText.innerHTML = '<i class="fas fa-info-circle me-2"></i>No changes to save';
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                        notification.style.animation = '';
+                    }, 300);
+                }, 2000);
+                return;
+            }
+            
+            // Show saving status
+            const statusDiv = document.getElementById('editModeStatus');
+            statusDiv.innerHTML = 'Saving ' + edits.length + ' changes...';
+            statusDiv.style.color = '#00fff7';
+            
+            const formData = new FormData();
+            formData.append('action', 'save_all_edits');
+            formData.append('edits', JSON.stringify(edits));
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    statusDiv.innerHTML = '? Saved! Reloading...';
+                    statusDiv.style.color = '#00ff00';
+                    exitEditMode();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    statusDiv.innerHTML = '? Failed: ' + data.message;
+                    statusDiv.style.color = '#ff4444';
+                }
+            })
+            .catch(error => {
+                statusDiv.innerHTML = '? Error: ' + error.message;
+                statusDiv.style.color = '#ff4444';
+            });
+        }
+        
+        // Inline Add Card Functions
+        let currentAddCardLocation = null;
+        let selectedCategory = '';
+        
+        function showCategoryAddCard(event, category) {
+            const existingInlineCard = document.querySelector('.inline-add-card-container');
+            if (existingInlineCard) {
+                existingInlineCard.remove();
+            }
+            
+            selectedCategory = category || 'flagship-main';
+            
+            let targetRow = null;
+            const normalizedCategory = (category || 'flagship-main').toLowerCase();
+            
+            // Direct mapping for flagship sub-categories
+            if (normalizedCategory === 'flagship-main') {
+                targetRow = document.getElementById('flagshipMainRow');
+            } else if (normalizedCategory === 'flagship-additional') {
+                targetRow = document.getElementById('flagshipAdditionalRow');
+            }
+            
+            // Fallback to contextual lookup when no explicit row is defined
+            if (!targetRow) {
+                let button = null;
+                if (event) {
+                    button = event.target ? event.target : event;
+                }
+                if (button) {
+                    targetRow = button.closest('.row');
+                    
+                    if (!targetRow) {
+                        let currentElement = button;
+                        let foundRow = false;
+                        
+                        while (currentElement && !foundRow) {
+                            let nextSibling = currentElement.nextElementSibling;
+                            
+                            while (nextSibling) {
+                                if (nextSibling.classList && nextSibling.classList.contains('row')) {
+                                    targetRow = nextSibling;
+                                    foundRow = true;
+                                    break;
+                                }
+                                nextSibling = nextSibling.nextElementSibling;
+                            }
+                            
+                            if (!foundRow) {
+                                currentElement = currentElement.parentElement;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if (!targetRow) {
+                console.error('Could not find target row for inline card');
+                return;
+            }
+            
+            if (!targetRow.querySelector('.project-card')) {
+                let nextRow = targetRow.nextElementSibling;
+                while (nextRow && !nextRow.classList.contains('row')) {
+                    nextRow = nextRow.nextElementSibling;
+                }
+                if (nextRow && nextRow.querySelector('.project-card')) {
+                    targetRow = nextRow;
+                }
+            }
+            
+            const referenceColumn = targetRow.querySelector('[class*="col-"]:not(.add-card-form-container)');
+            let columnClass = 'col-lg-6 mb-3 inline-add-card-container';
+            
+            const cardContainer = document.createElement('div');
+            cardContainer.className = columnClass.trim();
+            cardContainer.innerHTML = `
+                <div class="project-card card h-100" style="border: 3px dashed #00fff7; animation: slideInUp 0.3s ease;">
+                    <div class="card-body p-3" style="background: #1a1c25;">
+                        <div class="text-center mb-2">
+                            <div class="upload-icon" style="font-size: 48px; color: #00fff7; cursor: pointer;" onclick="document.getElementById('inlineCardImageInput').click()">
+                                <i class="fas fa-image"></i>
+                            </div>
+                            <input type="file" id="inlineCardImageInput" accept="image/*" style="display: none;" onchange="handleInlineImageUpload(event)">
+                            <img id="inlineCardImagePreview" src="" alt="" class="img-fluid rounded mb-2" style="max-height:50px; display: none;">
+                        </div>
+                        <h6 class="card-title fw-bold text-center" contenteditable="true" data-placeholder="Enter Project Title" style="min-height: 30px; outline: 2px dashed #00fff780; padding: 8px; border-radius: 4px; color: #00fff7;"></h6>
+                        <p class="card-text text-center small" contenteditable="true" data-placeholder="Enter Description" style="min-height: 40px; outline: 2px dashed #00fff780; padding: 8px; border-radius: 4px; margin-bottom: 15px;"></p>
+                        <div class="text-center mb-3">
+                            <input type="text" id="inlineBadgesInput" placeholder="Enter badges (comma-separated)" class="form-control" style="background: #16181e; border: 1px solid #00fff7; color: #e0e0e0;">
+                        </div>
+                        <div id="inlineBadgesPreview" class="text-center mb-3"></div>
+                        <div class="text-center">
+                            <button class="btn btn-success me-2" onclick="saveInlineCard('${category}')">
+                                <i class="fas fa-check me-1"></i> Save Card
+                            </button>
+                            <button class="btn btn-secondary" onclick="cancelInlineCard()">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </button>
+                        </div>
+                        <div id="inlineCardSaveStatus" class="text-center mt-2" style="color: #00fff7; font-size: 0.9rem;"></div>
+                    </div>
+                </div>
+            `;
+            
+            // Insert the card as the first item in the row (leftmost position)
+            targetRow.insertBefore(cardContainer, targetRow.firstChild);
+            
+            // Add input listener for badges
+            const badgesInput = document.getElementById('inlineBadgesInput');
+            badgesInput.addEventListener('input', function() {
+                const badges = this.value.split(',').map(b => b.trim()).filter(b => b);
+                const preview = document.getElementById('inlineBadgesPreview');
+                preview.innerHTML = badges.map(badge => 
+                    `<span class="badge bg-primary me-1 mb-1">${badge}</span>`
+                ).join('');
+            });
+            
+            // Scroll to the card
+            setTimeout(() => {
+                cardContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+        
+        function showInlineAddCard(event) {
+            // Close any existing form
+            const existingForm = document.querySelector('.add-card-form-container');
+            if (existingForm) {
+                existingForm.remove();
+            }
+            
+            // Find the card that was clicked
+            const button = event ? event.target.closest('.add-new-card-btn') : null;
+            const cardColumn = button ? button.closest('.col-lg-4, .col-lg-6, .col-lg-3') : null;
+            
+            if (!cardColumn) return;
+            
+            // Find the row containing this card
+            const row = cardColumn.closest('.row');
+            if (!row) return;
+            
+            // Clone the form template
+            const formTemplate = document.getElementById('addCardForm');
+            const formClone = formTemplate.cloneNode(true);
+            formClone.id = 'addCardFormInline';
+            formClone.classList.add('show');
+            
+            // Create a full-width container for the form
+            const formContainer = document.createElement('div');
+            formContainer.className = 'col-12 add-card-form-container';
+            formContainer.appendChild(formClone);
+            
+            // Insert after the current row
+            row.parentElement.insertBefore(formContainer, row.nextSibling);
+            
+            // Store the location
+            currentAddCardLocation = formContainer;
+            
+            // Scroll to the form
+            setTimeout(() => {
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+        
+        let inlineCardImageFile = null;
+        
+        function handleInlineImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                inlineCardImageFile = file;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('inlineCardImagePreview');
+                    const icon = document.querySelector('.inline-add-card-container .upload-icon');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    icon.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function saveInlineCard(category) {
+            const container = document.querySelector('.inline-add-card-container');
+            const title = container.querySelector('.card-title').textContent.trim();
+            const description = container.querySelector('.card-text').textContent.trim();
+            const badgesInput = document.getElementById('inlineBadgesInput').value.trim();
+            const statusDiv = document.getElementById('inlineCardSaveStatus');
+            
+            if (!title || !description || !badgesInput) {
+                statusDiv.innerHTML = '⚠️ Please fill in all fields';
+                statusDiv.style.color = '#ff4444';
+                return;
+            }
+            
+            if (!inlineCardImageFile) {
+                statusDiv.innerHTML = '⚠️ Please upload an image';
+                statusDiv.style.color = '#ff4444';
+                return;
+            }
+            
+            const badges = badgesInput.split(',').map(b => b.trim()).filter(b => b);
+            
+            // Generate a unique project ID based on title
+            const projectId = title.toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+            const placementCategory = (category || 'flagship-main').toLowerCase();
+            let displayCategory = category || 'flagship';
+            let backendCategory = 'flagship-main';
+            if (placementCategory.startsWith('flagship')) {
+                displayCategory = 'flagship';
+                backendCategory = 'flagship-main';
+            }
+            const formData = new FormData();
+            formData.append('action', 'add_card');
+            formData.append('project_id', projectId);
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('badges', JSON.stringify(badges));
+            formData.append('category', displayCategory);
+            formData.append('card_category', backendCategory);
+            formData.append('card_image', inlineCardImageFile);
+            
+            statusDiv.innerHTML = '💾 Saving card...';
+            statusDiv.style.color = '#00fff7';
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    statusDiv.innerHTML = '✅ Card added! Reloading...';
+                    statusDiv.style.color = '#00ff00';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    statusDiv.innerHTML = '❌ Failed: ' + data.message;
+                    statusDiv.style.color = '#ff4444';
+                }
+            })
+            .catch(error => {
+                statusDiv.innerHTML = '❌ Error: ' + error.message;
+                statusDiv.style.color = '#ff4444';
+            });
+        }
+        
+        function cancelInlineCard() {
+            const container = document.querySelector('.inline-add-card-container');
+            if (container) {
+                container.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => container.remove(), 300);
+            }
+            inlineCardImageFile = null;
+        }
+        
+        function closeInlineAddCard() {
+            cancelInlineCard();
+            currentAddCardLocation = null;
+            selectedCategory = '';
+        }
+        
+        function addInlineCard() {
+            const form = document.getElementById('addCardFormInline') || document.getElementById('addCardForm');
+            const title = form.querySelector('#inlineCardTitle').value.trim();
+            const institution = form.querySelector('#inlineCardInstitution').value.trim();
+            const category = form.querySelector('#inlineCardCategory').value;
+            const description = form.querySelector('#inlineCardDescription').value.trim();
+            const techsInput = form.querySelector('#inlineCardTechs').value.trim();
+            const imageFile = form.querySelector('#inlineCardImage').files[0];
+            
+            if (!title || !institution || !category || !description || !techsInput) {
+                const statusDiv = form.querySelector('#inlineCardStatus');
+                statusDiv.innerHTML = '? All required fields must be filled';
+                statusDiv.style.color = '#ff4444';
+                return;
+            }
+            
+            const badges = techsInput ? techsInput.split(',').map(b => b.trim()) : [];
+            
+            const formData = new FormData();
+            formData.append('action', 'add_card');
+            formData.append('title', title);
+            formData.append('category', institution);
+            formData.append('description', description);
+            formData.append('badges', JSON.stringify(badges));
+            formData.append('card_category', category);
+            
+            if (imageFile) {
+                formData.append('card_image', imageFile);
+            }
+            
+            document.getElementById('inlineCardStatus').innerHTML = 'Adding card to Flagship Projects...';
+            document.getElementById('inlineCardStatus').style.color = '#00fff7';
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('inlineCardStatus').innerHTML = '? Card added! Reloading...';
+                    document.getElementById('inlineCardStatus').style.color = '#00ff00';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    document.getElementById('inlineCardStatus').innerHTML = '? Failed: ' + data.message;
+                    document.getElementById('inlineCardStatus').style.color = '#ff4444';
+                }
+            })
+            .catch(error => {
+                document.getElementById('inlineCardStatus').innerHTML = '? Error: ' + error.message;
+                document.getElementById('inlineCardStatus').style.color = '#ff4444';
+            });
+        }
+        
+        // Delete Card Function
+        function deleteCard(projectId) {
+            if (!editModeActive) {
+                alert('Delete is only available in Edit Mode');
+                return;
+            }
+            
+            if (!confirm(`Are you sure you want to delete this card (${projectId})? This cannot be undone.`)) {
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('action', 'delete_card');
+            formData.append('project_id', projectId);
+            
+            const statusDiv = document.getElementById('editModeStatus');
+            statusDiv.innerHTML = 'Deleting card...';
+            statusDiv.style.color = '#00fff7';
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    statusDiv.innerHTML = '? Card deleted! Reloading...';
+                    statusDiv.style.color = '#00ff00';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    statusDiv.innerHTML = '? Failed: ' + data.message;
+                    statusDiv.style.color = '#ff4444';
+                }
+            })
+            .catch(error => {
+                statusDiv.innerHTML = '? Error: ' + error.message;
+                statusDiv.style.color = '#ff4444';
+            });
+        }
+        
+        function addNewCard() {
+            const title = document.getElementById('newCardTitle').value.trim();
+            const category = document.getElementById('newCardCategory').value.trim();
+            const description = document.getElementById('newCardDescription').value.trim();
+            const badgesInput = document.getElementById('newCardBadges').value.trim();
+            const image = document.getElementById('newCardImage').value.trim() || './placeholder.png';
+            
+            if (!title || !description) {
+                document.getElementById('addCardStatus').innerHTML = '? Title and description are required';
+                document.getElementById('addCardStatus').style.color = '#ff4444';
+                return;
+            }
+            
+            const badges = badgesInput ? badgesInput.split(',').map(b => b.trim()) : [];
+            
+            const formData = new FormData();
+            formData.append('action', 'add_card');
+            formData.append('card_data', JSON.stringify({
+                title: title,
+                category: category,
+                description: description,
+                badges: badges,
+                image: image
+            }));
+            
+            document.getElementById('addCardStatus').innerHTML = 'Adding card...';
+            document.getElementById('addCardStatus').style.color = '#00fff7';
+            
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('addCardStatus').innerHTML = '? Card added! Reloading...';
+                    document.getElementById('addCardStatus').style.color = '#00ff00';
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
+                } else {
+                    document.getElementById('addCardStatus').innerHTML = '? Failed: ' + data.message;
+                    document.getElementById('addCardStatus').style.color = '#ff4444';
+                }
+            })
+            .catch(error => {
+                document.getElementById('addCardStatus').innerHTML = '? Error: ' + error.message;
+                document.getElementById('addCardStatus').style.color = '#ff4444';
+            });
+        }
+        
+        // Close modals when clicking outside
+        ['mainMenuModal'].forEach(modalId => {
+            document.getElementById(modalId).addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> l> 
