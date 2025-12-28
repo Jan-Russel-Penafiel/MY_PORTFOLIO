@@ -207,10 +207,28 @@
             display: none;
         }
         
+        /* Navbar text responsive display */
+        .navbar-text-desktop {
+            display: none;
+        }
+        
+        .navbar-text-mobile {
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             /* Show navbar profile picture on mobile */
             .navbar-brand img {
                 display: inline-block !important;
+            }
+            
+            /* Swap navbar text on mobile */
+            .navbar-text-desktop {
+                display: none;
+            }
+            
+            .navbar-text-mobile {
+                display: inline;
             }
         }
         
@@ -305,6 +323,7 @@
         .hero-content {
             flex: 1;
             text-align: center;
+            margin-top: 50px;
         }
         
         .hero-profile-picture {
@@ -1196,13 +1215,14 @@
                     <img id="profilePicture" src="./RUSSEL.png" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
                     <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
                 </div>
-                Russel's Portfolio
+                <span class="navbar-text-desktop">Welcome to my Portfolio!</span>
+                <span class="navbar-text-mobile">Russel's Portfolio</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse text-center" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
                         <a class="nav-link text-center text-lg-start" href="#home">Home</a>
                     </li>
@@ -1406,22 +1426,12 @@
                 <div class="highlight-box mt-3" style="padding: 15px;">
                     <h6 class="fw-bold mb-2 text-center" style="font-size: 0.9rem;">Key Achievements</h6>
                     <div class="text-center">
-                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded CTRL J as a student</span>
+                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded Asyncs Innovations a student</span>
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Deployed Electronic Health Record System</span>
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">15+ Successful Web Projects</span>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Resume Section -->
-    <section class="py-5 bg-light">
-        <div class="container text-center">
-            <h2 class="display-6 fw-bold mb-4">Resume</h2>
-            <a href="./resume.pdf" class="btn btn-primary btn-lg" download>
-                <i class="fas fa-file-pdf me-2"></i>My Resume - View Complete PDF
-            </a>
         </div>
     </section>
 
@@ -2958,4 +2968,4 @@
         });
     </script>
 </body>
-</html> l> 
+</html> 
