@@ -323,28 +323,47 @@
         .hero-content {
             flex: 1;
             text-align: center;
+            margin-top: 50px;
         }
         
         .hero-profile-picture {
+            position: relative;
             flex-shrink: 0;
-            width: 350px;
-            height: 350px;
-            border-radius: 20px;
+            width: 420px;
+            height: 520px;
+            border-radius: 28px;
             overflow: hidden;
-            border: 4px solid #00fff7;
-            box-shadow: 0 0 30px #00fff7, 0 0 60px #00fff7;
-            transition: all 0.3s ease;
+            clip-path: polygon(12% 0, 100% 6%, 88% 100%, 0 94%);
+            background: linear-gradient(135deg, #00fff7 0%, #0099ff 50%, #00fff7 100%);
+            padding: 10px;
+            box-shadow: 0 0 30px #00fff7, 0 0 80px #00fff7;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
         
-        .hero-profile-picture:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 40px #00fff7, 0 0 80px #00fff7;
+        .hero-profile-picture::after {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border-radius: 20px;
+            clip-path: polygon(12% 0, 100% 6%, 88% 100%, 0 94%);
+            background: #0a0a0f;
+            z-index: 1;
+            box-shadow: inset 0 0 24px #00fff7a0;
         }
         
         .hero-profile-picture img {
+            position: relative;
+            z-index: 2;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            clip-path: polygon(12% 0, 100% 6%, 88% 100%, 0 94%);
+            transform: translateY(-2px);
+        }
+        
+        .hero-profile-picture:hover {
+            transform: translateY(-12px) scale(1.04) rotate(-2deg);
+            box-shadow: 0 0 40px #00fff7, 0 0 120px #00fff7;
         }
         
         /* General responsive improvements */
@@ -1211,7 +1230,7 @@
         <div class="container">
             <a class="navbar-brand" href="#home">
                 <div style="position: relative; display: inline-block;">
-                    <img id="profilePicture" src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
+                    <img id="profilePicture" src="./RUSSEL.png" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
                     <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
                 </div>
                 <span class="navbar-text-desktop">Welcome to my Portfolio!</span>
@@ -1278,7 +1297,7 @@
                 </div>
                 
                 <div class="hero-profile-picture">
-                    <img id="heroProfilePicture" src="./RUSSEL.jpg" alt="Jan Russel E. Peñafiel - Profile Picture" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" style="cursor: pointer;" title="Click to change profile picture (Edit Mode)">
+                    <img id="heroProfilePicture" src="./RUSSEL.png" alt="Jan Russel E. Peñafiel - Profile Picture" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" style="cursor: pointer;" title="Click to change profile picture (Edit Mode)">
                 </div>
             </div>
         </div>
@@ -1425,7 +1444,7 @@
                 <div class="highlight-box mt-3" style="padding: 15px;">
                     <h6 class="fw-bold mb-2 text-center" style="font-size: 0.9rem;">Key Achievements</h6>
                     <div class="text-center">
-                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded CTRL J as a student</span>
+                        <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Founded Asyncs Innovations a student</span>
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">Deployed Electronic Health Record System</span>
                         <span class="badge-custom me-2 mb-2" style="padding: 6px 12px; font-size: 0.8rem;">15+ Successful Web Projects</span>
                     </div>
@@ -1443,32 +1462,32 @@
             
             <div class="quote-box">
                 <h5 class="fw-bold text-center">My Journey Summary</h5>
-                <p class="mb-0">"From struggling with C++ in first year to building 15+ web systems and earning 100k+ as a student developer. Founded CTRL J while pursuing my IT degree at SKSU."</p>
+                <p class="mb-0" id="journeySummaryText">"From struggling with C++ in first year to building 15+ web systems and earning 100k+ as a student developer. Founded Asyncs Innovations while pursuing my IT degree at SKSU."</p>
             </div>
             
             <div class="row text-center">
                 <div class="col-md-3 mb-3">
                     <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
                         <h6 class="fw-bold text-primary mb-1" style="font-size: 0.9rem;">Year 1</h6>
-                        <p class="mb-0" style="font-size: 0.8rem;">Discovered PHP & MySQL</p>
+                        <p class="mb-0" id="journeyYear1" style="font-size: 0.8rem;">Discovered PHP & MySQL</p>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
                         <h6 class="fw-bold text-success mb-1" style="font-size: 0.9rem;">Year 2</h6>
-                        <p class="mb-0" style="font-size: 0.8rem;">Built 15+ systems, earned 13k</p>
+                        <p class="mb-0" id="journeyYear2" style="font-size: 0.8rem;">Built 15+ systems, earned 13k</p>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
                         <h6 class="fw-bold text-warning mb-1" style="font-size: 0.9rem;">Year 3</h6>
-                        <p class="mb-0" style="font-size: 0.8rem;">Accomplished 100k+ earnings</p>
+                        <p class="mb-0" id="journeyYear3" style="font-size: 0.8rem;">Accomplished 100k+ earnings</p>
                     </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <div class="highlight-box h-100 d-flex flex-column justify-content-center" style="min-height: 80px; padding: 15px;">
                         <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">Year 4</h6>
-                        <p class="mb-0" style="font-size: 0.8rem;">Deploying SKSU Access Campus System with copyright & certification</p>
+                        <p class="mb-0" id="journeyYear4" style="font-size: 0.8rem;">Deploying SKSU Access Campus System with copyright & certification</p>
                     </div>
                 </div>
             </div>
@@ -1554,9 +1573,9 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_69503964c4b7d9.98724346.png&quot;]'>
-            <a href="./uploads/project_69503964c4b7d9.98724346.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69503964c4b7d9.98724346.png&quot;]'>
-                <img src="./uploads/project_69503964c4b7d9.98724346.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69503964c4b7d9.98724346.png&quot;]'>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_69515e51959685.44482385.png&quot;]'>
+            <a href="./uploads/project_69515e51959685.44482385.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69515e51959685.44482385.png&quot;]'>
+                <img src="./uploads/project_69515e51959685.44482385.png" alt="KES-SMART" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69515e51959685.44482385.png&quot;]'>
             </a>
             <div class="text-center small text-muted mb-2">Image 1 of 1</div>
         </div>
@@ -1581,13 +1600,13 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
-            <a href="./uploads/project_6950392b8ec0a9.23708258.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
-                <img src="./uploads/project_6950392b8ec0a9.23708258.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_6950392b8ec0a9.23708258.png&quot;]'>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_69515e87a79db6.99159624.png&quot;]'>
+            <a href="./uploads/project_69515e87a79db6.99159624.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69515e87a79db6.99159624.png&quot;]'>
+                <img src="./uploads/project_69515e87a79db6.99159624.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69515e87a79db6.99159624.png&quot;]'>
             </a>
             <div class="text-center small text-muted mb-2">Image 1 of 1</div>
         </div>
-<h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
+                            <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
                             <h6 class="text-center text-warning mb-3">🏥 Digital Barangay Health Center</h6>
                             <p class="card-text text-center">Comprehensive digital health center management system for barangay health services with patient records, appointments, and medicine tracking.</p>
                             <div class="text-center mb-3">
@@ -1608,11 +1627,12 @@
                             <i class="fas fa-camera"></i>
                         </button>
                         <div class="card-body p-3">
-                            <div class="text-center">
-                                <a href="./HealthConnect.png" target="_blank">
-                                    <img src="./HealthConnect.png" alt="HealthConnect" class="img-fluid rounded mb-2" style="max-height:150px;">
-                                </a>
-                            </div>
+                            <div class="text-center project-gallery" data-images='[&quot;.\/uploads\/project_69515eab615d28.86728134.png&quot;]'>
+            <a href="./uploads/project_69515eab615d28.86728134.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69515eab615d28.86728134.png&quot;]'>
+                <img src="./uploads/project_69515eab615d28.86728134.png" alt="HealthConnect" class="img-fluid rounded mb-2" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69515eab615d28.86728134.png&quot;]'>
+            </a>
+            <div class="text-center small text-muted mb-2">Image 1 of 1</div>
+        </div>
                             <h5 class="card-title fw-bold text-center text-primary">HealthConnect</h5>
                             <h6 class="text-center text-warning mb-3">🏥 Mobile Health Center App</h6>
                             <p class="card-text text-center">Mobile health center application with patient management, immunization tracking, and comprehensive analytics for healthcare providers.</p>
@@ -1625,9 +1645,7 @@
                                 <button class="delete-btn-card" onclick="deleteCard('healthconnect')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
                                 </button>
-                            </div>
-                        </div>
-                    </div>
+                            </div></div></div>
                 </div>
             
                 <div class="col-lg-6 mb-3">
@@ -2280,6 +2298,25 @@
                     element.setAttribute('contenteditable', 'true');
                     element.classList.add('edit-mode-active');
                     element.setAttribute('data-original', originalText);
+                    element.setAttribute('data-element-type', 'about-section');
+                    originalTexts.set(element, originalText);
+                    editableElements.push(element);
+                }
+            });
+            
+            // Enable Journey section elements editing
+            const journeyElements = [
+                'journeySummaryText', 'journeyYear1', 'journeyYear2', 'journeyYear3', 'journeyYear4'
+            ];
+            
+            journeyElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const originalText = element.textContent.trim();
+                    element.setAttribute('contenteditable', 'true');
+                    element.classList.add('edit-mode-active');
+                    element.setAttribute('data-original', originalText);
+                    element.setAttribute('data-element-type', 'journey-section');
                     originalTexts.set(element, originalText);
                     editableElements.push(element);
                 }
@@ -2289,13 +2326,15 @@
             const profileBtn = document.getElementById('profileUploadBtn');
             if (profileBtn) profileBtn.style.opacity = '1';
             
-            // Select all editable text elements
+            // Select all editable text elements - more comprehensive now
             const selectors = [
                 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                'p:not(.mb-0)', '.card-title', '.card-text',
+                'p', // Include ALL paragraphs
+                '.card-title', '.card-text',
                 '.lead', '.badge-custom', '.badge',
-                '.quote-box', '.highlight-box h5',
-                '.display-4', '.display-6'
+                '.highlight-box h5',
+                '.display-4', '.display-6',
+                'span.badge-custom' // Include badge custom spans
             ];
             
             selectors.forEach(selector => {
@@ -2303,12 +2342,26 @@
                     // Skip if inside navbar, footer, modals, or buttons
                     if (element.closest('nav') || element.closest('footer') || 
                         element.closest('.upload-modal') || element.closest('button') ||
-                        element.closest('.edit-mode-toolbar')) {
+                        element.closest('.edit-mode-toolbar') || 
+                        element.closest('.toggle-notification')) {
+                        return;
+                    }
+                    
+                    // Skip if already made editable (like journey elements)
+                    if (element.getAttribute('contenteditable') === 'true') {
                         return;
                     }
                     
                     const originalText = element.textContent.trim();
                     if (originalText) {
+                        // Create unique identifier for element if it doesn't have an ID
+                        if (!element.id) {
+                            // Generate a unique ID based on content and position
+                            const textHash = originalText.substring(0, 20).replace(/\s+/g, '-').toLowerCase();
+                            const randomId = 'edit-' + textHash + '-' + Math.random().toString(36).substr(2, 6);
+                            element.setAttribute('data-edit-id', randomId);
+                        }
+                        
                         element.setAttribute('contenteditable', 'true');
                         element.classList.add('edit-mode-active');
                         element.setAttribute('data-original', originalText);
@@ -2422,16 +2475,43 @@
             
             editableElements.forEach(element => {
                 const oldText = originalTexts.get(element);
-                // Use innerHTML for About Me sections to preserve formatting
-                const isAboutSection = element.id === 'personalInfo' || element.id === 'educationInfo' || element.id === 'focusAreas';
+                // Check element type for proper handling
+                const elementType = element.getAttribute('data-element-type');
+                const isAboutSection = elementType === 'about-section';
+                const isJourneySection = elementType === 'journey-section';
                 const newText = isAboutSection ? element.innerHTML.trim() : element.textContent.trim();
                 
                 if (oldText && newText && oldText !== newText) {
+                    // Determine the best identifier for this element
+                    let elementId = element.id || element.getAttribute('data-edit-id') || '';
+                    
+                    // If no ID exists, create a selector path
+                    let selector = elementId;
+                    if (!selector) {
+                        // Create a more specific selector
+                        const tagName = element.tagName.toLowerCase();
+                        const classList = Array.from(element.classList).filter(c => c !== 'edit-mode-active').join('.');
+                        const parent = element.closest('[id]');
+                        
+                        if (parent) {
+                            const siblings = Array.from(parent.querySelectorAll(tagName + (classList ? '.' + classList : '')));
+                            const index = siblings.indexOf(element);
+                            selector = `${parent.id}_${tagName}${classList ? '.' + classList : ''}_${index}`;
+                        } else {
+                            selector = `${tagName}${classList ? '.' + classList : ''}_` + Math.random().toString(36).substr(2, 9);
+                        }
+                    }
+                    
                     edits.push({
-                        selector: element.id || element.tagName,
+                        selector: selector,
+                        elementId: elementId,
                         oldText: oldText,
                         newText: newText,
-                        useHtml: isAboutSection
+                        tagName: element.tagName.toLowerCase(),
+                        classList: Array.from(element.classList).filter(c => c !== 'edit-mode-active').join(' '),
+                        useHtml: isAboutSection,
+                        isJourneySection: isJourneySection,
+                        isAboutSection: isAboutSection
                     });
                 }
             });
