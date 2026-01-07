@@ -385,11 +385,32 @@
             }
             
             .hero-content {
-                order: 2;
+                order: 1;
+                text-align: center;
             }
             
             .hero-profile-picture {
                 display: none;
+            }
+            
+            /* Mobile circular profile picture */
+            .hero-mobile-profile {
+                display: block !important;
+                width: 150px;
+                height: 150px;
+                margin: -40px auto 60px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 4px solid #00fff7;
+                box-shadow: 0 0 20px #00fff7, 0 0 40px #00fff7;
+                background: #0a0a0f;
+                order: 0;
+            }
+            
+            .hero-mobile-profile img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
             body {
                 font-size: 14px;
@@ -1229,10 +1250,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#home">
-                <div style="position: relative; display: inline-block;">
-                    <img id="profilePicture" src="./RUSSEL.png" alt="Jan Russel E. Peñafiel" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover; cursor: pointer;" onclick="if(editModeActive) document.getElementById('profileFileInput').click()" title="Click to change profile picture (Edit Mode)">
-                    <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
-                </div>
+                <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
                 <span class="navbar-text-desktop">Welcome to my Portfolio!</span>
                 <span class="navbar-text-mobile">Russel's Portfolio</span>
             </a>
@@ -1269,6 +1287,11 @@
         <div class="container">
             <div class="hero-profile-container">
                 <div class="hero-content">
+                    <!-- Mobile Profile Picture (circular) -->
+                    <div class="hero-mobile-profile" style="display: none;">
+                        <img src="./RUSSEL.png" alt="Jan Russel E. Peñafiel - Profile Picture">
+                    </div>
+                    
                     <h1 class="display-4 fw-bold">Jan Russel E. Peñafiel</h1>            
                     <div class="typing-animation">
                         <span id="typing-text"></span>
