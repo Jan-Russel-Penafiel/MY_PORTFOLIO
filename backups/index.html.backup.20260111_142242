@@ -1575,7 +1575,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">Russel's Chicken Delights HR System</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Complete HR Management for Restaurant Chain</h6>
-                            <p class="card-text text-center">The general objective of the study is to develop Russel's Chicken Delights HR System, a comprehensive human resource management platform for the restaurant chain. The system aims to manage employee information, payroll, and recruitment processes while allowing employees to track their tasks, schedules, and performance. It will include a QR code-based recruitment feature that, when scanned, provides applicants with an online recruitment form, streamlining the hiring process and improving overall HR efficiency.</p>
+                            <p class="card-text text-center">Comprehensive HR management system for restaurant chain operations including employee management, time tracking, scheduling, and payroll processing.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users me-1"></i> Employee Management</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-clock me-1"></i> Time Tracking</span>
@@ -1684,7 +1684,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-syringe"></i> Smart Immunization Registry</h6>
-                            <p class="card-text text-center">The general objective of the study is to design and develop a web-based immunization management system that manages accounts for administrators, midwives, and nurses, and records and stores patient immunization data. The system will allow clients to schedule appointments, provide SMS and email notifications to patients, and enable administrators to transfer files and data to the municipal health center. It will include search and filtering features by gender, purok, diagnosis, and patient information, and generate reports such as patient lists, appointments, personal information, and diagnoses. The system will be evaluated based on functionality, accuracy, effectiveness, and security.</p>
+                            <p class="card-text text-center">Intelligent immunization registry system with automated scheduling, smart alerts, tracking dashboard, and comprehensive progress reports.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-calendar-check"></i> Auto Scheduling</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-bell"></i> Smart Alerts</span>

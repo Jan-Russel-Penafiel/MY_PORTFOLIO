@@ -1575,7 +1575,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">Russel's Chicken Delights HR System</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Complete HR Management for Restaurant Chain</h6>
-                            <p class="card-text text-center">The general objective of the study is to develop Russel's Chicken Delights HR System, a comprehensive human resource management platform for the restaurant chain. The system aims to manage employee information, payroll, and recruitment processes while allowing employees to track their tasks, schedules, and performance. It will include a QR code-based recruitment feature that, when scanned, provides applicants with an online recruitment form, streamlining the hiring process and improving overall HR efficiency.</p>
+                            <p class="card-text text-center">Comprehensive HR management system for restaurant chain operations including employee management, time tracking, scheduling, and payroll processing.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users me-1"></i> Employee Management</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-clock me-1"></i> Time Tracking</span>
@@ -1603,7 +1603,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-mobile-alt"></i> Student Monitoring with QR & SMS</h6>
-                            <p class="card-text text-center">The general objective of the study is to design and develop a mobile-based attendance monitoring system that manages user information and accounts and provides role-based interfaces for administrators, teachers, students, and parents. The system aims to support efficient attendance tracking through QR code scanning, allow parents to view attendance records automatically, apply automated evaluation features, and send SMS notifications to parents in real time. It also seeks to generate structured reports, including student lists by section, student information sheets, QR codes, and detailed attendance records per section and per student, to support monitoring and record management.</p>
+                            <p class="card-text text-center">Smart student monitoring system with QR code attendance and automated SMS notifications for parents and administrators.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-qrcode"></i> QR Attendance</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-envelope"></i> SMS Alerts</span>
@@ -1630,7 +1630,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-hospital"></i> Digital Barangay Health Center</h6>
-                            <p class="card-text text-center">The general objective of the study is to design and develop a barangay health information system that manages barangay health worker accounts and supports comprehensive patient record management, including personal data, medical history, treatments, and immunization schedules for children and adults. The system aims to allow patients to schedule appointments, receive automated email reminders, and obtain printed appointment slips. It also seeks to track and manage dispensed medicines with dosage and frequency records, support real-time chat and patient feedback, and provide a dashboard with graphical summaries of appointments and patients. The system will generate structured reports such as appointment lists, patient lists, individual medical records, and medicine inventory to support daily operations and reporting needs.</p>
+                            <p class="card-text text-center">Comprehensive digital health center management system for barangay health services with patient records, appointments, and medicine tracking.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-clipboard"></i> Patient Records</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-calendar"></i> Appointments</span>
@@ -1657,7 +1657,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">HealthConnect</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-hospital"></i> Mobile Health Center App</h6>
-                            <p class="card-text text-center">The general objective of the study is to develop a web-based Health Monitoring Services system that manages barangay health worker accounts and supports nurses and midwives in maintaining comprehensive patient records, including personal information, medical history, and treatments. The system aims to enable patients to schedule appointments and receive automated SMS reminders, track and manage immunization schedules for children and adults, and provide a graphical dashboard to monitor daily, weekly, and monthly appointments and patient counts. It will also generate detailed reports, including appointment lists, patient lists, medical records, and appointment slips, and will be evaluated based on accuracy, security, functionality, and overall effectiveness.</p>
+                            <p class="card-text text-center">Mobile health center application with patient management, immunization tracking, and comprehensive analytics for healthcare providers.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users"></i> Patient Management</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-syringe"></i> Immunization</span>
@@ -1684,7 +1684,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-syringe"></i> Smart Immunization Registry</h6>
-                            <p class="card-text text-center">The general objective of the study is to design and develop a web-based immunization management system that manages accounts for administrators, midwives, and nurses, and records and stores patient immunization data. The system will allow clients to schedule appointments, provide SMS and email notifications to patients, and enable administrators to transfer files and data to the municipal health center. It will include search and filtering features by gender, purok, diagnosis, and patient information, and generate reports such as patient lists, appointments, personal information, and diagnoses. The system will be evaluated based on functionality, accuracy, effectiveness, and security.</p>
+                            <p class="card-text text-center">Intelligent immunization registry system with automated scheduling, smart alerts, tracking dashboard, and comprehensive progress reports.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-calendar-check"></i> Auto Scheduling</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-bell"></i> Smart Alerts</span>
@@ -1712,7 +1712,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">AidTrack</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-chart-bar"></i> Aid Distribution System for Barangay Bual</h6>
-                            <p class="card-text text-center">The general objective of the study is to develop a digital Barangay Aid Management System that manages user accounts for residents and administrators, provides secure authentication, and ensures accurate registration and verification of qualified beneficiaries. The system aims to track distributed and dismissed benefits, offer real-time monitoring of aid delivery, and support analytics and reporting on aid impact, utilization, and distribution progress. It will integrate SMS notifications, digital receipts and acknowledgments, and a feedback system for beneficiaries, while generating reports on residents and beneficiaries by category. The system will be evaluated based on functionality, accessibility, security, acceptability, and overall efficacy.</p>
+                            <p class="card-text text-center">Comprehensive aid distribution tracking system with SMS alerts, analytics dashboard, and feedback mechanisms for efficient barangay aid management.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-box"></i> Aid Tracking</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-mobile-alt"></i> SMS Alerts</span>
@@ -1740,7 +1740,7 @@
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">BM-SCaPIS</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Smart Clearance & Permit System</h6>
-                            <p class="card-text text-center">The general objective of the study is to design and develop an online barangay clearance and permit management system that allows residents to register, apply, and track applications digitally while receiving real-time status updates. The system aims to support administrators in managing resident profiles, reviewing and approving applications, scheduling verification or document pickup, and monitoring approved and pending documents. It will integrate SMS and ringtone notifications for updates and reminders, generate comprehensive reports and statistical summaries on applications, issued clearances and permits, residents by category, and transaction logs, and will be evaluated based on functionality, usability, accuracy, acceptability, and security.</p>
+                            <p class="card-text text-center">Smart clearance and permit issuance system with online forms, status tracking, scheduling, and comprehensive reporting for barangay services.</p>
                             <div class="text-center mb-3">
                                 <span class="badge bg-primary me-1 mb-1"><i class="fas fa-file-alt me-1"></i> Online Forms</span>
                                 <span class="badge bg-success me-1 mb-1"><i class="fas fa-tasks me-1"></i> Status Tracking</span>
