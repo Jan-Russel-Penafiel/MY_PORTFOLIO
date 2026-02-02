@@ -2121,7 +2121,7 @@
                     <h3 class="about-greeting text-center">Hey, I'm Jan Russel! <i class="fas fa-hand-wave"></i></h3>
                     
                     <div class="about-text">
-                        <p style="margin-bottom: 1.5rem;">I am taking a <span class="about-highlight">Bachelor of Science in Information Technology</span> at <span class="about-highlight">Sultan Kudarat State University – Isulan Campus</span>. I work with <span class="about-highlight">web technologies</span> and focus on building <span class="about-highlight">clean, functional, and user-focused applications</span>.</p>
+                        <p style="margin-bottom: 1.5rem;">I am taking a Bachelor of Science in Information Technology at Sultan Kudarat State University – Isulan Campus. I work with <span class="about-highlight">web technologies</span> and focus on building <span class="about-highlight">clean</span>, <span class="about-highlight">functional</span>, and <span class="about-highlight">user-focused applications</span>.</p>
                         <p style="margin-bottom: 0;">I enjoy turning ideas into working systems using practical tools and clear logic. I continue to improve my skills through <span class="about-highlight">hands-on projects</span>, <span class="about-highlight">self-study</span>, and <span class="about-highlight">real system development</span>, with a strong interest in <span class="about-highlight">web development</span> and <span class="about-highlight">problem solving</span>.</p>
                     </div>
                 </div>
@@ -2437,6 +2437,8 @@
         const typingElement = document.getElementById('typing-text');
         
         function typeText() {
+            if (!typingElement) return; // Exit if element doesn't exist
+            
             const currentText = texts[textIndex];
             
             if (isDeleting) {
