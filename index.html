@@ -547,7 +547,7 @@
                 display: none;
             }
             
-            /* Mobile circular profile picture - Cybertron UI */
+            /* Mobile circular profile picture - Advanced Cybertron UI */
             .hero-mobile-profile {
                 display: block !important;
                 width: 150px;
@@ -555,13 +555,14 @@
                 margin: -40px auto 60px;
                 border-radius: 50%;
                 overflow: visible;
-                background: #0a0a0f;
+                background: radial-gradient(circle, #1a1c25 0%, #0a0a0f 100%);
                 order: 0;
                 position: relative;
                 z-index: 1;
+                filter: drop-shadow(0 0 30px #00fff740);
             }
             
-            /* Biometric scanning ring */
+            /* Inner energy ring */
             .hero-mobile-profile::before {
                 content: '';
                 position: absolute;
@@ -576,17 +577,18 @@
                 z-index: -1;
             }
             
-            /* Outer tech ring */
+            /* Outer hexagonal tech ring */
             .hero-mobile-profile::after {
                 content: '';
                 position: absolute;
-                top: -15px;
-                left: -15px;
-                right: -15px;
-                bottom: -15px;
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
                 border-radius: 50%;
                 border: 2px dashed #00fff760;
-                animation: rotateGlow 10s linear infinite;
+                box-shadow: 0 0 20px #00fff740, inset 0 0 15px #00fff720;
+                animation: rotateGlowReverse 8s linear infinite, hexPulse 2s ease-in-out infinite;
                 z-index: -2;
             }
             
@@ -595,37 +597,30 @@
                 height: 100%;
                 object-fit: cover;
                 border-radius: 50%;
-                border: 2px solid #00fff7;
+                border: 3px solid #00fff7;
                 position: relative;
                 z-index: 1;
+                box-shadow: 0 0 20px #00fff780, inset 0 0 20px rgba(0,255,247,0.1);
             }
             
-            /* Scanning line for mobile */
-            .hero-mobile-profile .scan-line {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 3px;
-                background: linear-gradient(90deg, transparent, #00fff7, transparent);
-                box-shadow: 0 0 10px #00fff7;
-                animation: scanLineMove 3s infinite;
-                z-index: 2;
-                pointer-events: none;
-            }
-            
-            /* Corner tech brackets for circular mobile */
+            /* Energy rings expanding outward */
             .hero-mobile-profile .corner-tl,
             .hero-mobile-profile .corner-tr,
             .hero-mobile-profile .corner-bl,
             .hero-mobile-profile .corner-br {
                 position: absolute;
-                width: 20px;
-                height: 20px;
-                border: 2px solid #00fff7;
+                width: 25px;
+                height: 25px;
+                border: 3px solid #00fff7;
                 z-index: 3;
-                animation: cornerGlow 1.5s infinite alternate;
+                animation: cornerGlow 1.5s infinite alternate, cornerPulse 3s ease-in-out infinite;
                 pointer-events: none;
+                filter: drop-shadow(0 0 8px #00fff7);
+            }
+            
+            @keyframes cornerPulse {
+                0%, 100% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.15); opacity: 0.7; }
             }
             
             .hero-mobile-profile .corner-tl {
@@ -660,36 +655,77 @@
                 border-radius: 0 0 50% 0;
             }
             
-            /* Data points around the circle */
-            .hero-mobile-profile .data-dot {
+            /* Energy rings expanding outward */
+            .hero-mobile-profile .energy-ring {
                 position: absolute;
-                width: 4px;
-                height: 4px;
-                background: #00fff7;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                border: 2px solid #00fff7;
                 border-radius: 50%;
-                box-shadow: 0 0 8px #00fff7;
-                z-index: 3;
-                animation: dataFlicker 1.5s infinite;
+                opacity: 0;
+                animation: energyExpand 3s infinite;
                 pointer-events: none;
+                z-index: 0;
             }
             
-            .hero-mobile-profile .data-dot:nth-child(1) { top: 10%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
-            .hero-mobile-profile .data-dot:nth-child(2) { top: 30%; right: 10%; animation-delay: 0.3s; }
-            .hero-mobile-profile .data-dot:nth-child(3) { top: 50%; right: 5%; animation-delay: 0.6s; }
-            .hero-mobile-profile .data-dot:nth-child(4) { bottom: 30%; right: 10%; animation-delay: 0.9s; }
-            .hero-mobile-profile .data-dot:nth-child(5) { bottom: 10%; left: 50%; transform: translateX(-50%); animation-delay: 1.2s; }
-            .hero-mobile-profile .data-dot:nth-child(6) { bottom: 30%; left: 10%; animation-delay: 1.5s; }
-            .hero-mobile-profile .data-dot:nth-child(7) { top: 50%; left: 5%; animation-delay: 1.8s; }
-            .hero-mobile-profile .data-dot:nth-child(8) { top: 30%; left: 10%; animation-delay: 2.1s; }
+            .hero-mobile-profile .energy-ring:nth-child(1) { animation-delay: 0s; }
+            .hero-mobile-profile .energy-ring:nth-child(2) { animation-delay: 1s; }
+            .hero-mobile-profile .energy-ring:nth-child(3) { animation-delay: 2s; }
             
-            /* Hover effect for mobile profile */
+            @keyframes energyExpand {
+                0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+                10% { opacity: 0.8; }
+                100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+            }
+            
+            /* Hexagonal overlay particles */
+            .hero-mobile-profile .hex-particle {
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                background: #00fff7;
+                clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                opacity: 0;
+                animation: hexFloat 4s infinite;
+                pointer-events: none;
+                z-index: 2;
+            }
+            
+            .hero-mobile-profile .hex-particle:nth-child(1) { left: 20%; top: 15%; animation-delay: 0s; }
+            .hero-mobile-profile .hex-particle:nth-child(2) { right: 20%; top: 25%; animation-delay: 0.8s; }
+            .hero-mobile-profile .hex-particle:nth-child(3) { left: 25%; bottom: 20%; animation-delay: 1.6s; }
+            .hero-mobile-profile .hex-particle:nth-child(4) { right: 25%; bottom: 30%; animation-delay: 2.4s; }
+            
+            @keyframes hexFloat {
+                0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+                10% { opacity: 0.6; }
+                50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+                90% { opacity: 0.3; }
+            }
+            
+            @keyframes hexPulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.08); }
+            }
+            
+            /* Enhanced interaction effects for mobile */
             .hero-mobile-profile:active {
-                transform: scale(1.05);
-                transition: transform 0.3s ease;
+                transform: scale(1.08);
+                transition: all 0.3s ease;
+                filter: drop-shadow(0 0 50px #00fff7);
             }
             
             .hero-mobile-profile:active::before {
-                box-shadow: 0 0 30px #00fff7, 0 0 60px #00fff7;
+                animation-duration: 1s;
+                opacity: 1;
+            }
+            
+            .hero-mobile-profile:active::after {
+                border-width: 3px;
+                box-shadow: 0 0 40px #00fff7, inset 0 0 30px #00fff740;
             }
             body {
                 font-size: 14px;
@@ -1927,8 +1963,14 @@
         <div class="container">
             <div class="hero-profile-container">
                 <div class="hero-content">
-                    <!-- Mobile Profile Picture (circular) -->
+                    <!-- Mobile Profile Picture (circular) - Advanced Cybertron UI -->
                     <div class="hero-mobile-profile" style="display: none;">
+                        <!-- Energy Rings (expanding waves) -->
+                        <div class="energy-ring"></div>
+                        <div class="energy-ring"></div>
+                        <div class="energy-ring"></div>
+                        
+                        <!-- Profile Image -->
                         <img src="./RUSSEL.png" alt="Jan Russel E. Peñafiel - Profile Picture">
                     </div>
                     
