@@ -1,0 +1,15 @@
+# Ignore files containing API keys and secrets
+chatbot-proxy.php
+
+# Ignore backup files
+backups/
+
+# Ignore uploads
+uploads/
+
+# Ignore counter data
+counters.json
+
+# Ignore system files
+.DS_Store
+Thumbs.db

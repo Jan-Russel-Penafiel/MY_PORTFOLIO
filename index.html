@@ -4029,10 +4029,8 @@
     <!-- Chatbot Script — Groq API -->
     <script>
     (function(){
-        // TODO: Replace with your own Groq API key from https://console.groq.com/
-        // For production, use environment variables or a backend proxy to keep keys secure
-        const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
-        const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+        // Using server-side proxy to keep API key secure
+        const CHATBOT_PROXY_URL = 'chatbot-proxy.php';
 
         // Dynamically scrape portfolio content to build system prompt
         function buildSystemPrompt() {
@@ -4366,11 +4364,10 @@ EXAMPLE RESPONSES (to help you understand each language):
                 ...chatHistory
             ];
 
-            const res = await fetch(GROQ_URL, {
+            const res = await fetch(CHATBOT_PROXY_URL, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${GROQ_API_KEY}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     model: 'llama-3.3-70b-versatile',
