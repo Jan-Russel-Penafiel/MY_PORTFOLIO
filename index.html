@@ -355,9 +355,9 @@
             content: '';
             position: absolute;
             inset: -3px;
-            background: linear-gradient(45deg, #00fff7, transparent, #00fff7);
+            background: none;
             z-index: 1;
-            animation: bioScanPulse 2s infinite;
+            animation: none;
             pointer-events: none;
         }
         
@@ -390,21 +390,7 @@
         
         /* Scanning line animation overlay */
         .hero-profile-picture .scan-line {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(0, 255, 247, 0.5) 30%, 
-                #00fff7 50%, 
-                rgba(0, 255, 247, 0.5) 70%, 
-                transparent);
-            z-index: 20;
-            animation: scanLineMove 3s linear infinite;
-            box-shadow: 0 0 20px #00fff7;
-            filter: blur(1px);
+            display: none;
         }
         
         /* Tech corner brackets - top right */
@@ -488,11 +474,11 @@
         }
         
         .hero-profile-picture:hover::before {
-            animation: bioScanPulse 1s infinite;
+            animation: none;
         }
         
         .hero-profile-picture:hover .scan-line {
-            animation: scanLineMove 1.5s linear infinite;
+            display: none;
         }
         
         /* Animations */
@@ -2104,7 +2090,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <h6 class="fw-bold mb-2">IDEs & Tools</h6>
+                                <h6 class="fw-bold mb-2">IDEs & AI Tools</h6>
                                 <div class="d-flex justify-content-center align-items-start flex-wrap" style="gap: 20px;">
                                     <div style="text-align: center;">
                                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VSCode" class="tech-icon" style="height:80px; width:80px;" />
@@ -3069,16 +3055,29 @@
         function exitEditMode() {
             editModeActive = false;
             
-            // Disable About Me sections editing
-            document.getElementById('personalInfo').setAttribute('contenteditable', 'false');
-            document.getElementById('educationInfo').setAttribute('contenteditable', 'false');
-            document.getElementById('focusAreas').setAttribute('contenteditable', 'false');
-            document.getElementById('personalInfo').classList.remove('edit-mode-active');
-            document.getElementById('educationInfo').classList.remove('edit-mode-active');
-            document.getElementById('focusAreas').classList.remove('edit-mode-active');
+            // Disable About Me sections editing (with null checks)
+            const personalInfo = document.getElementById('personalInfo');
+            const educationInfo = document.getElementById('educationInfo');
+            const focusAreas = document.getElementById('focusAreas');
+            
+            if (personalInfo) {
+                personalInfo.setAttribute('contenteditable', 'false');
+                personalInfo.classList.remove('edit-mode-active');
+            }
+            if (educationInfo) {
+                educationInfo.setAttribute('contenteditable', 'false');
+                educationInfo.classList.remove('edit-mode-active');
+            }
+            if (focusAreas) {
+                focusAreas.setAttribute('contenteditable', 'false');
+                focusAreas.classList.remove('edit-mode-active');
+            }
             
             // Hide profile picture upload button
-            document.getElementById('profileUploadBtn').style.opacity = '0';
+            const profileUploadBtn = document.getElementById('profileUploadBtn');
+            if (profileUploadBtn) {
+                profileUploadBtn.style.opacity = '0';
+            }
             
             editableElements.forEach(element => {
                 element.removeAttribute('contenteditable');
@@ -3702,6 +3701,716 @@
                 });
             }
         });
+    </script>
+
+    <!-- AI Chatbot Styles -->
+    <style>
+    /* Chatbot Toggle Button - to the left of viewer counter */
+    #chatbotToggle {
+        position: fixed;
+        right: 12px;
+        bottom: 50px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1c25 100%);
+        border: 2px solid #00fff7;
+        color: #00fff7;
+        font-size: 1.3rem;
+        cursor: pointer;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 18px #00fff740, 0 0 6px #00fff720 inset;
+        transition: all 0.3s ease;
+        animation: chatBtnPulse 2.5s infinite;
+    }
+    #chatbotToggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 28px #00fff770, 0 0 12px #00fff740 inset;
+    }
+    #chatbotToggle.active {
+        background: #00fff7;
+        color: #0a0a0f;
+        animation: none;
+    }
+    @keyframes chatBtnPulse {
+        0%, 100% { box-shadow: 0 0 18px #00fff740, 0 0 6px #00fff720 inset; }
+        50% { box-shadow: 0 0 28px #00fff760, 0 0 10px #00fff730 inset; }
+    }
+
+    /* Chatbot Window */
+    #chatbotWindow {
+        position: fixed;
+        right: 12px;
+        bottom: 108px;
+        width: 380px;
+        height: 520px;
+        background: #0d0f14;
+        border: 1px solid #00fff740;
+        border-radius: 16px;
+        z-index: 10001;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 8px 40px #00000080, 0 0 30px #00fff718;
+        animation: chatWindowIn 0.35s ease-out;
+    }
+    #chatbotWindow.open { display: flex; }
+    @keyframes chatWindowIn {
+        from { opacity: 0; transform: translateY(20px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Chat Header */
+    .chat-header {
+        background: linear-gradient(135deg, #101217 0%, #1a1c25 100%);
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid #00fff730;
+    }
+    .chat-header-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #00fff7;
+        object-fit: cover;
+    }
+    .chat-header-info {
+        flex: 1;
+    }
+    .chat-header-name {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #00fff7;
+        letter-spacing: 1px;
+    }
+    .chat-header-status {
+        font-size: 0.65rem;
+        color: #00ff88;
+    }
+    .chat-header-status::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #00ff88;
+        margin-right: 5px;
+        animation: statusBlink 1.5s infinite;
+    }
+    @keyframes statusBlink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
+    .chat-close-btn {
+        background: none;
+        border: none;
+        color: #00fff780;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: color 0.2s;
+        padding: 4px;
+    }
+    .chat-close-btn:hover { color: #ff4757; }
+
+    /* Chat Messages Area */
+    .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        scrollbar-width: thin;
+        scrollbar-color: #00fff730 transparent;
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: #00fff730; border-radius: 4px; }
+
+    /* Message Bubbles */
+    .chat-msg {
+        max-width: 85%;
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        animation: msgFadeIn 0.3s ease-out;
+        word-wrap: break-word;
+    }
+    @keyframes msgFadeIn {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-msg.bot {
+        align-self: flex-start;
+        background: linear-gradient(135deg, #141720 0%, #1a1e2e 100%);
+        border: 1px solid #00fff720;
+        color: #e0e0e0;
+        border-bottom-left-radius: 4px;
+    }
+    .chat-msg.user {
+        align-self: flex-end;
+        background: linear-gradient(135deg, #00fff715 0%, #00fff708 100%);
+        border: 1px solid #00fff730;
+        color: #00fff7;
+        border-bottom-right-radius: 4px;
+    }
+
+    /* Typing Indicator */
+    .chat-typing {
+        display: flex;
+        gap: 4px;
+        padding: 10px 14px;
+        align-self: flex-start;
+    }
+    .chat-typing span {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #00fff7;
+        animation: typingDot 1.2s infinite;
+    }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingDot {
+        0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+        30% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* Chat Input Area */
+    .chat-input-area {
+        padding: 12px;
+        border-top: 1px solid #00fff720;
+        display: flex;
+        gap: 8px;
+        background: #101217;
+    }
+    .chat-input {
+        flex: 1;
+        background: #1a1c25;
+        border: 1px solid #00fff730;
+        border-radius: 20px;
+        padding: 8px 16px;
+        color: #e0e0e0;
+        font-size: 0.85rem;
+        font-family: 'Poppins', sans-serif;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .chat-input:focus {
+        border-color: #00fff7;
+        box-shadow: 0 0 8px #00fff720;
+    }
+    .chat-input::placeholder { color: #ffffff40; }
+    .chat-send-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #00fff7;
+        border: none;
+        color: #0a0a0f;
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+    .chat-send-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 12px #00fff750;
+    }
+    .chat-send-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Quick Action Chips */
+    .chat-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 8px 16px;
+        border-top: 1px solid #00fff710;
+        background: #0d0f14;
+    }
+    .chat-chip {
+        background: #1a1c25;
+        border: 1px solid #00fff725;
+        border-radius: 16px;
+        padding: 4px 12px;
+        font-size: 0.72rem;
+        color: #00fff7;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: 'Poppins', sans-serif;
+    }
+    .chat-chip:hover {
+        background: #00fff715;
+        border-color: #00fff7;
+    }
+
+    /* Powered By */
+    .chat-powered {
+        text-align: center;
+        padding: 4px;
+        font-size: 0.6rem;
+        color: #ffffff25;
+        background: #0d0f14;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+        #chatbotToggle { width: 42px; height: 42px; font-size: 1.1rem; right: 8px; bottom: 44px; }
+        #chatbotWindow { 
+            width: calc(100vw - 16px); 
+            height: 85vh; 
+            right: 8px; 
+            top: 8px;
+            bottom: auto;
+            border-radius: 14px; 
+        }
+    }
+    @media (max-width: 480px) {
+        #chatbotWindow { 
+            height: 88vh; 
+            top: 8px;
+            bottom: auto; 
+        }
+    }
+    </style>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbotToggle" onclick="toggleChatbot()" title="Chat with AI Assistant">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbotWindow">
+        <div class="chat-header">
+            <img src="./RUSSEL.png" alt="Russel AI" class="chat-header-avatar">
+            <div class="chat-header-info">
+                <div class="chat-header-name">Russel AI</div>
+                <div class="chat-header-status">Online</div>
+            </div>
+            <button class="chat-close-btn" onclick="toggleChatbot()" title="Close chat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-msg bot">
+                Hey there! 👋 I'm <strong>Russel AI</strong>, Jan Russel's virtual assistant powered by Groq AI. Ask me anything about his projects, skills, services, or even fun personal stuff! I can speak Multilingual Language.
+            </div>
+        </div>
+        <div class="chat-chips" id="chatChips">
+            <span class="chat-chip" onclick="sendChip(this)">What are his skills?</span>
+            <span class="chat-chip" onclick="sendChip(this)">View projects</span>
+            <span class="chat-chip" onclick="sendChip(this)">How to hire him?</span>
+            <span class="chat-chip" onclick="sendChip(this)">Tech stack?</span>
+            <span class="chat-chip" onclick="sendChip(this)">Contact info</span>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything... | Magtanong... | Pangkot-a..." autocomplete="off">
+            <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        <div class="chat-powered">Powered by Groq AI</div>
+    </div>
+
+    <!-- Chatbot Script — Groq API -->
+    <script>
+    (function(){
+        // TODO: Replace with your own Groq API key from https://console.groq.com/
+        // For production, use environment variables or a backend proxy to keep keys secure
+        const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
+        const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+        // Dynamically scrape portfolio content to build system prompt
+        function buildSystemPrompt() {
+            let prompt = `You are "Russel AI", a friendly and professional MULTILINGUAL virtual assistant on Jan Russel E. Peñafiel's portfolio website. Your ONLY job is to answer questions about Jan Russel's skills, projects, experience, and services. ALWAYS respond based on his portfolio information below.
+
+⚠️ CRITICAL LANGUAGE RULE: ALWAYS respond in the EXACT SAME language the user writes in. If user writes in Ilonggo, you MUST respond in Ilonggo. If user writes in Tagalog, you MUST respond in Tagalog. NEVER mix languages or respond in a different language than the user used.
+
+⚠️ CRITICAL TOKEN RULE: Keep ALL responses SHORT (1-2 sentences max). Tokens are limited - be brief, direct, and efficient with words!
+
+LANGUAGE & CULTURAL SUPPORT:
+- You can understand and respond in ENGLISH, TAGALOG (Filipino), ILONGGO (Hiligaynon/Hiligaynon), and ARABIC
+- ILONGGO (also called Hiligaynon) is a DIFFERENT language from Tagalog - it's spoken in Western Visayas, Philippines
+- Key Ilonggo words to ALWAYS use when responding in Ilonggo: 
+  * "kag" (and) - NOT "at" (that's Tagalog)
+  * "sang" (of/the) - NOT "ng" (that's Tagalog)
+  * "iya" (his/her) - NOT "niya" (that's Tagalog)
+  * "mahibalo/hibalo" (to know) - NOT "alam" (that's Tagalog)
+  * "ukon" (or) - NOT "o" (that's Tagalog)
+  * "gid" (very/emphasis) - unique to Ilonggo
+  * "nga" (that/which) - unique to Ilonggo
+  * "diri" (here) - NOT "dito" (that's Tagalog)
+  * "diin" (where) - NOT "saan" (that's Tagalog)
+  * "sin-o" (who) - NOT "sino" (that's Tagalog)
+- Common Ilonggo question patterns: "Ano ang...", "Diin ang...", "Sin-o ang...", "Paano ang..."
+- TAGALOG vs ILONGGO key differences:
+  * Tagalog: "niya", "alam", "tungkol", "ng", "at", "o", "dito", "saan", "sino"
+  * Ilonggo: "iya", "mahibalo/hibalo", "parte", "sang", "kag", "ukon", "diri", "diin", "sin-o"
+- Understand MUSLIM/ISLAMIC context and be culturally respectful
+- Recognize and respond appropriately to Islamic greetings and terms
+- When using Islamic terms, prefer ROMANIZED Arabic (Assalamu alaikum, Wa alaikum salaam, Masha Allah, Insha Allah, Alhamdulillah, Bismillah, Subhanallah, etc.)
+- AUTOMATICALLY detect the user's language from their message by looking for language-specific words
+- RESPOND in the EXACT SAME language they used to ask
+- If they use Arabic words or script, answer in Arabic
+- If they use Ilonggo words (nga, gid, sang, diin, mahibal-an), answer in Ilonggo
+- If they use Tagalog words (niya, alam, tungkol), answer in Tagalog  
+- If they use English, answer in English
+- Be natural and conversational in all contexts and languages
+- Show respect for religious and cultural values
+
+EXAMPLE RESPONSES (to help you understand each language):
+- Ilonggo question: "Ano ang iya mga skills?" → Ilonggo answer: "Si Jan Russel ay may mga skills sa web development. Gamit niya ang PHP, JavaScript, React, kag iban pa nga teknolohiya."
+- Tagalog question: "Ano ang kanyang mga skills?" → Tagalog answer: "Si Jan Russel ay may mga skills sa web development. Gumagamit siya ng PHP, JavaScript, React, at iba pang teknolohiya."
+- English question: "What are his skills?" → English answer: "Jan Russel has skills in web development. He uses PHP, JavaScript, React, and other technologies."
+- Note the difference: Ilonggo uses "kag" (and), Tagalog uses "at" (and)
+
+`;
+
+            // Extract personal info from hero section
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                const name = heroSection.querySelector('h1')?.textContent.trim() || 'Jan Russel E. Peñafiel';
+                const title = heroSection.querySelector('.lead')?.textContent.trim() || '';
+                const location = Array.from(heroSection.querySelectorAll('.badge-custom')).find(el => el.textContent.includes('Location'))?.textContent.replace('Location:', '').trim() || '';
+                const team = Array.from(heroSection.querySelectorAll('.badge-custom')).find(el => el.textContent.includes('Team'))?.textContent.replace('Software Development Team:', '').trim() || '';
+                const github = heroSection.querySelector('a[href*="github.com"]')?.href || '';
+                const linkedin = heroSection.querySelector('a[href*="linkedin.com"]')?.href || '';
+                
+                prompt += `ABOUT ${name.toUpperCase()}:\n`;
+                prompt += `- ${title}\n`;
+                if (location) prompt += `- Location: ${location}\n`;
+                if (team) prompt += `- Team: ${team}\n`;
+                if (github) prompt += `- GitHub: ${github}\n`;
+                if (linkedin) prompt += `- LinkedIn: ${linkedin}\n`;
+                prompt += `\n`;
+            }
+
+            // Personal info (fun facts)
+            prompt += `PERSONAL INFO (Fun Facts - Be playful when asked!):\n`;
+            prompt += `- Relationship Status: Single and focused on coding! 💻 (Always open to meeting someone special who appreciates late-night debugging sessions 😄)\n`;
+            prompt += `- Favorite Color: Cyan (#00fff7) - Can't you tell from this portfolio? It's everywhere! It matches his vibe: bright, electric, and techy!\n`;
+            prompt += `- Type in a Girl: Someone smart, funny, and understanding. Bonus points if she appreciates tech humor and doesn't mind him talking about code all the time. A fellow developer would be amazing, but not required! Someone supportive and adventurous.\n`;
+            prompt += `- Hobbies: Coding (obviously!), learning new frameworks, gaming during breaks, designing cyberpunk-themed UIs, and binge-watching tech tutorials on YouTube\n`;
+            prompt += `- Favorite Food: Chicken (hence the "Russel's Chicken Delights" project! 🍗) and anything spicy\n`;
+            prompt += `- Coffee or Tea: Coffee all the way! ☕ Can't code without it\n`;
+            prompt += `- Dream Project: Building a revolutionary AI-powered health system that helps communities, or maybe his own tech startup someday\n`;
+            prompt += `- Fun Fact: He named his profile picture style "Cybertron Biometric UI" - he's THAT into futuristic design themes!\n`;
+            prompt += `- Personality: Friendly, driven, a bit of a perfectionist with his code, and always eager to learn. He'll probably joke about bugs being "features" 🐛\n`;
+            prompt += `\n`;
+            prompt += `When asked about personal topics, be warm, funny, and relatable. Make him sound genuine and approachable!\n\n`;
+
+            // Extract tech skills from tech stack section
+            const techSection = document.querySelector('#tech');
+            if (techSection) {
+                prompt += `TECHNICAL SKILLS:\n`;
+                const techBadges = techSection.querySelectorAll('.tech-badge');
+                const skills = Array.from(techBadges).map(badge => badge.textContent.trim()).filter(s => s);
+                if (skills.length > 0) {
+                    skills.forEach(skill => {
+                        prompt += `- ${skill}\n`;
+                    });
+                }
+                prompt += `\n`;
+            }
+
+            // Extract projects from projects section
+            const projectsSection = document.querySelector('#projects');
+            if (projectsSection) {
+                prompt += `FEATURED PROJECTS:\n\n`;
+                const projectCards = projectsSection.querySelectorAll('.project-card');
+                projectCards.forEach((card, index) => {
+                    const title = card.querySelector('.card-title')?.textContent.trim() || '';
+                    const institution = card.querySelector('h6')?.textContent.trim() || '';
+                    const description = card.querySelector('.card-text')?.textContent.trim() || '';
+                    const badges = Array.from(card.querySelectorAll('.badge')).map(b => b.textContent.trim()).filter(b => b);
+                    
+                    if (title) {
+                        prompt += `${index + 1}. ${title}`;
+                        if (institution) prompt += ` (${institution.replace(/^[^\w]+/, '')})`;
+                        prompt += `\n`;
+                        if (description) prompt += `   ${description}\n`;
+                        if (badges.length > 0) prompt += `   Tech: ${badges.join(', ')}\n`;
+                        prompt += `\n`;
+                    }
+                });
+            }
+
+            // Add services offered
+            prompt += `SERVICES OFFERED:\n`;
+            prompt += `- Custom web application development\n`;
+            prompt += `- Healthcare and government system solutions\n`;
+            prompt += `- Student and employee management systems\n`;
+            prompt += `- Full-stack development (frontend + backend + database)\n`;
+            prompt += `- Responsive design (mobile-first approach)\n`;
+            prompt += `- Freelance commissions (currently open for new projects)\n\n`;
+
+            // Extract contact info
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+                prompt += `HOW TO HIRE:\n`;
+                const github = document.querySelector('a[href*="github.com"]')?.href || '';
+                const linkedin = document.querySelector('a[href*="linkedin.com"]')?.href || '';
+                if (github) prompt += `- GitHub: ${github}\n`;
+                if (linkedin) prompt += `- LinkedIn: ${linkedin}\n`;
+                prompt += `- Resume available for download on portfolio website\n\n`;
+            }
+
+            // Add response rules
+            prompt += `RESPONSE RULES:\n`;
+            prompt += `1. ⚠️ CRITICAL: DETECT the user's language carefully (English, Tagalog, Ilonggo/Hiligaynon, or Arabic) and RESPOND in the EXACT SAME language throughout the conversation. Ilonggo and Tagalog are DIFFERENT languages - if you see Ilonggo markers like "nga", "gid", "sang", "diin", "mahibal-an", respond in Ilonggo NOT in Tagalog\n`;
+            prompt += `2. ALWAYS base answers on the portfolio information above - NEVER make up projects, skills, or details\n`;
+            prompt += `3. If asked about projects:\n`;
+            prompt += `   - Mention specific project names from the list\n`;
+            prompt += `   - Include key features and technologies used\n`;
+            prompt += `   - Mention the institution/client if relevant\n`;
+            prompt += `   - Be excited about the impact these projects have\n`;
+            prompt += `4. If asked about skills:\n`;
+            prompt += `   - Reference his tech stack\n`;
+            prompt += `   - Connect skills to actual projects he built\n`;
+            prompt += `   - Mention years of experience or expertise level when appropriate\n`;
+            prompt += `5. If asked how to hire:\n`;
+            prompt += `   - Provide GitHub and LinkedIn links\n`;
+            prompt += `   - Emphasize he's OPEN FOR COMMISSIONS\n`;
+            prompt += `   - Mention his location (South Cotabato, Philippines)\n`;
+            prompt += `   - Encourage them to reach out for custom projects\n`;
+            prompt += `6. Smart token management - adjust response length by topic:\n`;
+            prompt += `   - PROFESSIONAL topics (projects, skills, hiring, technical details): Keep to 1-2 sentences maximum to save tokens\n`;
+            prompt += `   - PERSONAL/FUNNY topics (relationship, hobbies, favorite color, food, personal life): Feel free to be more expressive and detailed! Have fun with these - no word limit\n`;
+            prompt += `   - GREETINGS: Brief and warm (1 sentence)\n`;
+            prompt += `   - If user asks "tell me more" or "explain in detail": Give full detailed answer regardless of topic\n`;
+            prompt += `7. If someone asks something unrelated to Jan Russel or web development, redirect them using THEIR language:\n`;
+            prompt += `   - In English: "I'm here to help with questions about Jan Russel's web development work. What would you like to know about his projects or services?"\n`;
+            prompt += `   - In Tagalog: "Nandito ako para sagutin ang mga tanong tungkol sa web development work ni Jan Russel. Ano ang gusto mong malaman tungkol sa kanyang mga proyekto o serbisyo?"\n`;
+            prompt += `   - In Ilonggo/Hiligaynon: "Diri ako para magsabat sang mga pamangkot parte sa web development trabaho ni Jan Russel. Ano ang gusto mo mahibal-an parte sa iya mga proyekto ukon serbisyo?"\n`;
+            prompt += `   - In Arabic: "أنا هنا للإجابة على الأسئلة المتعلقة بأعمال جان راسل في تطوير الويب. ما الذي تريد معرفته عن مشاريعه أو خدماته؟"\n`;
+            prompt += `8. NEVER use markdown formatting - use plain text only (no **, __, ##, or []())\n`;
+            prompt += `9. Be enthusiastic about his work:\n`;
+            prompt += `   - Show genuine excitement about his projects\n`;
+            prompt += `   - Highlight his skills and achievements\n`;
+            prompt += `   - Encourage visitors to connect with him\n`;
+            prompt += `10. Match the user's formality level - be casual but professional\n`;
+            prompt += `11. Handle personal questions with warmth, humor, and PERSONALITY:\n`;
+            prompt += `    - Be playful, funny, and expressive when asked about relationship status, hobbies, favorite things, etc.\n`;
+            prompt += `    - NO WORD LIMIT for personal/funny conversations - let your personality shine!\n`;
+            prompt += `    - Make him sound genuine, relatable, and down-to-earth\n`;
+            prompt += `    - Use emojis FREELY in funny/casual/personal conversations (😄 ☕ 💻 🍗 💖 🎮 whatever feels natural!)\n`;
+            prompt += `    - DO NOT use emojis when discussing serious topics: projects, skills, hiring, technical details\n`;
+            prompt += `    - Keep professional questions emoji-free and concise for credibility\n`;
+            prompt += `12. When greeting users:\n`;
+            prompt += `    - Respond warmly to "hi", "hello", "kumusta"\n`;
+            prompt += `    - Introduce yourself briefly as Russel AI\n`;
+            prompt += `    - Offer to answer questions about Jan Russel\n`;
+            prompt += `13. If user asks multiple questions:\n`;
+            prompt += `    - Answer all questions in order\n`;
+            prompt += `    - Use clear separators between answers\n`;
+            prompt += `    - Keep each answer focused\n`;
+            prompt += `14. Be conversational and natural:\n`;
+            prompt += `    - Avoid robotic or template-like responses\n`;
+            prompt += `    - Vary your phrasing and sentence structure\n`;
+            prompt += `    - Use transitional phrases to connect ideas\n`;
+            prompt += `15. If you don't know something:\n`;
+            prompt += `    - Be honest: "I don't have that specific information in his portfolio"\n`;
+            prompt += `    - Redirect to something you DO know\n`;
+            prompt += `    - Suggest they contact him directly for detailed discussions\n`;
+            prompt += `16. Handle comparisons thoughtfully:\n`;
+            prompt += `    - If asked to compare his work with others, focus on his unique strengths\n`;
+            prompt += `    - Highlight his specialties (healthcare systems, government projects, student monitoring)\n`;
+            prompt += `    - Be confident but not arrogant\n`;
+            prompt += `17. Encourage action:\n`;
+            prompt += `    - End relevant responses with subtle calls-to-action\n`;
+            prompt += `    - "Want to see his work? Check out his GitHub!"\n`;
+            prompt += `    - "Interested in working together? He's open for commissions!"\n`;
+            prompt += `18. Remember context from the conversation:\n`;
+            prompt += `    - Reference previous questions when relevant\n`;
+            prompt += `    - Build on earlier parts of the conversation\n`;
+            prompt += `    - Don't repeat yourself unnecessarily\n`;
+            prompt += `19. Handle criticism or negative questions gracefully:\n`;
+            prompt += `    - Stay professional and positive\n`;
+            prompt += `    - Focus on his strengths and achievements\n`;
+            prompt += `    - Redirect to constructive topics\n`;
+            prompt += `20. Be human and authentic:\n`;
+            prompt += `    - Show personality in your responses\n`;
+            prompt += `    - Admit when something is impressive or cool\n`;
+            prompt += `    - Express genuine interest in helping the user\n`;
+            prompt += `    - Make the conversation feel natural, not scripted`;
+
+            return prompt;
+        }
+
+        // Build system prompt from page content
+        const SYSTEM_PROMPT = buildSystemPrompt();
+
+        let chatHistory = [];
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        const chatWindow = document.getElementById('chatbotWindow');
+        const chatToggle = document.getElementById('chatbotToggle');
+
+        // Toggle chatbot visibility
+        window.toggleChatbot = function() {
+            const isOpen = chatWindow.classList.toggle('open');
+            chatToggle.classList.toggle('active', isOpen);
+            if (isOpen) {
+                chatToggle.innerHTML = '<i class="fas fa-times"></i>';
+                // Scroll to bottom and focus input
+                setTimeout(function() {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    chatInput.focus();
+                }, 100);
+            } else {
+                chatToggle.innerHTML = '<i class="fas fa-robot"></i>';
+            }
+        };
+
+        // Send via chip
+        window.sendChip = function(el) {
+            const text = el.textContent.trim();
+            chatInput.value = text;
+            sendMessage();
+            // Fade out chips after first use
+            const chips = document.getElementById('chatChips');
+            if (chips) chips.style.display = 'none';
+        };
+
+        // Send via button
+        window.sendChatMessage = sendMessage;
+
+        // Enter key
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Mobile: Auto-scroll when keyboard appears
+        chatInput.addEventListener('focus', function() {
+            // Delay to wait for keyboard animation
+            setTimeout(function() {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // Also scroll the input into view
+                chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+        });
+
+        // Mobile: Keep scrolled to bottom when typing
+        chatInput.addEventListener('input', function() {
+            if (document.activeElement === chatInput) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+
+        // Mobile: Handle visual viewport changes (for better keyboard detection)
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', function() {
+                if (chatWindow.classList.contains('open') && document.activeElement === chatInput) {
+                    setTimeout(function() {
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, 100);
+                }
+            });
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            // Add user message
+            appendMessage(text, 'user');
+            chatInput.value = '';
+            chatSendBtn.disabled = true;
+
+            // Show typing indicator
+            const typingEl = showTyping();
+
+            // Add to history
+            chatHistory.push({ role: 'user', content: text });
+
+            try {
+                const reply = await callGroq(text);
+                removeTyping(typingEl);
+                appendMessage(reply, 'bot');
+                chatHistory.push({ role: 'assistant', content: reply });
+            } catch (err) {
+                removeTyping(typingEl);
+                // Check if it's a rate limit error
+                if (err.message && (err.message.includes('Rate limit') || err.message.includes('429'))) {
+                    appendMessage('🚦 Token limit reached! I\'ve used up my daily quota. Please come back tomorrow and I\'ll be ready to chat again! 😊', 'bot');
+                } else {
+                    appendMessage('Sorry, I couldn\'t process that right now. Please try again!', 'bot');
+                }
+                console.error('Groq error:', err);
+            }
+
+            chatSendBtn.disabled = false;
+        }
+
+        async function callGroq(userMessage) {
+            const messages = [
+                { role: 'system', content: SYSTEM_PROMPT },
+                ...chatHistory
+            ];
+
+            const res = await fetch(GROQ_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GROQ_API_KEY}`
+                },
+                body: JSON.stringify({
+                    model: 'llama-3.3-70b-versatile',
+                    messages: messages,
+                    temperature: 0.5,
+                    max_tokens: 1000,
+                    top_p: 0.9
+                })
+            });
+
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.error?.message || `HTTP ${res.status}`);
+            }
+
+            const data = await res.json();
+            return data.choices?.[0]?.message?.content || 'I couldn\'t generate a response. Please try again.';
+        }
+
+        function appendMessage(text, type) {
+            const div = document.createElement('div');
+            div.className = `chat-msg ${type}`;
+            div.textContent = text;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const div = document.createElement('div');
+            div.className = 'chat-typing';
+            div.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return div;
+        }
+
+        function removeTyping(el) {
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        }
+    })();
     </script>
 
     <!-- Viewer counter badge + script -->
