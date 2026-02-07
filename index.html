@@ -3756,6 +3756,7 @@
         overflow: hidden;
         box-shadow: 0 8px 40px #00000080, 0 0 30px #00fff718;
         animation: chatWindowIn 0.35s ease-out;
+        touch-action: none;
     }
     #chatbotWindow.open { display: flex; }
     @keyframes chatWindowIn {
@@ -3771,6 +3772,9 @@
         align-items: center;
         gap: 10px;
         border-bottom: 1px solid #00fff730;
+        flex-shrink: 0;
+        min-height: 62px;
+        touch-action: none;
     }
     .chat-header-avatar {
         width: 36px;
@@ -3826,8 +3830,11 @@
         display: flex;
         flex-direction: column;
         gap: 12px;
+        min-height: 0;
         scrollbar-width: thin;
         scrollbar-color: #00fff730 transparent;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
     }
     .chat-messages::-webkit-scrollbar { width: 4px; }
     .chat-messages::-webkit-scrollbar-track { background: transparent; }
@@ -3890,6 +3897,8 @@
         display: flex;
         gap: 8px;
         background: #101217;
+        flex-shrink: 0;
+        touch-action: none;
     }
     .chat-input {
         flex: 1;
@@ -3902,10 +3911,14 @@
         font-family: 'Poppins', sans-serif;
         outline: none;
         transition: border-color 0.2s;
+        position: relative;
+        will-change: auto;
     }
     .chat-input:focus {
         border-color: #00fff7;
         box-shadow: 0 0 8px #00fff720;
+        scroll-margin: 0;
+        scroll-snap-align: none;
     }
     .chat-input::placeholder { color: #ffffff40; }
     .chat-send-btn {
@@ -3940,6 +3953,7 @@
         padding: 8px 16px;
         border-top: 1px solid #00fff710;
         background: #0d0f14;
+        touch-action: none;
     }
     .chat-chip {
         background: #1a1c25;
@@ -3968,23 +3982,193 @@
         letter-spacing: 1px;
     }
 
+    /* Backdrop overlay */
+    #chatbotBackdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        z-index: 10000;
+        display: none;
+        animation: backdropFadeIn 0.3s ease-out;
+    }
+    #chatbotBackdrop.show { display: block; }
+    @keyframes backdropFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Prevent body scroll when chatbot is open */
+    body.chatbot-open {
+        overflow: hidden !important;
+        position: fixed !important;
+        height: 100vh;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    /* Tablet & larger phones */
     @media (max-width: 768px) {
         #chatbotToggle { width: 42px; height: 42px; font-size: 1.1rem; right: 8px; bottom: 44px; }
         #chatbotWindow { 
             width: calc(100vw - 16px); 
-            height: 85vh; 
+            height: calc(100dvh - 16px);
+            max-height: calc(100dvh - 16px);
             right: 8px; 
+            left: 8px;
             top: 8px;
-            bottom: auto;
-            border-radius: 14px; 
+            bottom: 8px;
+            border-radius: 14px;
         }
+        .chat-header { padding: 10px 14px; }
+        .chat-messages { padding: 12px; gap: 10px; }
+        .chat-msg { font-size: 0.82rem; padding: 9px 12px; max-width: 88%; }
+        .chat-input-area { padding: 10px; gap: 6px; }
+        .chat-input { padding: 8px 14px; font-size: 0.82rem; }
+        .chat-chips { padding: 6px 12px; gap: 5px; }
+        .chat-chip { padding: 3px 10px; font-size: 0.7rem; }
+        .chat-send-btn { width: 36px; height: 36px; font-size: 0.9rem; }
     }
+
+    /* Standard phones */
     @media (max-width: 480px) {
+        #chatbotToggle { width: 40px; height: 40px; font-size: 1rem; right: 6px; bottom: 40px; }
         #chatbotWindow { 
-            height: 88vh; 
-            top: 8px;
-            bottom: auto; 
+            position: fixed;
+            width: 100vw;
+            height: 100dvh;
+            max-height: 100dvh;
+            right: 0; 
+            left: 0;
+            top: 0;
+            bottom: 0;
+            border-radius: 0;
+            border: none;
+            overflow: hidden;
         }
+        .chat-header { 
+            padding: 10px 12px; 
+            padding-top: max(10px, env(safe-area-inset-top));
+        }
+        .chat-header-avatar { width: 32px; height: 32px; }
+        .chat-header-name { font-size: 0.75rem; }
+        .chat-input-area { 
+            padding: 8px; 
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+        }
+        .chat-input { padding: 7px 12px; font-size: 0.8rem; border-radius: 18px; }
+        .chat-send-btn { width: 34px; height: 34px; font-size: 0.85rem; min-width: 34px; }
+        .chat-msg { font-size: 0.8rem; padding: 8px 11px; max-width: 90%; }
+        .chat-messages { padding: 10px; gap: 8px; }
+        .chat-chips { padding: 5px 10px; gap: 4px; }
+        .chat-chip { padding: 3px 8px; font-size: 0.68rem; }
+        .chat-powered { font-size: 0.55rem; padding: 3px; }
+    }
+
+    /* Very small phones (iPhone SE, Galaxy A series, etc.) */
+    @media (max-width: 375px) {
+        .chat-header-name { font-size: 0.7rem; letter-spacing: 0.5px; }
+        .chat-header-status { font-size: 0.6rem; }
+        .chat-msg { font-size: 0.78rem; padding: 7px 10px; }
+        .chat-input { font-size: 0.78rem; padding: 6px 10px; }
+        .chat-chips { gap: 3px; padding: 4px 8px; }
+        .chat-chip { font-size: 0.65rem; padding: 2px 7px; }
+    }
+
+    /* Landscape mode on phones */
+    @media (max-height: 500px) and (orientation: landscape) {
+        #chatbotWindow {
+            width: 100vw;
+            height: 100dvh;
+            max-height: 100dvh;
+            right: 0; left: 0; top: 0; bottom: 0;
+            border-radius: 0;
+            border: none;
+        }
+        .chat-header { padding: 6px 12px; }
+        .chat-header-avatar { width: 28px; height: 28px; }
+        .chat-messages { padding: 6px 10px; gap: 6px; }
+        .chat-msg { font-size: 0.75rem; padding: 6px 10px; }
+        .chat-input-area { padding: 6px 8px; }
+        .chat-input { padding: 5px 10px; font-size: 0.75rem; }
+        .chat-send-btn { width: 30px; height: 30px; min-width: 30px; font-size: 0.8rem; }
+        .chat-chips { padding: 3px 6px; gap: 3px; }
+        .chat-chip { font-size: 0.6rem; padding: 2px 6px; }
+        .chat-powered { display: none; }
+    }
+
+    /* When keyboard is open - chatbot adapts via JS class */
+    #chatbotWindow.keyboard-open {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        border-radius: 0 !important;
+        border: none !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        transform: none !important;
+    }
+    
+    /* Header always stays visible at top */
+    #chatbotWindow.keyboard-open .chat-header {
+        flex-shrink: 0 !important;
+        position: relative;
+        top: 0;
+        z-index: 10;
+        min-height: 62px !important;
+    }
+    
+    /* Messages area shrinks to fill available space */
+    #chatbotWindow.keyboard-open .chat-messages {
+        flex: 1 1 auto;
+        min-height: 40px;
+        overflow-y: auto;
+    }
+    
+    /* Input stays at bottom of visible area */
+    #chatbotWindow.keyboard-open .chat-input-area {
+        flex-shrink: 0;
+        position: relative;
+        bottom: 0;
+        z-index: 10;
+    }
+    
+    /* Hide non-essential elements when keyboard is open to save space */
+    #chatbotWindow.keyboard-open .chat-powered {
+        display: none;
+    }
+    
+    /* Ensure smooth transitions and no overflow */
+    #chatbotWindow {
+        transition: height 0.2s ease-out, max-height 0.2s ease-out;
+        overflow: hidden;
+        overscroll-behavior: none;
+        scroll-behavior: auto;
+    }
+    
+    /* Prevent backdrop from interfering with chatbot */
+    #chatbotBackdrop {
+        pointer-events: auto;
+        overscroll-behavior: none;
+    }
+    #chatbotBackdrop.show ~ #chatbotWindow {
+        pointer-events: auto;
+    }
+    
+    /* Lock body when chatbot is open - prevent any scrolling */
+    body.chatbot-open {
+        overscroll-behavior: none !important;
+        -webkit-overflow-scrolling: auto !important;
     }
     </style>
 
@@ -3992,6 +4176,9 @@
     <button id="chatbotToggle" onclick="toggleChatbot()" title="Chat with AI Assistant">
         <i class="fas fa-robot"></i>
     </button>
+
+    <!-- Backdrop Overlay -->
+    <div id="chatbotBackdrop" onclick="toggleChatbot()"></div>
 
     <!-- Chatbot Window -->
     <div id="chatbotWindow">
@@ -4007,7 +4194,7 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-msg bot">
-                Hey there! 👋 I'm <strong>Russel AI</strong>, Jan Russel's virtual assistant powered by Groq AI. Ask me anything about his projects, skills, services, or even fun personal stuff! I can speak Multilingual Language.
+                Hey there! 👋 I'm <strong>Russel AI</strong>, Jan Russel's virtual assistant. Ask me anything about his projects, skills, services, or even fun personal stuff! I can speak Multilingual.
             </div>
         </div>
         <div class="chat-chips" id="chatChips">
@@ -4018,7 +4205,7 @@
             <span class="chat-chip" onclick="sendChip(this)">Contact info</span>
         </div>
         <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything... | Magtanong... | Pangkot-a..." autocomplete="off">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." autocomplete="off">
             <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">
                 <i class="fas fa-paper-plane"></i>
             </button>
@@ -4029,8 +4216,8 @@
     <!-- Chatbot Script — Groq API -->
     <script>
     (function(){
-        // Using server-side proxy to keep API key secure
-        const CHATBOT_PROXY_URL = 'chatbot-proxy.php';
+        // Use PHP proxy to keep API key secure
+        const PROXY_URL = 'chatbot-proxy.php';
 
         // Dynamically scrape portfolio content to build system prompt
         function buildSystemPrompt() {
@@ -4258,20 +4445,59 @@ EXAMPLE RESPONSES (to help you understand each language):
         const chatSendBtn = document.getElementById('chatSendBtn');
         const chatWindow = document.getElementById('chatbotWindow');
         const chatToggle = document.getElementById('chatbotToggle');
+        const chatBackdrop = document.getElementById('chatbotBackdrop');
+
+        // Initialize scroll lock on page load
+        window.addEventListener('load', function() {
+            // Ensure chatbot is closed and scroll is unlocked on page load
+            chatWindow.classList.remove('open');
+            chatWindow.classList.remove('keyboard-open');
+            document.body.classList.remove('chatbot-open');
+            chatWindow.scrollTop = 0;
+            window.scrollTo(0, 0);
+        });
 
         // Toggle chatbot visibility
         window.toggleChatbot = function() {
             const isOpen = chatWindow.classList.toggle('open');
             chatToggle.classList.toggle('active', isOpen);
+            chatBackdrop.classList.toggle('show', isOpen);
+            document.body.classList.toggle('chatbot-open', isOpen);
+            
             if (isOpen) {
                 chatToggle.innerHTML = '<i class="fas fa-times"></i>';
-                // Scroll to bottom and focus input
+                // Immediately lock scroll
+                window.scrollTo(0, 0);
+                chatWindow.scrollTop = 0;
+                // Reset viewport dimensions
+                if (window.visualViewport) {
+                    initialHeight = window.visualViewport.height;
+                    initialWidth = window.visualViewport.width;
+                } else {
+                    initialHeight = window.innerHeight;
+                    initialWidth = window.innerWidth;
+                }
+                // Focus input without scrolling
                 setTimeout(function() {
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                    chatInput.focus();
+                    chatInput.focus({ preventScroll: true });
+                    // Ensure modal stays in place
+                    chatWindow.scrollTop = 0;
+                    window.scrollTo(0, 0);
                 }, 100);
             } else {
                 chatToggle.innerHTML = '<i class="fas fa-robot"></i>';
+                // Clean up styles when closing
+                chatWindow.classList.remove('keyboard-open');
+                chatWindow.style.height = '';
+                chatWindow.style.maxHeight = '';
+                chatWindow.style.top = '';
+                chatWindow.style.left = '';
+                chatWindow.style.right = '';
+                chatWindow.style.width = '';
+                // Clean up body styles
+                document.body.style.position = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
             }
         };
 
@@ -4280,13 +4506,73 @@ EXAMPLE RESPONSES (to help you understand each language):
             const text = el.textContent.trim();
             chatInput.value = text;
             sendMessage();
-            // Fade out chips after first use
-            const chips = document.getElementById('chatChips');
-            if (chips) chips.style.display = 'none';
         };
 
         // Send via button
         window.sendChatMessage = sendMessage;
+
+        // Prevent modal scrolling on mobile (allow only messages area to scroll)
+        chatWindow.addEventListener('touchmove', function(e) {
+            // Allow scrolling only within the messages area
+            if (!e.target.closest('.chat-messages')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent overscroll on messages area
+        chatMessages.addEventListener('touchstart', function(e) {
+            const scrollTop = chatMessages.scrollTop;
+            const scrollHeight = chatMessages.scrollHeight;
+            const height = chatMessages.clientHeight;
+            const atTop = scrollTop === 0;
+            const atBottom = scrollTop + height >= scrollHeight - 1;
+
+            // Store initial touch position
+            chatMessages.dataset.startY = e.touches[0].clientY;
+            chatMessages.dataset.atTop = atTop;
+            chatMessages.dataset.atBottom = atBottom;
+        });
+
+        chatMessages.addEventListener('touchmove', function(e) {
+            const startY = parseFloat(chatMessages.dataset.startY);
+            const currentY = e.touches[0].clientY;
+            const delta = currentY - startY;
+            const atTop = chatMessages.dataset.atTop === 'true';
+            const atBottom = chatMessages.dataset.atBottom === 'true';
+
+            // Prevent overscroll at boundaries
+            if ((atTop && delta > 0) || (atBottom && delta < 0)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent scroll when input is focused
+        chatInput.addEventListener('focus', function(e) {
+            e.preventDefault();
+            // Lock scroll position
+            chatWindow.scrollTop = 0;
+            window.scrollTo(0, 0);
+            // Prevent any scrollIntoView behavior
+            if (chatWindow.classList.contains('open')) {
+                const scrollX = window.scrollX || window.pageXOffset;
+                const scrollY = window.scrollY || window.pageYOffset;
+                window.scrollTo(scrollX, scrollY);
+            }
+        });
+
+        // Override scrollIntoView for the input element to prevent any automatic scrolling
+        const originalScrollIntoView = chatInput.scrollIntoView;
+        chatInput.scrollIntoView = function() {
+            // Do nothing - prevent scroll
+            return;
+        };
+
+        // Prevent scroll when clicking input
+        chatInput.addEventListener('click', function(e) {
+            e.stopPropagation();
+            chatWindow.scrollTop = 0;
+            window.scrollTo(0, 0);
+        });
 
         // Enter key
         chatInput.addEventListener('keydown', function(e) {
@@ -4296,32 +4582,183 @@ EXAMPLE RESPONSES (to help you understand each language):
             }
         });
 
-        // Mobile: Auto-scroll when keyboard appears
-        chatInput.addEventListener('focus', function() {
-            // Delay to wait for keyboard animation
-            setTimeout(function() {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                // Also scroll the input into view
-                chatInput.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 300);
-        });
+        // === MOBILE KEYBOARD & SCROLL HANDLING ===
 
-        // Mobile: Keep scrolled to bottom when typing
-        chatInput.addEventListener('input', function() {
-            if (document.activeElement === chatInput) {
-                chatMessages.scrollTop = chatMessages.scrollHeight;
+        // Prevent modal from scrolling on any interaction
+        chatWindow.addEventListener('scroll', function(e) {
+            if (chatWindow.scrollTop !== 0) {
+                chatWindow.scrollTop = 0;
             }
         });
 
-        // Mobile: Handle visual viewport changes (for better keyboard detection)
+        // Prevent page scroll when chatbot is open
+        window.addEventListener('scroll', function() {
+            if (chatWindow.classList.contains('open')) {
+                window.scrollTo(0, 0);
+            }
+        });
+
+        // Continuous scroll lock check while chatbot is open
+        setInterval(function() {
+            if (chatWindow.classList.contains('open')) {
+                if (chatWindow.scrollTop !== 0) {
+                    chatWindow.scrollTop = 0;
+                }
+                if (window.scrollY !== 0 || window.scrollX !== 0) {
+                    window.scrollTo(0, 0);
+                }
+            }
+        }, 100);
+
+        // Visual Viewport API - best keyboard detection for modern mobile browsers
+        let initialHeight = window.innerHeight;
+        let initialWidth = window.innerWidth;
+        
         if (window.visualViewport) {
-            window.visualViewport.addEventListener('resize', function() {
-                if (chatWindow.classList.contains('open') && document.activeElement === chatInput) {
-                    setTimeout(function() {
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                    }, 100);
+            initialHeight = window.visualViewport.height;
+            initialWidth = window.visualViewport.width;
+
+            function adjustChatbotForKeyboard() {
+                if (!chatWindow.classList.contains('open')) return;
+
+                const vvHeight = window.visualViewport.height;
+                
+                // Detect if keyboard is open (viewport height reduced significantly)
+                const keyboardOpen = vvHeight < initialHeight * 0.75;
+
+                if (keyboardOpen) {
+                    chatWindow.classList.add('keyboard-open');
+                    // Set height to visible viewport - CSS handles positioning
+                    chatWindow.style.height = vvHeight + 'px';
+                    chatWindow.style.maxHeight = vvHeight + 'px';
+                    // Prevent body scroll
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    chatWindow.classList.remove('keyboard-open');
+                    chatWindow.style.height = '';
+                    chatWindow.style.maxHeight = '';
+                    // Re-enable body scroll
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                    document.body.style.overflow = '';
+                    initialHeight = vvHeight;
+                    initialWidth = window.visualViewport.width;
+                }
+            }
+
+            window.visualViewport.addEventListener('resize', adjustChatbotForKeyboard);
+            // Prevent scroll from affecting modal position
+            window.visualViewport.addEventListener('scroll', function() {
+                if (chatWindow.classList.contains('open')) {
+                    // Reset scroll position to prevent modal from moving
+                    window.scrollTo(0, 0);
+                    adjustChatbotForKeyboard();
                 }
             });
+        }
+
+        // Fallback: window resize for older browsers
+        let windowHeight = window.innerHeight;
+        window.addEventListener('resize', function() {
+            if (!chatWindow.classList.contains('open')) return;
+            const newHeight = window.innerHeight;
+            if (newHeight >= windowHeight * 0.75) {
+                windowHeight = newHeight;
+            }
+        });
+
+        // Reset chatbot styles when keyboard closes
+        chatInput.addEventListener('blur', function() {
+            setTimeout(function() {
+                if (!chatWindow.classList.contains('open')) return;
+                chatWindow.classList.remove('keyboard-open');
+                chatWindow.style.height = '';
+                chatWindow.style.maxHeight = '';
+                chatWindow.style.top = '';
+                // Re-enable body scroll
+                document.body.style.position = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+                // Re-initialize viewport height
+                if (window.visualViewport) {
+                    initialHeight = window.visualViewport.height;
+                    initialWidth = window.visualViewport.width;
+                }
+            }, 150);
+        });
+
+        // Fallback responses when quota is reached
+        function getFallbackResponse(question) {
+            const q = question.toLowerCase();
+            
+            // Detect language
+            const isTagalog = /\b(ano|mga|niya|kanyang|siya|tungkol|saan|paano)\b/i.test(q);
+            const isIlonggo = /\b(nga|gid|sang|kag|iya|diin|mahibalo)\b/i.test(q);
+            const isArabic = /[\u0600-\u06FF]/.test(q);
+            
+            // Skills/Tech Stack
+            if (/skill|tech|stack|technology|technologies|programming|language|tools|framework/i.test(q) ||
+                /ano.*skills|skills.*niya|teknolohiya/i.test(q)) {
+                if (isTagalog) return "Si Jan Russel ay dalubhasa sa PHP, Codeigniter 4, JavaScript, React, MySQL, Bootstrap at marami pang iba. Gumawa siya ng healthcare systems, government projects, at student management systems. 💻";
+                if (isIlonggo) return "Si Jan Russel ay dalubhasa sa PHP, Codeigniter 4, JavaScript, React, MySQL, Bootstrap kag iban pa. Naghimo siya sang healthcare systems, government projects, kag student management systems. 💻";
+                if (isArabic) return "جان راسل خبير في PHP، Codeigniter 4، JavaScript، React، MySQL، Bootstrap وغيرها. أنشأ أنظمة رعاية صحية ومشاريع حكومية وأنظمة إدارة الطلاب. 💻";
+                return "Jan Russel specializes in PHP, Codeigniter 4, JavaScript, React, MySQL, Bootstrap, and more. He builds healthcare systems, government projects, and student management systems. 💻";
+            }
+            
+            // Projects
+            if (/project|portfolio|work|built|made|created|gawa|proyekto/i.test(q)) {
+                if (isTagalog) return "Mga pangunahing proyekto ni Jan Russel: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, at BM-SCaPIS. Lahat ay full-stack web applications! 🚀";
+                if (isIlonggo) return "Mga panguna nga proyekto ni Jan Russel: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, kag BM-SCaPIS. Tanan full-stack web applications! 🚀";
+                if (isArabic) return "المشاريع الرئيسية لجان راسل: SKSU Scholarship System، Russel's Chicken HR System، KES-SMART، BHC CONNECT، HealthConnect، ImmuCare، AidTrack، و BM-SCaPIS. جميعها تطبيقات ويب متكاملة! 🚀";
+                return "Jan Russel's featured projects: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, and BM-SCaPIS. All full-stack web apps! 🚀";
+            }
+            
+            // Hire/Contact
+            if (/hire|contact|email|reach|connect|commission|available|kumuha|kontakin|hire.*him/i.test(q)) {
+                if (isTagalog) return "Si Jan Russel ay OPEN FOR COMMISSIONS! Makikipag-ugnayan sa kanya sa: GitHub (github.com/Jan-Russel-Penafiel), LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). Location: Panay, South Cotabato, Philippines. I-download ang kanyang resume para sa buong detalye! 📧";
+                if (isIlonggo) return "Si Jan Russel ay OPEN FOR COMMISSIONS! Makipag-contact sa iya sa: GitHub (github.com/Jan-Russel-Penafiel), LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). Location: Panay, South Cotabato, Philippines. I-download ang iya resume para sa bug-os nga detalye! 📧";
+                if (isArabic) return "جان راسل متاح للعمل الحر! تواصل معه عبر: GitHub (github.com/Jan-Russel-Penafiel)، LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). الموقع: باناي، جنوب كوتاباتو، الفلبين. قم بتنزيل سيرته الذاتية للحصول على التفاصيل الكاملة! 📧";
+                return "Jan Russel is OPEN FOR COMMISSIONS! Contact him via: GitHub (github.com/Jan-Russel-Penafiel), LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). Location: Panay, South Cotabato, Philippines. Download his resume for full details! 📧";
+            }
+            
+            // Location/Team
+            if (/location|where|team|company|organization|nasaan|diin/i.test(q)) {
+                if (isTagalog) return "Location: Panay, Santo Niño, South Cotabato, Philippines 🇵🇭 | Team: AsyncX (Software Development Team)";
+                if (isIlonggo) return "Location: Panay, Santo Niño, South Cotabato, Philippines 🇵🇭 | Team: AsyncX (Software Development Team)";
+                if (isArabic) return "الموقع: باناي، سانتو نينيو، جنوب كوتاباتو، الفلبين 🇵🇭 | الفريق: AsyncX (فريق تطوير البرمجيات)";
+                return "Location: Panay, Santo Niño, South Cotabato, Philippines 🇵🇭 | Team: AsyncX (Software Development Team)";
+            }
+            
+            // Greetings
+            if (/^(hi|hello|hey|kumusta|kamusta|musta|hoy|uy|assalam|salam)/i.test(q)) {
+                if (isTagalog) return "Kumusta! 👋 Ako si Russel AI, virtual assistant ni Jan Russel. Ano ang gusto mong malaman tungkol sa kanyang mga proyekto o skills?";
+                if (isIlonggo) return "Kumusta! 👋 Ako si Russel AI, virtual assistant ni Jan Russel. Ano ang gusto mo mahibal-an parte sa iya mga proyekto ukon skills?";
+                if (isArabic) return "السلام عليكم! 👋 أنا Russel AI، المساعد الافتراضي لجان راسل. ما الذي تريد معرفته عن مشاريعه أو مهاراته؟";
+                return "Hello! 👋 I'm Russel AI, Jan Russel's virtual assistant. What would you like to know about his projects or skills?";
+            }
+            
+            // Personal questions
+            if (/relationship|girlfriend|single|jowa|boyfriend|love|dating/i.test(q)) {
+                if (isTagalog) return "Si Jan Russel ay single at focused sa coding! 💻 Bukas siya sa pagkilala ng someone special na nag-appreciate ng late-night debugging sessions. 😄";
+                if (isIlonggo) return "Si Jan Russel ay single kag focused sa coding! 💻 Bukas siya sa pagkilala sang someone special nga nag-appreciate sang late-night debugging sessions. 😄";
+                if (isArabic) return "جان راسل أعزب ومركز على البرمجة! 💻 منفتح على مقابلة شخص مميز يقدر جلسات تصحيح الأخطاء في وقت متأخر من الليل. 😄";
+                return "Jan Russel is single and focused on coding! 💻 He's open to meeting someone special who appreciates late-night debugging sessions. 😄";
+            }
+            
+            if (/favorite.*color|color.*fav|kulay|paborito/i.test(q)) {
+                if (isTagalog) return "Ang paboritong kulay ni Jan Russel ay Cyan (#00fff7)! Hindi mo ba napapansin sa portfolio? Nandito ito sa lahat ng dako! 💙✨";
+                if (isIlonggo) return "Ang paborito nga kulay ni Jan Russel ay Cyan (#00fff7)! Wala mo napansini sa portfolio? Ara ini sa tanan nga parte! 💙✨";
+                if (isArabic) return "اللون المفضل لجان راسل هو السماوي (#00fff7)! ألا تلاحظ ذلك في المحفظة؟ إنه في كل مكان! 💙✨";
+                return "Jan Russel's favorite color is Cyan (#00fff7)! Can't you tell from this portfolio? It's everywhere! 💙✨";
+            }
+            
+            // Default fallback
+            if (isTagalog) return "Pasensya na, naubos na ang aking daily token quota. Bukas ulit tayo mag-chat! 💬 Samantala, gamitin ang Quick Action buttons sa ibaba para sa basic info tungkol kay Jan Russel! 👇";
+            if (isIlonggo) return "Pasensya na, naubos na ang akon daily token quota. Bukas liwat kita mag-chat! 💬 Samantala, gamitin ang Quick Action buttons sa ubos para sa basic info parte kay Jan Russel! 👇";
+            if (isArabic) return "عذراً، نفدت حصتي اليومية من الرموز. دعنا نتحدث غداً! 💬 في الوقت نفسه، استخدم أزرار الإجراءات السريعة أدناه للحصول على معلومات أساسية عن جان راسل! 👇";
+            return "Sorry, my daily token quota is used up. Let's chat tomorrow! 💬 For now, use the Quick Action buttons below for basic info about Jan Russel! 👇";
         }
 
         async function sendMessage() {
@@ -4348,7 +4785,10 @@ EXAMPLE RESPONSES (to help you understand each language):
                 removeTyping(typingEl);
                 // Check if it's a rate limit error
                 if (err.message && (err.message.includes('Rate limit') || err.message.includes('429'))) {
-                    appendMessage('🚦 Token limit reached! I\'ve used up my daily quota. Please come back tomorrow and I\'ll be ready to chat again! 😊', 'bot');
+                    // Use fallback response based on question
+                    const fallbackReply = getFallbackResponse(text);
+                    appendMessage(fallbackReply, 'bot');
+                    chatHistory.push({ role: 'assistant', content: fallbackReply });
                 } else {
                     appendMessage('Sorry, I couldn\'t process that right now. Please try again!', 'bot');
                 }
@@ -4364,7 +4804,7 @@ EXAMPLE RESPONSES (to help you understand each language):
                 ...chatHistory
             ];
 
-            const res = await fetch(CHATBOT_PROXY_URL, {
+            const res = await fetch(PROXY_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -4390,9 +4830,20 @@ EXAMPLE RESPONSES (to help you understand each language):
         function appendMessage(text, type) {
             const div = document.createElement('div');
             div.className = `chat-msg ${type}`;
-            div.textContent = text;
+            
+            // Linkify URLs in the text
+            const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.(com|org|net|io|dev|ph)\/[^\s]+)/gi;
+            const linkifiedText = text.replace(urlRegex, (url) => {
+                let href = url;
+                // Add https:// if the URL doesn't have a protocol
+                if (!url.match(/^https?:\/\//i)) {
+                    href = 'https://' + url;
+                }
+                return `<a href="${href}" target="_blank" rel="noopener noreferrer" style="color: #00fff7; text-decoration: underline;">${url}</a>`;
+            });
+            
+            div.innerHTML = linkifiedText;
             chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function showTyping() {
@@ -4400,7 +4851,6 @@ EXAMPLE RESPONSES (to help you understand each language):
             div.className = 'chat-typing';
             div.innerHTML = '<span></span><span></span><span></span>';
             chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
             return div;
         }
 

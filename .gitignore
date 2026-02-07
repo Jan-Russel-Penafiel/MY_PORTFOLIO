@@ -1,5 +1,6 @@
 # Ignore files containing API keys and secrets
-chatbot-proxy.php
+.env
+config.php
 
 # Ignore backup files
 backups/
