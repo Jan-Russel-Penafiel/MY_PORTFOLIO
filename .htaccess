@@ -1,0 +1,29 @@
+# Enable PHP error logging (for debugging)
+php_flag display_errors off
+php_flag log_errors on
+
+# Allow POST requests
+<Files "chat.php">
+    Order allow,deny
+    Allow from all
+    Require all granted
+</Files>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Protect config.json from direct access
+<Files "config.json">
+    Order deny,allow
+    Deny from all
+</Files>
+
+# Enable rewrite engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+</IfModule>
