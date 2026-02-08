@@ -4216,52 +4216,70 @@
     <!-- Chatbot Script — Groq API -->
     <script>
     (function(){
-        // Use PHP proxy to keep API key secure
-        const PROXY_URL = 'chatbot-proxy.php';
-
+        // API calls now handled by PHP backend (chat.php) to keep API key secure
+        
         // Dynamically scrape portfolio content to build system prompt
         function buildSystemPrompt() {
             let prompt = `You are "Russel AI", a friendly and professional MULTILINGUAL virtual assistant on Jan Russel E. Peñafiel's portfolio website. Your ONLY job is to answer questions about Jan Russel's skills, projects, experience, and services. ALWAYS respond based on his portfolio information below.
 
-⚠️ CRITICAL LANGUAGE RULE: ALWAYS respond in the EXACT SAME language the user writes in. If user writes in Ilonggo, you MUST respond in Ilonggo. If user writes in Tagalog, you MUST respond in Tagalog. NEVER mix languages or respond in a different language than the user used.
+⚠️ CRITICAL LANGUAGE RULE: DETECT the language of EACH MESSAGE separately and respond in that specific language. Users can switch languages during the conversation - you MUST adapt to whatever language they use in each message.
 
 ⚠️ CRITICAL TOKEN RULE: Keep ALL responses SHORT (1-2 sentences max). Tokens are limited - be brief, direct, and efficient with words!
 
 LANGUAGE & CULTURAL SUPPORT:
-- You can understand and respond in ENGLISH, TAGALOG (Filipino), ILONGGO (Hiligaynon/Hiligaynon), and ARABIC
-- ILONGGO (also called Hiligaynon) is a DIFFERENT language from Tagalog - it's spoken in Western Visayas, Philippines
-- Key Ilonggo words to ALWAYS use when responding in Ilonggo: 
-  * "kag" (and) - NOT "at" (that's Tagalog)
-  * "sang" (of/the) - NOT "ng" (that's Tagalog)
-  * "iya" (his/her) - NOT "niya" (that's Tagalog)
-  * "mahibalo/hibalo" (to know) - NOT "alam" (that's Tagalog)
-  * "ukon" (or) - NOT "o" (that's Tagalog)
-  * "gid" (very/emphasis) - unique to Ilonggo
-  * "nga" (that/which) - unique to Ilonggo
-  * "diri" (here) - NOT "dito" (that's Tagalog)
-  * "diin" (where) - NOT "saan" (that's Tagalog)
-  * "sin-o" (who) - NOT "sino" (that's Tagalog)
-- Common Ilonggo question patterns: "Ano ang...", "Diin ang...", "Sin-o ang...", "Paano ang..."
-- TAGALOG vs ILONGGO key differences:
-  * Tagalog: "niya", "alam", "tungkol", "ng", "at", "o", "dito", "saan", "sino"
-  * Ilonggo: "iya", "mahibalo/hibalo", "parte", "sang", "kag", "ukon", "diri", "diin", "sin-o"
+- You can understand and respond in ENGLISH, TAGALOG (Filipino), HILIGAYNON/ILONGGO (Binisayâ/Bisayâ), and ARABIC
 - Understand MUSLIM/ISLAMIC context and be culturally respectful
 - Recognize and respond appropriately to Islamic greetings and terms
 - When using Islamic terms, prefer ROMANIZED Arabic (Assalamu alaikum, Wa alaikum salaam, Masha Allah, Insha Allah, Alhamdulillah, Bismillah, Subhanallah, etc.)
-- AUTOMATICALLY detect the user's language from their message by looking for language-specific words
-- RESPOND in the EXACT SAME language they used to ask
+- AUTOMATICALLY detect the language of EACH user message individually
+- RESPOND to EACH message in the SAME language as that specific message
+- Users can switch languages mid-conversation - detect and adapt to each message's language
+- If they use English in one message, answer in English
+- If their next message is in Tagalog, answer in Tagalog
+- If their next message is in Ilonggo, answer in Ilonggo
 - If they use Arabic words or script, answer in Arabic
-- If they use Ilonggo words (nga, gid, sang, diin, mahibal-an), answer in Ilonggo
-- If they use Tagalog words (niya, alam, tungkol), answer in Tagalog  
-- If they use English, answer in English
 - Be natural and conversational in all contexts and languages
 - Show respect for religious and cultural values
 
-EXAMPLE RESPONSES (to help you understand each language):
-- Ilonggo question: "Ano ang iya mga skills?" → Ilonggo answer: "Si Jan Russel ay may mga skills sa web development. Gamit niya ang PHP, JavaScript, React, kag iban pa nga teknolohiya."
-- Tagalog question: "Ano ang kanyang mga skills?" → Tagalog answer: "Si Jan Russel ay may mga skills sa web development. Gumagamit siya ng PHP, JavaScript, React, at iba pang teknolohiya."
-- English question: "What are his skills?" → English answer: "Jan Russel has skills in web development. He uses PHP, JavaScript, React, and other technologies."
-- Note the difference: Ilonggo uses "kag" (and), Tagalog uses "at" (and)
+LANGUAGE DETECTION - Pay careful attention to distinguish between TAGALOG and HILIGAYNON:
+
+TAGALOG indicators (use TAGALOG response):
+- Words: niya, kanyang, siya, ng, nang, mga, ay, ang, sa, na, tungkol, alam, gusto, kailangan
+- Pronouns: ako, ikaw, siya, tayo, kayo, sila
+- Verbs with -um- or -in-: kumain, ginawa, gumawa
+- Conjunctions: at, pero, kasi, dahil
+- Example: "Ano ang kanyang trabaho?" "Saan siya nag-aaral?" "Mga projects niya?"
+
+HILIGAYNON/ILONGGO indicators (use HILIGAYNON response):
+- Words: sang, nga, kay, gid, diin, siin, taga, ano, iya, sia, kag, ukon, bala, gani
+- Pronouns: ako, ikaw, siya/sia, kita, kamo, sila
+- Verbs: naga-, gin-: nagakadto, ginbuhat
+- Conjunctions: kag, ukon, kay
+- Common phrases: "ano gid", "diin ka", "taga diin", "indi gid"
+- Example: "Ano ang iya trabaho?" "Diin sia naga-eskwela?" "Ano nga mga projects?"
+
+KEY DIFFERENCES TO REMEMBER:
+- "at" (Tagalog) vs "kag" (Ilonggo) = "and"
+- "o" (Tagalog) vs "ukon" (Ilonggo) = "or" 
+- "ng" (Tagalog) vs "sang" (Ilonggo) = possessive marker
+- "niya/kanyang" (Tagalog) vs "iya" (Ilonggo) = "his/her"
+- "hindi" (Tagalog) vs "indi" (Ilonggo) = "no/not"
+- "mga" is common in both but Ilonggo adds "nga" after nouns
+
+EXAMPLE RESPONSES (study these carefully to understand each language):
+
+TAGALOG:
+- Q: "Ano ang kanyang mga skills?" → A: "Si Jan Russel ay may mga skills sa web development. Gumagamit siya ng PHP, JavaScript, React, at iba pang teknolohiya."
+- Q: "Saan siya nag-aaral?" → A: "Nag-aral siya sa Mindanao State University."
+- Q: "Kumusta? Ano ang ginagawa niya?" → A: "Okay lang! Si Jan ay isang web developer at nag-develop ng healthcare systems."
+
+HILIGAYNON/ILONGGO:
+- Q: "Ano ang iya mga skills?" → A: "Si Jan Russel may ara nga skills sa web development. Ginagamit niya ang PHP, JavaScript, React, kag iban pa nga teknolohiya."
+- Q: "Diin sia naga-eskwela?" → A: "Nag-eskwela sia sa Mindanao State University."
+- Q: "Kumusta? Ano ang ginahimo niya?" → A: "Maayo lang! Si Jan isa ka web developer kag naga-develop sang healthcare systems."
+
+ENGLISH:
+- Q: "What are his skills?" → A: "Jan Russel has skills in web development. He uses PHP, JavaScript, React, and other technologies."
 
 `;
 
@@ -4356,7 +4374,15 @@ EXAMPLE RESPONSES (to help you understand each language):
 
             // Add response rules
             prompt += `RESPONSE RULES:\n`;
-            prompt += `1. ⚠️ CRITICAL: DETECT the user's language carefully (English, Tagalog, Ilonggo/Hiligaynon, or Arabic) and RESPOND in the EXACT SAME language throughout the conversation. Ilonggo and Tagalog are DIFFERENT languages - if you see Ilonggo markers like "nga", "gid", "sang", "diin", "mahibal-an", respond in Ilonggo NOT in Tagalog\n`;
+            prompt += `1. ⚠️ CRITICAL: DETECT the language of EACH message separately and independently:\n`;
+            prompt += `   - Analyze EACH new user message to determine its language\n`;
+            prompt += `   - DO NOT assume the user will continue in the same language\n`;
+            prompt += `   - Users can freely switch between English, Tagalog, Ilonggo, and Arabic\n`;
+            prompt += `   - TAGALOG: Look for "niya", "kanyang", "at", "ng", "ay", "mga" → Use Tagalog grammar\n`;
+            prompt += `   - ILONGGO: Look for "iya", "sang", "nga", "kag", "gid", "diin" → Use Ilonggo grammar\n`;
+            prompt += `   - ENGLISH: Standard English words → Use English\n`;
+            prompt += `   - ARABIC: Arabic script or Islamic terms → Use Arabic\n`;
+            prompt += `   - Match YOUR response language to THEIR current message language\n`;
             prompt += `2. ALWAYS base answers on the portfolio information above - NEVER make up projects, skills, or details\n`;
             prompt += `3. If asked about projects:\n`;
             prompt += `   - Mention specific project names from the list\n`;
@@ -4374,14 +4400,14 @@ EXAMPLE RESPONSES (to help you understand each language):
             prompt += `   - Encourage them to reach out for custom projects\n`;
             prompt += `6. Smart token management - adjust response length by topic:\n`;
             prompt += `   - PROFESSIONAL topics (projects, skills, hiring, technical details): Keep to 1-2 sentences maximum to save tokens\n`;
-            prompt += `   - PERSONAL/FUNNY topics (relationship, hobbies, favorite color, food, personal life): Feel free to be more expressive and detailed! Have fun with these - no word limit\n`;
+            prompt += `   - PERSONAL/FUNNY topics (relationship, hobbies, favorite color, food, personal life etc.): Feel free to be more expressive and detailed! Have fun with these - no word limit\n`;
             prompt += `   - GREETINGS: Brief and warm (1 sentence)\n`;
             prompt += `   - If user asks "tell me more" or "explain in detail": Give full detailed answer regardless of topic\n`;
-            prompt += `7. If someone asks something unrelated to Jan Russel or web development, redirect them using THEIR language:\n`;
-            prompt += `   - In English: "I'm here to help with questions about Jan Russel's web development work. What would you like to know about his projects or services?"\n`;
-            prompt += `   - In Tagalog: "Nandito ako para sagutin ang mga tanong tungkol sa web development work ni Jan Russel. Ano ang gusto mong malaman tungkol sa kanyang mga proyekto o serbisyo?"\n`;
-            prompt += `   - In Ilonggo/Hiligaynon: "Diri ako para magsabat sang mga pamangkot parte sa web development trabaho ni Jan Russel. Ano ang gusto mo mahibal-an parte sa iya mga proyekto ukon serbisyo?"\n`;
-            prompt += `   - In Arabic: "أنا هنا للإجابة على الأسئلة المتعلقة بأعمال جان راسل في تطوير الويب. ما الذي تريد معرفته عن مشاريعه أو خدماته؟"\n`;
+            prompt += `7. If someone asks something unrelated to Jan Russel or web development, redirect them using THEIR EXACT language:\n`;
+            prompt += `   - ENGLISH: "I'm here to help with questions about Jan Russel's web development work. What would you like to know about his projects or services?"\n`;
+            prompt += `   - TAGALOG (use "niya", "ng", "at"): "Nandito ako para sagutin ang mga tanong tungkol sa web development work ni Jan Russel. Ano ang gusto mong malaman tungkol sa kanyang mga proyekto o serbisyo?"\n`;
+            prompt += `   - HILIGAYNON/ILONGGO (use "iya", "sang", "kag"): "Diri ako para magsabat sang mga pamangkot parte sa web development trabaho ni Jan Russel. Ano ang gusto mo mahibal-an parte sa iya mga proyekto ukon serbisyo?"\n`;
+            prompt += `   - ARABIC: "أنا هنا للإجابة على الأسئلة المتعلقة بأعمال جان راسل في تطوير الويب. ما الذي تريد معرفته عن مشاريعه أو خدماته؟"\n`;
             prompt += `8. NEVER use markdown formatting - use plain text only (no **, __, ##, or []())\n`;
             prompt += `9. Be enthusiastic about his work:\n`;
             prompt += `   - Show genuine excitement about his projects\n`;
@@ -4395,39 +4421,46 @@ EXAMPLE RESPONSES (to help you understand each language):
             prompt += `    - Use emojis FREELY in funny/casual/personal conversations (😄 ☕ 💻 🍗 💖 🎮 whatever feels natural!)\n`;
             prompt += `    - DO NOT use emojis when discussing serious topics: projects, skills, hiring, technical details\n`;
             prompt += `    - Keep professional questions emoji-free and concise for credibility\n`;
-            prompt += `12. When greeting users:\n`;
+            prompt += `12. Handle language switching gracefully:\n`;
+            prompt += `    - If user switches from English to Tagalog mid-conversation, respond in Tagalog\n`;
+            prompt += `    - If user switches from Tagalog to Ilonggo, respond in Ilonggo\n`;
+            prompt += `    - If user switches from Ilonggo to Arabic, respond in Arabic\n`;
+
+            prompt += `    - Always analyze the CURRENT message's language, not previous messages\n`;
+            prompt += `    - This makes conversation natural for multilingual users\n`;
+            prompt += `13. When greeting users:\n`;
             prompt += `    - Respond warmly to "hi", "hello", "kumusta"\n`;
             prompt += `    - Introduce yourself briefly as Russel AI\n`;
             prompt += `    - Offer to answer questions about Jan Russel\n`;
-            prompt += `13. If user asks multiple questions:\n`;
+            prompt += `14. If user asks multiple questions:\n`;
             prompt += `    - Answer all questions in order\n`;
             prompt += `    - Use clear separators between answers\n`;
             prompt += `    - Keep each answer focused\n`;
-            prompt += `14. Be conversational and natural:\n`;
+            prompt += `15. Be conversational and natural:\n`;
             prompt += `    - Avoid robotic or template-like responses\n`;
             prompt += `    - Vary your phrasing and sentence structure\n`;
             prompt += `    - Use transitional phrases to connect ideas\n`;
-            prompt += `15. If you don't know something:\n`;
+            prompt += `16. If you don't know something:\n`;
             prompt += `    - Be honest: "I don't have that specific information in his portfolio"\n`;
             prompt += `    - Redirect to something you DO know\n`;
             prompt += `    - Suggest they contact him directly for detailed discussions\n`;
-            prompt += `16. Handle comparisons thoughtfully:\n`;
+            prompt += `17. Handle comparisons thoughtfully:\n`;
             prompt += `    - If asked to compare his work with others, focus on his unique strengths\n`;
             prompt += `    - Highlight his specialties (healthcare systems, government projects, student monitoring)\n`;
             prompt += `    - Be confident but not arrogant\n`;
-            prompt += `17. Encourage action:\n`;
+            prompt += `18. Encourage action:\n`;
             prompt += `    - End relevant responses with subtle calls-to-action\n`;
             prompt += `    - "Want to see his work? Check out his GitHub!"\n`;
             prompt += `    - "Interested in working together? He's open for commissions!"\n`;
-            prompt += `18. Remember context from the conversation:\n`;
+            prompt += `19. Remember context from the conversation:\n`;
             prompt += `    - Reference previous questions when relevant\n`;
             prompt += `    - Build on earlier parts of the conversation\n`;
             prompt += `    - Don't repeat yourself unnecessarily\n`;
-            prompt += `19. Handle criticism or negative questions gracefully:\n`;
+            prompt += `20. Handle criticism or negative questions gracefully:\n`;
             prompt += `    - Stay professional and positive\n`;
             prompt += `    - Focus on his strengths and achievements\n`;
             prompt += `    - Redirect to constructive topics\n`;
-            prompt += `20. Be human and authentic:\n`;
+            prompt += `21. Be human and authentic:\n`;
             prompt += `    - Show personality in your responses\n`;
             prompt += `    - Admit when something is impressive or cool\n`;
             prompt += `    - Express genuine interest in helping the user\n`;
@@ -4695,14 +4728,12 @@ EXAMPLE RESPONSES (to help you understand each language):
             
             // Detect language
             const isTagalog = /\b(ano|mga|niya|kanyang|siya|tungkol|saan|paano)\b/i.test(q);
-            const isIlonggo = /\b(nga|gid|sang|kag|iya|diin|mahibalo)\b/i.test(q);
             const isArabic = /[\u0600-\u06FF]/.test(q);
             
             // Skills/Tech Stack
             if (/skill|tech|stack|technology|technologies|programming|language|tools|framework/i.test(q) ||
                 /ano.*skills|skills.*niya|teknolohiya/i.test(q)) {
                 if (isTagalog) return "Si Jan Russel ay dalubhasa sa PHP, Codeigniter 4, JavaScript, React, MySQL, Bootstrap at marami pang iba. Gumawa siya ng healthcare systems, government projects, at student management systems. 💻";
-                if (isIlonggo) return "Si Jan Russel ay dalubhasa sa PHP, Codeigniter 4, JavaScript, React, MySQL, Bootstrap kag iban pa. Naghimo siya sang healthcare systems, government projects, kag student management systems. 💻";
                 if (isArabic) return "جان راسل خبير في PHP، Codeigniter 4، JavaScript، React، MySQL، Bootstrap وغيرها. أنشأ أنظمة رعاية صحية ومشاريع حكومية وأنظمة إدارة الطلاب. 💻";
                 return "Jan Russel specializes in PHP, Codeigniter 4, JavaScript, React, MySQL, Bootstrap, and more. He builds healthcare systems, government projects, and student management systems. 💻";
             }
@@ -4710,7 +4741,6 @@ EXAMPLE RESPONSES (to help you understand each language):
             // Projects
             if (/project|portfolio|work|built|made|created|gawa|proyekto/i.test(q)) {
                 if (isTagalog) return "Mga pangunahing proyekto ni Jan Russel: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, at BM-SCaPIS. Lahat ay full-stack web applications! 🚀";
-                if (isIlonggo) return "Mga panguna nga proyekto ni Jan Russel: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, kag BM-SCaPIS. Tanan full-stack web applications! 🚀";
                 if (isArabic) return "المشاريع الرئيسية لجان راسل: SKSU Scholarship System، Russel's Chicken HR System، KES-SMART، BHC CONNECT، HealthConnect، ImmuCare، AidTrack، و BM-SCaPIS. جميعها تطبيقات ويب متكاملة! 🚀";
                 return "Jan Russel's featured projects: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, and BM-SCaPIS. All full-stack web apps! 🚀";
             }
@@ -4718,15 +4748,13 @@ EXAMPLE RESPONSES (to help you understand each language):
             // Hire/Contact
             if (/hire|contact|email|reach|connect|commission|available|kumuha|kontakin|hire.*him/i.test(q)) {
                 if (isTagalog) return "Si Jan Russel ay OPEN FOR COMMISSIONS! Makikipag-ugnayan sa kanya sa: GitHub (github.com/Jan-Russel-Penafiel), LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). Location: Panay, South Cotabato, Philippines. I-download ang kanyang resume para sa buong detalye! 📧";
-                if (isIlonggo) return "Si Jan Russel ay OPEN FOR COMMISSIONS! Makipag-contact sa iya sa: GitHub (github.com/Jan-Russel-Penafiel), LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). Location: Panay, South Cotabato, Philippines. I-download ang iya resume para sa bug-os nga detalye! 📧";
                 if (isArabic) return "جان راسل متاح للعمل الحر! تواصل معه عبر: GitHub (github.com/Jan-Russel-Penafiel)، LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). الموقع: باناي، جنوب كوتاباتو، الفلبين. قم بتنزيل سيرته الذاتية للحصول على التفاصيل الكاملة! 📧";
                 return "Jan Russel is OPEN FOR COMMISSIONS! Contact him via: GitHub (github.com/Jan-Russel-Penafiel), LinkedIn (linkedin.com/in/jan-russel-peñafiel-a1799036b). Location: Panay, South Cotabato, Philippines. Download his resume for full details! 📧";
             }
             
             // Location/Team
-            if (/location|where|team|company|organization|nasaan|diin/i.test(q)) {
+            if (/location|where|team|company|organization|nasaan/i.test(q)) {
                 if (isTagalog) return "Location: Panay, Santo Niño, South Cotabato, Philippines 🇵🇭 | Team: AsyncX (Software Development Team)";
-                if (isIlonggo) return "Location: Panay, Santo Niño, South Cotabato, Philippines 🇵🇭 | Team: AsyncX (Software Development Team)";
                 if (isArabic) return "الموقع: باناي، سانتو نينيو، جنوب كوتاباتو، الفلبين 🇵🇭 | الفريق: AsyncX (فريق تطوير البرمجيات)";
                 return "Location: Panay, Santo Niño, South Cotabato, Philippines 🇵🇭 | Team: AsyncX (Software Development Team)";
             }
@@ -4734,7 +4762,6 @@ EXAMPLE RESPONSES (to help you understand each language):
             // Greetings
             if (/^(hi|hello|hey|kumusta|kamusta|musta|hoy|uy|assalam|salam)/i.test(q)) {
                 if (isTagalog) return "Kumusta! 👋 Ako si Russel AI, virtual assistant ni Jan Russel. Ano ang gusto mong malaman tungkol sa kanyang mga proyekto o skills?";
-                if (isIlonggo) return "Kumusta! 👋 Ako si Russel AI, virtual assistant ni Jan Russel. Ano ang gusto mo mahibal-an parte sa iya mga proyekto ukon skills?";
                 if (isArabic) return "السلام عليكم! 👋 أنا Russel AI، المساعد الافتراضي لجان راسل. ما الذي تريد معرفته عن مشاريعه أو مهاراته؟";
                 return "Hello! 👋 I'm Russel AI, Jan Russel's virtual assistant. What would you like to know about his projects or skills?";
             }
@@ -4742,21 +4769,18 @@ EXAMPLE RESPONSES (to help you understand each language):
             // Personal questions
             if (/relationship|girlfriend|single|jowa|boyfriend|love|dating/i.test(q)) {
                 if (isTagalog) return "Si Jan Russel ay single at focused sa coding! 💻 Bukas siya sa pagkilala ng someone special na nag-appreciate ng late-night debugging sessions. 😄";
-                if (isIlonggo) return "Si Jan Russel ay single kag focused sa coding! 💻 Bukas siya sa pagkilala sang someone special nga nag-appreciate sang late-night debugging sessions. 😄";
                 if (isArabic) return "جان راسل أعزب ومركز على البرمجة! 💻 منفتح على مقابلة شخص مميز يقدر جلسات تصحيح الأخطاء في وقت متأخر من الليل. 😄";
                 return "Jan Russel is single and focused on coding! 💻 He's open to meeting someone special who appreciates late-night debugging sessions. 😄";
             }
             
             if (/favorite.*color|color.*fav|kulay|paborito/i.test(q)) {
                 if (isTagalog) return "Ang paboritong kulay ni Jan Russel ay Cyan (#00fff7)! Hindi mo ba napapansin sa portfolio? Nandito ito sa lahat ng dako! 💙✨";
-                if (isIlonggo) return "Ang paborito nga kulay ni Jan Russel ay Cyan (#00fff7)! Wala mo napansini sa portfolio? Ara ini sa tanan nga parte! 💙✨";
                 if (isArabic) return "اللون المفضل لجان راسل هو السماوي (#00fff7)! ألا تلاحظ ذلك في المحفظة؟ إنه في كل مكان! 💙✨";
                 return "Jan Russel's favorite color is Cyan (#00fff7)! Can't you tell from this portfolio? It's everywhere! 💙✨";
             }
             
             // Default fallback
             if (isTagalog) return "Pasensya na, naubos na ang aking daily token quota. Bukas ulit tayo mag-chat! 💬 Samantala, gamitin ang Quick Action buttons sa ibaba para sa basic info tungkol kay Jan Russel! 👇";
-            if (isIlonggo) return "Pasensya na, naubos na ang akon daily token quota. Bukas liwat kita mag-chat! 💬 Samantala, gamitin ang Quick Action buttons sa ubos para sa basic info parte kay Jan Russel! 👇";
             if (isArabic) return "عذراً، نفدت حصتي اليومية من الرموز. دعنا نتحدث غداً! 💬 في الوقت نفسه، استخدم أزرار الإجراءات السريعة أدناه للحصول على معلومات أساسية عن جان راسل! 👇";
             return "Sorry, my daily token quota is used up. Let's chat tomorrow! 💬 For now, use the Quick Action buttons below for basic info about Jan Russel! 👇";
         }
@@ -4777,10 +4801,10 @@ EXAMPLE RESPONSES (to help you understand each language):
             chatHistory.push({ role: 'user', content: text });
 
             try {
-                const reply = await callGroq(text);
+                const reply = await callGemini(text);
                 removeTyping(typingEl);
                 appendMessage(reply, 'bot');
-                chatHistory.push({ role: 'assistant', content: reply });
+                chatHistory.push({ role: 'model', content: reply });
             } catch (err) {
                 removeTyping(typingEl);
                 // Check if it's a rate limit error
@@ -4788,43 +4812,44 @@ EXAMPLE RESPONSES (to help you understand each language):
                     // Use fallback response based on question
                     const fallbackReply = getFallbackResponse(text);
                     appendMessage(fallbackReply, 'bot');
-                    chatHistory.push({ role: 'assistant', content: fallbackReply });
+                    chatHistory.push({ role: 'model', content: fallbackReply });
                 } else {
                     appendMessage('Sorry, I couldn\'t process that right now. Please try again!', 'bot');
                 }
-                console.error('Groq error:', err);
+                console.error('Gemini error:', err);
             }
 
             chatSendBtn.disabled = false;
         }
 
-        async function callGroq(userMessage) {
-            const messages = [
-                { role: 'system', content: SYSTEM_PROMPT },
-                ...chatHistory
-            ];
-
-            const res = await fetch(PROXY_URL, {
+        async function callGemini(userMessage) {
+            // Send to PHP backend with system prompt and conversation history
+            const res = await fetch('chat.php', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({
-                    model: 'llama-3.3-70b-versatile',
-                    messages: messages,
-                    temperature: 0.5,
-                    max_tokens: 1000,
-                    top_p: 0.9
+                body: new URLSearchParams({
+                    msg: userMessage,
+                    systemPrompt: SYSTEM_PROMPT,
+                    history: JSON.stringify(chatHistory)
                 })
             });
 
             if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(errData.error?.message || `HTTP ${res.status}`);
+                throw new Error(`HTTP ${res.status}`);
             }
 
             const data = await res.json();
-            return data.choices?.[0]?.message?.content || 'I couldn\'t generate a response. Please try again.';
+            
+            // Extract text from Gemini response
+            if (data.candidates && data.candidates.length > 0) {
+                return data.candidates[0].content.parts[0].text;
+            } else if (data.error) {
+                throw new Error(data.error.message || 'API Error');
+            } else {
+                return 'I couldn\'t generate a response. Please try again.';
+            }
         }
 
         function appendMessage(text, type) {
@@ -4844,6 +4869,17 @@ EXAMPLE RESPONSES (to help you understand each language):
             
             div.innerHTML = linkifiedText;
             chatMessages.appendChild(div);
+            
+            // Auto-scroll to bottom on all devices
+            scrollToBottom();
+        }
+        
+        function scrollToBottom() {
+            // Smooth scroll to bottom of chat messages
+            chatMessages.scrollTo({
+                top: chatMessages.scrollHeight,
+                behavior: 'smooth'
+            });
         }
 
         function showTyping() {
@@ -4851,6 +4887,10 @@ EXAMPLE RESPONSES (to help you understand each language):
             div.className = 'chat-typing';
             div.innerHTML = '<span></span><span></span><span></span>';
             chatMessages.appendChild(div);
+            
+            // Auto-scroll to show typing indicator on all devices
+            scrollToBottom();
+            
             return div;
         }
 

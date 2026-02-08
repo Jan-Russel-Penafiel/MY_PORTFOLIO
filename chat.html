@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini AI Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #chat { white-space: pre-line; border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; }
+        #msg { width: 80%; padding: 5px; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+<h2>Gemini AI Chatbot</h2>
+
+<div id="chat"></div>
+<br>
+<input type="text" id="msg" placeholder="Type your message">
+<button onclick="sendMessage()">Send</button>
+
+<script>
+async function sendMessage() {
+    const input = document.getElementById("msg");
+    const chatDiv = document.getElementById("chat");
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+
+    // Show user's message
+    chatDiv.innerHTML += "You: " + userMsg + "\n";
+    input.value = "";
+
+    try {
+        // Send to PHP backend
+        const response = await fetch("chat.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "msg=" + encodeURIComponent(userMsg)
+        });
+
+        const data = await response.json();
+
+        // Show AI reply
+        let aiText = "";
+        if (data.candidates && data.candidates.length > 0) {
+            aiText = data.candidates[0].content.parts[0].text;
+        } else {
+            aiText = "No response from Gemini.";
+        }
+
+        chatDiv.innerHTML += "AI: " + aiText + "\n\n";
+        chatDiv.scrollTop = chatDiv.scrollHeight; // Auto scroll
+
+    } catch (error) {
+        chatDiv.innerHTML += "Error: " + error.message + "\n\n";
+    }
+}
+</script>
+
+</body>
+</html>
