@@ -4300,9 +4300,11 @@
 
 CRITICAL: Keep responses SHORT and CONCISE to save output tokens. Be direct, helpful, and brief. Max 2-3 sentences for most questions.
 
-LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch languages per message.
-- TAGALOG: niya, kanyang, ng, at, mga, ay → Tagalog response
-- ENGLISH: Standard English → English response
+LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog). NO MIXING.
+- TAGALOG: If user message contains Tagalog words (niya, kanyang, ng, at, mga, ay, ba, ka, ako, etc.) → Respond in PURE TAGALOG ONLY
+- ENGLISH: If user message is in English → Respond in PURE ENGLISH ONLY
+- SWITCH: Each message is independent - detect language per message and respond accordingly
+- NO TAGLISH: Never mix English and Tagalog in the same response. Pick one language and stick to it completely.
 
 `;
 
@@ -4345,12 +4347,25 @@ LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch 
             const techSection = document.querySelector('#tech');
             if (techSection) {
                 prompt += `TECHNICAL SKILLS:\n`;
-                const techBadges = techSection.querySelectorAll('.tech-badge');
-                const skills = Array.from(techBadges).map(badge => badge.textContent.trim()).filter(s => s);
+                // Extract tech names from the divs next to tech-icon images
+                const techDivs = techSection.querySelectorAll('.tech-icon');
+                const skills = [];
+                techDivs.forEach(icon => {
+                    // Get the next sibling div that contains the tech name
+                    const nameDiv = icon.parentElement.querySelector('div[style*="font-size"]');
+                    if (nameDiv && nameDiv.textContent.trim()) {
+                        skills.push(nameDiv.textContent.trim());
+                    }
+                });
                 if (skills.length > 0) {
-                    skills.forEach(skill => {
-                        prompt += `- ${skill}\n`;
-                    });
+                    prompt += `Languages & Frameworks: ${skills.slice(0, 5).join(', ')}\n`;
+                    prompt += `Database & Tools: ${skills.slice(5, 9).join(', ')}\n`;
+                    prompt += `IDEs & AI: ${skills.slice(9).join(', ')}\n`;
+                } else {
+                    // Fallback explicit list if extraction fails
+                    prompt += `Languages & Frameworks: PHP, CodeIgniter 4, JavaScript, Tailwind CSS, Bootstrap\n`;
+                    prompt += `Database & Tools: MySQL, Apache, Git, GitHub\n`;
+                    prompt += `IDEs & AI: VSCode, ChatGPT, GitHub Copilot\n`;
                 }
                 prompt += `\n`;
             }
@@ -4410,37 +4425,44 @@ LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch 
             // Add response rules
             prompt += `RULES:\n`;
             prompt += `1. TOKEN CONSERVATION: Keep ALL responses short & concise. Max 2-3 sentences unless complex question requires more. Be direct, avoid fluff.\n`;
-            prompt += `2. Detect message language independently - respond in same language (switch freely)\n`;
+            prompt += `2. ⚠️ CRITICAL: DETECT the language of EACH message separately and independently:\n`;
+            prompt += `   - Analyze EACH new user message to determine its language\n`;
+            prompt += `   - DO NOT assume the user will continue in the same language\n`;
+            prompt += `   - Users can freely switch between English and Tagalog\n`;
+            prompt += `   - TAGALOG: Look for "niya", "kanyang", "at", "ng", "ay", "mga" → Use Tagalog grammar\n`;
+            prompt += `   - ENGLISH: Standard English words → Use English\n`;
+            prompt += `   - Match YOUR response language to THEIR current message language\n`;
             prompt += `3. Base answers on portfolio only - never fabricate details\n`;
             prompt += `4. Projects: Name specific projects, tech used, impact - keep brief\n`;
-            prompt += `5. Skills: Reference tech stack, connect to projects built - summarize\n`;
+            prompt += `5. Skills: ALWAYS reference the explicit tech stack shown above (PHP, CodeIgniter 4, JavaScript, MySQL, etc.). Connect to specific projects built with these technologies - summarize\n`;
             prompt += `6. Hiring: GitHub, LinkedIn, OPEN FOR COMMISSIONS, South Cotabato location - be concise\n`;
             prompt += `7. Length: Default to SHORT responses. Only expand when question explicitly needs detail\n`;
-            prompt += `8. Web dev topics not in portfolio: Contact via Facebook (facebook.com/russelicioush), Email (janrusselpenafiel01172005@gmail.com), Phone (+63 967 772 6912) - brief only\n`;
-            prompt += `9. Unrelated questions: Redirect politely in user's language - 1 sentence\n`;
-            prompt += `10. No markdown (no **, __, ##, []())\n`;
-            prompt += `11. Enthusiasm: Show excitement briefly, highlight key achievements only\n`;
-            prompt += `12. Personal questions: Warm, funny, expressive. Do not use emojis. Stay brief.\n`;
-            prompt += `13. Be natural, conversational, not robotic. Match user's formality. STAY CONCISE.\n`;
-            prompt += `14. Multiple questions: Answer all briefly with separators\n`;
-            prompt += `15. Unknown info: Be honest, redirect, suggest direct contact - keep short\n`;
-            prompt += `16. Maintain context, reference earlier conversation, avoid repetition and wordiness\n`;
-            prompt += `17. Pricing/rates: "Varies by project" - suggest contact. 1-2 sentences max.\n`;
-            prompt += `18. Comparisons: Focus on Jan's unique strengths briefly. Be confident.\n`;
-            prompt += `19. Technical depth: Match user's level but stay concise\n`;
-            prompt += `20. Availability: "Open for new projects" - direct to contact. Brief.\n`;
-            prompt += `21. Education: Mention if asked. Keep very brief.\n`;
-            prompt += `22. Work process: Agile, collaborative. Details via direct contact. Short.\n`;
-            prompt += `23. Code examples: Refer to GitHub portfolio. Don't generate code. Brief.\n`;
-            prompt += `24. Time estimates: "Depends on scope" - encourage consultation. 1 sentence.\n`;
-            prompt += `25. Testimonials: Mention if available, otherwise suggest contact. Brief.\n`;
-            prompt += `26. Future plans: AI healthcare, expanding skills, startup. Keep aspirational & short.\n`;
-            prompt += `27. Collaboration: Team player, communicative, AsyncX team. Brief mention.\n`;
-            prompt += `28. Criticism: Stay positive, redirect to strengths. Concise.\n`;
-            prompt += `29. Greetings: Warm welcome, brief intro as Russel AI, offer assistance - 1-2 sentences\n`;
-            prompt += `30. Follow-ups: Build on previous answers but stay brief\n`;
-            prompt += `31. Call-to-action: End with subtle short prompts when relevant\n`;
-            prompt += `32. REMEMBER: Every response should aim to save tokens. Be helpful but BRIEF. Quality over quantity!\n`;
+            prompt += `8. Tech stack questions: Reference the specific technologies listed in TECHNICAL SKILLS section above. Never say programming languages aren't listed - they're clearly shown.\n`;
+            prompt += `9. Web dev topics not in portfolio: Contact via Facebook (facebook.com/russelicioush), Email (janrusselpenafiel01172005@gmail.com), Phone (+63 967 772 6912) - brief only\n`;
+            prompt += `10. Unrelated questions: Redirect politely in user's language - 1 sentence\n`;
+            prompt += `11. No markdown (no **, __, ##, []())\n`;
+            prompt += `12. Enthusiasm: Show excitement briefly, highlight key achievements only\n`;
+            prompt += `13. Personal questions: Warm, funny, expressive. Do not use emojis. Stay brief.\n`;
+            prompt += `14. Be natural, conversational, not robotic. Match user's formality. STAY CONCISE.\n`;
+            prompt += `15. Multiple questions: Answer all briefly with separators\n`;
+            prompt += `16. Unknown info: Be honest, redirect, suggest direct contact - keep short\n`;
+            prompt += `17. Maintain context, reference earlier conversation, avoid repetition and wordiness\n`;
+            prompt += `18. Pricing/rates: "Varies by project" - suggest contact. 1-2 sentences max.\n`;
+            prompt += `19. Comparisons: Focus on Jan Russel's unique strengths briefly. Be confident.\n`;
+            prompt += `20. Technical depth: Match user's level but stay concise\n`;
+            prompt += `21. Availability: "Open for new projects" - direct to contact. Brief.\n`;
+            prompt += `22. Education: Mention if asked. Keep very brief.\n`;
+            prompt += `23. Work process: Agile, collaborative. Details via direct contact. Short.\n`;
+            prompt += `24. Code examples: Refer to GitHub portfolio. Don't generate code. Brief.\n`;
+            prompt += `25. Time estimates: "Depends on scope" - encourage consultation. 1 sentence.\n`;
+            prompt += `26. Testimonials: Mention if available, otherwise suggest contact. Brief.\n`;
+            prompt += `27. Future plans: Expanding skills, startup. Keep aspirational & short.\n`;
+            prompt += `28. Collaboration: Team player, communicative, AsyncX team. Brief mention.\n`;
+            prompt += `29. Criticism: Stay positive, redirect to strengths. Concise.\n`;
+            prompt += `30. Greetings: Warm welcome, brief intro as Russel AI, offer assistance - 1-2 sentences\n`;
+            prompt += `31. Follow-ups: Build on previous answers but stay brief\n`;
+            prompt += `32. Call-to-action: End with subtle short prompts when relevant\n`;
+            prompt += `33. REMEMBER: Every response should aim to save tokens. Be helpful but BRIEF. Quality over quantity!\n`;
 
             return prompt;
         }
@@ -4547,8 +4569,18 @@ LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch 
         // Send via chip
         window.sendChip = function(el) {
             const text = el.textContent.trim();
-            chatInput.value = text;
-            sendMessage();
+            
+            // Add user message
+            appendMessage(text, 'user');
+            
+            // Use fallback response directly for quick actions
+            const fallbackReply = getFallbackResponse(text);
+            appendMessage(fallbackReply, 'bot');
+            speakText(fallbackReply);
+            
+            // Add to history
+            chatHistory.push({ role: 'user', content: text });
+            chatHistory.push({ role: 'model', content: fallbackReply });
         };
 
         // Send via button
@@ -4754,8 +4786,8 @@ LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch 
             
             // Projects
             if (/project|portfolio|work|built|made|created|gawa|proyekto/i.test(q)) {
-                if (isTagalog) return "Mga pangunahing proyekto ni Jan Russel: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, at BM-SCaPIS. Lahat ay full-stack web applications!";
-                return "Jan Russel's featured projects: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART (kitchen system), BHC CONNECT, HealthConnect, ImmuCare, AidTrack, and BM-SCaPIS. All full-stack web apps!";
+                if (isTagalog) return "Mga pangunahing proyekto ni Jan Russel: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART, BHC CONNECT, HealthConnect, ImmuCare, AidTrack, at BM-SCaPIS. Lahat ay full-stack web applications!";
+                return "Jan Russel's featured projects: SKSU Scholarship System, Russel's Chicken HR System, KES-SMART , BHC CONNECT, HealthConnect, ImmuCare, AidTrack, and BM-SCaPIS. All full-stack web apps!";
             }
             
             // Hire/Contact
@@ -4853,11 +4885,19 @@ LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch 
 
             const data = await res.json();
             
+            // Check for API errors
+            if (data.error) {
+                const errorMsg = data.error.message || 'API Error';
+                // Provide helpful message for 403 errors (usually API key issues)
+                if (errorMsg.includes('403')) {
+                    throw new Error('API Key Error: Please check your Gemini API key in config.json. Visit https://aistudio.google.com/apikey to get a valid key.');
+                }
+                throw new Error(errorMsg);
+            }
+            
             // Extract text from Gemini response
             if (data.candidates && data.candidates.length > 0) {
                 return data.candidates[0].content.parts[0].text;
-            } else if (data.error) {
-                throw new Error(data.error.message || 'API Error');
             } else {
                 return 'I couldn\'t generate a response. Please try again.';
             }
@@ -5350,6 +5390,11 @@ LANGUAGES: Auto-detect and respond in user's language (English/Tagalog). Switch 
             
             // Error handling
             utterance.onerror = function(event) {
+                // Ignore "interrupted" errors as they're expected when cancelling speech
+                if (event.error === 'interrupted' || event.error === 'canceled') {
+                    return;
+                }
+                
                 console.error('TTS Speech Error:', event.error, '- Voice:', utterance.voice ? utterance.voice.name : 'default');
                 
                 // Retry on certain errors
