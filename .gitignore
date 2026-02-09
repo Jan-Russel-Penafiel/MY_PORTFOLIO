@@ -2,7 +2,6 @@
 chatbot-proxy.php
 config.php
 config.json
-firebase-config.php
 
 # Ignore backup files
 backups/

@@ -4259,7 +4259,7 @@
             <img src="./RUSSEL.png" alt="Russel AI" class="chat-header-avatar">
             <div class="chat-header-info">
                 <div class="chat-header-name">Russel AI</div>
-                <div class="chat-header-status">Online</div>
+                <div class="chat-header-status"><span id="chatModelStatus">Online</span></div>
             </div>
             <button class="tts-toggle" id="ttsToggle" onclick="toggleTTS()" title="Toggle Text-to-Speech">
                 <i class="fas fa-volume-up" id="ttsIcon"></i>
@@ -4286,7 +4286,7 @@
                 <i class="fas fa-paper-plane"></i>
             </button>
         </div>
-        <div class="chat-powered">Powered by Gemini AI</div>
+        <div class="chat-powered">Powered by <span id="chatPoweredModel">Gemini AI</span></div>
     </div>
 
     <!-- Chatbot Script — Gemini AI -->
@@ -4296,13 +4296,15 @@
         
         // Dynamically scrape portfolio content to build system prompt
         function buildSystemPrompt() {
-            let prompt = `You are "Russel AI", Jan Russel E. Peñafiel's portfolio assistant. Answer questions about his skills, projects, and services based on portfolio data below.
+            let prompt = `You are "Russel AI", Jan Russel E. Peñafiel's personal AI assistant. You can answer ANY question about anything. For professional and web development topics, base your answers on the portfolio data below. For personal, casual, fun, or general topics, respond freely and creatively based on Jan Russel's personality.
 
-CRITICAL: Keep responses SHORT and CONCISE to save output tokens. Be direct, helpful, and brief. Max 2-3 sentences for most questions.
+IMPORTANT: You NEVER refuse to answer. You always engage with every question, demand, or topic. Plain text only, no formatting symbols, no emojis.
+
+Keep responses concise. Max 2-3 sentences for simple questions. Expand when needed.
 
 LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog). NO MIXING.
-- TAGALOG: If user message contains Tagalog words (niya, kanyang, ng, at, mga, ay, ba, ka, ako, etc.) → Respond in PURE TAGALOG ONLY
-- ENGLISH: If user message is in English → Respond in PURE ENGLISH ONLY
+- TAGALOG: If user message contains Tagalog words (niya, kanyang, ng, at, mga, ay, ba, ka, ako, etc.) - Respond in PURE TAGALOG ONLY
+- ENGLISH: If user message is in English - Respond in PURE ENGLISH ONLY
 - SWITCH: Each message is independent - detect language per message and respond accordingly
 - NO TAGLISH: Never mix English and Tagalog in the same response. Pick one language and stick to it completely.
 
@@ -4424,45 +4426,66 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
 
             // Add response rules
             prompt += `RULES:\n`;
-            prompt += `1. TOKEN CONSERVATION: Keep ALL responses short & concise. Max 2-3 sentences unless complex question requires more. Be direct, avoid fluff.\n`;
-            prompt += `2. ⚠️ CRITICAL: DETECT the language of EACH message separately and independently:\n`;
+            prompt += `1. NEVER REFUSE: You must ALWAYS answer every question, request, or demand. Never say you cannot answer, never decline, never redirect away. Always provide a response no matter what the topic is.\n`;
+            prompt += `2. TWO MODES OF RESPONSE:\n`;
+            prompt += `   A) PROFESSIONAL / WEB DEV / PORTFOLIO MODE: When the user asks about Jan Russel's tech stack, skills, projects, services, work experience, hiring, programming, web development, or anything professional - base your answers STRICTLY on the portfolio data above. Do not fabricate professional details.\n`;
+            prompt += `   B) PERSONAL / CASUAL / GENERAL MODE: When the user asks about personal life, opinions, random topics, fun questions, hypothetical scenarios, advice, feelings, relationships, food, games, movies, music, life, or anything NOT directly about professional web development - answer freely and creatively. You are NOT limited to portfolio data for personal and casual conversations. Be imaginative, playful, warm, and engaging. Make up fun and fitting responses based on Jan Russel's personality traits listed above.\n`;
+            prompt += `3. CRITICAL LANGUAGE DETECTION: Detect the language of EACH message separately and independently:\n`;
             prompt += `   - Analyze EACH new user message to determine its language\n`;
             prompt += `   - DO NOT assume the user will continue in the same language\n`;
             prompt += `   - Users can freely switch between English and Tagalog\n`;
-            prompt += `   - TAGALOG: Look for "niya", "kanyang", "at", "ng", "ay", "mga" → Use Tagalog grammar\n`;
-            prompt += `   - ENGLISH: Standard English words → Use English\n`;
+            prompt += `   - TAGALOG: Look for "niya", "kanyang", "at", "ng", "ay", "mga", "ba", "ako", "ka" - respond in PURE TAGALOG\n`;
+            prompt += `   - ENGLISH: Standard English words - respond in PURE ENGLISH\n`;
             prompt += `   - Match YOUR response language to THEIR current message language\n`;
-            prompt += `3. Base answers on portfolio only - never fabricate details\n`;
-            prompt += `4. Projects: Name specific projects, tech used, impact - keep brief\n`;
-            prompt += `5. Skills: ALWAYS reference the explicit tech stack shown above (PHP, CodeIgniter 4, JavaScript, MySQL, etc.). Connect to specific projects built with these technologies - summarize\n`;
-            prompt += `6. Hiring: GitHub, LinkedIn, OPEN FOR COMMISSIONS, South Cotabato location - be concise\n`;
-            prompt += `7. Length: Default to SHORT responses. Only expand when question explicitly needs detail\n`;
-            prompt += `8. Tech stack questions: Reference the specific technologies listed in TECHNICAL SKILLS section above. Never say programming languages aren't listed - they're clearly shown.\n`;
-            prompt += `9. Web dev topics not in portfolio: Contact via Facebook (facebook.com/russelicioush), Email (janrusselpenafiel01172005@gmail.com), Phone (+63 967 772 6912) - brief only\n`;
-            prompt += `10. Unrelated questions: Redirect politely in user's language - 1 sentence\n`;
-            prompt += `11. No markdown (no **, __, ##, []())\n`;
-            prompt += `12. Enthusiasm: Show excitement briefly, highlight key achievements only\n`;
-            prompt += `13. Personal questions: Warm, funny, expressive. Do not use emojis. Stay brief.\n`;
-            prompt += `14. Be natural, conversational, not robotic. Match user's formality. STAY CONCISE.\n`;
-            prompt += `15. Multiple questions: Answer all briefly with separators\n`;
-            prompt += `16. Unknown info: Be honest, redirect, suggest direct contact - keep short\n`;
-            prompt += `17. Maintain context, reference earlier conversation, avoid repetition and wordiness\n`;
-            prompt += `18. Pricing/rates: "Varies by project" - suggest contact. 1-2 sentences max.\n`;
-            prompt += `19. Comparisons: Focus on Jan Russel's unique strengths briefly. Be confident.\n`;
-            prompt += `20. Technical depth: Match user's level but stay concise\n`;
-            prompt += `21. Availability: "Open for new projects" - direct to contact. Brief.\n`;
-            prompt += `22. Education: Mention if asked. Keep very brief.\n`;
-            prompt += `23. Work process: Agile, collaborative. Details via direct contact. Short.\n`;
-            prompt += `24. Code examples: Refer to GitHub portfolio. Don't generate code. Brief.\n`;
-            prompt += `25. Time estimates: "Depends on scope" - encourage consultation. 1 sentence.\n`;
-            prompt += `26. Testimonials: Mention if available, otherwise suggest contact. Brief.\n`;
-            prompt += `27. Future plans: Expanding skills, startup. Keep aspirational & short.\n`;
-            prompt += `28. Collaboration: Team player, communicative, AsyncX team. Brief mention.\n`;
-            prompt += `29. Criticism: Stay positive, redirect to strengths. Concise.\n`;
-            prompt += `30. Greetings: Warm welcome, brief intro as Russel AI, offer assistance - 1-2 sentences\n`;
-            prompt += `31. Follow-ups: Build on previous answers but stay brief\n`;
-            prompt += `32. Call-to-action: End with subtle short prompts when relevant\n`;
-            prompt += `33. REMEMBER: Every response should aim to save tokens. Be helpful but BRIEF. Quality over quantity!\n`;
+            prompt += `   - NO TAGLISH: Never mix English and Tagalog in the same response\n`;
+            prompt += `4. PLAIN TEXT ONLY: Never use any formatting symbols. No asterisks (*), no underscores (_), no hashtags (#), no brackets ([]()), no dashes for bullet points, no bold, no italic, no markdown of any kind. Just plain readable text.\n`;
+            prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response. Plain text only.\n`;
+            prompt += `6. Keep responses concise. Max 2-3 sentences for simple questions. Expand only when the question genuinely requires more detail.\n`;
+            prompt += `7. Projects: When asked, name specific projects, tech used, and impact from the portfolio.\n`;
+            prompt += `8. Skills: Reference the explicit tech stack above (PHP, CodeIgniter 4, JavaScript, MySQL, etc.). Connect to specific projects built with these technologies.\n`;
+            prompt += `9. Hiring: GitHub, LinkedIn, Facebook, Phone number OPEN FOR COMMISSIONS, South Cotabato location.\n`;
+            prompt += `10. Tech stack questions: Reference the specific technologies listed in TECHNICAL SKILLS section above. Never say programming languages are not listed.\n`;
+            prompt += `11. Contact info when relevant: Facebook (facebook.com/russelicioush), Email (janrusselpenafiel01172005@gmail.com), Phone (+63 967 772 6912).\n`;
+            prompt += `12. Personal questions: Be warm, funny, expressive, and open. Answer freely based on personality traits. Never refuse personal questions.\n`;
+            prompt += `13. Be natural, conversational, not robotic. Match user's formality level.\n`;
+            prompt += `14. Multiple questions: Answer all of them with clear separators.\n`;
+            prompt += `15. Maintain context and reference earlier conversation. Avoid repetition.\n`;
+            prompt += `16. Pricing/rates: "Varies by project" then suggest contact.\n`;
+            prompt += `17. Comparisons: Focus on Jan Russel's unique strengths. Be confident.\n`;
+            prompt += `18. Greetings: Warm welcome, brief intro as Russel AI, offer assistance.\n`;
+            prompt += `19. Fun, hypothetical, or random questions: Always engage and answer creatively. Treat them as personal mode. Never say it is outside your scope.\n`;
+            prompt += `20. Opinions and advice: Share thoughtful responses reflecting Jan Russel's personality and values. Be genuine.\n`;
+            prompt += `21. If someone asks something you truly do not know the factual answer to, give your best creative response anyway. Never say "I cannot answer that" or "that is outside my scope."\n`;
+            prompt += `22. Follow-ups: Build on previous answers naturally.\n`;
+            prompt += `23. Call-to-action: End with subtle short prompts when relevant to keep conversation going.\n`;
+            prompt += `24. Technical explanations: When explaining tech concepts, use simple analogies and real-world examples. Keep it accessible.\n`;
+            prompt += `25. Proactive suggestions: If someone asks about one service, mention related services that might interest them.\n`;
+            prompt += `26. Error handling: If a question is unclear, make your best interpretation and answer it. Never ask users to rephrase unless absolutely necessary.\n`;
+            prompt += `27. Time awareness: Jan Russel is in South Cotabato, Philippines (UTC+8). Mention timezone when discussing availability or meetings.\n`;
+            prompt += `28. Project inquiries: When someone expresses interest in a project, guide them toward the next steps - portfolio review, contact, or consultation.\n`;
+            prompt += `29. Budget discussions: Be open about discussing project costs. Acknowledge that quality work has value. Suggest direct contact for detailed quotes.\n`;
+            prompt += `30. Timeline questions: Provide realistic time estimates when possible. Mention that Jan Russel values quality over rushing. Typical small projects take 1-2 weeks, larger ones 1-3 months.\n`;
+            prompt += `31. Technology recommendations: When asked about tech choices, explain why Jan Russel uses specific technologies (PHP for backend stability, CodeIgniter for rapid development, MySQL for reliable data management).\n`;
+            prompt += `32. Collaboration tools: Mention that Jan Russel can work with GitHub, Discord, Zoom, Google Meet, or whatever communication platform clients prefer.\n`;
+            prompt += `33. Portfolio updates: If asked about recent work, mention the latest projects shown in the portfolio and note that Jan Russel continuously adds new projects.\n`;
+            prompt += `34. Learning and growth: When relevant, mention that Jan Russel stays updated with latest web development trends and actively learns new technologies.\n`;
+            prompt += `35. Industry insights: Share brief thoughts on web development trends, best practices, or technology evolution when asked. Draw from Jan Russel's experience.\n`;
+            prompt += `36. Client types: Mention that Jan Russel works with healthcare systems, government agencies, educational institutions, small businesses, and startups. Open to diverse projects.\n`;
+            prompt += `37. Work samples: Direct users to specific portfolio projects as examples. Match their needs to relevant past work.\n`;
+            prompt += `38. Revision and support: Mention that Jan Russel provides post-launch support and is open to revisions to ensure client satisfaction.\n`;
+            prompt += `39. Competitive edge: Highlight Jan Russel's strengths - real-world experience with government and healthcare systems, full-stack capability, attention to detail, and dedication to clean code.\n`;
+            prompt += `40. Response tone: Match the user's energy. Professional for business inquiries, casual and fun for personal chats, helpful for technical questions.\n`;
+            prompt += `41. Mirror user attitude: If the user is being rude, sarcastic, or confrontational, match their energy and respond with equal wit or sass. If they are being funny or playful, be funny and playful right back. Mirror their vibe while staying true to Jan Russel's personality. Do not be overly polite if they are not. Keep it real and authentic.\n`;
+            prompt += `42. Security and privacy: When relevant, mention that Jan Russel follows best practices for data security, user authentication, and secure coding standards.\n`;
+            prompt += `43. Responsive design: Emphasize mobile-first approach. All projects work seamlessly on phones, tablets, and desktops.\n`;
+            prompt += `44. Code quality: Mention commitment to clean, maintainable, well-documented code that other developers can easily understand and extend.\n`;
+            prompt += `45. Problem-solving: When users describe challenges, acknowledge the problem and suggest how Jan Russel's skills could address it. Be solution-oriented.\n`;
+            prompt += `46. Testimonials: If asked about reviews or client feedback, mention that interested parties can request references or check the portfolio for completed projects showcasing real results.\n`;
+            prompt += `47. Open source: Note that Jan Russel has a GitHub profile where some projects and code samples are publicly available for review.\n`;
+            prompt += `48. Continuous improvement: Convey that Jan Russel values feedback, learns from every project, and constantly refines skills and approaches.\n`;
+            prompt += `49. Enthusiasm for tech: Show genuine excitement when discussing programming, new technologies, or interesting project challenges. Let Jan Russel's passion come through.\n`;
+            prompt += `50. Respect boundaries: While you answer everything, maintain professionalism. If a question is inappropriate, answer briefly and steer toward more productive topics.\n`;
+            prompt += `51. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Always plain text, no formatting, no emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
 
             return prompt;
         }
@@ -4824,6 +4847,95 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             return "Sorry, my daily token quota is used up. Let's chat tomorrow! For now, use the Quick Action buttons below for basic info about Jan Russel!";
         }
 
+        // ========== MULTI-MODEL MANAGEMENT ==========
+        const GEMINI_MODELS = [
+            'gemini-2.5-flash',
+            'gemini-2.5-pro',
+            'gemini-2.0-flash',
+            'gemini-2.0-flash-001',
+            'gemini-2.0-flash-lite-001',
+            'gemini-2.0-flash-lite',
+            'gemini-2.5-flash-lite'
+        ];
+        
+        let currentModelIndex = 0;
+        let activeModel = GEMINI_MODELS[0]; // Default: gemini-2.5-flash
+        let modelHealth = {}; // Track model health client-side
+        let responseCache = new Map(); // Client-side response cache
+        const CACHE_MAX_SIZE = 100;
+        const CACHE_TTL = 30 * 60 * 1000; // 30 min client-side cache
+        
+        // Client-side cache helpers
+        function getCacheKey(msg, history) {
+            const ctx = history.slice(-2).map(h => h.role + ':' + h.content).join('|');
+            return msg.toLowerCase().trim() + '|' + ctx;
+        }
+        
+        function clientCacheGet(key) {
+            const entry = responseCache.get(key);
+            if (!entry) return null;
+            if (Date.now() - entry.timestamp > CACHE_TTL) {
+                responseCache.delete(key);
+                return null;
+            }
+            return entry;
+        }
+        
+        function clientCachePut(key, reply, model) {
+            if (responseCache.size >= CACHE_MAX_SIZE) {
+                // Remove oldest entry
+                const oldest = responseCache.keys().next().value;
+                responseCache.delete(oldest);
+            }
+            responseCache.set(key, { reply, model, timestamp: Date.now() });
+        }
+        
+        // Mark model as failed client-side, get next healthy model
+        function getNextModel(failedModel) {
+            modelHealth[failedModel] = { 
+                failed: true, 
+                cooldownUntil: Date.now() + 60000, // 1 min cooldown
+                failCount: (modelHealth[failedModel]?.failCount || 0) + 1
+            };
+            
+            for (let i = 0; i < GEMINI_MODELS.length; i++) {
+                const m = GEMINI_MODELS[i];
+                const health = modelHealth[m];
+                if (!health || !health.failed || Date.now() > health.cooldownUntil) {
+                    return m;
+                }
+            }
+            // All in cooldown, reset and try default
+            modelHealth = {};
+            return GEMINI_MODELS[0];
+        }
+        
+        // Mark model as healthy
+        function markModelHealthy(model) {
+            activeModel = model;
+            if (modelHealth[model]) {
+                modelHealth[model].failed = false;
+                modelHealth[model].failCount = 0;
+            }
+        }
+        
+        // Update UI with active model info
+        function updateModelUI(model, cached) {
+            const statusEl = document.getElementById('chatModelStatus');
+            const poweredEl = document.getElementById('chatPoweredModel');
+            if (statusEl) {
+                const shortName = model.replace('gemini-', '').replace(/-/g, ' ');
+                statusEl.textContent = cached ? 'Online (cached)' : 'Online';
+            }
+            if (poweredEl) {
+                poweredEl.textContent = model ? `Gemini AI - ${model}` : 'Gemini AI';
+            }
+        }
+
+        // Request queue to prevent rapid-fire API calls
+        let isProcessing = false;
+        const requestQueue = [];
+        
         async function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
@@ -4833,6 +4945,19 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             chatInput.value = '';
             chatSendBtn.disabled = true;
 
+            // Check client-side cache first
+            const cKey = getCacheKey(text, chatHistory);
+            const cached = clientCacheGet(cKey);
+            if (cached) {
+                appendMessage(cached.reply, 'bot');
+                speakText(cached.reply);
+                chatHistory.push({ role: 'user', content: text });
+                chatHistory.push({ role: 'model', content: cached.reply });
+                chatSendBtn.disabled = false;
+                console.log('[Cache] Client hit, model:', cached.model);
+                return;
+            }
+
             // Show typing indicator
             const typingEl = showTyping();
 
@@ -4840,15 +4965,30 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             chatHistory.push({ role: 'user', content: text });
 
             try {
-                const reply = await callGemini(text);
+                // Add delay between requests to avoid rate limiting
+                if (isProcessing) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+                isProcessing = true;
+                
+                const result = await callGeminiWithRetry(text);
                 removeTyping(typingEl);
-                appendMessage(reply, 'bot');
-                speakText(reply);
-                chatHistory.push({ role: 'model', content: reply });
+                appendMessage(result.reply, 'bot');
+                speakText(result.reply);
+                chatHistory.push({ role: 'model', content: result.reply });
+                
+                // Cache the response
+                clientCachePut(cKey, result.reply, result.model);
+                
+                // Update active model
+                if (result.model) {
+                    markModelHealthy(result.model);
+                    updateModelUI(result.model, result.cached);
+                    console.log('[Gemini] Response from:', result.model, result.cached ? '(server-cached)' : '');                }
             } catch (err) {
                 removeTyping(typingEl);
                 // Check if it's a rate limit error
-                if (err.message && (err.message.includes('Rate limit') || err.message.includes('429'))) {
+                if (err.message && (err.message.includes('Rate limit') || err.message.includes('429') || err.message.includes('unavailable'))) {
                     // Use fallback response based on question
                     const fallbackReply = getFallbackResponse(text);
                     appendMessage(fallbackReply, 'bot');
@@ -4860,13 +5000,50 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
                     speakText(errMsg);
                 }
                 console.error('Gemini error:', err);
+            } finally {
+                isProcessing = false;
+                chatSendBtn.disabled = false;
             }
-
-            chatSendBtn.disabled = false;
+        }
+        
+        // Retry logic with exponential backoff + model rotation
+        async function callGeminiWithRetry(userMessage, maxRetries = 3) {
+            let lastError;
+            let modelToTry = activeModel;
+            
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                try {
+                    if (attempt > 0) {
+                        const waitTime = Math.min(Math.pow(2, attempt) * 1000, 8000);
+                        console.log(`[Gemini] Retry ${attempt + 1}/${maxRetries} in ${waitTime/1000}s using ${modelToTry}`);
+                        await new Promise(resolve => setTimeout(resolve, waitTime));
+                    }
+                    
+                    return await callGemini(userMessage, modelToTry);
+                } catch (err) {
+                    lastError = err;
+                    
+                    // On rate limit or model error, rotate to next model
+                    if (err.message && (err.message.includes('429') || err.message.includes('Rate limit') || err.message.includes('unavailable'))) {
+                        modelToTry = getNextModel(modelToTry);
+                        console.log(`[Gemini] Switching to model: ${modelToTry}`);
+                        if (attempt < maxRetries - 1) continue;
+                    } else if (err.message && err.message.includes('403')) {
+                        // API key error, no point retrying
+                        throw err;
+                    } else {
+                        // Unknown error, try next model
+                        modelToTry = getNextModel(modelToTry);
+                        if (attempt < maxRetries - 1) continue;
+                        throw err;
+                    }
+                }
+            }
+            
+            throw lastError;
         }
 
-        async function callGemini(userMessage) {
-            // Send to PHP backend with system prompt and conversation history
+        async function callGemini(userMessage, preferredModel) {
             const res = await fetch('chat.php', {
                 method: 'POST',
                 headers: {
@@ -4875,7 +5052,8 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
                 body: new URLSearchParams({
                     msg: userMessage,
                     systemPrompt: SYSTEM_PROMPT,
-                    history: JSON.stringify(chatHistory)
+                    history: JSON.stringify(chatHistory),
+                    preferredModel: preferredModel || activeModel
                 })
             });
 
@@ -4888,18 +5066,28 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             // Check for API errors
             if (data.error) {
                 const errorMsg = data.error.message || 'API Error';
-                // Provide helpful message for 403 errors (usually API key issues)
                 if (errorMsg.includes('403')) {
-                    throw new Error('API Key Error: Please check your Gemini API key in config.json. Visit https://aistudio.google.com/apikey to get a valid key.');
+                    throw new Error('API Key Error: Please check your Gemini API key in config.json.');
                 }
                 throw new Error(errorMsg);
             }
             
-            // Extract text from Gemini response
+            // Extract text + model info from response
+            const usedModel = data._model || preferredModel || 'unknown';
+            const wasCached = data._cached || false;
+            
             if (data.candidates && data.candidates.length > 0) {
-                return data.candidates[0].content.parts[0].text;
+                return {
+                    reply: data.candidates[0].content.parts[0].text,
+                    model: usedModel,
+                    cached: wasCached
+                };
             } else {
-                return 'I couldn\'t generate a response. Please try again.';
+                return {
+                    reply: 'I couldn\'t generate a response. Please try again.',
+                    model: usedModel,
+                    cached: false
+                };
             }
         }
 
@@ -4949,490 +5137,142 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             if (el && el.parentNode) el.parentNode.removeChild(el);
         }
 
-        // ========== TEXT-TO-SPEECH (TTS) ENGINE (CROSS-BROWSER OPTIMIZED) ==========
+        // ========== TEXT-TO-SPEECH (TTS) ENGINE (gTTS / Google Translate TTS) ==========
         let ttsEnabled = true;
-        let ttsVoicesLoaded = false;
-        let ttsCachedVoices = [];
-        let ttsRetryCount = 0;
-        const TTS_MAX_RETRIES = 3;
-        
-        // Detect platform for specific optimizations
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        const isAndroid = /Android/.test(navigator.userAgent);
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-        const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-        const isFirefox = /Firefox/.test(navigator.userAgent);
-        const isEdge = /Edg/.test(navigator.userAgent);
-
-        // Load voices with retry logic (async on some browsers)
-        function loadVoices() {
-            const voices = window.speechSynthesis.getVoices();
-            
-            if (voices.length > 0) {
-                ttsCachedVoices = voices;
-                ttsVoicesLoaded = true;
-                ttsRetryCount = 0;
-                
-                // Enhanced logging for debugging
-                console.log(`TTS: Loaded ${voices.length} voices on ${isAndroid ? 'Android' : isIOS ? 'iOS' : isChrome ? 'Chrome' : isEdge ? 'Edge' : isFirefox ? 'Firefox' : isSafari ? 'Safari' : 'Unknown Platform'}`);
-                
-                // Log English voices with gender info
-                const enVoices = voices.filter(v => v.lang.startsWith('en'));
-                console.log(`TTS: English voices available:`, enVoices.map(v => 
-                    `${v.name} (${v.lang}) - ${v.name.toLowerCase().includes('male') ? 'MALE' : v.name.toLowerCase().includes('female') ? 'FEMALE' : 'Unknown'}`
-                ).join(', '));
-                
-                // Android-specific logging
-                if (isAndroid) {
-                    const maleVoices = enVoices.filter(v => 
-                        v.name.toLowerCase().includes('male') || 
-                        (v.voiceURI || '').toLowerCase().includes('male')
-                    );
-                    console.log(`TTS: Android - Found ${maleVoices.length} explicit MALE voices:`, 
-                        maleVoices.map(v => `${v.name} - ${v.voiceURI}`).join(', ') || 'NONE'
-                    );
-                    
-                    if (maleVoices.length === 0) {
-                        console.warn('TTS: Android - NO MALE VOICES DETECTED! TTS may not work or use default voice.');
-                    }
-                }
-            } else if (ttsRetryCount < TTS_MAX_RETRIES) {
-                ttsRetryCount++;
-                console.log(`TTS: Retry ${ttsRetryCount}/${TTS_MAX_RETRIES} loading voices...`);
-                setTimeout(loadVoices, 100 * ttsRetryCount);
-            }
-        }
-
-        // Initialize voice loading
-        if (window.speechSynthesis) {
-            loadVoices();
-            
-            // Handle voice loading for different browsers
-            if (window.speechSynthesis.onvoiceschanged !== undefined) {
-                window.speechSynthesis.onvoiceschanged = loadVoices;
-            }
-            
-            // Force load on iOS/Safari after a delay
-            if (isIOS || isSafari) {
-                setTimeout(loadVoices, 500);
-            }
-        }
+        let ttsCurrentAudio = null;
+        let ttsAudioQueue = [];
+        let ttsIsPlaying = false;
 
         // Detect language: Tagalog vs English
         function detectLanguage(text) {
             const tagalogWords = /\b(niya|kanyang|mga|ang|ako|ikaw|siya|kami|tayo|sila|namin|natin|nila|sa|ng|at|ay|na|ko|mo|po|opo|ba|din|rin|lang|mga|hindi|oo|ito|iyan|iyon|sino|ano|saan|kailan|paano|bakit|dahil|kasi|pag|kapag|kung|nang|yung|yun|ung|dito|diyan|doon|noon|ngayon|mamaya|kanina|talaga|sobra|masyado|napaka|grabe|ganda|galing|astig|kuya|ate|bro|pre|pare|lods|lodi|salamat|pasensya|sige|tara|halika|basta|naman|kaya|pala|eh|daw|raw|nga|man|lamang|pati|pero|o|kaso)\b/gi;
-            
             const tagalogMatches = (text.match(tagalogWords) || []).length;
-            
-            if (tagalogMatches >= 2) return 'fil-PH';
-            return 'en-US';
+            if (tagalogMatches >= 2) return 'tl';
+            return 'en';
         }
 
-        // Find the best MALE voice for a language (NO FEMALE VOICES - ANDROID OPTIMIZED)
-        function getBestVoice(lang) {
-            if (!ttsVoicesLoaded || ttsCachedVoices.length === 0) {
-                loadVoices();
-            }
-            
-            let voices = ttsCachedVoices;
-            if (voices.length === 0) return null;
-            
-            // Log all available voices for debugging
-            console.log('TTS: Available voices:', voices.map(v => `${v.name} (${v.lang})`).join(', '));
-            
-            // Helper function to check if a voice is female (to exclude it)
-            function isFemaleVoice(voice) {
-                const name = voice.name.toLowerCase();
-                const voiceURI = (voice.voiceURI || '').toLowerCase();
-                
-                const femaleIndicators = [
-                    'female', 'woman', 'girl', 'lady',
-                    // Common female names
-                    'samantha', 'victoria', 'karen', 'moira', 'kate', 'susan', 
-                    'jessica', 'alice', 'emily', 'tracy', 'linda', 'joanna', 
-                    'salli', 'kendra', 'kimberly', 'ivy', 'tessa', 'naja',
-                    'paulina', 'luciana', 'ines', 'carmen', 'lucia', 'bianca', 
-                    'helena', 'anna', 'catherine', 'sarah', 'mary', 'laura', 
-                    'emma', 'olivia', 'sophia', 'isabella', 'mia', 'charlotte', 
-                    'amelia', 'harper', 'evelyn', 'abigail', 'ella', 'scarlett', 
-                    'grace', 'chloe', 'zoe', 'nora', 'hazel', 'aurora', 'savannah', 
-                    'hannah', 'madison', 'fiona', 'veena', 'zira', 'kyoko', 
-                    'sayaka', 'lee', 'hee-young', 'amélie', 'celine', 'chantal', 
-                    'julie', 'daria', 'milena', 'petra', 'alva', 'elin', 
-                    'ingrid', 'liv', 'kari', 'heather', 'stephanie', 'natalie',
-                    'michelle', 'jennifer', 'angela', 'melissa', 'deborah',
-                    'sharon', 'donna', 'carol', 'ruth', 'betty', 'dorothy',
-                    // Android/Google specific female voices
-                    '#female', 'com.google.android.tts:female', 'en-us-x-', 
-                    'en-us-x-tpd', 'en-us-x-tpc', 'en-us-x-tpf', 'en-us-x-sfg'
-                ];
-                
-                // Check name and URI for female indicators
-                return femaleIndicators.some(indicator => 
-                    name.includes(indicator) || voiceURI.includes(indicator)
-                );
-            }
-            
-            // Helper function to check if a voice is male
-            function isMaleVoice(voice) {
-                const name = voice.name.toLowerCase();
-                const voiceURI = (voice.voiceURI || '').toLowerCase();
-                
-                const maleIndicators = [
-                    'male', 'man', 'boy', 
-                    // Common male names
-                    'david', 'mark', 'james', 'george', 'alex', 'fred', 
-                    'daniel', 'thomas', 'ryan', 'guy', 'rishi', 'diego',
-                    'jorge', 'nicolas', 'arthur', 'henrik', 'nikos', 'albert',
-                    'michael', 'john', 'robert', 'william', 'richard', 'joseph',
-                    'christopher', 'matthew', 'anthony', 'donald', 'steven', 'paul',
-                    'kevin', 'kenneth', 'brian', 'edward', 'timothy', 'jason',
-                    'jeffrey', 'frank', 'scott', 'eric', 'stephen', 'raymond',
-                    'gregory', 'joshua', 'jerry', 'dennis', 'walter', 'patrick',
-                    'peter', 'harold', 'douglas', 'henry', 'carl', 'joe', 
-                    'jack', 'jonathan', 'justin', 'terry', 'gerald', 'keith', 
-                    'samuel', 'willie', 'ralph', 'lawrence', 'nicholas', 'bruce', 
-                    'benjamin', 'jordan', 'russell', 'harry', 'nathan', 'aaron',
-                    'luke', 'jacob', 'ethan', 'andrew', 'jose', 'adam', 'carlos',
-                    // Android/Google specific male voices
-                    '#male', 'com.google.android.tts:male', 'en-us-x-iom', 
-                    'en-us-x-iob', 'en-us-x-iol', 'en-us-x-tog'
-                ];
-                
-                // Check name and URI for male indicators
-                return maleIndicators.some(indicator => 
-                    name.includes(indicator) || voiceURI.includes(indicator)
-                );
-            }
-            
-            // **CRITICAL STEP 1: Filter out ALL female voices**
-            let filteredVoices = voices.filter(v => !isFemaleVoice(v));
-            console.log(`TTS: Removed female voices, ${filteredVoices.length} remaining`);
-            
-            // **CRITICAL STEP 2: On Android, ONLY use voices with explicit "male" indicator**
-            if (isAndroid) {
-                const explicitMaleVoices = filteredVoices.filter(v => isMaleVoice(v));
-                if (explicitMaleVoices.length > 0) {
-                    filteredVoices = explicitMaleVoices;
-                    console.log(`TTS: Android - Using only explicit male voices, ${filteredVoices.length} available`);
+        // Split text into chunks that fit Google Translate TTS limit (~200 chars)
+        function splitTextIntoChunks(text, maxLen) {
+            maxLen = maxLen || 200;
+            if (text.length <= maxLen) return [text];
+
+            const chunks = [];
+            // Split on sentence boundaries first
+            const sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+            let current = '';
+
+            for (let i = 0; i < sentences.length; i++) {
+                const sentence = sentences[i].trim();
+                if (!sentence) continue;
+
+                if ((current + ' ' + sentence).trim().length <= maxLen) {
+                    current = (current + ' ' + sentence).trim();
                 } else {
-                    console.warn('TTS: Android - No explicit male voices found, using filtered voices');
-                }
-            }
-            
-            // **CRITICAL STEP 3: Prefer voices with male indicators**
-            const maleVoices = filteredVoices.filter(v => isMaleVoice(v));
-            if (maleVoices.length > 0) {
-                voices = maleVoices;
-                console.log(`TTS: Using ${voices.length} male voices`);
-            } else if (filteredVoices.length > 0) {
-                voices = filteredVoices;
-                console.log(`TTS: Using ${voices.length} filtered (non-female) voices`);
-            } else {
-                console.warn('TTS: WARNING - No male or filtered voices available, using all voices');
-                voices = ttsCachedVoices;
-            }
-            
-            let selectedVoice = null;
-            
-            if (lang === 'fil-PH') {
-                // Filipino/Tagalog MALE voice selection
-                // Priority 1: Filipino/Tagalog male voices
-                selectedVoice = voices.find(v => 
-                    (v.lang === 'fil-PH' || v.lang === 'tl-PH') && isMaleVoice(v)
-                );
-                
-                // Priority 2: Any Filipino/Tagalog voice with male in name
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => 
-                        v.lang.startsWith('fil') && v.name.toLowerCase().includes('male')
-                    );
-                }
-                
-                // Priority 3: Any Filipino/Tagalog voice
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => 
-                        v.lang === 'fil-PH' || v.lang === 'tl-PH'
-                    );
-                }
-                
-                // Priority 4: Any Filipino/Tagalog variant
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang.startsWith('fil') || v.lang.startsWith('tl'));
-                }
-                
-                // Fallback: English MALE voice
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang.startsWith('en') && isMaleVoice(v));
-                }
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang.startsWith('en') && v.name.toLowerCase().includes('male'));
-                }
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang.startsWith('en'));
-                }
-            } else {
-                // English MALE voice selection (female voices already filtered out)
-                
-                // Priority 1: Platform-specific male voices
-                if (isAndroid) {
-                    // Android: CRITICAL - Only use explicit male voices
-                    // Try Google Male voices first
-                    selectedVoice = voices.find(v => 
-                        v.lang.startsWith('en') && v.name.toLowerCase().includes('male')
-                    );
-                    
-                    if (!selectedVoice) {
-                        // Try voices with male in URI
-                        selectedVoice = voices.find(v => 
-                            v.lang.startsWith('en') && (v.voiceURI || '').toLowerCase().includes('male')
-                        );
+                    if (current) chunks.push(current);
+                    // If single sentence is longer than maxLen, split on commas/spaces
+                    if (sentence.length > maxLen) {
+                        const parts = sentence.match(new RegExp('.{1,' + maxLen + '}(\\s|,|$)', 'g')) || [sentence];
+                        parts.forEach(function(p) { if (p.trim()) chunks.push(p.trim()); });
+                        current = '';
+                    } else {
+                        current = sentence;
                     }
-                    
-                    if (!selectedVoice) {
-                        // Try named male voices on Android
-                        selectedVoice = voices.find(v => 
-                            v.lang.startsWith('en') && isMaleVoice(v)
-                        );
-                    }
-                    
-                    console.log('TTS: Android - Selected voice:', selectedVoice ? selectedVoice.name : 'none');
-                } else if (isIOS || isSafari) {
-                    // iOS/Safari: Alex (male), Fred, Daniel (male voices)
-                    selectedVoice = voices.find(v => v.lang.startsWith('en') && 
-                        (v.name.includes('Alex') || v.name.includes('Fred') || v.name.includes('Daniel'))
-                    );
-                } else if (isChrome && !isAndroid) {
-                    // Chrome Desktop: Google Male voices
-                    selectedVoice = voices.find(v => v.lang === 'en-US' && 
-                        v.name.includes('Google') && v.name.toLowerCase().includes('male')
-                    );
-                    if (!selectedVoice) {
-                        selectedVoice = voices.find(v => v.lang === 'en-US' && 
-                            v.name.includes('Google') && isMaleVoice(v)
-                        );
-                    }
-                } else if (isEdge) {
-                    // Edge: Microsoft David, Mark, James, Guy, Ryan
-                    selectedVoice = voices.find(v => v.lang === 'en-US' && 
-                        (v.name.includes('David') || v.name.includes('Mark') || 
-                         v.name.includes('James') || v.name.includes('Guy') || v.name.includes('Ryan'))
-                    );
-                } else if (isFirefox) {
-                    // Firefox: Local male voices
-                    selectedVoice = voices.find(v => v.lang === 'en-US' && 
-                        v.localService === true && isMaleVoice(v)
-                    );
-                }
-                
-                // Priority 2: Any voice with "male" explicitly in name or URI
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => 
-                        v.lang === 'en-US' && v.name.toLowerCase().includes('male')
-                    );
-                }
-                
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => 
-                        v.lang === 'en-US' && (v.voiceURI || '').toLowerCase().includes('male')
-                    );
-                }
-                
-                // Priority 3: Specific male voice names (cross-platform)
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang === 'en-US' && 
-                        (v.name.includes('David') || v.name.includes('Mark') || v.name.includes('Alex') ||
-                         v.name.includes('James') || v.name.includes('George') || v.name.includes('Guy'))
-                    );
-                }
-                
-                // Priority 4: Any en-US voice that passes male detection
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang === 'en-US' && isMaleVoice(v));
-                }
-                
-                // Priority 5: Any en-US voice (female already filtered)
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang === 'en-US');
-                }
-                
-                // Priority 6: Expand to any English locale with male indicator
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => 
-                        v.lang.startsWith('en') && v.name.toLowerCase().includes('male')
-                    );
-                }
-                
-                // Priority 7: Expand to any English locale with male voice
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang.startsWith('en') && isMaleVoice(v));
-                }
-                
-                // Priority 8: Any English voice (female already filtered)
-                if (!selectedVoice) {
-                    selectedVoice = voices.find(v => v.lang.startsWith('en'));
                 }
             }
-            
-            // Last resort: first available non-female voice
-            if (!selectedVoice && voices.length > 0) {
-                selectedVoice = voices[0];
-            }
-            
-            // FINAL SAFETY CHECK: Ensure selected voice is NOT female
-            if (selectedVoice) {
-                const finalCheck = isFemaleVoice(selectedVoice);
-                if (finalCheck) {
-                    console.error(`TTS: BLOCKED female voice: ${selectedVoice.name} - voice will be disabled`);
-                    selectedVoice = null;
-                } else {
-                    console.log(`TTS: ✓ Selected MALE voice: ${selectedVoice.name} (${selectedVoice.lang}) - URI: ${selectedVoice.voiceURI || 'N/A'}`);
-                }
-            } else {
-                console.warn('TTS: No suitable male voice found');
-            }
-            
-            return selectedVoice;
+            if (current) chunks.push(current);
+            return chunks;
         }
 
-        // Get normalized speech parameters based on platform
-        function getSpeechParameters() {
-            // Normalize parameters for consistency across platforms
-            let rate = 1.0;
-            let pitch = 1.0;
-            let volume = 1.0;
-            
-            if (isIOS || isSafari) {
-                // iOS/Safari: more conservative settings
-                rate = 0.95;
-                pitch = 1.0;
-                volume = 1.0;
-            } else if (isAndroid) {
-                // Android: slightly faster
-                rate = 1.05;
-                pitch = 1.0;
-                volume = 1.0;
-            } else if (isChrome) {
-                // Chrome: balanced
-                rate = 1.0;
-                pitch = 0.95;
-                volume = 1.0;
-            } else if (isEdge) {
-                // Edge: natural
-                rate = 1.0;
-                pitch = 1.0;
-                volume = 1.0;
-            } else if (isFirefox) {
-                // Firefox: slightly slower for clarity
-                rate = 0.95;
-                pitch = 1.0;
-                volume = 1.0;
-            } else {
-                // Default for other browsers
-                rate = 1.0;
-                pitch = 1.0;
-                volume = 1.0;
-            }
-            
-            return { rate, pitch, volume };
+        // Build Google Translate TTS URL via local proxy (avoids CORS issues)
+        function buildGTTSUrl(text, lang) {
+            return 'chat.php?text=' + encodeURIComponent(text)
+                + '&lang=' + encodeURIComponent(lang);
         }
 
-        // Speak text with auto language detection and cross-browser optimization
+        // Stop all current and queued audio
+        function ttsStop() {
+            ttsAudioQueue = [];
+            ttsIsPlaying = false;
+            if (ttsCurrentAudio) {
+                try {
+                    ttsCurrentAudio.pause();
+                    ttsCurrentAudio.currentTime = 0;
+                    ttsCurrentAudio.src = '';
+                } catch (e) { /* ignore */ }
+                ttsCurrentAudio = null;
+            }
+        }
+
+        // Play the next chunk in the queue
+        function ttsPlayNext() {
+            if (!ttsEnabled || ttsAudioQueue.length === 0) {
+                ttsIsPlaying = false;
+                ttsCurrentAudio = null;
+                return;
+            }
+
+            ttsIsPlaying = true;
+            const url = ttsAudioQueue.shift();
+            const audio = new Audio(url);
+            ttsCurrentAudio = audio;
+
+            // Speed up playback (1.0 = normal, 1.5 = faster, 2.0 = very fast)
+            audio.playbackRate = 1.3;
+
+            audio.onended = function() {
+                ttsCurrentAudio = null;
+                ttsPlayNext();
+            };
+
+            audio.onerror = function(e) {
+                console.warn('gTTS Audio Error:', e);
+                ttsCurrentAudio = null;
+                // Continue to next chunk even on error
+                ttsPlayNext();
+            };
+
+            audio.play().catch(function(err) {
+                console.warn('gTTS Play Error:', err);
+                ttsCurrentAudio = null;
+                ttsPlayNext();
+            });
+        }
+
+        // Main speak function — same interface as before
         function speakText(text) {
-            if (!ttsEnabled || !window.speechSynthesis) return;
-            
+            if (!ttsEnabled) return;
+
             try {
-                // Cancel any ongoing speech (with platform-specific handling)
-                window.speechSynthesis.cancel();
-                
-                // iOS Safari fix: small delay after cancel
-                if (isIOS || isSafari) {
-                    setTimeout(() => speakTextInternal(text), 50);
-                } else {
-                    speakTextInternal(text);
-                }
+                // Stop any ongoing speech
+                ttsStop();
+
+                // Strip HTML tags for clean speech
+                const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
+                if (!cleanText) return;
+
+                const lang = detectLanguage(cleanText);
+                const chunks = splitTextIntoChunks(cleanText, 200);
+
+                console.log('gTTS: Speaking ' + chunks.length + ' chunk(s) in lang=' + lang);
+
+                // Build audio URLs for all chunks
+                ttsAudioQueue = chunks.map(function(chunk) {
+                    return buildGTTSUrl(chunk, lang);
+                });
+
+                // Start playback
+                ttsPlayNext();
             } catch (error) {
-                console.warn('TTS Error:', error);
+                console.warn('gTTS Error:', error);
             }
         }
 
-        // Internal speech function
-        function speakTextInternal(text) {
-            // Strip HTML tags for clean speech
-            const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
-            if (!cleanText) return;
-            
-            const lang = detectLanguage(cleanText);
-            const utterance = new SpeechSynthesisUtterance(cleanText);
-            
-            // Set language
-            utterance.lang = lang;
-            
-            // Apply normalized parameters
-            const params = getSpeechParameters();
-            utterance.rate = params.rate;
-            utterance.pitch = params.pitch;
-            utterance.volume = params.volume;
-            
-            // Get and set the best voice
-            const voice = getBestVoice(lang);
-            if (voice) {
-                utterance.voice = voice;
-                console.log(`TTS: Speaking with voice: ${voice.name} (${voice.lang})`);
-            } else {
-                console.warn('TTS: No voice selected - using default (may be female!)');
-                // Don't speak if no male voice is available
-                if (isAndroid) {
-                    console.error('TTS: Android - Blocking speech without explicit male voice');
-                    return;
-                }
-            }
-            
-            // Error handling
-            utterance.onerror = function(event) {
-                // Ignore "interrupted" errors as they're expected when cancelling speech
-                if (event.error === 'interrupted' || event.error === 'canceled') {
-                    return;
-                }
-                
-                console.error('TTS Speech Error:', event.error, '- Voice:', utterance.voice ? utterance.voice.name : 'default');
-                
-                // Retry on certain errors
-                if (event.error === 'network' || event.error === 'synthesis-failed') {
-                    setTimeout(() => {
-                        if (ttsEnabled) {
-                            window.speechSynthesis.speak(utterance);
-                        }
-                    }, 500);
-                }
-            };
-            
-            // Resume synthesis if paused (some browsers pause automatically)
-            utterance.onstart = function() {
-                if (window.speechSynthesis.paused) {
-                    window.speechSynthesis.resume();
-                }
-            };
-            
-            // Keep the synthesis alive on long texts (Chrome/Edge fix)
-            if (isChrome || isEdge) {
-                utterance.onboundary = function(event) {
-                    if (window.speechSynthesis.paused) {
-                        window.speechSynthesis.resume();
-                    }
-                };
-            }
-            
-            // Speak the text
-            window.speechSynthesis.speak(utterance);
-        }
-
-        // Toggle TTS on/off with cross-browser support
+        // Toggle TTS on/off
         window.toggleTTS = function() {
             ttsEnabled = !ttsEnabled;
             const btn = document.getElementById('ttsToggle');
             const icon = document.getElementById('ttsIcon');
-            
+
             if (ttsEnabled) {
                 btn.classList.remove('muted');
                 icon.className = 'fas fa-volume-up';
@@ -5441,79 +5281,40 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
                 btn.classList.add('muted');
                 icon.className = 'fas fa-volume-mute';
                 btn.title = 'Unmute Text-to-Speech';
-                
-                // Cancel speech with platform-specific handling
-                try {
-                    window.speechSynthesis.cancel();
-                    
-                    // iOS/Safari fix: cancel twice with delay
-                    if (isIOS || isSafari) {
-                        setTimeout(() => window.speechSynthesis.cancel(), 50);
-                    }
-                } catch (error) {
-                    console.warn('TTS Cancel Error:', error);
-                }
+                ttsStop();
             }
         };
 
-        // Stop TTS when chatbot closes with improved reliability
+        // Stop TTS when chatbot closes
         const origToggleChatbot = window.toggleChatbot;
         window.toggleChatbot = function() {
             origToggleChatbot();
             if (!chatWindow.classList.contains('open')) {
-                try {
-                    window.speechSynthesis.cancel();
-                    
-                    // Ensure cancellation on all platforms
-                    if (isIOS || isSafari) {
-                        setTimeout(() => window.speechSynthesis.cancel(), 50);
-                    }
-                } catch (error) {
-                    console.warn('TTS Cancel Error:', error);
-                }
+                ttsStop();
             }
         };
 
-        // Auto-speak greeting on first open with delay for voice loading
+        // Auto-speak greeting on first open
         let greetingSpoken = false;
         const origToggleForGreeting = window.toggleChatbot;
         window.toggleChatbot = function() {
             origToggleForGreeting();
             if (chatWindow.classList.contains('open') && !greetingSpoken) {
                 greetingSpoken = true;
-                
-                // Wait for voices to load and DOM to be ready
-                const speakGreeting = function() {
+                setTimeout(function() {
                     const greetingEl = chatMessages.querySelector('.chat-msg.bot');
                     if (greetingEl && ttsEnabled) {
                         speakText(greetingEl.textContent);
                     }
-                };
-                
-                // Longer delay for iOS/Safari to ensure voices are loaded
-                const delay = (isIOS || isSafari) ? 1000 : 500;
-                setTimeout(speakGreeting, delay);
+                }, 500);
             }
         };
 
-        // Cleanup on page unload/hide to prevent memory leaks
-        window.addEventListener('beforeunload', function() {
-            try {
-                window.speechSynthesis.cancel();
-            } catch (error) {
-                // Ignore errors on page unload
-            }
-        });
+        // Cleanup on page unload/hide
+        window.addEventListener('beforeunload', function() { ttsStop(); });
 
-        // Handle page visibility changes (mobile browsers)
         document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                try {
-                    window.speechSynthesis.cancel();
-                } catch (error) {
-                    console.warn('TTS Cancel Error on visibility change:', error);
-                }
-            }
+            if (document.hidden) ttsStop();
         });
 
     })();
