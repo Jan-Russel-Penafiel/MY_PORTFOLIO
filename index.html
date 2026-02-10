@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-visual">
+    <meta name="format-detection" content="telephone=no,email=no,address=no">
     <title>Jan Russel E. Peñafiel - Freelance Student Web Developer</title>
 
     <!-- Force open in default browser instead of in-app browsers (Messenger, Facebook, Instagram, etc.) -->
@@ -51,7 +52,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
-            background: #0a0a0f;
+            background: #000000;
             color: #e0e0e0;
         }
         
@@ -68,7 +69,7 @@
         }
         
         .hero-section {
-            background: #101217;
+            background: #000000;
             color: #00fff7;
             padding: 80px 0;
             box-shadow: 0 0 24px #00fff730 inset;
@@ -271,15 +272,55 @@
             box-shadow: 0 0 8px #00fff7a0;
         }
         
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
         .social-links a {
-            margin: 10px;
-            transition: transform 0.3s ease;
-            box-shadow: 0 0 8px #00fff7;
+            background: #00fff7 !important;
+            color: #0a0e27 !important;
+            border: none !important;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 247, 0.5);
         }
         
         .social-links a:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 16px #00fff7;
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 247, 0.8);
+            background: #00d4cc !important;
+        }
+        
+        /* Contact Section - Full Screen */
+        #contact {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000000 !important;
+            padding: 80px 0 !important;
+        }
+        
+        #contact .container {
+            width: 100%;
+        }
+        
+        #contact h2 {
+            color: #00fff7;
+            text-shadow: 0 0 20px rgba(0, 255, 247, 0.5);
+            margin-bottom: 3rem;
+        }
+        
+        #contact .social-links {
+            gap: 25px;
+        }
+        
+        #contact .social-links a {
+            padding: 18px 40px;
+            font-size: 1.2rem;
         }
         
         .navbar-brand {
@@ -887,8 +928,16 @@
                 padding: 10px 20px;
             }
             
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                padding: 0 20px;
+            }
+            
             .social-links a {
-                margin: 5px;
+                width: 100%;
+                max-width: 280px;
                 font-size: 0.85rem;
             }
             
@@ -1945,6 +1994,513 @@
             }
         }
 
+        /* ============================================
+           COMPREHENSIVE DEVICE COMPATIBILITY FIXES
+           Covers all Chrome DevTools device presets
+           ============================================ */
+
+        /* Global: Prevent horizontal overflow on all devices */
+        html {
+            overflow-x: hidden;
+        }
+
+        /* Contact Section - Responsive Container */
+        #contact .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            max-width: 100%;
+            padding: 0 15px;
+        }
+
+        #contact .social-links a {
+            flex: 0 1 auto;
+            white-space: nowrap;
+        }
+
+        /* === LARGE TABLET / SMALL DESKTOP (992px - 1199px) === */
+        /* Nest Hub Max (1280x800), Asus Zenbook Fold, Surface Pro 7 */
+        @media (max-width: 1199px) and (min-width: 992px) {
+            .hero-profile-picture {
+                width: 320px;
+                height: 400px;
+            }
+            .hero-profile-container {
+                gap: 30px;
+            }
+        }
+
+        /* === TABLET PORTRAIT (769px - 991px) === */
+        /* iPad Mini (768px), iPad Air (820px), Surface Pro 7 portrait */
+        /* Navbar collapses at <992px (navbar-expand-lg) but hero was still desktop — fix here */
+        @media (max-width: 991px) and (min-width: 769px) {
+            /* Show mobile navbar text since navbar is collapsed in this range */
+            .navbar-text-mobile {
+                display: inline !important;
+            }
+            .navbar-text-desktop {
+                display: none !important;
+            }
+            .navbar-brand img {
+                display: inline-block !important;
+            }
+
+            /* Stack hero layout vertically like mobile */
+            .hero-profile-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+            .hero-profile-picture {
+                display: none;
+            }
+            .hero-mobile-profile {
+                display: block !important;
+                width: 170px;
+                height: 170px;
+            }
+            .hero-content {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .hero-section h1 {
+                font-size: 2.5rem !important;
+            }
+            .badge-custom {
+                font-size: 0.85rem;
+                padding: 7px 14px;
+            }
+
+            .about-intro-card {
+                padding: 30px;
+            }
+
+            .stat-card {
+                min-width: 45%;
+            }
+
+            section {
+                min-height: auto;
+            }
+        }
+
+        /* === MOBILE ENHANCEMENTS (≤768px) — additions to existing rules === */
+        @media (max-width: 768px) {
+            /* Contact section - stack vertically on mobile */
+            #contact .social-links {
+                flex-direction: column;
+                gap: 12px;
+                padding: 0 20px;
+            }
+            #contact .social-links a {
+                width: 100%;
+                max-width: 350px;
+                text-align: center;
+            }
+
+            /* Navbar improvements */
+            .navbar .container {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .navbar-brand {
+                max-width: 65%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Collapsed navbar dropdown styling */
+            .navbar-collapse {
+                background: #000000;
+                border-radius: 0 0 12px 12px;
+                padding: 10px 0;
+                margin-top: 5px;
+                border-bottom: 1px solid #00fff730;
+                border-left: 1px solid #00fff730;
+                border-right: 1px solid #00fff730;
+            }
+            .navbar-nav .nav-link {
+                padding: 12px 20px !important;
+                font-size: 0.9rem;
+                border-bottom: 1px solid #ffffff08;
+            }
+            .navbar-nav .nav-item:last-child .nav-link {
+                border-bottom: none;
+            }
+
+            /* Hero section spacing */
+            .hero-section {
+                padding-top: 80px;
+            }
+
+            /* Badge buttons — better flex wrapping */
+            .hero-content .mt-4,
+            .hero-content .mt-3 {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+            }
+            .badge-custom {
+                margin: 0 !important;
+            }
+
+            /* Sections — allow natural height on mobile */
+            section {
+                min-height: auto;
+            }
+            
+            /* Contact section mobile */
+            #contact {
+                padding: 60px 0 !important;
+            }
+            
+            #contact h2 {
+                margin-bottom: 2rem !important;
+                white-space: nowrap !important;
+            }
+            
+            #contact .social-links a {
+                padding: 12px 24px !important;
+                font-size: 0.9rem !important;
+            }
+
+            /* Card text overflow prevention */
+            .project-card .card-body {
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+            }
+
+            /* Edit toolbar full-width on mobile */
+            .edit-mode-toolbar {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                padding: 15px 20px;
+            }
+
+            /* Upload modal scrollable on mobile */
+            .upload-content {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            /* Notification centered on mobile */
+            .toggle-notification {
+                right: 10px;
+                left: 10px;
+                text-align: center;
+            }
+
+            /* Footer text sizing */
+            footer p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* === SURFACE DUO & PHABLETS (541px - 767px) === */
+        @media (max-width: 767px) and (min-width: 541px) {
+            .hero-section h1 {
+                font-size: 2rem !important;
+            }
+            .display-4 {
+                font-size: 2rem !important;
+            }
+            .hero-mobile-profile {
+                width: 160px;
+                height: 160px;
+            }
+            .about-greeting {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* === iPhone SE / iPhone 12 Mini / Small phones (361px - 375px) === */
+        @media (max-width: 375px) {
+            .hero-section h1 {
+                font-size: 1.4rem !important;
+            }
+            .display-4 {
+                font-size: 1.4rem !important;
+            }
+            .typing-animation {
+                font-size: 0.85rem;
+            }
+            .lead {
+                font-size: 0.85rem !important;
+            }
+            .badge-custom {
+                font-size: 0.68rem;
+                padding: 5px 9px;
+            }
+            .hero-mobile-profile {
+                width: 120px;
+                height: 120px;
+                margin: -15px auto 35px;
+            }
+            .navbar-brand {
+                font-size: 0.95rem;
+            }
+            .about-greeting {
+                font-size: 1.4rem;
+            }
+            .about-text {
+                font-size: 0.9rem;
+                padding: 15px;
+            }
+            .about-intro-card {
+                padding: 20px;
+            }
+            .display-6 {
+                font-size: 1.2rem !important;
+            }
+            h2 {
+                font-size: 1.3rem !important;
+            }
+            .tech-icon {
+                height: 45px !important;
+                width: 45px !important;
+            }
+            .tech-icon img {
+                height: 40px !important;
+                width: 40px !important;
+            }
+            .hire-title {
+                font-size: 1.7rem;
+            }
+            .hire-point {
+                padding: 18px;
+            }
+            .hire-point-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* === Samsung Galaxy S8+ (360px) and similar === */
+        @media (max-width: 360px) {
+            #contact .social-links a {
+                max-width: 100%;
+                font-size: 0.85rem;
+                padding: 10px 16px;
+            }
+
+            body {
+                font-size: 13px;
+            }
+            .hero-section {
+                padding-top: 70px;
+                padding-bottom: 30px;
+            }
+            .hero-section h1 {
+                font-size: 1.25rem !important;
+            }
+            .display-4 {
+                font-size: 1.3rem !important;
+            }
+            .typing-animation {
+                font-size: 0.8rem;
+                min-width: 120px;
+            }
+            .lead {
+                font-size: 0.8rem !important;
+            }
+            .badge-custom {
+                font-size: 0.65rem;
+                padding: 4px 8px;
+            }
+            .hero-mobile-profile {
+                width: 110px;
+                height: 110px;
+                margin: -10px auto 30px;
+            }
+            .navbar-brand {
+                font-size: 0.85rem;
+            }
+            .nav-link {
+                font-size: 0.8rem !important;
+            }
+            .display-6 {
+                font-size: 1.1rem !important;
+            }
+            h2 {
+                font-size: 1.15rem !important;
+            }
+            .about-greeting {
+                font-size: 1.3rem;
+            }
+            .about-text {
+                font-size: 0.85rem;
+                padding: 12px;
+            }
+            .about-intro-card {
+                padding: 15px;
+            }
+            .hire-title {
+                font-size: 1.5rem;
+            }
+            .hire-point {
+                padding: 15px;
+            }
+            .hire-point-title {
+                font-size: 1rem;
+            }
+            .hire-point-text {
+                font-size: 0.85rem;
+                margin-left: 0;
+            }
+            .project-card .card-body {
+                padding: 12px;
+            }
+            .card-title {
+                font-size: 0.85rem !important;
+            }
+            .card-text {
+                font-size: 0.78rem !important;
+            }
+            .badge {
+                font-size: 0.6rem !important;
+                padding: 3px 6px !important;
+            }
+            .tech-icon {
+                height: 40px !important;
+                width: 40px !important;
+            }
+            .tech-icon img {
+                height: 35px !important;
+                width: 35px !important;
+            }
+            section {
+                padding: 25px 0 !important;
+            }
+            .py-5 {
+                padding-top: 1.5rem !important;
+                padding-bottom: 1.5rem !important;
+            }
+            footer p {
+                font-size: 0.75rem;
+            }
+            #galleryModal .modal-dialog {
+                max-width: 98vw;
+                margin: 5px auto;
+            }
+            .gallery-image-container {
+                min-height: 200px;
+            }
+            #galleryMainImage {
+                max-height: 200px;
+            }
+            .stat-card {
+                padding: 18px;
+            }
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            .stat-icon {
+                font-size: 2rem;
+            }
+        }
+
+        /* === Galaxy Z Fold 5 (344px) and ultra-narrow screens === */
+        @media (max-width: 344px) {
+            .hero-section h1 {
+                font-size: 1.1rem !important;
+            }
+            .display-4 {
+                font-size: 1.15rem !important;
+            }
+            .typing-animation {
+                font-size: 0.7rem;
+                min-width: 100px;
+            }
+            .lead {
+                font-size: 0.75rem !important;
+            }
+            .badge-custom {
+                font-size: 0.6rem;
+                padding: 3px 6px;
+            }
+            .hero-mobile-profile {
+                width: 90px;
+                height: 90px;
+                margin: -5px auto 25px;
+            }
+            .navbar-brand {
+                font-size: 0.75rem;
+            }
+            .about-greeting {
+                font-size: 1.1rem;
+            }
+            .container {
+                padding-left: 8px;
+                padding-right: 8px;
+            }
+            .hire-title {
+                font-size: 1.2rem;
+            }
+            .stat-card {
+                padding: 15px;
+            }
+        }
+
+        /* === LANDSCAPE ON PHONES (short viewport) === */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-section {
+                padding: 70px 0 20px;
+                min-height: auto;
+            }
+            section {
+                min-height: auto;
+            }
+            .hero-mobile-profile {
+                width: 80px !important;
+                height: 80px !important;
+                margin: -5px auto 15px !important;
+            }
+            .hero-section h1 {
+                font-size: 1.3rem !important;
+            }
+            .typing-animation {
+                font-size: 0.8rem;
+                min-height: 1.5em;
+            }
+            .badge-custom {
+                padding: 4px 8px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* === NEST HUB (1024x600) — landscape hub/kiosk === */
+        @media (min-width: 1024px) and (max-height: 650px) {
+            .hero-section {
+                min-height: auto;
+                padding: 80px 0 40px;
+            }
+            section {
+                min-height: auto;
+            }
+            .hero-profile-picture {
+                width: 280px;
+                height: 350px;
+            }
+        }
+
+        /* === NEST HUB MAX (1280x800) === */
+        @media (min-width: 1200px) and (max-height: 800px) {
+            .hero-section {
+                min-height: auto;
+            }
+            section {
+                min-height: auto;
+            }
+            .hero-profile-picture {
+                width: 350px;
+                height: 430px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -2132,7 +2688,7 @@
     </div>
     
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: #000000 !important;">
         <div class="container">
             <a class="navbar-brand" href="#home">
                 <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
@@ -2240,7 +2796,7 @@
     </section>
 
     <!-- Tech Stack Section -->
-    <section id="tech" class="py-5 bg-light">
+    <section id="tech" class="py-5" style="background: #000000;">
         <div class="container">
             <div class="text-center mb-4">
                 <h2 class="display-6 fw-bold">TECH STACK</h2>
@@ -2324,7 +2880,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-5">
+    <section id="about" class="py-5" style="background: #000000;">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-6 fw-bold">ABOUT ME</h2>
@@ -2389,7 +2945,6 @@
             <a href="./uploads/project_69638f1d566493.07417156.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69638f1d566493.07417156.png&quot;,&quot;.\/uploads\/project_69638f1d573987.48846785.png&quot;,&quot;.\/uploads\/project_69638f1d57b731.29356287.png&quot;,&quot;.\/uploads\/project_69638f1d584cd8.34586166.png&quot;,&quot;.\/uploads\/project_69638f1d58bf59.63664796.png&quot;,&quot;.\/uploads\/project_69638f1d5937e4.06616341.png&quot;,&quot;.\/uploads\/project_69638f1d59bbc0.52050644.png&quot;,&quot;.\/uploads\/project_69638f1d5a6642.83108723.png&quot;,&quot;.\/uploads\/project_69638f1d5b01c5.98161662.png&quot;,&quot;.\/uploads\/project_69638f1d5b8c32.66865133.png&quot;,&quot;.\/uploads\/project_69638f1d603760.79090788.png&quot;,&quot;.\/uploads\/project_69638f1d60a156.53370856.png&quot;,&quot;.\/uploads\/project_69638f1d6105d9.77494389.png&quot;,&quot;.\/uploads\/project_69638f1d616ca2.63867739.png&quot;,&quot;.\/uploads\/project_69638f1d620591.91616121.png&quot;,&quot;.\/uploads\/project_69638f1d62bf09.94020648.png&quot;,&quot;.\/uploads\/project_69638f1d632d85.32564269.png&quot;,&quot;.\/uploads\/project_69638f1d639106.05786579.png&quot;,&quot;.\/uploads\/project_69638f1d63f689.56496410.png&quot;,&quot;.\/uploads\/project_69638f1d6461e9.01763903.png&quot;,&quot;.\/uploads\/project_69638f1d64c494.70304339.png&quot;,&quot;.\/uploads\/project_69638f1d6526b3.59984604.png&quot;,&quot;.\/uploads\/project_69638f1d659829.20339282.png&quot;]'>
                 <img src="./uploads/project_69638f1d566493.07417156.png" alt="SKSU Scholarship Monitoring System" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69638f1d566493.07417156.png&quot;,&quot;.\/uploads\/project_69638f1d573987.48846785.png&quot;,&quot;.\/uploads\/project_69638f1d57b731.29356287.png&quot;,&quot;.\/uploads\/project_69638f1d584cd8.34586166.png&quot;,&quot;.\/uploads\/project_69638f1d58bf59.63664796.png&quot;,&quot;.\/uploads\/project_69638f1d5937e4.06616341.png&quot;,&quot;.\/uploads\/project_69638f1d59bbc0.52050644.png&quot;,&quot;.\/uploads\/project_69638f1d5a6642.83108723.png&quot;,&quot;.\/uploads\/project_69638f1d5b01c5.98161662.png&quot;,&quot;.\/uploads\/project_69638f1d5b8c32.66865133.png&quot;,&quot;.\/uploads\/project_69638f1d603760.79090788.png&quot;,&quot;.\/uploads\/project_69638f1d60a156.53370856.png&quot;,&quot;.\/uploads\/project_69638f1d6105d9.77494389.png&quot;,&quot;.\/uploads\/project_69638f1d616ca2.63867739.png&quot;,&quot;.\/uploads\/project_69638f1d620591.91616121.png&quot;,&quot;.\/uploads\/project_69638f1d62bf09.94020648.png&quot;,&quot;.\/uploads\/project_69638f1d632d85.32564269.png&quot;,&quot;.\/uploads\/project_69638f1d639106.05786579.png&quot;,&quot;.\/uploads\/project_69638f1d63f689.56496410.png&quot;,&quot;.\/uploads\/project_69638f1d6461e9.01763903.png&quot;,&quot;.\/uploads\/project_69638f1d64c494.70304339.png&quot;,&quot;.\/uploads\/project_69638f1d6526b3.59984604.png&quot;,&quot;.\/uploads\/project_69638f1d659829.20339282.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 23</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">SKSU Scholarship Management System</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-university"></i> Sultan Kudarat State University</h6>
@@ -2416,7 +2971,6 @@
             <a href="./uploads/project_6963916d3b9920.93664082.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_6963916d3b9920.93664082.png&quot;,&quot;.\/uploads\/project_6963916d3c6017.82995384.png&quot;,&quot;.\/uploads\/project_6963916d3cf4a3.15158706.png&quot;,&quot;.\/uploads\/project_6963916d3d9031.44243014.png&quot;,&quot;.\/uploads\/project_6963916d3e2fb4.58110586.png&quot;,&quot;.\/uploads\/project_6963916d3f1893.25639704.png&quot;,&quot;.\/uploads\/project_6963916d3fb204.45595364.png&quot;,&quot;.\/uploads\/project_6963916d406198.72110914.png&quot;,&quot;.\/uploads\/project_6963916d40f5c6.38629662.png&quot;,&quot;.\/uploads\/project_6963916d418728.95907557.png&quot;,&quot;.\/uploads\/project_6963916d421c33.59780744.png&quot;]'>
                 <img src="./uploads/project_6963916d3b9920.93664082.png" alt="Russel's Chicken Delights HR System" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_6963916d3b9920.93664082.png&quot;,&quot;.\/uploads\/project_6963916d3c6017.82995384.png&quot;,&quot;.\/uploads\/project_6963916d3cf4a3.15158706.png&quot;,&quot;.\/uploads\/project_6963916d3d9031.44243014.png&quot;,&quot;.\/uploads\/project_6963916d3e2fb4.58110586.png&quot;,&quot;.\/uploads\/project_6963916d3f1893.25639704.png&quot;,&quot;.\/uploads\/project_6963916d3fb204.45595364.png&quot;,&quot;.\/uploads\/project_6963916d406198.72110914.png&quot;,&quot;.\/uploads\/project_6963916d40f5c6.38629662.png&quot;,&quot;.\/uploads\/project_6963916d418728.95907557.png&quot;,&quot;.\/uploads\/project_6963916d421c33.59780744.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 11</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">Russel's Chicken Delights HR System</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Complete HR Management for Restaurant Chain</h6>
@@ -2444,7 +2998,6 @@
             <a href="./uploads/project_6963928871e9b9.45211521.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_6963928871e9b9.45211521.png&quot;,&quot;.\/uploads\/project_6963928872a256.64735234.png&quot;,&quot;.\/uploads\/project_6963928873a0c8.59184306.png&quot;,&quot;.\/uploads\/project_69639288746ab8.51726085.png&quot;,&quot;.\/uploads\/project_69639288753443.17118809.png&quot;,&quot;.\/uploads\/project_6963928875bab0.97167972.png&quot;,&quot;.\/uploads\/project_69639288762597.55350350.png&quot;,&quot;.\/uploads\/project_69639288768655.51179090.png&quot;,&quot;.\/uploads\/project_69639288771bc0.61842292.png&quot;,&quot;.\/uploads\/project_6963928877aca9.34054507.png&quot;,&quot;.\/uploads\/project_696392887882c2.74247703.png&quot;,&quot;.\/uploads\/project_6963928878e8e4.31742161.png&quot;,&quot;.\/uploads\/project_69639288794108.95083133.png&quot;,&quot;.\/uploads\/project_696392887991b8.03357643.png&quot;,&quot;.\/uploads\/project_6963928879e208.62982145.png&quot;,&quot;.\/uploads\/project_696392887a3312.63000056.png&quot;,&quot;.\/uploads\/project_696392887a83b0.40566005.png&quot;]'>
                 <img src="./uploads/project_6963928871e9b9.45211521.png" alt="KES-SMART" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_6963928871e9b9.45211521.png&quot;,&quot;.\/uploads\/project_6963928872a256.64735234.png&quot;,&quot;.\/uploads\/project_6963928873a0c8.59184306.png&quot;,&quot;.\/uploads\/project_69639288746ab8.51726085.png&quot;,&quot;.\/uploads\/project_69639288753443.17118809.png&quot;,&quot;.\/uploads\/project_6963928875bab0.97167972.png&quot;,&quot;.\/uploads\/project_69639288762597.55350350.png&quot;,&quot;.\/uploads\/project_69639288768655.51179090.png&quot;,&quot;.\/uploads\/project_69639288771bc0.61842292.png&quot;,&quot;.\/uploads\/project_6963928877aca9.34054507.png&quot;,&quot;.\/uploads\/project_696392887882c2.74247703.png&quot;,&quot;.\/uploads\/project_6963928878e8e4.31742161.png&quot;,&quot;.\/uploads\/project_69639288794108.95083133.png&quot;,&quot;.\/uploads\/project_696392887991b8.03357643.png&quot;,&quot;.\/uploads\/project_6963928879e208.62982145.png&quot;,&quot;.\/uploads\/project_696392887a3312.63000056.png&quot;,&quot;.\/uploads\/project_696392887a83b0.40566005.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 17</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-mobile-alt"></i> Student Monitoring with QR & SMS</h6>
@@ -2471,7 +3024,6 @@
             <a href="./uploads/project_69639455d37210.98618894.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69639455d37210.98618894.png&quot;,&quot;.\/uploads\/project_69639455d44b95.47363570.png&quot;,&quot;.\/uploads\/project_69639455d4f9a8.44792674.png&quot;,&quot;.\/uploads\/project_69639455d5a4e2.03873693.png&quot;,&quot;.\/uploads\/project_69639455d64dc4.90351643.png&quot;,&quot;.\/uploads\/project_69639455d6fb34.79227403.png&quot;,&quot;.\/uploads\/project_69639455d7cb36.29953024.png&quot;,&quot;.\/uploads\/project_69639455d8a6d4.93119391.png&quot;,&quot;.\/uploads\/project_69639455d96567.16491329.png&quot;,&quot;.\/uploads\/project_69639455d9f495.77196481.png&quot;,&quot;.\/uploads\/project_69639455da8122.19553864.png&quot;,&quot;.\/uploads\/project_69639455db1a61.66636192.png&quot;,&quot;.\/uploads\/project_69639455dbafa9.56685417.png&quot;,&quot;.\/uploads\/project_69639455dc79e0.40866983.png&quot;,&quot;.\/uploads\/project_69639455dd3336.20215240.png&quot;,&quot;.\/uploads\/project_69639455ddbec8.15392502.png&quot;,&quot;.\/uploads\/project_69639455de3085.88362304.png&quot;,&quot;.\/uploads\/project_69639455deb7e9.82782712.png&quot;,&quot;.\/uploads\/project_69639455df4c43.34350655.png&quot;,&quot;.\/uploads\/project_69639455dfc6f3.71219670.png&quot;,&quot;.\/uploads\/project_69639455e061f7.45118771.png&quot;,&quot;.\/uploads\/project_69639455e106f6.67444603.png&quot;,&quot;.\/uploads\/project_69639455e19e08.60045063.png&quot;,&quot;.\/uploads\/project_69639455e21728.23544986.png&quot;,&quot;.\/uploads\/project_69639455e2a0b5.83853003.png&quot;,&quot;.\/uploads\/project_69639455e30667.06973943.png&quot;,&quot;.\/uploads\/project_69639455e3a085.21937140.png&quot;,&quot;.\/uploads\/project_69639455e43041.74638899.png&quot;,&quot;.\/uploads\/project_69639455e497b1.13613672.png&quot;]'>
                 <img src="./uploads/project_69639455d37210.98618894.png" alt="BHC CONNECT" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69639455d37210.98618894.png&quot;,&quot;.\/uploads\/project_69639455d44b95.47363570.png&quot;,&quot;.\/uploads\/project_69639455d4f9a8.44792674.png&quot;,&quot;.\/uploads\/project_69639455d5a4e2.03873693.png&quot;,&quot;.\/uploads\/project_69639455d64dc4.90351643.png&quot;,&quot;.\/uploads\/project_69639455d6fb34.79227403.png&quot;,&quot;.\/uploads\/project_69639455d7cb36.29953024.png&quot;,&quot;.\/uploads\/project_69639455d8a6d4.93119391.png&quot;,&quot;.\/uploads\/project_69639455d96567.16491329.png&quot;,&quot;.\/uploads\/project_69639455d9f495.77196481.png&quot;,&quot;.\/uploads\/project_69639455da8122.19553864.png&quot;,&quot;.\/uploads\/project_69639455db1a61.66636192.png&quot;,&quot;.\/uploads\/project_69639455dbafa9.56685417.png&quot;,&quot;.\/uploads\/project_69639455dc79e0.40866983.png&quot;,&quot;.\/uploads\/project_69639455dd3336.20215240.png&quot;,&quot;.\/uploads\/project_69639455ddbec8.15392502.png&quot;,&quot;.\/uploads\/project_69639455de3085.88362304.png&quot;,&quot;.\/uploads\/project_69639455deb7e9.82782712.png&quot;,&quot;.\/uploads\/project_69639455df4c43.34350655.png&quot;,&quot;.\/uploads\/project_69639455dfc6f3.71219670.png&quot;,&quot;.\/uploads\/project_69639455e061f7.45118771.png&quot;,&quot;.\/uploads\/project_69639455e106f6.67444603.png&quot;,&quot;.\/uploads\/project_69639455e19e08.60045063.png&quot;,&quot;.\/uploads\/project_69639455e21728.23544986.png&quot;,&quot;.\/uploads\/project_69639455e2a0b5.83853003.png&quot;,&quot;.\/uploads\/project_69639455e30667.06973943.png&quot;,&quot;.\/uploads\/project_69639455e3a085.21937140.png&quot;,&quot;.\/uploads\/project_69639455e43041.74638899.png&quot;,&quot;.\/uploads\/project_69639455e497b1.13613672.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 29</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-hospital"></i> Digital Barangay Health Center</h6>
@@ -2498,7 +3050,6 @@
             <a href="./uploads/project_69639707b0b757.70388841.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69639707b0b757.70388841.png&quot;,&quot;.\/uploads\/project_69639707b15179.96811650.png&quot;,&quot;.\/uploads\/project_69639707b22f06.67914456.png&quot;,&quot;.\/uploads\/project_69639707b31f66.16342841.png&quot;,&quot;.\/uploads\/project_69639707b3a108.70303587.png&quot;,&quot;.\/uploads\/project_69639707b41dd6.16674785.png&quot;,&quot;.\/uploads\/project_69639707b4a1e1.92582850.png&quot;,&quot;.\/uploads\/project_69639707b51050.06633055.png&quot;,&quot;.\/uploads\/project_69639707b57952.61839433.png&quot;,&quot;.\/uploads\/project_69639707b5fb89.73307302.png&quot;,&quot;.\/uploads\/project_69639707b6c865.47329970.png&quot;,&quot;.\/uploads\/project_69639707b72d02.89002142.png&quot;,&quot;.\/uploads\/project_69639707b78861.36199374.png&quot;,&quot;.\/uploads\/project_69639707b7d871.08209961.png&quot;,&quot;.\/uploads\/project_69639707b829d6.55235047.png&quot;,&quot;.\/uploads\/project_69639707b87b11.09652625.png&quot;,&quot;.\/uploads\/project_69639707b8d085.19198441.png&quot;,&quot;.\/uploads\/project_69639707b924e3.24006135.png&quot;,&quot;.\/uploads\/project_69639707b97945.99402547.png&quot;,&quot;.\/uploads\/project_69639707ba1124.64735726.png&quot;,&quot;.\/uploads\/project_69639707ba9880.79047219.png&quot;,&quot;.\/uploads\/project_69639707bb1079.25553939.png&quot;,&quot;.\/uploads\/project_69639707bb7875.01867882.png&quot;,&quot;.\/uploads\/project_69639707bbcde6.50350905.png&quot;,&quot;.\/uploads\/project_69639707bc2830.85459499.png&quot;,&quot;.\/uploads\/project_69639707bc7985.51829774.png&quot;]'>
                 <img src="./uploads/project_69639707b0b757.70388841.png" alt="HealthConnect" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69639707b0b757.70388841.png&quot;,&quot;.\/uploads\/project_69639707b15179.96811650.png&quot;,&quot;.\/uploads\/project_69639707b22f06.67914456.png&quot;,&quot;.\/uploads\/project_69639707b31f66.16342841.png&quot;,&quot;.\/uploads\/project_69639707b3a108.70303587.png&quot;,&quot;.\/uploads\/project_69639707b41dd6.16674785.png&quot;,&quot;.\/uploads\/project_69639707b4a1e1.92582850.png&quot;,&quot;.\/uploads\/project_69639707b51050.06633055.png&quot;,&quot;.\/uploads\/project_69639707b57952.61839433.png&quot;,&quot;.\/uploads\/project_69639707b5fb89.73307302.png&quot;,&quot;.\/uploads\/project_69639707b6c865.47329970.png&quot;,&quot;.\/uploads\/project_69639707b72d02.89002142.png&quot;,&quot;.\/uploads\/project_69639707b78861.36199374.png&quot;,&quot;.\/uploads\/project_69639707b7d871.08209961.png&quot;,&quot;.\/uploads\/project_69639707b829d6.55235047.png&quot;,&quot;.\/uploads\/project_69639707b87b11.09652625.png&quot;,&quot;.\/uploads\/project_69639707b8d085.19198441.png&quot;,&quot;.\/uploads\/project_69639707b924e3.24006135.png&quot;,&quot;.\/uploads\/project_69639707b97945.99402547.png&quot;,&quot;.\/uploads\/project_69639707ba1124.64735726.png&quot;,&quot;.\/uploads\/project_69639707ba9880.79047219.png&quot;,&quot;.\/uploads\/project_69639707bb1079.25553939.png&quot;,&quot;.\/uploads\/project_69639707bb7875.01867882.png&quot;,&quot;.\/uploads\/project_69639707bbcde6.50350905.png&quot;,&quot;.\/uploads\/project_69639707bc2830.85459499.png&quot;,&quot;.\/uploads\/project_69639707bc7985.51829774.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 26</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">HealthConnect</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-hospital"></i> Mobile Health Center App</h6>
@@ -2525,7 +3076,6 @@
             <a href="./uploads/project_69639821e64744.39550796.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69639821e64744.39550796.png&quot;,&quot;.\/uploads\/project_69639821e75a53.37575442.png&quot;,&quot;.\/uploads\/project_69639821e803c8.05347197.png&quot;,&quot;.\/uploads\/project_69639821e8b0d5.91939213.png&quot;,&quot;.\/uploads\/project_69639821e94386.07580957.png&quot;,&quot;.\/uploads\/project_69639821e9d999.33568483.png&quot;,&quot;.\/uploads\/project_69639821ea5ae3.21257790.png&quot;,&quot;.\/uploads\/project_69639821eaeda4.60450596.png&quot;,&quot;.\/uploads\/project_69639821eb98d4.03367024.png&quot;,&quot;.\/uploads\/project_69639821ec1568.35050599.png&quot;,&quot;.\/uploads\/project_69639821ec7702.99772977.png&quot;,&quot;.\/uploads\/project_69639821ecd251.98588307.png&quot;,&quot;.\/uploads\/project_69639821ed2a95.81052583.png&quot;,&quot;.\/uploads\/project_69639821ed8ed7.35576741.png&quot;,&quot;.\/uploads\/project_69639821edf427.06434253.png&quot;,&quot;.\/uploads\/project_69639821ee4f53.29543841.png&quot;,&quot;.\/uploads\/project_69639821eea137.79871175.png&quot;,&quot;.\/uploads\/project_69639821ef15a0.15869381.png&quot;,&quot;.\/uploads\/project_69639821ef9a61.47082514.png&quot;,&quot;.\/uploads\/project_69639821f02cf4.72620058.png&quot;,&quot;.\/uploads\/project_69639821f097c9.81928213.png&quot;,&quot;.\/uploads\/project_69639821f0ff03.39460812.png&quot;,&quot;.\/uploads\/project_69639821f18b52.59494109.png&quot;,&quot;.\/uploads\/project_69639821f1faf7.05488808.png&quot;,&quot;.\/uploads\/project_69639821f25af7.93084456.png&quot;,&quot;.\/uploads\/project_69639821f2b360.59621949.png&quot;,&quot;.\/uploads\/project_69639821f32b87.36710557.png&quot;,&quot;.\/uploads\/project_69639821f3bd26.30122354.png&quot;,&quot;.\/uploads\/project_696398220003b7.62479875.png&quot;,&quot;.\/uploads\/project_69639822005cf7.21373359.png&quot;,&quot;.\/uploads\/project_6963982200b236.27512670.png&quot;,&quot;.\/uploads\/project_696398220107b7.20628225.png&quot;,&quot;.\/uploads\/project_69639822016564.62244036.png&quot;]'>
                 <img src="./uploads/project_69639821e64744.39550796.png" alt="ImmuCare" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69639821e64744.39550796.png&quot;,&quot;.\/uploads\/project_69639821e75a53.37575442.png&quot;,&quot;.\/uploads\/project_69639821e803c8.05347197.png&quot;,&quot;.\/uploads\/project_69639821e8b0d5.91939213.png&quot;,&quot;.\/uploads\/project_69639821e94386.07580957.png&quot;,&quot;.\/uploads\/project_69639821e9d999.33568483.png&quot;,&quot;.\/uploads\/project_69639821ea5ae3.21257790.png&quot;,&quot;.\/uploads\/project_69639821eaeda4.60450596.png&quot;,&quot;.\/uploads\/project_69639821eb98d4.03367024.png&quot;,&quot;.\/uploads\/project_69639821ec1568.35050599.png&quot;,&quot;.\/uploads\/project_69639821ec7702.99772977.png&quot;,&quot;.\/uploads\/project_69639821ecd251.98588307.png&quot;,&quot;.\/uploads\/project_69639821ed2a95.81052583.png&quot;,&quot;.\/uploads\/project_69639821ed8ed7.35576741.png&quot;,&quot;.\/uploads\/project_69639821edf427.06434253.png&quot;,&quot;.\/uploads\/project_69639821ee4f53.29543841.png&quot;,&quot;.\/uploads\/project_69639821eea137.79871175.png&quot;,&quot;.\/uploads\/project_69639821ef15a0.15869381.png&quot;,&quot;.\/uploads\/project_69639821ef9a61.47082514.png&quot;,&quot;.\/uploads\/project_69639821f02cf4.72620058.png&quot;,&quot;.\/uploads\/project_69639821f097c9.81928213.png&quot;,&quot;.\/uploads\/project_69639821f0ff03.39460812.png&quot;,&quot;.\/uploads\/project_69639821f18b52.59494109.png&quot;,&quot;.\/uploads\/project_69639821f1faf7.05488808.png&quot;,&quot;.\/uploads\/project_69639821f25af7.93084456.png&quot;,&quot;.\/uploads\/project_69639821f2b360.59621949.png&quot;,&quot;.\/uploads\/project_69639821f32b87.36710557.png&quot;,&quot;.\/uploads\/project_69639821f3bd26.30122354.png&quot;,&quot;.\/uploads\/project_696398220003b7.62479875.png&quot;,&quot;.\/uploads\/project_69639822005cf7.21373359.png&quot;,&quot;.\/uploads\/project_6963982200b236.27512670.png&quot;,&quot;.\/uploads\/project_696398220107b7.20628225.png&quot;,&quot;.\/uploads\/project_69639822016564.62244036.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 33</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-syringe"></i> Smart Immunization Registry</h6>
@@ -2553,7 +3103,6 @@
             <a href="./uploads/project_69639d814ea988.02413401.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69639d814ea988.02413401.png&quot;,&quot;.\/uploads\/project_69639d814f7017.30665404.png&quot;,&quot;.\/uploads\/project_69639d81504981.81272745.png&quot;,&quot;.\/uploads\/project_69639d8150fcb6.85850267.png&quot;,&quot;.\/uploads\/project_69639d81518d73.52196446.png&quot;,&quot;.\/uploads\/project_69639d815218a1.18064152.png&quot;,&quot;.\/uploads\/project_69639d815298d8.16890806.png&quot;,&quot;.\/uploads\/project_69639d81531002.27110035.png&quot;,&quot;.\/uploads\/project_69639d81539796.00695266.png&quot;,&quot;.\/uploads\/project_69639d81545bc9.74640247.png&quot;,&quot;.\/uploads\/project_69639d8154f907.43179462.png&quot;,&quot;.\/uploads\/project_69639d81556809.83449039.png&quot;,&quot;.\/uploads\/project_69639d8155e466.69009534.png&quot;,&quot;.\/uploads\/project_69639d81564172.58948552.png&quot;,&quot;.\/uploads\/project_69639d81569d62.14747172.png&quot;,&quot;.\/uploads\/project_69639d8156fb82.67901942.png&quot;,&quot;.\/uploads\/project_69639d815754d5.50183477.png&quot;,&quot;.\/uploads\/project_69639d8157dff0.82990185.png&quot;,&quot;.\/uploads\/project_69639d81586e70.10002466.png&quot;,&quot;.\/uploads\/project_69639d8158f819.64301875.png&quot;,&quot;.\/uploads\/project_69639d81595680.67728802.png&quot;,&quot;.\/uploads\/project_69639d8159c809.34922148.png&quot;,&quot;.\/uploads\/project_69639d815a25a6.24482877.png&quot;,&quot;.\/uploads\/project_69639d815a8090.52043412.png&quot;,&quot;.\/uploads\/project_69639d815ad894.40336700.png&quot;,&quot;.\/uploads\/project_69639d815b5759.42843518.png&quot;,&quot;.\/uploads\/project_69639d815bd3e9.99948536.png&quot;]'>
                 <img src="./uploads/project_69639d814ea988.02413401.png" alt="AidTrack" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69639d814ea988.02413401.png&quot;,&quot;.\/uploads\/project_69639d814f7017.30665404.png&quot;,&quot;.\/uploads\/project_69639d81504981.81272745.png&quot;,&quot;.\/uploads\/project_69639d8150fcb6.85850267.png&quot;,&quot;.\/uploads\/project_69639d81518d73.52196446.png&quot;,&quot;.\/uploads\/project_69639d815218a1.18064152.png&quot;,&quot;.\/uploads\/project_69639d815298d8.16890806.png&quot;,&quot;.\/uploads\/project_69639d81531002.27110035.png&quot;,&quot;.\/uploads\/project_69639d81539796.00695266.png&quot;,&quot;.\/uploads\/project_69639d81545bc9.74640247.png&quot;,&quot;.\/uploads\/project_69639d8154f907.43179462.png&quot;,&quot;.\/uploads\/project_69639d81556809.83449039.png&quot;,&quot;.\/uploads\/project_69639d8155e466.69009534.png&quot;,&quot;.\/uploads\/project_69639d81564172.58948552.png&quot;,&quot;.\/uploads\/project_69639d81569d62.14747172.png&quot;,&quot;.\/uploads\/project_69639d8156fb82.67901942.png&quot;,&quot;.\/uploads\/project_69639d815754d5.50183477.png&quot;,&quot;.\/uploads\/project_69639d8157dff0.82990185.png&quot;,&quot;.\/uploads\/project_69639d81586e70.10002466.png&quot;,&quot;.\/uploads\/project_69639d8158f819.64301875.png&quot;,&quot;.\/uploads\/project_69639d81595680.67728802.png&quot;,&quot;.\/uploads\/project_69639d8159c809.34922148.png&quot;,&quot;.\/uploads\/project_69639d815a25a6.24482877.png&quot;,&quot;.\/uploads\/project_69639d815a8090.52043412.png&quot;,&quot;.\/uploads\/project_69639d815ad894.40336700.png&quot;,&quot;.\/uploads\/project_69639d815b5759.42843518.png&quot;,&quot;.\/uploads\/project_69639d815bd3e9.99948536.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 27</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">AidTrack</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-chart-bar"></i> Aid Distribution System for Barangay Bual</h6>
@@ -2581,7 +3130,6 @@
             <a href="./uploads/project_69639ed8285fd4.96193276.png" target="_blank" class="project-image-link" data-images='[&quot;.\/uploads\/project_69639ed8285fd4.96193276.png&quot;,&quot;.\/uploads\/project_69639ed829fb33.30794419.png&quot;,&quot;.\/uploads\/project_69639ed82aaf79.59264453.png&quot;,&quot;.\/uploads\/project_69639ed82b42f5.03539161.png&quot;,&quot;.\/uploads\/project_69639ed82bc2b0.68984356.png&quot;,&quot;.\/uploads\/project_69639ed82c4dc6.73228718.png&quot;,&quot;.\/uploads\/project_69639ed82cee89.36551427.png&quot;,&quot;.\/uploads\/project_69639ed82dd385.29669374.png&quot;,&quot;.\/uploads\/project_69639ed82e71f6.37886227.png&quot;,&quot;.\/uploads\/project_69639ed82eeab6.47544326.png&quot;,&quot;.\/uploads\/project_69639ed82f5bd9.99625759.png&quot;,&quot;.\/uploads\/project_69639ed82fc4a9.30942826.png&quot;,&quot;.\/uploads\/project_69639ed8304050.12551838.png&quot;,&quot;.\/uploads\/project_69639ed830a3e0.58351435.png&quot;,&quot;.\/uploads\/project_69639ed83162a9.53810732.png&quot;,&quot;.\/uploads\/project_69639ed831fb64.81758720.png&quot;,&quot;.\/uploads\/project_69639ed832a622.17009172.png&quot;,&quot;.\/uploads\/project_69639ed8332399.87833096.png&quot;,&quot;.\/uploads\/project_69639ed8338db6.21420693.png&quot;,&quot;.\/uploads\/project_69639ed833ef22.85009377.png&quot;,&quot;.\/uploads\/project_69639ed8344714.01556379.png&quot;,&quot;.\/uploads\/project_69639ed8349cb6.33988215.png&quot;,&quot;.\/uploads\/project_69639ed8351f74.55560669.png&quot;,&quot;.\/uploads\/project_69639ed835ca75.46299040.png&quot;,&quot;.\/uploads\/project_69639ed8365f95.56104891.png&quot;,&quot;.\/uploads\/project_69639ed836da51.07007423.png&quot;,&quot;.\/uploads\/project_69639ed8374476.85554534.png&quot;,&quot;.\/uploads\/project_69639ed837a825.86127844.png&quot;,&quot;.\/uploads\/project_69639ed8380032.76456095.png&quot;,&quot;.\/uploads\/project_69639ed8385763.97852155.png&quot;,&quot;.\/uploads\/project_69639ed838a8b9.52241103.png&quot;,&quot;.\/uploads\/project_69639ed8390fc3.44057505.png&quot;]'>
                 <img src="./uploads/project_69639ed8285fd4.96193276.png" alt="BM-SCaPIS" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69639ed8285fd4.96193276.png&quot;,&quot;.\/uploads\/project_69639ed829fb33.30794419.png&quot;,&quot;.\/uploads\/project_69639ed82aaf79.59264453.png&quot;,&quot;.\/uploads\/project_69639ed82b42f5.03539161.png&quot;,&quot;.\/uploads\/project_69639ed82bc2b0.68984356.png&quot;,&quot;.\/uploads\/project_69639ed82c4dc6.73228718.png&quot;,&quot;.\/uploads\/project_69639ed82cee89.36551427.png&quot;,&quot;.\/uploads\/project_69639ed82dd385.29669374.png&quot;,&quot;.\/uploads\/project_69639ed82e71f6.37886227.png&quot;,&quot;.\/uploads\/project_69639ed82eeab6.47544326.png&quot;,&quot;.\/uploads\/project_69639ed82f5bd9.99625759.png&quot;,&quot;.\/uploads\/project_69639ed82fc4a9.30942826.png&quot;,&quot;.\/uploads\/project_69639ed8304050.12551838.png&quot;,&quot;.\/uploads\/project_69639ed830a3e0.58351435.png&quot;,&quot;.\/uploads\/project_69639ed83162a9.53810732.png&quot;,&quot;.\/uploads\/project_69639ed831fb64.81758720.png&quot;,&quot;.\/uploads\/project_69639ed832a622.17009172.png&quot;,&quot;.\/uploads\/project_69639ed8332399.87833096.png&quot;,&quot;.\/uploads\/project_69639ed8338db6.21420693.png&quot;,&quot;.\/uploads\/project_69639ed833ef22.85009377.png&quot;,&quot;.\/uploads\/project_69639ed8344714.01556379.png&quot;,&quot;.\/uploads\/project_69639ed8349cb6.33988215.png&quot;,&quot;.\/uploads\/project_69639ed8351f74.55560669.png&quot;,&quot;.\/uploads\/project_69639ed835ca75.46299040.png&quot;,&quot;.\/uploads\/project_69639ed8365f95.56104891.png&quot;,&quot;.\/uploads\/project_69639ed836da51.07007423.png&quot;,&quot;.\/uploads\/project_69639ed8374476.85554534.png&quot;,&quot;.\/uploads\/project_69639ed837a825.86127844.png&quot;,&quot;.\/uploads\/project_69639ed8380032.76456095.png&quot;,&quot;.\/uploads\/project_69639ed8385763.97852155.png&quot;,&quot;.\/uploads\/project_69639ed838a8b9.52241103.png&quot;,&quot;.\/uploads\/project_69639ed8390fc3.44057505.png&quot;]'>
             </a>
-            <div class="text-center small text-muted mb-2">Image 1 of 32</div>
         </div>
                             <h5 class="card-title fw-bold text-center text-primary">BM-SCaPIS</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Smart Clearance & Permit System</h6>
@@ -2603,20 +3151,20 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-light">
+    <section id="contact">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-6 fw-bold">Connect With Me</h2>
+            <div class="text-center">
+                <h2 class="display-6 fw-bold">CONNECT WITH ME</h2>
             </div>
             
-                        <div class="text-center social-links">
-                <a href="https://www.facebook.com/russelicioush" class="btn btn-primary btn-lg me-3" target="_blank">
+            <div class="text-center social-links">
+                <a href="https://www.facebook.com/russelicioush" class="btn btn-lg" target="_blank">
                     <i class="fab fa-facebook me-2"></i>Facebook
                 </a>
-                <a href="mailto:janrusselpenafiel01172005@gmail.com" class="btn btn-danger btn-lg me-3">
+                <a href="mailto:janrusselpenafiel01172005@gmail.com" class="btn btn-lg">
                     <i class="fas fa-envelope me-2"></i>Email
                 </a>
-                <a href="tel:+639677726912" class="btn btn-success btn-lg">
+                <a href="tel:+639677726912" class="btn btn-lg">
                     <i class="fas fa-phone me-2"></i>Call: +63 967 772 6912
                 </a>
             </div>
@@ -2624,7 +3172,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4">
+    <footer class="text-white text-center py-4" style="background: #000000 !important;">
         <div class="container">
             <p class="mb-2">Date Created: 2024-03-19</p>
             <p class="mb-0">
@@ -3109,9 +3657,7 @@
                 img.src = mainSrc;
                 img.setAttribute('data-images', json);
             }
-            if (counterEl && images.length) {
-                counterEl.textContent = `Image 1 of ${images.length}`;
-            }
+            // Counter label removed - only shown in PROJECT GALLERY modal
         }
 
         function deleteCurrentGalleryImage() {
@@ -4180,6 +4726,11 @@
         transition: border-color 0.2s;
         position: relative;
         will-change: auto;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-touch-callout: none;
     }
     .chat-input:focus {
         border-color: #00fff7;
@@ -4188,6 +4739,15 @@
         scroll-snap-align: none;
     }
     .chat-input::placeholder { color: #ffffff40; }
+    
+    /* Prevent iOS/Android selection handles, magnifying glass, and clipboard menu */
+    .chat-input::selection { background: transparent; }
+    .chat-input::-moz-selection { background: transparent; }
+    .chat-input::-webkit-selection { background: transparent; }
+    .chat-input::-webkit-textfield-decoration-container { display: none !important; }
+    .chat-input::-webkit-contacts-auto-fill-button { display: none !important; visibility: hidden !important; }
+    .chat-input::-webkit-credentials-auto-fill-button { display: none !important; visibility: hidden !important; }
+    
     .chat-send-btn {
         width: 38px;
         height: 38px;
@@ -4296,14 +4856,15 @@
         to { opacity: 1; }
     }
 
-    /* Prevent body scroll when chatbot is open */
+    /* Prevent body scroll when chatbot is open — scroll position saved/restored via JS */
     body.chatbot-open {
         overflow: hidden !important;
         position: fixed !important;
         height: 100vh;
+        height: 100dvh;
         width: 100%;
-        top: 0;
         left: 0;
+        /* top is set dynamically via JS to preserve scroll position */
     }
 
     /* Tablet & larger phones */
@@ -4464,6 +5025,49 @@
         overscroll-behavior: none !important;
         -webkit-overflow-scrolling: auto !important;
     }
+
+    /* === MOBILE LAYOUT STABILITY === */
+    /* GPU-layer all fixed elements to prevent keyboard-induced jitter */
+    .navbar.fixed-top,
+    #chatbotToggle,
+    #viewerCounter,
+    #chatbotBackdrop {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+
+    /* Hide viewer counter & chatbot toggle when chatbot is fullscreen on mobile */
+    body.chatbot-open #viewerCounter,
+    body.chatbot-open #chatbotToggle {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: opacity 0.15s ease;
+    }
+
+    /* Prevent fixed element shift on iOS when keyboard opens */
+    @supports (-webkit-touch-callout: none) {
+        .navbar.fixed-top {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            will-change: transform;
+        }
+        #chatbotToggle,
+        #viewerCounter {
+            will-change: transform;
+        }
+    }
+
+    /* Ensure chatbot window uses safe viewport on all mobile */
+    @media (max-width: 768px) {
+        #chatbotWindow.open {
+            height: 100dvh;
+            height: -webkit-fill-available;
+        }
+    }
     </style>
 
     <!-- Chatbot Toggle Button -->
@@ -4500,12 +5104,25 @@
             <span class="chat-chip" onclick="sendChip(this)">How to hire him?</span>
             <span class="chat-chip" onclick="sendChip(this)">Tech stack?</span>
         </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." autocomplete="off">
-            <button class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">
+        <form class="chat-input-area" autocomplete="off" action="javascript:void(0);" 
+            onsubmit="return false;" data-form-type="other" method="post">
+            <!-- Fake input to confuse Android Autofill Service -->
+            <input type="text" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" 
+                tabindex="-1" autocomplete="off" aria-hidden="true" name="fake_chat_field">
+            
+            <input type="search" class="chat-input" id="chatInput" placeholder="Ask me anything..."
+                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                aria-autocomplete="none" role="textbox"
+                data-form-type="other" data-lpignore="true" data-1p-ignore="true"
+                inputmode="text" enterkeyhint="send"
+                name="q_chat_msg"
+                readonly onfocus="this.removeAttribute('readonly');"
+                onselect="return false;" ondragstart="return false;" ondrop="return false;"
+                data-no-autofill="true" x-autocompletetype="off" autocompletetype="off">
+            <button type="button" class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">
                 <i class="fas fa-paper-plane"></i>
             </button>
-        </div>
+        </form>
         <div class="chat-powered">Powered by <span id="chatPoweredModel">Gemini AI</span></div>
     </div>
 
@@ -4722,14 +5339,49 @@ feeling good developer\n`;
         const chatToggle = document.getElementById('chatbotToggle');
         const chatBackdrop = document.getElementById('chatbotBackdrop');
 
+        // Aggressively disable autofill/autocomplete (for Android/iOS)
+        if (chatInput) {
+            chatInput.setAttribute('autocomplete', 'off');
+            chatInput.setAttribute('autocorrect', 'off');
+            chatInput.setAttribute('autocapitalize', 'off');
+            chatInput.setAttribute('spellcheck', 'false');
+            
+            // Force re-apply on focus (some browsers re-enable it)
+            chatInput.addEventListener('focus', function() {
+                this.setAttribute('autocomplete', 'off');
+                this.setAttribute('autocomplete', 'disabled');
+                this.setAttribute('autocomplete', 'nope');
+            }, { passive: true, capture: true });
+            
+            // Remove any autofill data attributes that browsers might add
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.attributeName === 'autocomplete') {
+                        if (chatInput.getAttribute('autocomplete') !== 'off') {
+                            chatInput.setAttribute('autocomplete', 'off');
+                        }
+                    }
+                });
+            });
+            observer.observe(chatInput, { attributes: true });
+        }
+
         // Initialize scroll lock on page load
         window.addEventListener('load', function() {
             // Ensure chatbot is closed and scroll is unlocked on page load
             chatWindow.classList.remove('open');
             chatWindow.classList.remove('keyboard-open');
             document.body.classList.remove('chatbot-open');
+            document.body.style.top = '';
             chatWindow.scrollTop = 0;
-            window.scrollTo(0, 0);
+            
+            // Clear input field to prevent autofill pre-population
+            if (chatInput) {
+                chatInput.value = '';
+                chatInput.setAttribute('autocomplete', 'off');
+                // Randomize input name to prevent autofill pattern matching
+                chatInput.name = "chat_" + Math.random().toString(36).substring(2);
+            }
         });
 
         // Handle browser back button to close chatbot and gallery modal
@@ -4754,7 +5406,6 @@ feeling good developer\n`;
                 chatWindow.classList.remove('open');
                 chatToggle.classList.remove('active');
                 chatBackdrop.classList.remove('show');
-                document.body.classList.remove('chatbot-open');
                 chatToggle.innerHTML = '<i class="fas fa-robot"></i>';
                 // Clean up styles when closing
                 chatWindow.classList.remove('keyboard-open');
@@ -4764,24 +5415,31 @@ feeling good developer\n`;
                 chatWindow.style.left = '';
                 chatWindow.style.right = '';
                 chatWindow.style.width = '';
-                // Clean up body styles
+                // Unlock body and restore scroll position
+                document.body.classList.remove('chatbot-open');
+                document.body.style.top = '';
                 document.body.style.position = '';
                 document.body.style.width = '';
                 document.body.style.overflow = '';
+                window.scrollTo(0, savedScrollY);
             }
         });
+
+        // Save scroll position for body lock
+        let savedScrollY = 0;
 
         // Toggle chatbot visibility
         window.toggleChatbot = function(skipHistory) {
             const isOpen = chatWindow.classList.toggle('open');
             chatToggle.classList.toggle('active', isOpen);
             chatBackdrop.classList.toggle('show', isOpen);
-            document.body.classList.toggle('chatbot-open', isOpen);
             
             if (isOpen) {
+                // Save scroll position BEFORE locking body
+                savedScrollY = window.scrollY || window.pageYOffset || 0;
+                document.body.style.top = -savedScrollY + 'px';
+                document.body.classList.add('chatbot-open');
                 chatToggle.innerHTML = '<i class="fas fa-times"></i>';
-                // Immediately lock scroll
-                window.scrollTo(0, 0);
                 chatWindow.scrollTop = 0;
                 // Reset viewport dimensions
                 if (window.visualViewport) {
@@ -4812,10 +5470,13 @@ feeling good developer\n`;
                 chatWindow.style.left = '';
                 chatWindow.style.right = '';
                 chatWindow.style.width = '';
-                // Clean up body styles
+                // Unlock body and restore scroll position
+                document.body.classList.remove('chatbot-open');
+                document.body.style.top = '';
                 document.body.style.position = '';
                 document.body.style.width = '';
                 document.body.style.overflow = '';
+                window.scrollTo(0, savedScrollY);
                 // Go back in history if the chatbot was opened (unless skipHistory is true)
                 if (!skipHistory && history.state && history.state.chatbotOpen) {
                     history.back();
@@ -4878,17 +5539,17 @@ feeling good developer\n`;
             }
         }, { passive: false });
 
-        // Prevent scroll when input is focused
+        // Prevent page scroll when input is focused & auto-scroll messages
         chatInput.addEventListener('focus', function(e) {
-            e.preventDefault();
-            // Lock scroll position
+            // Lock page scroll position
             chatWindow.scrollTop = 0;
-            window.scrollTo(0, 0);
-            // Prevent any scrollIntoView behavior
             if (chatWindow.classList.contains('open')) {
-                const scrollX = window.scrollX || window.pageXOffset;
-                const scrollY = window.scrollY || window.pageYOffset;
-                window.scrollTo(scrollX, scrollY);
+                // Prevent body from scrolling
+                window.scrollTo(0, 0);
+                // Auto-scroll chat messages to bottom after keyboard opens
+                setTimeout(function() {
+                    scrollToBottom();
+                }, 300);
             }
         });
 
@@ -4911,6 +5572,73 @@ feeling good developer\n`;
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendMessage();
+            }
+        });
+
+        // Block clipboard operations and context menu
+        chatInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('cut', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('select', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Block long-press context menu on mobile
+        chatInput.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        chatInput.addEventListener('touchend', function(e) {
+            e.stopPropagation();
+        });
+        
+        // Block drag and drop
+        chatInput.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('drop', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        chatInput.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Block beforeinput event for paste attempts (catches some mobile keyboard paste buttons)
+        chatInput.addEventListener('beforeinput', function(e) {
+            if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+                e.preventDefault();
+                return false;
             }
         });
 
@@ -4963,20 +5691,31 @@ feeling good developer\n`;
                     // Set height to visible viewport - CSS handles positioning
                     chatWindow.style.height = vvHeight + 'px';
                     chatWindow.style.maxHeight = vvHeight + 'px';
+                    // Compensate for iOS visual viewport offset
+                    if (window.visualViewport.offsetTop > 0) {
+                        chatWindow.style.top = window.visualViewport.offsetTop + 'px';
+                    }
                     // Prevent body scroll
                     document.body.style.position = 'fixed';
                     document.body.style.width = '100%';
                     document.body.style.overflow = 'hidden';
+                    // Auto-scroll chat messages to bottom when keyboard opens
+                    setTimeout(function() {
+                        scrollToBottom();
+                    }, 150);
                 } else {
                     chatWindow.classList.remove('keyboard-open');
                     chatWindow.style.height = '';
                     chatWindow.style.maxHeight = '';
-                    // Re-enable body scroll
-                    document.body.style.position = '';
-                    document.body.style.width = '';
-                    document.body.style.overflow = '';
+                    chatWindow.style.top = '';
+                    // Keep body locked since chatbot is still open
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                    document.body.style.overflow = 'hidden';
                     initialHeight = vvHeight;
                     initialWidth = window.visualViewport.width;
+                    // Scroll to bottom after keyboard closes
+                    setTimeout(function() { scrollToBottom(); }, 100);
                 }
             }
 
@@ -5009,15 +5748,18 @@ feeling good developer\n`;
                 chatWindow.style.height = '';
                 chatWindow.style.maxHeight = '';
                 chatWindow.style.top = '';
-                // Re-enable body scroll
-                document.body.style.position = '';
-                document.body.style.width = '';
-                document.body.style.overflow = '';
+                // Keep body locked since chatbot is still open
+                // but restore fixed positioning to chatbot-open style
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                document.body.style.overflow = 'hidden';
                 // Re-initialize viewport height
                 if (window.visualViewport) {
                     initialHeight = window.visualViewport.height;
                     initialWidth = window.visualViewport.width;
                 }
+                // Scroll messages to bottom after keyboard closes
+                scrollToBottom();
             }, 150);
         });
 
@@ -5580,8 +6322,12 @@ feeling good developer\n`;
         font-weight: 600;
         font-size: 0.55rem;
         z-index: 9999;
-        transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
         display: inline-block;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
     #viewerCounter:hover {
         transform: scale(0.98);
