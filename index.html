@@ -4,6 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jan Russel E. Peñafiel - Freelance Student Web Developer</title>
+
+    <!-- Force open in default browser instead of in-app browsers (Messenger, Facebook, Instagram, etc.) -->
+    <script>
+    (function() {
+        var ua = navigator.userAgent || navigator.vendor || window.opera;
+        // Detect common in-app browsers
+        var isInApp = /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Messenger|Line\/|Twitter|Snapchat|MicroMessenger|WeChat|TikTok|BytedanceWebview|Musical_ly/i.test(ua);
+        if (isInApp) {
+            // Try intent:// for Android (opens in Chrome/default browser)
+            var url = window.location.href;
+            if (/android/i.test(ua)) {
+                var intentUrl = 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;action=android.intent.action.VIEW;end;';
+                window.location.href = intentUrl;
+            } else {
+                // For iOS: try opening in Safari via a workaround
+                // window.open won't work in most in-app browsers, but we can try
+                window.location.href = 'x-safari-https://' + url.replace(/^https?:\/\//, '');
+                // Fallback: show a prompt to the user
+                setTimeout(function() {
+                    if (!document.hidden) {
+                        var overlay = document.createElement('div');
+                        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,10,15,0.97);z-index:99999;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px;text-align:center;font-family:Poppins,sans-serif;';
+                        overlay.innerHTML = '<div style="color:#00fff7;font-size:1.3rem;font-weight:700;margin-bottom:16px;">Open in Browser</div>'
+                            + '<div style="color:#e0e0e0;font-size:0.95rem;margin-bottom:20px;">For the best experience, please open this page in your default browser.</div>'
+                            + '<div style="color:#aaa;font-size:0.85rem;">Tap the <b style="color:#00fff7;">⋯</b> or <b style="color:#00fff7;">Share</b> button, then choose <b style="color:#00fff7;">"Open in Browser"</b> or <b style="color:#00fff7;">"Open in Safari/Chrome"</b>.</div>';
+                        document.body.appendChild(overlay);
+                    }
+                }, 1500);
+            }
+        }
+    })();
+    </script>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="RUSSEL.png">
@@ -143,6 +175,46 @@
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
+        }
+        
+        .project-image-link {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .project-image-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 255, 247, 0);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .project-image-link:hover::before {
+            background: rgba(0, 255, 247, 0.2);
+        }
+        
+        .project-image-link:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(0, 255, 247, 0.6);
+        }
+        
+        .project-image-link img {
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .project-image-link:hover img {
+            filter: brightness(1.1);
         }
         
         .highlight-box {
@@ -1744,6 +1816,135 @@
             }
         }
 
+        /* Gallery Modal Customization */
+        #galleryModal .modal-dialog {
+            max-width: 85vw;
+            width: 900px;
+            margin: 1.75rem auto;
+            max-height: calc(100vh - 3.5rem);
+        }
+
+        #galleryModal .modal-content {
+            background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
+            border: 2px solid #00fff7;
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(0, 255, 247, 0.3);
+            max-height: calc(100vh - 3.5rem);
+            display: flex;
+            flex-direction: column;
+        }
+
+        #galleryModal .modal-header {
+            border-bottom: 1px solid rgba(0, 255, 247, 0.3);
+            padding: 15px 25px;
+            flex-shrink: 0;
+        }
+
+        #galleryModal .modal-body {
+            padding: 20px 25px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #galleryModal .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gallery-image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 250px);
+            max-height: 550px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            position: relative;
+        }
+
+        #galleryMainImage {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border: 3px solid #00fff7;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 255, 247, 0.4);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .gallery-controls button {
+            background: rgba(0, 255, 247, 0.1);
+            border: 2px solid #00fff7;
+            color: #00fff7;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-controls button:hover {
+            background: rgba(0, 255, 247, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 247, 0.5);
+            transform: scale(1.05);
+        }
+
+        #galleryCounter {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            #galleryModal .modal-dialog {
+                max-width: 95vw;
+                margin: 10px auto;
+                max-height: none;
+            }
+
+            #galleryModal .modal-content {
+                max-height: none;
+            }
+
+            .gallery-image-container {
+                min-height: 300px;
+                height: auto;
+                max-height: none;
+            }
+
+            #galleryMainImage {
+                max-height: 300px;
+            }
+
+            #galleryModal .modal-body {
+                padding: 15px;
+                overflow: auto;
+            }
+
+            #galleryModal .modal-header {
+                padding: 15px;
+            }
+
+            #galleryModal .modal-title {
+                font-size: 1.1rem;
+            }
+
+            .gallery-controls {
+                margin-bottom: 15px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1832,27 +2033,30 @@
     
     <!-- Gallery Modal (manual viewer, no slideshow) -->
     <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title" style="color: #00fff7;">Project Gallery</h5>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: #00fff7;">PROJECT GALLERY</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <button class="btn btn-outline-light btn-sm" id="galleryPrevBtn"><i class="fas fa-chevron-left"></i></button>
-                        <div id="galleryCounter" class="text-center" style="flex:1; color:#00fff7; font-weight:600;"></div>
-                        <button class="btn btn-outline-light btn-sm" id="galleryNextBtn"><i class="fas fa-chevron-right"></i></button>
+                    <div class="gallery-controls">
+                        <button id="galleryPrevBtn">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div id="galleryCounter" class="text-center" style="flex:1; color:#00fff7;"></div>
+                        <button id="galleryNextBtn">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                    <div class="text-center mb-3" style="position: relative; min-height: 480px;">
+                    <div class="gallery-image-container">
                         <div id="galleryLoadingSpinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
-                            <div class="spinner-border text-info" role="status" style="width: 3rem; height: 3rem;">
+                            <div class="spinner-border" role="status" style="width: 3rem; height: 3rem; color: #00fff7;">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <img id="galleryMainImage" src="" alt="Gallery" class="img-fluid" style="max-height:480px; object-fit:contain; border:2px solid #00fff7; border-radius:8px; display: none;">
+                        <img id="galleryMainImage" src="" alt="Gallery" style="display: none;">
                     </div>
-                    <div class="text-center small text-muted">Press Ctrl + Alt + X to delete the current image</div>
                 </div>
             </div>
         </div>
@@ -2506,6 +2710,7 @@
         let galleryModalInstance = null;
         let currentGalleryImages = [];
         let currentGalleryIndex = 0;
+        let galleryClosedByBackButton = false;
         
         // Keyboard shortcut: Ctrl+Alt+E to open main menu or toggle edit mode
         document.addEventListener('keydown', function(e) {
@@ -2869,6 +3074,9 @@
             if (!galleryModalInstance) {
                 galleryModalInstance = new bootstrap.Modal(modalEl);
             }
+            
+            // Push history state when opening gallery
+            history.pushState({ galleryOpen: true }, '');
             galleryModalInstance.show();
         }
 
@@ -2940,6 +3148,19 @@
         const prevBtn = document.getElementById('galleryPrevBtn');
         if (nextBtn) nextBtn.addEventListener('click', showGalleryNext);
         if (prevBtn) prevBtn.addEventListener('click', showGalleryPrev);
+
+        // Handle gallery modal close to manage history
+        const galleryModalEl = document.getElementById('galleryModal');
+        if (galleryModalEl) {
+            galleryModalEl.addEventListener('hidden.bs.modal', function() {
+                // Only go back in history if modal wasn't closed by back button
+                if (!galleryClosedByBackButton && window.history.state && window.history.state.galleryOpen) {
+                    window.history.back();
+                }
+                // Reset the flag
+                galleryClosedByBackButton = false;
+            });
+        }
 
         document.addEventListener('click', function(e) {
             const link = e.target.closest('.project-image-link');
@@ -4270,7 +4491,7 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-msg bot">
-                Hey there! I'm <strong>Russel AI</strong>, Jan Russel's virtual assistant. Ask me anything about his projects, skills, services, or even fun personal stuff! I can speak Multilingual. It’s telling you that you can disable text-to-speech if you want to read instead. Thank you!
+                Hey! I'm <strong>Russel AI</strong>, Jan Russel's assistant. Ask about his projects, skills, services, or personal life! Multilingual support enabled.
             </div>
         </div>
         <div class="chat-chips" id="chatChips">
@@ -4278,7 +4499,6 @@
             <span class="chat-chip" onclick="sendChip(this)">View projects</span>
             <span class="chat-chip" onclick="sendChip(this)">How to hire him?</span>
             <span class="chat-chip" onclick="sendChip(this)">Tech stack?</span>
-            <span class="chat-chip" onclick="sendChip(this)">Contact info</span>
         </div>
         <div class="chat-input-area">
             <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything..." autocomplete="off">
@@ -4300,7 +4520,7 @@
 
 IMPORTANT: You NEVER refuse to answer. You always engage with every question, demand, or topic. Plain text only, no formatting symbols, no emojis.
 
-Keep responses concise. Max 2-3 sentences for simple questions. Expand when needed.
+Keep responses concise. Max 4 sentences for simple questions. Expand when needed.
 
 LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog). NO MIXING.
 - TAGALOG: If user message contains Tagalog words (niya, kanyang, ng, at, mga, ay, ba, ka, ako, etc.) - Respond in PURE TAGALOG ONLY
@@ -4333,17 +4553,18 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             prompt += `PERSONAL (Be playful!):\n`;
             prompt += `- Status: Single, focused on coding\n`;
             prompt += `- Favorite: Cyan (#00fff7), Coffee, Chicken\n`;
-            prompt += `- Ideal Partner: Smart, funny, understanding, tech-appreciative\n`;
+            prompt += `- Ideal Partner: Smart, mestiza, funny, understanding, tech-appreciative lady\n`;
             prompt += `- Hobbies: Coding, gaming, UI design, tech tutorials\n`;
             prompt += `- Dream: Deployed Government system or tech startup\n`;
             prompt += `- Personality: Friendly, driven, perfectionist, eager learner\n`;
             prompt += `- Work Style: Night owl coder, loves clean code, debugging enthusiast\n`;
-            prompt += `- Music: Codes better with lofi beats & tech podcasts\n`;
-            prompt += `- Pet Peeve: Messy code, missing semicolons, unclear variable names\n`;
+            prompt += `- Music: Codes better with Tagalog and English love songs, metallic love songs & tech podcasts\n`;
+            prompt += `- Pet Peeve: Messy code, missing semicolons, unclear variable names, teaches but is wrong,
+feeling good developer\n`;
             prompt += `- Motto: "Code with passion, debug with patience, deploy with confidence"\n`;
             prompt += `- Fun: Named profile pic "Cybertron Biometric UI", cyberpunk design fan\n`;
             prompt += `- Skills Pride: Healthcare and government systems, real-world impact projects\n`;
-            prompt += `- Learning: Always exploring new frameworks\n\n`;
+            prompt += `- Learning: Always exploring new frameworks and programming language\n\n`;
 
             // Extract tech skills from tech stack section
             const techSection = document.querySelector('#tech');
@@ -4440,7 +4661,7 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             prompt += `   - NO TAGLISH: Never mix English and Tagalog in the same response\n`;
             prompt += `4. PLAIN TEXT ONLY: Never use any formatting symbols. No asterisks (*), no underscores (_), no hashtags (#), no brackets ([]()), no dashes for bullet points, no bold, no italic, no markdown of any kind. Just plain readable text.\n`;
             prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response. Plain text only.\n`;
-            prompt += `6. Keep responses concise. Max 2-3 sentences for simple questions. Expand only when the question genuinely requires more detail.\n`;
+            prompt += `6. Keep responses concise. Max 4 sentences for simple questions. Expand only when the question genuinely requires more detail.\n`;
             prompt += `7. Projects: When asked, name specific projects, tech used, and impact from the portfolio.\n`;
             prompt += `8. Skills: Reference the explicit tech stack above (PHP, CodeIgniter 4, JavaScript, MySQL, etc.). Connect to specific projects built with these technologies.\n`;
             prompt += `9. Hiring: GitHub, LinkedIn, Facebook, Phone number OPEN FOR COMMISSIONS, South Cotabato location.\n`;
@@ -4511,8 +4732,21 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             window.scrollTo(0, 0);
         });
 
-        // Handle browser back button to close chatbot
+        // Handle browser back button to close chatbot and gallery modal
         window.addEventListener('popstate', function(event) {
+            // Check if gallery modal is open first
+            const galleryModal = document.getElementById('galleryModal');
+            if (galleryModal && galleryModal.classList.contains('show')) {
+                event.preventDefault();
+                // Set flag to indicate modal is being closed by back button
+                galleryClosedByBackButton = true;
+                // Close gallery modal
+                if (galleryModalInstance) {
+                    galleryModalInstance.hide();
+                }
+                return;
+            }
+            
             // If chatbot is open, close it instead of navigating away
             if (chatWindow.classList.contains('open')) {
                 event.preventDefault();
@@ -4925,7 +5159,7 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             const poweredEl = document.getElementById('chatPoweredModel');
             if (statusEl) {
                 const shortName = model.replace('gemini-', '').replace(/-/g, ' ');
-                statusEl.textContent = cached ? 'Online (cached)' : 'Online';
+                statusEl.textContent = cached ? 'Online' : 'Online';
             }
             if (poweredEl) {
                 poweredEl.textContent = model ? `Gemini AI - ${model}` : 'Gemini AI';
@@ -5189,15 +5423,26 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
                 + '&lang=' + encodeURIComponent(lang);
         }
 
-        // Stop all current and queued audio
+        // Stop all current and queued audio (prioritize newer messages)
         function ttsStop() {
+            // Clear the queue immediately
             ttsAudioQueue = [];
             ttsIsPlaying = false;
+            
+            // Stop and cleanup current audio
             if (ttsCurrentAudio) {
                 try {
+                    // Remove event listeners to prevent them from firing
+                    ttsCurrentAudio.onended = null;
+                    ttsCurrentAudio.onerror = null;
+                    
+                    // Stop playback
                     ttsCurrentAudio.pause();
                     ttsCurrentAudio.currentTime = 0;
                     ttsCurrentAudio.src = '';
+                    
+                    // Force garbage collection hint
+                    ttsCurrentAudio.load();
                 } catch (e) { /* ignore */ }
                 ttsCurrentAudio = null;
             }
@@ -5217,7 +5462,7 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             ttsCurrentAudio = audio;
 
             // Speed up playback (1.0 = normal, 1.5 = faster, 2.0 = very fast)
-            audio.playbackRate = 1.3;
+            audio.playbackRate = 1.5;
 
             audio.onended = function() {
                 ttsCurrentAudio = null;
@@ -5238,12 +5483,12 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             });
         }
 
-        // Main speak function — same interface as before
+        // Main speak function — prioritizes newer messages over older ones
         function speakText(text) {
             if (!ttsEnabled) return;
 
             try {
-                // Stop any ongoing speech
+                // PRIORITY: Stop any ongoing speech immediately (newer message takes precedence)
                 ttsStop();
 
                 // Strip HTML tags for clean speech
@@ -5253,14 +5498,14 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
                 const lang = detectLanguage(cleanText);
                 const chunks = splitTextIntoChunks(cleanText, 200);
 
-                console.log('gTTS: Speaking ' + chunks.length + ' chunk(s) in lang=' + lang);
+                console.log('gTTS: Speaking ' + chunks.length + ' chunk(s) in lang=' + lang + ' (newer message priority)');
 
                 // Build audio URLs for all chunks
                 ttsAudioQueue = chunks.map(function(chunk) {
                     return buildGTTSUrl(chunk, lang);
                 });
 
-                // Start playback
+                // Start playback of new message
                 ttsPlayNext();
             } catch (error) {
                 console.warn('gTTS Error:', error);
@@ -5349,12 +5594,11 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
     </style>
 
     <div id="viewerCounter">
-        Views: <span id="viewerTotal">—</span> • Unique: <span id="viewerUnique">—</span>
+        Viewers: <span id="viewerUnique">—</span>
     </div>
 
     <script>
     (function(){
-        const totalEl = document.getElementById('viewerTotal');
         const uniqueEl = document.getElementById('viewerUnique');
 
         async function incrementOnceAndRefresh(){
@@ -5370,7 +5614,6 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
             try{
                 const res = await fetch('counter.php', { method: 'GET', credentials: 'same-origin' });
                 const json = await res.json();
-                if (totalEl) totalEl.textContent = json.total ?? '0';
                 if (uniqueEl) uniqueEl.textContent = json.unique ?? '0';
             }catch(e){ console.error('Counter GET failed', e); }
         }
