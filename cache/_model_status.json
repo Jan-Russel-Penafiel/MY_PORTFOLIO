@@ -1,9 +1,9 @@
 {
     "gemini-2.5-flash": {
-        "fails": 1,
+        "fails": 0,
         "lastFail": 1770709853,
-        "lastSuccess": 1770619769,
-        "cooldownUntil": 1770709883,
+        "lastSuccess": 1770810286,
+        "cooldownUntil": 0,
         "lastHttpCode": 0
     },
     "gemini-2.5-pro": {

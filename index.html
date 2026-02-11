@@ -47,6 +47,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Highlight.js for Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     
     <style>
         body {
@@ -4558,7 +4561,7 @@
         position: fixed;
         right: 12px;
         bottom: 80px;
-        width: 380px;
+        width: 500px;
         height: 520px;
         background: #0d0f14;
         border: 1px solid #00fff740;
@@ -4674,12 +4677,135 @@
         color: #e0e0e0;
         border-bottom-left-radius: 4px;
     }
+    .chat-msg.bot br + .code-block-wrapper {
+        margin-top: 6px;
+    }
+    .chat-msg.bot .code-block-wrapper:first-child {
+        margin-top: 0;
+    }
+    .chat-msg.bot p {
+        margin: 0 0 8px 0;
+    }
+    .chat-msg.bot p:last-child {
+        margin-bottom: 0;
+    }
     .chat-msg.user {
         align-self: flex-end;
         background: linear-gradient(135deg, #00fff715 0%, #00fff708 100%);
         border: 1px solid #00fff730;
         color: #00fff7;
         border-bottom-right-radius: 4px;
+    }
+
+    /* Code Block Styles for Chatbot */
+    .chat-msg pre {
+        background: #1e1e1e;
+        border: 1px solid #00fff730;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 8px 0;
+        overflow-x: auto;
+        position: relative;
+        line-height: 1.6;
+    }
+    .chat-msg code {
+        font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #abb2bf;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+    .chat-msg pre code {
+        display: block;
+        padding: 0;
+        background: transparent;
+        border: none;
+        tab-size: 4;
+        -moz-tab-size: 4;
+        white-space: pre-wrap;
+    }
+    .chat-msg code:not(pre code) {
+        background: #1e1e1e;
+        padding: 3px 8px;
+        border-radius: 4px;
+        border: 1px solid #00fff720;
+        font-size: 13px;
+        color: #00fff7;
+        font-weight: 500;
+    }
+    .code-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 14px;
+        background: #282c34;
+        border-bottom: 1px solid #00fff730;
+        border-radius: 8px 8px 0 0;
+        margin: 0;
+    }
+    .code-language {
+        color: #00fff7;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 1px;
+    }
+    .code-copy-btn {
+        background: transparent;
+        border: 1px solid #00fff750;
+        color: #00fff7;
+        padding: 5px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 11px;
+        transition: all 0.2s ease;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+    }
+    .code-copy-btn:hover {
+        background: #00fff720;
+        border-color: #00fff7;
+        transform: translateY(-1px);
+    }
+    .code-copy-btn.copied {
+        background: #00fff730;
+        color: #00ff00;
+        border-color: #00ff00;
+    }
+    .code-block-wrapper {
+        margin: 6px 0 8px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #00fff730;
+        box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
+        display: inline-block;
+        width: 100%;
+        max-width: 100%;
+    }
+    .code-block-wrapper pre {
+        margin: 0;
+        border: none;
+        border-radius: 0 0 8px 8px;
+        max-height: 500px;
+        overflow-y: auto;
+    }
+    .code-block-wrapper pre::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    .code-block-wrapper pre::-webkit-scrollbar-track {
+        background: #1e1e1e;
+    }
+    .code-block-wrapper pre::-webkit-scrollbar-thumb {
+        background: #00fff740;
+        border-radius: 4px;
+    }
+    .code-block-wrapper pre::-webkit-scrollbar-thumb:hover {
+        background: #00fff760;
     }
 
     /* Typing Indicator */
@@ -5135,15 +5261,25 @@
         function buildSystemPrompt() {
             let prompt = `You are "Russel AI", Jan Russel E. Peñafiel's personal AI assistant. You can answer ANY question about anything. For professional and web development topics, base your answers on the portfolio data below. For personal, casual, fun, or general topics, respond freely and creatively based on Jan Russel's personality.
 
-IMPORTANT: You NEVER refuse to answer. You always engage with every question, demand, or topic. Plain text only, no formatting symbols, no emojis.
+IMPORTANT: You NEVER refuse to answer. You always engage with every question, demand, or topic.
 
-Keep responses concise. Max 4 sentences for simple questions. Expand when needed.
+FORMATTING RULES:
+- For programming/code questions: Use code blocks with language specification
+- Format code as: \`\`\`language\\ncode here\\n\`\`\`
+- Supported languages: javascript, python, php, html, css, java, sql, bash, etc.
+- For inline code: Use single backticks \`code\`
+- For non-code responses: Plain text only, no markdown formatting
+- When explaining code: Provide clear, brief, summarized comments
+- CRITICAL: Write inline code comments in user's language (Tagalog for Tagalog questions, English for English questions)
+
+Keep responses concise. Max 4 sentences for simple questions. Expand for programming tutorials and code explanations.
 
 LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog). NO MIXING.
 - TAGALOG: If user message contains Tagalog words (niya, kanyang, ng, at, mga, ay, ba, ka, ako, etc.) - Respond in PURE TAGALOG ONLY
 - ENGLISH: If user message is in English - Respond in PURE ENGLISH ONLY
 - SWITCH: Each message is independent - detect language per message and respond accordingly
 - NO TAGLISH: Never mix English and Tagalog in the same response. Pick one language and stick to it completely.
+- CODE COMMENTS: Match inline code comments to detected language
 
 `;
 
@@ -5276,8 +5412,20 @@ feeling good developer\n`;
             prompt += `   - ENGLISH: Standard English words - respond in PURE ENGLISH\n`;
             prompt += `   - Match YOUR response language to THEIR current message language\n`;
             prompt += `   - NO TAGLISH: Never mix English and Tagalog in the same response\n`;
-            prompt += `4. PLAIN TEXT ONLY: Never use any formatting symbols. No asterisks (*), no underscores (_), no hashtags (#), no brackets ([]()), no dashes for bullet points, no bold, no italic, no markdown of any kind. Just plain readable text.\n`;
-            prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response. Plain text only.\n`;
+            prompt += `4. CODE FORMATTING: When answering programming questions or providing code examples:\\n`;
+            prompt += `   - Use code blocks with language: \\\`\\\`\\\`javascript (or python, php, html, css, java, sql, etc.)\\n`;
+            prompt += `   - Always include the language name after the opening \\\`\\\`\\\`\\n`;
+            prompt += `   - Provide a brief 1-line plain text explanation BEFORE the code block\\n`;
+            prompt += `   - Add helpful inline comments inside the code itself\\n`;
+            prompt += `   - CRITICAL: Match inline comment language to user's message language\\n`;
+            prompt += `   - If user asks in TAGALOG: Write ALL code comments in TAGALOG\\n`;
+            prompt += `   - If user asks in ENGLISH: Write ALL code comments in ENGLISH\\n`;
+            prompt += `   - Keep comments brief and summarized - explain what each section does\\n`;
+            prompt += `   - Keep explanations concise and clear - max 1-2 sentences\\n`;
+            prompt += `   - Structure: Brief explanation → Code Block (with localized comments)\\n`;
+            prompt += `   - For inline code references: use single backticks \\\`like this\\\`\\n`;
+            prompt += `   - For non-programming responses: Plain text only, no formatting\\n`;
+            prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response.\n`;
             prompt += `6. Keep responses concise. Max 4 sentences for simple questions. Expand only when the question genuinely requires more detail.\n`;
             prompt += `7. Projects: When asked, name specific projects, tech used, and impact from the portfolio.\n`;
             prompt += `8. Skills: Reference the explicit tech stack above (PHP, CodeIgniter 4, JavaScript, MySQL, etc.). Connect to specific projects built with these technologies.\n`;
@@ -5298,6 +5446,15 @@ feeling good developer\n`;
             prompt += `23. Call-to-action: End with subtle short prompts when relevant to keep conversation going.\n`;
             prompt += `24. Technical explanations: When explaining tech concepts, use simple analogies and real-world examples. Keep it accessible.\n`;
             prompt += `25. Proactive suggestions: If someone asks about one service, mention related services that might interest them.\n`;
+            prompt += `26. Programming help for students: When students ask for code help:\n`;
+            prompt += `   - Start with a short plain text summary (1 sentence) in user's language\n`;
+            prompt += `   - Provide working code examples with inline comments in user's language\n`;
+            prompt += `   - IMPORTANT: If user asks in Tagalog, write comments in Tagalog; if English, write in English\n`;
+            prompt += `   - Keep explanations brief, focused, and summarized\n`;
+            prompt += `   - Use appropriate language: PHP for backend, JavaScript for frontend, etc.\n`;
+            prompt += `27. Code examples should be practical, tested patterns that students can learn from and adapt.\n`;
+            prompt += `28. Always specify the programming language in code blocks for proper syntax highlighting.\n`;
+            prompt += `29. Format: Brief summary (in user's language) → Code with localized comments → Optional tip if needed (1 sentence max).\n`;
             prompt += `26. Error handling: If a question is unclear, make your best interpretation and answer it. Never ask users to rephrase unless absolutely necessary.\n`;
             prompt += `27. Time awareness: Jan Russel is in South Cotabato, Philippines (UTC+8). Mention timezone when discussing availability or meetings.\n`;
             prompt += `28. Project inquiries: When someone expresses interest in a project, guide them toward the next steps - portfolio review, contact, or consultation.\n`;
@@ -5323,7 +5480,7 @@ feeling good developer\n`;
             prompt += `48. Continuous improvement: Convey that Jan Russel values feedback, learns from every project, and constantly refines skills and approaches.\n`;
             prompt += `49. Enthusiasm for tech: Show genuine excitement when discussing programming, new technologies, or interesting project challenges. Let Jan Russel's passion come through.\n`;
             prompt += `50. Respect boundaries: While you answer everything, maintain professionalism. If a question is inappropriate, answer briefly and steer toward more productive topics.\n`;
-            prompt += `51. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Always plain text, no formatting, no emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
+            prompt += `51. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Use code blocks with language specification for programming examples. CRITICAL: Match code comments to user's language (Tagalog comments for Tagalog questions, English comments for English questions). Use plain text for non-code responses. No emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
 
             return prompt;
         }
@@ -5819,8 +5976,8 @@ feeling good developer\n`;
             }
             
             // Default fallback
-            if (isTagalog) return "Pasensya na, naubos na ang aking daily token quota. Bukas ulit tayo mag-chat! Samantala, gamitin ang Quick Action buttons sa ibaba para sa basic info tungkol kay Jan Russel!";
-            return "Sorry, my daily token quota is used up. Let's chat tomorrow! For now, use the Quick Action buttons below for basic info about Jan Russel!";
+            if (isTagalog) return "Pasensya na, nagamit na ang aking daily token quota. Mangyaring maghintay habang naglo-load ang ibang AI models. Subukan ulit sa sandali.";
+            return "Sorry, my daily token quota is used up. Please wait while other AI models load. Try again shortly.";
         }
 
         // ========== MULTI-MODEL MANAGEMENT ==========
@@ -6071,22 +6228,191 @@ feeling good developer\n`;
             const div = document.createElement('div');
             div.className = `chat-msg ${type}`;
             
-            // Linkify URLs in the text
+            // For bot messages, format code blocks with syntax highlighting
+            if (type === 'bot') {
+                div.innerHTML = formatMessageWithCode(text);
+                
+                // Apply syntax highlighting to all code blocks
+                div.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            } else {
+                // For user messages, just escape HTML and show plain text
+                div.textContent = text;
+            }
+            
+            chatMessages.appendChild(div);
+            
+            // Auto-scroll to bottom on all devices
+            scrollToBottom();
+        }
+        
+        // Format message text with code blocks and inline code
+        function formatMessageWithCode(text) {
+            // Store code blocks temporarily to prevent them from being affected by later replacements
+            const codeBlocks = [];
+            const CODE_PLACEHOLDER = '___CODE_BLOCK_';
+            
+            // First escape HTML
+            let html = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            
+            // Format code blocks with language: ```language\ncode\n```
+            html = html.replace(/```([a-zA-Z0-9+#]*)\n([\s\S]*?)```/g, function(match, lang, code) {
+                const placeholder = CODE_PLACEHOLDER + codeBlocks.length + '___';
+                codeBlocks.push(createCodeBlock(lang, code));
+                return placeholder;
+            });
+            
+            // Detect standalone code blocks without backticks (e.g., "html\n<!DOCTYPE..." or "php\n<?php...")
+            // This catches when AI outputs language name followed by code
+            html = html.replace(/\n(html|javascript|js|typescript|ts|python|py|php|css|java|sql|json|xml|bash|sh|csharp|cs)\n(&lt;[^&]*(?:&[^;]*;[^&]*)*&gt;[\s\S]{20,}?)(?=\n\n|$)/gi, function(match, lang, code) {
+                // Only process if it looks like actual code (has multiple lines and tags/brackets)
+                if (code.includes('&lt;') && code.includes('&gt;')) {
+                    const placeholder = CODE_PLACEHOLDER + codeBlocks.length + '___';
+                    codeBlocks.push(createCodeBlock(lang, code.trim()));
+                    return '\n' + placeholder;
+                }
+                return match;
+            });
+            
+            // Detect HTML code without language label (starts with &lt;!DOCTYPE or &lt;html)
+            html = html.replace(/(&lt;!DOCTYPE[\s\S]{30,}?&lt;\/html&gt;)/gi, function(match, code) {
+                const placeholder = CODE_PLACEHOLDER + codeBlocks.length + '___';
+                codeBlocks.push(createCodeBlock('html', code.trim()));
+                return placeholder;
+            });
+            
+            // Detect PHP code blocks (starts with &lt;?php)
+            html = html.replace(/(&lt;\?php[\s\S]{30,}?\?&gt;)/gi, function(match, code) {
+                const placeholder = CODE_PLACEHOLDER + codeBlocks.length + '___';
+                codeBlocks.push(createCodeBlock('php', code.trim()));
+                return placeholder;
+            });
+            
+            // Format inline code: `code`
+            html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+            
+            // Linkify URLs
             const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|([a-zA-Z0-9-]+\.(com|org|net|io|dev|ph)\/[^\s]+)/gi;
-            const linkifiedText = text.replace(urlRegex, (url) => {
+            html = html.replace(urlRegex, (url) => {
                 let href = url;
-                // Add https:// if the URL doesn't have a protocol
                 if (!url.match(/^https?:\/\//i)) {
                     href = 'https://' + url;
                 }
                 return `<a href="${href}" target="_blank" rel="noopener noreferrer" style="color: #00fff7; text-decoration: underline;">${url}</a>`;
             });
             
-            div.innerHTML = linkifiedText;
-            chatMessages.appendChild(div);
+            // Convert line breaks to <br> ONLY for non-code content
+            html = html.replace(/\n/g, '<br>');
             
-            // Auto-scroll to bottom on all devices
-            scrollToBottom();
+            // Restore code blocks
+            codeBlocks.forEach((block, index) => {
+                html = html.replace(CODE_PLACEHOLDER + index + '___', block);
+            });
+            
+            return html;
+        }
+        
+        // Helper function to create formatted code blocks
+        function createCodeBlock(lang, code) {
+            const language = lang.trim().toLowerCase() || 'plaintext';
+            let languageDisplay = language.charAt(0).toUpperCase() + language.slice(1);
+            
+            // Handle special cases
+            if (language === 'javascript' || language === 'js') languageDisplay = 'JavaScript';
+            else if (language === 'typescript' || language === 'ts') languageDisplay = 'TypeScript';
+            else if (language === 'php') languageDisplay = 'PHP';
+            else if (language === 'html') languageDisplay = 'HTML';
+            else if (language === 'css') languageDisplay = 'CSS';
+            else if (language === 'sql') languageDisplay = 'SQL';
+            else if (language === 'python' || language === 'py') languageDisplay = 'Python';
+            else if (language === 'java') languageDisplay = 'Java';
+            else if (language === 'csharp' || language === 'cs') languageDisplay = 'C#';
+            else if (language === 'json') languageDisplay = 'JSON';
+            else if (language === 'xml') languageDisplay = 'XML';
+            else if (language === 'bash' || language === 'sh') languageDisplay = 'Bash';
+            
+            const codeId = 'code-' + Math.random().toString(36).substr(2, 9);
+            
+            // Preserve proper indentation and spacing
+            const formattedCode = code.trimEnd();
+            
+            return `<div class="code-block-wrapper">
+                <div class="code-header">
+                    <span class="code-language">${languageDisplay}</span>
+                    <button class="code-copy-btn" onclick="copyCodeToClipboard('${codeId}')">Copy</button>
+                </div>
+                <pre><code id="${codeId}" class="language-${language}">${formattedCode}</code></pre>
+            </div>`;
+        }
+        
+        // Copy code to clipboard function
+        window.copyCodeToClipboard = function(codeId) {
+            const codeElement = document.getElementById(codeId);
+            if (!codeElement) return;
+            
+            // Get the text content which automatically unescapes HTML entities
+            let codeText = codeElement.textContent;
+            
+            // Additional cleanup: ensure proper line breaks are preserved
+            codeText = codeText.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            
+            // Try to copy using Clipboard API
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(codeText).then(() => {
+                    updateCopyButton(codeId, true);
+                }).catch(err => {
+                    console.error('Clipboard copy failed:', err);
+                    fallbackCopyCode(codeText, codeId);
+                });
+            } else {
+                // Fallback for older browsers
+                fallbackCopyCode(codeText, codeId);
+            }
+        };
+        
+        // Fallback copy method for older browsers
+        function fallbackCopyCode(text, codeId) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    updateCopyButton(codeId, true);
+                }
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+        
+        // Update copy button state
+        function updateCopyButton(codeId, success) {
+            const codeElement = document.getElementById(codeId);
+            if (!codeElement) return;
+            
+            const codeBlock = codeElement.closest('.code-block-wrapper');
+            if (!codeBlock) return;
+            
+            const copyBtn = codeBlock.querySelector('.code-copy-btn');
+            if (!copyBtn) return;
+            
+            if (success) {
+                copyBtn.textContent = 'Copied!';
+                copyBtn.classList.add('copied');
+                
+                // Reset after 2 seconds
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }
         }
         
         function scrollToBottom() {
@@ -6285,7 +6611,9 @@ feeling good developer\n`;
         let greetingSpoken = false;
         const origToggleForGreeting = window.toggleChatbot;
         window.toggleChatbot = function() {
-            origToggleForGreeting();
+            if (typeof origToggleForGreeting === 'function') {
+                origToggleForGreeting();
+            }
             if (chatWindow.classList.contains('open') && !greetingSpoken) {
                 greetingSpoken = true;
                 setTimeout(function() {
