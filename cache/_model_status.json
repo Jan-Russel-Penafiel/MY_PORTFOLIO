@@ -1,50 +1,51 @@
 {
     "gemini-2.5-flash": {
         "fails": 0,
-        "lastFail": 1770709853,
-        "lastSuccess": 1770810286,
+        "lastFail": 1770813804,
+        "lastSuccess": 1770814640,
         "cooldownUntil": 0,
-        "lastHttpCode": 0
+        "lastHttpCode": 429
     },
     "gemini-2.5-pro": {
-        "fails": 1,
-        "lastFail": 1770709863,
+        "fails": 2,
+        "lastFail": 1770813276,
         "lastSuccess": 0,
-        "cooldownUntil": 1770709893,
-        "lastHttpCode": 0
+        "cooldownUntil": 1770813336,
+        "lastHttpCode": 429
     },
     "gemini-2.0-flash": {
-        "fails": 1,
-        "lastFail": 1770709873,
+        "fails": 5,
+        "lastFail": 1770813803,
         "lastSuccess": 0,
-        "cooldownUntil": 1770709903,
+        "cooldownUntil": 1770814103,
         "lastHttpCode": 429
     },
     "gemini-2.0-flash-001": {
-        "fails": 1,
-        "lastFail": 1770709874,
+        "fails": 5,
+        "lastFail": 1770813805,
         "lastSuccess": 0,
-        "cooldownUntil": 1770709904,
+        "cooldownUntil": 1770814105,
         "lastHttpCode": 429
     },
     "gemini-2.0-flash-lite-001": {
-        "fails": 1,
-        "lastFail": 1770709875,
+        "fails": 5,
+        "lastFail": 1770813806,
         "lastSuccess": 0,
-        "cooldownUntil": 1770709905,
+        "cooldownUntil": 1770814106,
         "lastHttpCode": 429
     },
     "gemini-2.0-flash-lite": {
-        "fails": 1,
-        "lastFail": 1770709876,
+        "fails": 5,
+        "lastFail": 1770813808,
         "lastSuccess": 0,
-        "cooldownUntil": 1770709906,
+        "cooldownUntil": 1770814108,
         "lastHttpCode": 429
     },
     "gemini-2.5-flash-lite": {
-        "fails": 0,
-        "lastFail": 0,
-        "lastSuccess": 1770709878,
-        "cooldownUntil": 0
+        "fails": 3,
+        "lastFail": 1770813807,
+        "lastSuccess": 1770813285,
+        "cooldownUntil": 1770813927,
+        "lastHttpCode": 429
     }
 }

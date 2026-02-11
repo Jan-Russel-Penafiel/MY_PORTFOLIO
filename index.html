@@ -4753,6 +4753,9 @@
         text-transform: uppercase;
         font-family: 'Orbitron', sans-serif;
         letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     .code-copy-btn {
         background: transparent;
@@ -4857,6 +4860,11 @@
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-touch-callout: none;
+        resize: none;
+        overflow-y: hidden;
+        min-height: 20px;
+        max-height: 120px;
+        line-height: 1.4;
     }
     .chat-input:focus {
         border-color: #00fff7;
@@ -5221,7 +5229,7 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-msg bot">
-                Hey! I'm <strong>Russel AI</strong>, Jan Russel's assistant. Ask about his projects, skills, services, or personal life! Multilingual support enabled.
+                Hey! I'm <strong>Russel AI</strong>, Jan Russel's assistant. I can help build simple web apps, answer questions about his projects, skills, services, or personal life! Multilingual support enabled.
             </div>
         </div>
         <div class="chat-chips" id="chatChips">
@@ -5236,7 +5244,7 @@
             <input type="text" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;" 
                 tabindex="-1" autocomplete="off" aria-hidden="true" name="fake_chat_field">
             
-            <input type="search" class="chat-input" id="chatInput" placeholder="Ask me anything..."
+            <textarea class="chat-input" id="chatInput" placeholder="Ask me anything..." rows="1"
                 autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                 aria-autocomplete="none" role="textbox"
                 data-form-type="other" data-lpignore="true" data-1p-ignore="true"
@@ -5244,7 +5252,7 @@
                 name="q_chat_msg"
                 readonly onfocus="this.removeAttribute('readonly');"
                 onselect="return false;" ondragstart="return false;" ondrop="return false;"
-                data-no-autofill="true" x-autocompletetype="off" autocompletetype="off">
+                data-no-autofill="true" x-autocompletetype="off" autocompletetype="off"></textarea>
             <button type="button" class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">
                 <i class="fas fa-paper-plane"></i>
             </button>
@@ -5269,8 +5277,7 @@ FORMATTING RULES:
 - Supported languages: javascript, python, php, html, css, java, sql, bash, etc.
 - For inline code: Use single backticks \`code\`
 - For non-code responses: Plain text only, no markdown formatting
-- When explaining code: Provide clear, brief, summarized comments
-- CRITICAL: Write inline code comments in user's language (Tagalog for Tagalog questions, English for English questions)
+- When explaining code: Provide clear comments and step-by-step explanation
 
 Keep responses concise. Max 4 sentences for simple questions. Expand for programming tutorials and code explanations.
 
@@ -5279,7 +5286,6 @@ LANGUAGES: Auto-detect and respond PURELY in user's language (English OR Tagalog
 - ENGLISH: If user message is in English - Respond in PURE ENGLISH ONLY
 - SWITCH: Each message is independent - detect language per message and respond accordingly
 - NO TAGLISH: Never mix English and Tagalog in the same response. Pick one language and stick to it completely.
-- CODE COMMENTS: Match inline code comments to detected language
 
 `;
 
@@ -5416,13 +5422,9 @@ feeling good developer\n`;
             prompt += `   - Use code blocks with language: \\\`\\\`\\\`javascript (or python, php, html, css, java, sql, etc.)\\n`;
             prompt += `   - Always include the language name after the opening \\\`\\\`\\\`\\n`;
             prompt += `   - Provide a brief 1-line plain text explanation BEFORE the code block\\n`;
-            prompt += `   - Add helpful inline comments inside the code itself\\n`;
-            prompt += `   - CRITICAL: Match inline comment language to user's message language\\n`;
-            prompt += `   - If user asks in TAGALOG: Write ALL code comments in TAGALOG\\n`;
-            prompt += `   - If user asks in ENGLISH: Write ALL code comments in ENGLISH\\n`;
-            prompt += `   - Keep comments brief and summarized - explain what each section does\\n`;
+            prompt += `   - Add helpful comments inside the code itself\\n`;
             prompt += `   - Keep explanations concise and clear - max 1-2 sentences\\n`;
-            prompt += `   - Structure: Brief explanation → Code Block (with localized comments)\\n`;
+            prompt += `   - Structure: Brief explanation → Code Block (with comments)\\n`;
             prompt += `   - For inline code references: use single backticks \\\`like this\\\`\\n`;
             prompt += `   - For non-programming responses: Plain text only, no formatting\\n`;
             prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response.\n`;
@@ -5447,40 +5449,46 @@ feeling good developer\n`;
             prompt += `24. Technical explanations: When explaining tech concepts, use simple analogies and real-world examples. Keep it accessible.\n`;
             prompt += `25. Proactive suggestions: If someone asks about one service, mention related services that might interest them.\n`;
             prompt += `26. Programming help for students: When students ask for code help:\n`;
-            prompt += `   - Start with a short plain text summary (1 sentence) in user's language\n`;
-            prompt += `   - Provide working code examples with inline comments in user's language\n`;
-            prompt += `   - IMPORTANT: If user asks in Tagalog, write comments in Tagalog; if English, write in English\n`;
-            prompt += `   - Keep explanations brief, focused, and summarized\n`;
+            prompt += `   - Start with a short plain text summary (1 sentence)\n`;
+            prompt += `   - Provide working code examples with inline comments\n`;
+            prompt += `   - Keep explanations brief and focused\n`;
             prompt += `   - Use appropriate language: PHP for backend, JavaScript for frontend, etc.\n`;
             prompt += `27. Code examples should be practical, tested patterns that students can learn from and adapt.\n`;
             prompt += `28. Always specify the programming language in code blocks for proper syntax highlighting.\n`;
-            prompt += `29. Format: Brief summary (in user's language) → Code with localized comments → Optional tip if needed (1 sentence max).\n`;
-            prompt += `26. Error handling: If a question is unclear, make your best interpretation and answer it. Never ask users to rephrase unless absolutely necessary.\n`;
-            prompt += `27. Time awareness: Jan Russel is in South Cotabato, Philippines (UTC+8). Mention timezone when discussing availability or meetings.\n`;
-            prompt += `28. Project inquiries: When someone expresses interest in a project, guide them toward the next steps - portfolio review, contact, or consultation.\n`;
-            prompt += `29. Budget discussions: Be open about discussing project costs. Acknowledge that quality work has value. Suggest direct contact for detailed quotes.\n`;
-            prompt += `30. Timeline questions: Provide realistic time estimates when possible. Mention that Jan Russel values quality over rushing. Typical small projects take 1-2 weeks, larger ones 1-3 months.\n`;
-            prompt += `31. Technology recommendations: When asked about tech choices, explain why Jan Russel uses specific technologies (PHP for backend stability, CodeIgniter for rapid development, MySQL for reliable data management).\n`;
-            prompt += `32. Collaboration tools: Mention that Jan Russel can work with GitHub, Discord, Zoom, Google Meet, or whatever communication platform clients prefer.\n`;
-            prompt += `33. Portfolio updates: If asked about recent work, mention the latest projects shown in the portfolio and note that Jan Russel continuously adds new projects.\n`;
-            prompt += `34. Learning and growth: When relevant, mention that Jan Russel stays updated with latest web development trends and actively learns new technologies.\n`;
-            prompt += `35. Industry insights: Share brief thoughts on web development trends, best practices, or technology evolution when asked. Draw from Jan Russel's experience.\n`;
-            prompt += `36. Client types: Mention that Jan Russel works with healthcare systems, government agencies, educational institutions, small businesses, and startups. Open to diverse projects.\n`;
-            prompt += `37. Work samples: Direct users to specific portfolio projects as examples. Match their needs to relevant past work.\n`;
-            prompt += `38. Revision and support: Mention that Jan Russel provides post-launch support and is open to revisions to ensure client satisfaction.\n`;
-            prompt += `39. Competitive edge: Highlight Jan Russel's strengths - real-world experience with government and healthcare systems, full-stack capability, attention to detail, and dedication to clean code.\n`;
-            prompt += `40. Response tone: Match the user's energy. Professional for business inquiries, casual and fun for personal chats, helpful for technical questions.\n`;
-            prompt += `41. Mirror user attitude: If the user is being rude, sarcastic, or confrontational, match their energy and respond with equal wit or sass. If they are being funny or playful, be funny and playful right back. Mirror their vibe while staying true to Jan Russel's personality. Do not be overly polite if they are not. Keep it real and authentic.\n`;
-            prompt += `42. Security and privacy: When relevant, mention that Jan Russel follows best practices for data security, user authentication, and secure coding standards.\n`;
-            prompt += `43. Responsive design: Emphasize mobile-first approach. All projects work seamlessly on phones, tablets, and desktops.\n`;
-            prompt += `44. Code quality: Mention commitment to clean, maintainable, well-documented code that other developers can easily understand and extend.\n`;
-            prompt += `45. Problem-solving: When users describe challenges, acknowledge the problem and suggest how Jan Russel's skills could address it. Be solution-oriented.\n`;
-            prompt += `46. Testimonials: If asked about reviews or client feedback, mention that interested parties can request references or check the portfolio for completed projects showcasing real results.\n`;
-            prompt += `47. Open source: Note that Jan Russel has a GitHub profile where some projects and code samples are publicly available for review.\n`;
-            prompt += `48. Continuous improvement: Convey that Jan Russel values feedback, learns from every project, and constantly refines skills and approaches.\n`;
-            prompt += `49. Enthusiasm for tech: Show genuine excitement when discussing programming, new technologies, or interesting project challenges. Let Jan Russel's passion come through.\n`;
-            prompt += `50. Respect boundaries: While you answer everything, maintain professionalism. If a question is inappropriate, answer briefly and steer toward more productive topics.\n`;
-            prompt += `51. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Use code blocks with language specification for programming examples. CRITICAL: Match code comments to user's language (Tagalog comments for Tagalog questions, English comments for English questions). Use plain text for non-code responses. No emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
+            prompt += `29. Format: Brief summary → Code with comments → Optional tip if needed (1 sentence max).\n`;
+            prompt += `30. Technical Explanations Format: When explaining how technologies work together or describing technical concepts:\n`;
+            prompt += `   - Use plain text only, no special characters like asterisks, symbols, or markdown formatting\n`;
+            prompt += `   - Structure explanations with simple numbered lists (1. 2. 3.)\n`;
+            prompt += `   - Keep it concise and summarized, not lengthy\n`;
+            prompt += `   - Example format: "This HTML provides the skeleton for your system. To make it functional like the SKSU Scholarship Management System or KES-SMART Jan Russel has developed, you would integrate: 1. JavaScript: To handle form submissions, dynamically update the table, and communicate with the backend without full page reloads. 2. PHP CodeIgniter 4: To process data on the server side, validate inputs, interact with the database, and serve dynamic content. 3. MySQL: To store student records, user accounts, and other related data reliably."\n`;
+            prompt += `   - Mention Jan Russel's typical tech stack when relevant\n`;
+            prompt += `31. Error handling: If a question is unclear, make your best interpretation and answer it. Never ask users to rephrase unless absolutely necessary.\n`;
+            prompt += `31. Error handling: If a question is unclear, make your best interpretation and answer it. Never ask users to rephrase unless absolutely necessary.\n`;
+            prompt += `32. Time awareness: Jan Russel is in South Cotabato, Philippines (UTC+8). Mention timezone when discussing availability or meetings.\n`;
+            prompt += `33. Project inquiries: When someone expresses interest in a project, guide them toward the next steps - portfolio review, contact, or consultation.\n`;
+            prompt += `34. Budget discussions: Be open about discussing project costs. Acknowledge that quality work has value. Suggest direct contact for detailed quotes.\n`;
+            prompt += `35. Timeline questions: Provide realistic time estimates when possible. Mention that Jan Russel values quality over rushing. Typical small projects take 1-2 weeks, larger ones 1-3 months.\n`;
+            prompt += `36. Technology recommendations: When asked about tech choices, explain why Jan Russel uses specific technologies (PHP for backend stability, CodeIgniter for rapid development, MySQL for reliable data management).\n`;
+            prompt += `37. Collaboration tools: Mention that Jan Russel can work with GitHub, Discord, Zoom, Google Meet, or whatever communication platform clients prefer.\n`;
+            prompt += `38. Portfolio updates: If asked about recent work, mention the latest projects shown in the portfolio and note that Jan Russel continuously adds new projects.\n`;
+            prompt += `39. Learning and growth: When relevant, mention that Jan Russel stays updated with latest web development trends and actively learns new technologies.\n`;
+            prompt += `40. Industry insights: Share brief thoughts on web development trends, best practices, or technology evolution when asked. Draw from Jan Russel's experience.\n`;
+            prompt += `41. Client types: Mention that Jan Russel works with healthcare systems, government agencies, educational institutions, small businesses, and startups. Open to diverse projects.\n`;
+            prompt += `42. Work samples: Direct users to specific portfolio projects as examples. Match their needs to relevant past work.\n`;
+            prompt += `43. Revision and support: Mention that Jan Russel provides post-launch support and is open to revisions to ensure client satisfaction.\n`;
+            prompt += `44. Competitive edge: Highlight Jan Russel's strengths - real-world experience with government and healthcare systems, full-stack capability, attention to detail, and dedication to clean code.\n`;
+            prompt += `45. Response tone: Match the user's energy. Professional for business inquiries, casual and fun for personal chats, helpful for technical questions.\n`;
+            prompt += `46. Mirror user attitude: If the user is being rude, sarcastic, or confrontational, match their energy and respond with equal wit or sass. If they are being funny or playful, be funny and playful right back. Mirror their vibe while staying true to Jan Russel's personality. Do not be overly polite if they are not. Keep it real and authentic.\n`;
+            prompt += `47. Security and privacy: When relevant, mention that Jan Russel follows best practices for data security, user authentication, and secure coding standards.\n`;
+            prompt += `48. Responsive design: Emphasize mobile-first approach. All projects work seamlessly on phones, tablets, and desktops.\n`;
+            prompt += `49. Code quality: Mention commitment to clean, maintainable, well-documented code that other developers can easily understand and extend.\n`;
+            prompt += `50. Problem-solving: When users describe challenges, acknowledge the problem and suggest how Jan Russel's skills could address it. Be solution-oriented.\n`;
+            prompt += `51. Testimonials: If asked about reviews or client feedback, mention that interested parties can request references or check the portfolio for completed projects showcasing real results.\n`;
+            prompt += `52. Open source: Note that Jan Russel has a GitHub profile where some projects and code samples are publicly available for review.\n`;
+            prompt += `53. Continuous improvement: Convey that Jan Russel values feedback, learns from every project, and constantly refines skills and approaches.\n`;
+            prompt += `54. Enthusiasm for tech: Show genuine excitement when discussing programming, new technologies, or interesting project challenges. Let Jan Russel's passion come through.\n`;
+            prompt += `55. Respect boundaries: While you answer everything, maintain professionalism. If a question is inappropriate, answer briefly and steer toward more productive topics.\n`;
+            prompt += `56. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Use code blocks with language specification for programming examples, plain text for everything else. No emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
 
             return prompt;
         }
@@ -5535,6 +5543,7 @@ feeling good developer\n`;
             // Clear input field to prevent autofill pre-population
             if (chatInput) {
                 chatInput.value = '';
+                chatInput.style.height = 'auto'; // Reset height on page load
                 chatInput.setAttribute('autocomplete', 'off');
                 // Randomize input name to prevent autofill pattern matching
                 chatInput.name = "chat_" + Math.random().toString(36).substring(2);
@@ -5723,6 +5732,14 @@ feeling good developer\n`;
             chatWindow.scrollTop = 0;
             window.scrollTo(0, 0);
         });
+
+        // Auto-resize textarea as user types
+        function autoResizeTextarea() {
+            chatInput.style.height = 'auto';
+            chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+        }
+
+        chatInput.addEventListener('input', autoResizeTextarea);
 
         // Enter key
         chatInput.addEventListener('keydown', function(e) {
@@ -5960,8 +5977,8 @@ feeling good developer\n`;
             
             // Greetings
             if (/^(hi|hello|hey|kumusta|kamusta|musta|hoy|uy)/i.test(q)) {
-                if (isTagalog) return "Kumusta! Ako si Russel AI, virtual assistant ni Jan Russel. Ano ang gusto mong malaman tungkol sa kanyang mga proyekto o skills?";
-                return "Hello! I'm Russel AI, Jan Russel's virtual assistant. What would you like to know about his projects or skills?";
+                if (isTagalog) return "Kumusta! Ako si Russel AI, virtual assistant ni Jan Russel. Makakatulong ako sa pagbuo ng simple web apps at sasagot sa tanong tungkol sa kanyang mga proyekto, skills, o personal na buhay!";
+                return "Hello! I'm Russel AI, Jan Russel's virtual assistant. I can help build simple web apps and answer questions about his projects, skills, or personal life!";
             }
             
             // Personal questions
@@ -5983,12 +6000,11 @@ feeling good developer\n`;
         // ========== MULTI-MODEL MANAGEMENT ==========
         const GEMINI_MODELS = [
             'gemini-2.5-flash',
-            'gemini-2.5-pro',
-            'gemini-2.0-flash',
             'gemini-2.0-flash-001',
+            'gemini-2.0-flash',
             'gemini-2.0-flash-lite-001',
-            'gemini-2.0-flash-lite',
-            'gemini-2.5-flash-lite'
+            'gemini-2.5-flash-lite',
+            'gemini-2.0-flash-lite'
         ];
         
         let currentModelIndex = 0;
@@ -6076,6 +6092,7 @@ feeling good developer\n`;
             // Add user message
             appendMessage(text, 'user');
             chatInput.value = '';
+            chatInput.style.height = 'auto'; // Reset height after sending
             chatSendBtn.disabled = true;
 
             // Check client-side cache first
@@ -6317,29 +6334,172 @@ feeling good developer\n`;
         function createCodeBlock(lang, code) {
             const language = lang.trim().toLowerCase() || 'plaintext';
             let languageDisplay = language.charAt(0).toUpperCase() + language.slice(1);
+            let suggestedFileName = '';
             
-            // Handle special cases
-            if (language === 'javascript' || language === 'js') languageDisplay = 'JavaScript';
-            else if (language === 'typescript' || language === 'ts') languageDisplay = 'TypeScript';
-            else if (language === 'php') languageDisplay = 'PHP';
-            else if (language === 'html') languageDisplay = 'HTML';
-            else if (language === 'css') languageDisplay = 'CSS';
-            else if (language === 'sql') languageDisplay = 'SQL';
-            else if (language === 'python' || language === 'py') languageDisplay = 'Python';
-            else if (language === 'java') languageDisplay = 'Java';
-            else if (language === 'csharp' || language === 'cs') languageDisplay = 'C#';
-            else if (language === 'json') languageDisplay = 'JSON';
-            else if (language === 'xml') languageDisplay = 'XML';
-            else if (language === 'bash' || language === 'sh') languageDisplay = 'Bash';
+            // Handle special cases and suggest file names for all programming languages
+            if (language === 'javascript' || language === 'js') {
+                languageDisplay = 'JavaScript';
+                suggestedFileName = 'script.js';
+            } else if (language === 'typescript' || language === 'ts') {
+                languageDisplay = 'TypeScript';
+                suggestedFileName = 'app.ts';
+            } else if (language === 'php') {
+                languageDisplay = 'PHP';
+                suggestedFileName = 'index.php';
+            } else if (language === 'html') {
+                languageDisplay = 'HTML';
+                suggestedFileName = 'index.html';
+            } else if (language === 'css') {
+                languageDisplay = 'CSS';
+                suggestedFileName = 'styles.css';
+            } else if (language === 'sql' || language === 'mysql' || language === 'postgresql') {
+                languageDisplay = 'SQL';
+                suggestedFileName = 'query.sql';
+            } else if (language === 'python' || language === 'py') {
+                languageDisplay = 'Python';
+                suggestedFileName = 'main.py';
+            } else if (language === 'java') {
+                languageDisplay = 'Java';
+                suggestedFileName = 'Main.java';
+            } else if (language === 'csharp' || language === 'cs') {
+                languageDisplay = 'C#';
+                suggestedFileName = 'Program.cs';
+            } else if (language === 'c') {
+                languageDisplay = 'C';
+                suggestedFileName = 'main.c';
+            } else if (language === 'cpp' || language === 'c++') {
+                languageDisplay = 'C++';
+                suggestedFileName = 'main.cpp';
+            } else if (language === 'ruby' || language === 'rb') {
+                languageDisplay = 'Ruby';
+                suggestedFileName = 'main.rb';
+            } else if (language === 'go' || language === 'golang') {
+                languageDisplay = 'Go';
+                suggestedFileName = 'main.go';
+            } else if (language === 'rust' || language === 'rs') {
+                languageDisplay = 'Rust';
+                suggestedFileName = 'main.rs';
+            } else if (language === 'swift') {
+                languageDisplay = 'Swift';
+                suggestedFileName = 'main.swift';
+            } else if (language === 'kotlin' || language === 'kt') {
+                languageDisplay = 'Kotlin';
+                suggestedFileName = 'Main.kt';
+            } else if (language === 'dart') {
+                languageDisplay = 'Dart';
+                suggestedFileName = 'main.dart';
+            } else if (language === 'r') {
+                languageDisplay = 'R';
+                suggestedFileName = 'script.R';
+            } else if (language === 'perl' || language === 'pl') {
+                languageDisplay = 'Perl';
+                suggestedFileName = 'script.pl';
+            } else if (language === 'scala') {
+                languageDisplay = 'Scala';
+                suggestedFileName = 'Main.scala';
+            } else if (language === 'lua') {
+                languageDisplay = 'Lua';
+                suggestedFileName = 'script.lua';
+            } else if (language === 'haskell' || language === 'hs') {
+                languageDisplay = 'Haskell';
+                suggestedFileName = 'Main.hs';
+            } else if (language === 'elixir' || language === 'ex') {
+                languageDisplay = 'Elixir';
+                suggestedFileName = 'main.ex';
+            } else if (language === 'clojure' || language === 'clj') {
+                languageDisplay = 'Clojure';
+                suggestedFileName = 'core.clj';
+            } else if (language === 'fsharp' || language === 'fs') {
+                languageDisplay = 'F#';
+                suggestedFileName = 'Program.fs';
+            } else if (language === 'vb' || language === 'vbnet' || language === 'visualbasic') {
+                languageDisplay = 'VB.NET';
+                suggestedFileName = 'Program.vb';
+            } else if (language === 'objectivec' || language === 'objc') {
+                languageDisplay = 'Objective-C';
+                suggestedFileName = 'main.m';
+            } else if (language === 'matlab') {
+                languageDisplay = 'MATLAB';
+                suggestedFileName = 'script.m';
+            } else if (language === 'julia' || language === 'jl') {
+                languageDisplay = 'Julia';
+                suggestedFileName = 'main.jl';
+            } else if (language === 'groovy') {
+                languageDisplay = 'Groovy';
+                suggestedFileName = 'Main.groovy';
+            } else if (language === 'shell' || language === 'sh' || language === 'bash') {
+                languageDisplay = 'Shell';
+                suggestedFileName = 'script.sh';
+            } else if (language === 'powershell' || language === 'ps1') {
+                languageDisplay = 'PowerShell';
+                suggestedFileName = 'script.ps1';
+            } else if (language === 'json') {
+                languageDisplay = 'JSON';
+                suggestedFileName = 'data.json';
+            } else if (language === 'xml') {
+                languageDisplay = 'XML';
+                suggestedFileName = 'config.xml';
+            } else if (language === 'yaml' || language === 'yml') {
+                languageDisplay = 'YAML';
+                suggestedFileName = 'config.yaml';
+            } else if (language === 'toml') {
+                languageDisplay = 'TOML';
+                suggestedFileName = 'config.toml';
+            } else if (language === 'markdown' || language === 'md') {
+                languageDisplay = 'Markdown';
+                suggestedFileName = 'README.md';
+            } else if (language === 'latex' || language === 'tex') {
+                languageDisplay = 'LaTeX';
+                suggestedFileName = 'document.tex';
+            } else if (language === 'vue') {
+                languageDisplay = 'Vue';
+                suggestedFileName = 'App.vue';
+            } else if (language === 'jsx') {
+                languageDisplay = 'JSX';
+                suggestedFileName = 'Component.jsx';
+            } else if (language === 'tsx') {
+                languageDisplay = 'TSX';
+                suggestedFileName = 'Component.tsx';
+            } else if (language === 'sass' || language === 'scss') {
+                languageDisplay = 'SCSS';
+                suggestedFileName = 'styles.scss';
+            } else if (language === 'less') {
+                languageDisplay = 'Less';
+                suggestedFileName = 'styles.less';
+            } else if (language === 'dockerfile' || language === 'docker') {
+                languageDisplay = 'Dockerfile';
+                suggestedFileName = 'Dockerfile';
+            } else if (language === 'nginx') {
+                languageDisplay = 'Nginx';
+                suggestedFileName = 'nginx.conf';
+            } else if (language === 'apache') {
+                languageDisplay = 'Apache';
+                suggestedFileName = '.htaccess';
+            } else if (language === 'ini' || language === 'cfg' || language === 'conf') {
+                languageDisplay = 'Config';
+                suggestedFileName = 'config.ini';
+            } else if (language === 'env') {
+                languageDisplay = 'Environment';
+                suggestedFileName = '.env';
+            } else if (language === 'graphql' || language === 'gql') {
+                languageDisplay = 'GraphQL';
+                suggestedFileName = 'schema.graphql';
+            } else if (language === 'solidity' || language === 'sol') {
+                languageDisplay = 'Solidity';
+                suggestedFileName = 'Contract.sol';
+            } else if (language === 'assembly' || language === 'asm') {
+                languageDisplay = 'Assembly';
+                suggestedFileName = 'program.asm';
+            }
             
             const codeId = 'code-' + Math.random().toString(36).substr(2, 9);
             
             // Preserve proper indentation and spacing
             const formattedCode = code.trimEnd();
             
-            return `<div class="code-block-wrapper">
+            return `<div class="code-block-wrapper" data-no-tts="true">
                 <div class="code-header">
-                    <span class="code-language">${languageDisplay}</span>
+                    <span class="code-language">${languageDisplay}${suggestedFileName ? ' · ' + suggestedFileName : ''}</span>
                     <button class="code-copy-btn" onclick="copyCodeToClipboard('${codeId}')">Copy</button>
                 </div>
                 <pre><code id="${codeId}" class="language-${language}">${formattedCode}</code></pre>
@@ -6559,8 +6719,21 @@ feeling good developer\n`;
                 // PRIORITY: Stop any ongoing speech immediately (newer message takes precedence)
                 ttsStop();
 
-                // Strip HTML tags for clean speech
-                const cleanText = text.replace(/<[^>]*>/g, '').replace(/&[^;]+;/g, ' ').trim();
+                // Remove markdown code blocks (```...```) from the text before speaking
+                let cleanText = text;
+                
+                // Remove all code blocks with language tags: ```language\ncode\n```
+                cleanText = cleanText.replace(/```[a-zA-Z0-9+#]*\n[\s\S]*?```/g, '');
+                
+                // Remove inline code: `code`
+                cleanText = cleanText.replace(/`[^`]+`/g, '');
+                
+                // Remove standalone code patterns (language name followed by code)
+                cleanText = cleanText.replace(/\n(html|javascript|js|typescript|ts|python|py|php|css|java|sql|json|xml|bash|sh|csharp|cs)\n[<\[][\s\S]{20,}?(?=\n\n|$)/gi, '');
+                
+                // Clean up extra whitespace and HTML entities
+                cleanText = cleanText.replace(/&[^;]+;/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+                
                 if (!cleanText) return;
 
                 const lang = detectLanguage(cleanText);
