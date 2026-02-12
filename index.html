@@ -2949,7 +2949,7 @@
                 <img src="./uploads/project_69638f1d566493.07417156.png" alt="SKSU Scholarship Monitoring System" class="img-fluid rounded mb-2" loading="eager" style="max-height:150px;" data-images='[&quot;.\/uploads\/project_69638f1d566493.07417156.png&quot;,&quot;.\/uploads\/project_69638f1d573987.48846785.png&quot;,&quot;.\/uploads\/project_69638f1d57b731.29356287.png&quot;,&quot;.\/uploads\/project_69638f1d584cd8.34586166.png&quot;,&quot;.\/uploads\/project_69638f1d58bf59.63664796.png&quot;,&quot;.\/uploads\/project_69638f1d5937e4.06616341.png&quot;,&quot;.\/uploads\/project_69638f1d59bbc0.52050644.png&quot;,&quot;.\/uploads\/project_69638f1d5a6642.83108723.png&quot;,&quot;.\/uploads\/project_69638f1d5b01c5.98161662.png&quot;,&quot;.\/uploads\/project_69638f1d5b8c32.66865133.png&quot;,&quot;.\/uploads\/project_69638f1d603760.79090788.png&quot;,&quot;.\/uploads\/project_69638f1d60a156.53370856.png&quot;,&quot;.\/uploads\/project_69638f1d6105d9.77494389.png&quot;,&quot;.\/uploads\/project_69638f1d616ca2.63867739.png&quot;,&quot;.\/uploads\/project_69638f1d620591.91616121.png&quot;,&quot;.\/uploads\/project_69638f1d62bf09.94020648.png&quot;,&quot;.\/uploads\/project_69638f1d632d85.32564269.png&quot;,&quot;.\/uploads\/project_69638f1d639106.05786579.png&quot;,&quot;.\/uploads\/project_69638f1d63f689.56496410.png&quot;,&quot;.\/uploads\/project_69638f1d6461e9.01763903.png&quot;,&quot;.\/uploads\/project_69638f1d64c494.70304339.png&quot;,&quot;.\/uploads\/project_69638f1d6526b3.59984604.png&quot;,&quot;.\/uploads\/project_69638f1d659829.20339282.png&quot;]'>
             </a>
         </div>
-                            <h5 class="card-title fw-bold text-center text-primary">SKSU Scholarship Management System</h5>
+                            <h5 class="card-title fw-bold text-center text-primary">SKSU Scholarship Management System (ON GOING)</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-university"></i> Sultan Kudarat State University</h6>
                             <p class="card-text text-center">The general objective of the study is to design and develop an Integrated Scholarship Management System that centralizes scholarship processing from application validation to disbursement and liquidation. The system aims to allow the Scholarship Chairman and Campus Registrar to upload CHED and enrollment masterlists for automated comparison to validate enrolled students, support Scholarship Coordinators in verifying eligibility, and generate payroll and billing forms for qualified scholars. It will provide a dislisting module for unenrolled students, manage disbursement and liquidation through manual and file-based data entry, support ATM-based liquidation with verified proof display, and implement an automated approval workflow that routes liquidation documents from the Scholarship Chairman to the Accounting Officer for final processing.</p>
                             <div class="text-center mb-3">
@@ -4970,6 +4970,29 @@
         border-color: #ff4757;
     }
 
+    /* Prompt Limit Counter in Header */
+    .prompt-limit-counter {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        color: #ffffff80;
+        padding: 4px 8px;
+        background: #00000040;
+        border-radius: 6px;
+        border: 1px solid #00fff720;
+    }
+    .prompt-limit-counter span {
+        white-space: nowrap;
+    }
+    @media (max-width: 480px) {
+        .prompt-limit-counter {
+            font-size: 9px;
+            padding: 3px 6px;
+            gap: 4px;
+        }
+    }
+
     /* Backdrop overlay */
     #chatbotBackdrop {
         position: fixed;
@@ -5220,6 +5243,9 @@
                 <div class="chat-header-name">Russel AI</div>
                 <div class="chat-header-status"><span id="chatModelStatus">Online</span></div>
             </div>
+            <div class="prompt-limit-counter" id="promptLimitCounter" title="Daily prompt limit">
+                <span id="promptCounter">Prompts: 20/20</span>
+            </div>
             <button class="tts-toggle" id="ttsToggle" onclick="toggleTTS()" title="Toggle Text-to-Speech">
                 <i class="fas fa-volume-up" id="ttsIcon"></i>
             </button>
@@ -5229,7 +5255,8 @@
         </div>
         <div class="chat-messages" id="chatMessages">
             <div class="chat-msg bot">
-                Hey! I'm <strong>Russel AI</strong>, Jan Russel's assistant. I can help build simple web apps, answer questions about his projects, skills, services, or personal life! Multilingual support enabled.
+                Hey! I'm <strong>Russel AI</strong>, Jan Russel's assistant. I can help build simple web apps, answer questions about his projects, skills, services, or personal life! Multilingual support enabled.<br><br>
+                <span style="font-size: 11px; color: #ffffff80;">Note: You have 20 prompts available per day. Quick action buttons are free!</span>
             </div>
         </div>
         <div class="chat-chips" id="chatChips">
@@ -5277,7 +5304,10 @@ FORMATTING RULES:
 - Supported languages: javascript, python, php, html, css, java, sql, bash, etc.
 - For inline code: Use single backticks \`code\`
 - For non-code responses: Plain text only, no markdown formatting
-- When explaining code: Provide clear comments and step-by-step explanation
+- NEVER use asterisks (*) for bold or italic formatting in explanations
+- NO markdown emphasis: Never use **bold**, *italic*, __underline__, or any asterisk-based formatting
+- When explaining code: Always mention the filename in your explanation text (e.g., "Here is the code for index.php:") instead of relying on auto-generated labels
+- Provide clear comments and step-by-step explanation in plain text
 
 Keep responses concise. Max 4 sentences for simple questions. Expand for programming tutorials and code explanations.
 
@@ -5421,13 +5451,16 @@ feeling good developer\n`;
             prompt += `4. CODE FORMATTING: When answering programming questions or providing code examples:\\n`;
             prompt += `   - Use code blocks with language: \\\`\\\`\\\`javascript (or python, php, html, css, java, sql, etc.)\\n`;
             prompt += `   - Always include the language name after the opening \\\`\\\`\\\`\\n`;
-            prompt += `   - Provide a brief 1-line plain text explanation BEFORE the code block\\n`;
+            prompt += `   - ALWAYS mention the filename in your plain text explanation (e.g., "Here is the code for index.php:", "Create a file named script.js:")\\n`;
+            prompt += `   - NO ASTERISKS: Never use ** or * for bold/italic/emphasis in explanations - use plain text only\\n`;
+            prompt += `   - Provide a brief plain text explanation BEFORE the code block (no markdown formatting)\\n`;
             prompt += `   - Add helpful comments inside the code itself\\n`;
             prompt += `   - Keep explanations concise and clear - max 1-2 sentences\\n`;
-            prompt += `   - Structure: Brief explanation → Code Block (with comments)\\n`;
+            prompt += `   - Structure: Plain text explanation with filename → Code Block (with comments)\\n`;
             prompt += `   - For inline code references: use single backticks \\\`like this\\\`\\n`;
             prompt += `   - For non-programming responses: Plain text only, no formatting\\n`;
             prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response.\n`;
+            prompt += `5a. NO ASTERISKS OR MARKDOWN FORMATTING: Never use asterisks (*) for emphasis, bold text, or any markdown formatting in explanations. Always use plain text only. This applies to ALL responses - technical explanations, step-by-step instructions, lists, and general text. NO ** for bold, NO * for italic, NO __ for underline.\n`;
             prompt += `6. Keep responses concise. Max 4 sentences for simple questions. Expand only when the question genuinely requires more detail.\n`;
             prompt += `7. Projects: When asked, name specific projects, tech used, and impact from the portfolio.\n`;
             prompt += `8. Skills: Reference the explicit tech stack above (PHP, CodeIgniter 4, JavaScript, MySQL, etc.). Connect to specific projects built with these technologies.\n`;
@@ -5457,9 +5490,10 @@ feeling good developer\n`;
             prompt += `28. Always specify the programming language in code blocks for proper syntax highlighting.\n`;
             prompt += `29. Format: Brief summary → Code with comments → Optional tip if needed (1 sentence max).\n`;
             prompt += `30. Technical Explanations Format: When explaining how technologies work together or describing technical concepts:\n`;
-            prompt += `   - Use plain text only, no special characters like asterisks, symbols, or markdown formatting\n`;
-            prompt += `   - Structure explanations with simple numbered lists (1. 2. 3.)\n`;
+            prompt += `   - Use plain text only - absolutely NO asterisks, NO markdown formatting, NO special emphasis characters\n`;
+            prompt += `   - Structure explanations with simple numbered lists (1. 2. 3.) or plain paragraphs\n`;
             prompt += `   - Keep it concise and summarized, not lengthy\n`;
+            prompt += `   - When providing code examples, ALWAYS mention the filename in your plain text explanation\n`;
             prompt += `   - Example format: "This HTML provides the skeleton for your system. To make it functional like the SKSU Scholarship Management System or KES-SMART Jan Russel has developed, you would integrate: 1. JavaScript: To handle form submissions, dynamically update the table, and communicate with the backend without full page reloads. 2. PHP CodeIgniter 4: To process data on the server side, validate inputs, interact with the database, and serve dynamic content. 3. MySQL: To store student records, user accounts, and other related data reliably."\n`;
             prompt += `   - Mention Jan Russel's typical tech stack when relevant\n`;
             prompt += `31. Error handling: If a question is unclear, make your best interpretation and answer it. Never ask users to rephrase unless absolutely necessary.\n`;
@@ -5488,7 +5522,7 @@ feeling good developer\n`;
             prompt += `53. Continuous improvement: Convey that Jan Russel values feedback, learns from every project, and constantly refines skills and approaches.\n`;
             prompt += `54. Enthusiasm for tech: Show genuine excitement when discussing programming, new technologies, or interesting project challenges. Let Jan Russel's passion come through.\n`;
             prompt += `55. Respect boundaries: While you answer everything, maintain professionalism. If a question is inappropriate, answer briefly and steer toward more productive topics.\n`;
-            prompt += `56. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Use code blocks with language specification for programming examples, plain text for everything else. No emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
+            prompt += `56. REMEMBER: You answer EVERYTHING. Professional questions use portfolio data. Everything else is open and free. Use code blocks with language specification for programming examples, plain text for everything else. NEVER use asterisks (*) or markdown formatting in explanations. Always mention filenames in plain text when providing code. No emojis. Be helpful, warm, knowledgeable, and engaging.\n`;
 
             return prompt;
         }
@@ -5497,6 +5531,62 @@ feeling good developer\n`;
         const SYSTEM_PROMPT = buildSystemPrompt();
 
         let chatHistory = [];
+        
+        // Prompt limits (daily, server-side)
+        const PROMPT_LIMIT = 20;
+        let promptCount = 0;
+        
+        // Load prompt counts from server
+        async function loadPromptCounts() {
+            try {
+                const response = await fetch('counter.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'action=get_limits'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        promptCount = parseInt(data.prompt_count || 0);
+                        console.log(`[Limit] Loaded from server: Prompts ${promptCount}/${PROMPT_LIMIT}`);
+                        updatePromptLimitDisplay();
+                    }
+                } else {
+                    console.error('[Limit] Server response error:', response.status);
+                }
+            } catch (e) {
+                console.error('[Limit] Server error:', e);
+                // Fallback to zero if server fails
+                promptCount = 0;
+                updatePromptLimitDisplay();
+            }
+        }
+        
+        // Increment prompt count on server
+        async function incrementPromptCount() {
+            try {
+                const response = await fetch('counter.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'action=increment_prompt'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.success) {
+                        promptCount = parseInt(data.prompt_count || 0);
+                        updatePromptLimitDisplay();
+                    }
+                }
+            } catch (e) {
+                console.error('[Limit] Increment prompt error:', e);
+            }
+        }
+        
+        // Initialize counts from server
+        loadPromptCounts();
+        
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const chatSendBtn = document.getElementById('chatSendBtn');
@@ -5532,7 +5622,7 @@ feeling good developer\n`;
         }
 
         // Initialize scroll lock on page load
-        window.addEventListener('load', function() {
+        window.addEventListener('load', async function() {
             // Ensure chatbot is closed and scroll is unlocked on page load
             chatWindow.classList.remove('open');
             chatWindow.classList.remove('keyboard-open');
@@ -5548,6 +5638,9 @@ feeling good developer\n`;
                 // Randomize input name to prevent autofill pattern matching
                 chatInput.name = "chat_" + Math.random().toString(36).substring(2);
             }
+            
+            // Initialize prompt limit display
+            await loadPromptCounts();
         });
 
         // Handle browser back button to close chatbot and gallery modal
@@ -5650,19 +5743,19 @@ feeling good developer\n`;
             }
         };
 
-        // Send via chip
+        // Send via chip (does not count toward prompt limit)
         window.sendChip = function(el) {
             const text = el.textContent.trim();
             
+            // Get response
+            const fallbackReply = getFallbackResponse(text);
+            
             // Add user message
             appendMessage(text, 'user');
-            
-            // Use fallback response directly for quick actions
-            const fallbackReply = getFallbackResponse(text);
             appendMessage(fallbackReply, 'bot');
             speakText(fallbackReply);
             
-            // Add to history
+            // Add to history (no counter increment - quick actions are free)
             chatHistory.push({ role: 'user', content: text });
             chatHistory.push({ role: 'model', content: fallbackReply });
         };
@@ -6081,6 +6174,176 @@ feeling good developer\n`;
             }
         }
 
+        // Update prompt limit display
+        function updatePromptLimitDisplay() {
+            const counter = document.getElementById('promptCounter');
+            
+            if (counter) {
+                const remaining = PROMPT_LIMIT - promptCount;
+                counter.textContent = `Prompts: ${remaining}/${PROMPT_LIMIT}`;
+                if (remaining === 0) {
+                    counter.style.color = '#ff4757';
+                } else if (remaining <= 5) {
+                    counter.style.color = '#ffa502';
+                } else {
+                    counter.style.color = '#00fff7';
+                }
+            }
+        }
+        
+        // Detect if message is code-related (question)
+        function isCodeRelatedPrompt(message) {
+            const msg = message.toLowerCase();
+            const codeKeywords = [
+                // Direct code requests
+                'code', 'script', 'function', 'program', 'algorithm',
+                // Programming languages
+                'html', 'css', 'javascript', 'js', 'php', 'python', 'java', 'sql',
+                'typescript', 'react', 'codeigniter', 'bootstrap',
+                // Code actions
+                'write', 'create', 'build', 'develop', 'implement',
+                'example', 'sample', 'snippet', 'syntax',
+                // Debugging
+                'debug', 'fix', 'error', 'bug', 'issue',
+                // Tagalog code keywords
+                'code', 'syntax', 'programa', 'gawa ng', 'sulat ng'
+            ];
+            
+            // Check for code block indicators
+            if (message.includes('```') || msg.includes('how to code') || msg.includes('paano gumawa ng')) {
+                return true;
+            }
+            
+            // Check if message contains multiple code keywords
+            const keywordMatches = codeKeywords.filter(keyword => msg.includes(keyword));
+            return keywordMatches.length >= 2 || 
+                   (keywordMatches.length === 1 && (
+                       msg.includes('example') || 
+                       msg.includes('sample') || 
+                       msg.includes('write') ||
+                       msg.includes('create') ||
+                       msg.includes('gawa')
+                   ));
+        }
+        
+        // Detect if response contains code
+        function responseContainsCode(response) {
+            if (!response) return false;
+            
+            // Check for code blocks (```)
+            if (response.includes('```')) return true;
+            
+            // Check for common code patterns
+            const codePatterns = [
+                // PHP
+                /<\?php/i,                      // PHP opening tag
+                /\$\w+\s*=/,                    // PHP variables
+                /echo\s+["']/i,                 // PHP echo
+                /namespace\s+\w+/i,             // PHP namespace
+                
+                // HTML/XML
+                /<\/\w+>/,                      // HTML closing tags
+                /<\w+[^>]*>/,                   // HTML opening tags
+                /<!DOCTYPE/i,                   // DOCTYPE declaration
+                
+                // JavaScript/TypeScript
+                /function\s+\w+\s*\(/i,         // Function declarations
+                /const\s+\w+\s*=/i,             // Const declarations
+                /let\s+\w+\s*=/i,               // Let declarations
+                /var\s+\w+\s*=/i,               // Var declarations
+                /async\s+function/i,            // Async functions
+                /await\s+\w+/i,                 // Await keyword
+                /export\s+(default|const|function|class)/i, // ES6 exports
+                /import\s+.*from/i,             // Import statements
+                /require\s*\(/i,                // CommonJS require
+                /\)\s*=>/,                      // Arrow functions
+                
+                // OOP
+                /class\s+\w+/i,                 // Class declarations
+                /extends\s+\w+/i,               // Class inheritance
+                /implements\s+\w+/i,            // Interface implementation
+                /new\s+\w+\s*\(/i,              // Object instantiation
+                /public\s+(function|class|var|static)/i,    // Public access
+                /private\s+(function|class|var|static)/i,   // Private access
+                /protected\s+(function|class|var|static)/i, // Protected access
+                /static\s+(function|var)/i,     // Static methods/properties
+                
+                // SQL
+                /SELECT .* FROM/i,              // SQL SELECT
+                /INSERT INTO/i,                 // SQL INSERT
+                /UPDATE .* SET/i,               // SQL UPDATE
+                /DELETE FROM/i,                 // SQL DELETE
+                /CREATE TABLE/i,                // SQL CREATE
+                /ALTER TABLE/i,                 // SQL ALTER
+                /DROP TABLE/i,                  // SQL DROP
+                /WHERE\s+\w+\s*=/i,            // SQL WHERE
+                /JOIN\s+\w+/i,                 // SQL JOIN
+                
+                // Python
+                /def\s+\w+\s*\(/i,             // Python function def
+                /class\s+\w+\s*\(/i,           // Python class
+                /import\s+\w+/i,               // Python import
+                /from\s+\w+\s+import/i,        // Python from import
+                /if\s+__name__\s*==/,          // Python main check
+                /self\.\w+/,                   // Python self
+                /\[\s*\w+\s+for\s+\w+\s+in\s+/i, // Python list comprehension
+                
+                // Java/C#
+                /public\s+class\s+\w+/i,       // Java/C# class
+                /private\s+void\s+\w+/i,       // Java/C# method
+                /using\s+System/i,             // C# using
+                /package\s+\w+/i,              // Java package
+                /void\s+\w+\s*\(/i,            // Void methods
+                
+                // C/C++
+                /#include\s*[<"]/i,            // C/C++ include
+                /int\s+main\s*\(/i,            // C/C++ main
+                /printf\s*\(/i,                // C printf
+                /cout\s*<</,                   // C++ cout
+                /std::/,                       // C++ std namespace
+                
+                // Ruby
+                /def\s+\w+/i,                  // Ruby method def
+                /end$/m,                       // Ruby end keyword
+                /puts\s+["']/i,                // Ruby puts
+                
+                // Go
+                /func\s+\w+\s*\(/i,            // Go function
+                /package\s+main/i,             // Go package
+                /fmt\.\w+/,                    // Go fmt package
+                
+                // Frameworks
+                /\$this->/,                    // Laravel/OOP this
+                /app\(\)/,                     // Laravel app helper
+                /Route::/i,                    // Laravel routes
+                /\$model->/,                   // Eloquent models
+                /useState\s*\(/i,              // React hooks
+                /useEffect\s*\(/i,             // React useEffect
+                /componentDidMount/i,          // React lifecycle
+                /render\s*\(\s*\)\s*\{/,       // React render
+                
+                // Common operators & syntax
+                /=>|->|::/,                    // Arrow, object, scope operators
+                /&&|\|\|/,                     // Logical operators
+                /try\s*\{/i,                   // Try-catch blocks
+                /catch\s*\(/i,                 // Catch blocks
+                /finally\s*\{/i,               // Finally blocks
+                /throw\s+new/i,                // Throw exceptions
+                /return\s+\w+/i,               // Return statements
+                /\w+\s*\?\s*\w+\s*:/,          // Ternary operators
+                /for\s*\(/i,                   // For loops
+                /while\s*\(/i,                 // While loops
+                /foreach\s*\(/i,               // Foreach loops
+                /if\s*\(/i,                    // If statements
+                /else\s*\{/i,                  // Else blocks
+                /switch\s*\(/i,                // Switch statements
+                /case\s+\w+:/i,                // Case statements
+            ];
+            
+            // Test against code patterns
+            return codePatterns.some(pattern => pattern.test(response));
+        }
+
         // Request queue to prevent rapid-fire API calls
         let isProcessing = false;
         const requestQueue = [];
@@ -6088,6 +6351,19 @@ feeling good developer\n`;
         async function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
+            
+            // Check limits BEFORE processing (don't count yet, just check if already at limit)
+            if (promptCount >= PROMPT_LIMIT) {
+                const limitMsg = /\b(niya|kanyang|ng|at|mga|ay|ba|ka|ako)\b/i.test(text)
+                    ? `Pasensya na, naabot mo na ang limit na ${PROMPT_LIMIT} prompts para ngayong araw. Para sa karagdagang tulong, maari ka direktang makipag-ugnayan kay Jan Russel sa Facebook, Email, o Phone. Bumalik bukas para sa bagong prompts. Salamat sa pag-unawa!`
+                    : `Sorry, you've reached today's limit of ${PROMPT_LIMIT} prompts. For more assistance, please contact Jan Russel directly via Facebook, Email, or Phone. Come back tomorrow for new prompts. Thank you for understanding!`;
+                appendMessage(text, 'user');
+                appendMessage(limitMsg, 'bot');
+                speakText(limitMsg);
+                chatInput.value = '';
+                chatInput.style.height = 'auto';
+                return;
+            }
 
             // Add user message
             appendMessage(text, 'user');
@@ -6105,6 +6381,11 @@ feeling good developer\n`;
                 chatHistory.push({ role: 'model', content: cached.reply });
                 chatSendBtn.disabled = false;
                 console.log('[Cache] Client hit, model:', cached.model);
+                
+                // Count prompt AFTER response
+                promptCount++;
+                console.log(`[Limit] Prompt ${promptCount}/${PROMPT_LIMIT}`);
+                incrementPromptCount();
                 return;
             }
 
@@ -6127,6 +6408,11 @@ feeling good developer\n`;
                 speakText(result.reply);
                 chatHistory.push({ role: 'model', content: result.reply });
                 
+                // Count prompt AFTER response
+                promptCount++;
+                console.log(`[Limit] Prompt ${promptCount}/${PROMPT_LIMIT}`);
+                incrementPromptCount();
+                
                 // Cache the response
                 clientCachePut(cKey, result.reply, result.model);
                 
@@ -6144,10 +6430,16 @@ feeling good developer\n`;
                     appendMessage(fallbackReply, 'bot');
                     speakText(fallbackReply);
                     chatHistory.push({ role: 'model', content: fallbackReply });
+                    
+                    // Count prompt for fallback response
+                    promptCount++;
+                    console.log(`[Limit] Prompt (fallback) ${promptCount}/${PROMPT_LIMIT}`);
+                    incrementPromptCount();
                 } else {
                     const errMsg = 'Sorry, I couldn\'t process that right now. Please try again!';
                     appendMessage(errMsg, 'bot');
                     speakText(errMsg);
+                    // Don't count errors as prompts
                 }
                 console.error('Gemini error:', err);
             } finally {
@@ -6499,7 +6791,7 @@ feeling good developer\n`;
             
             return `<div class="code-block-wrapper" data-no-tts="true">
                 <div class="code-header">
-                    <span class="code-language">${languageDisplay}${suggestedFileName ? ' · ' + suggestedFileName : ''}</span>
+                    <span class="code-language">${languageDisplay}</span>
                     <button class="code-copy-btn" onclick="copyCodeToClipboard('${codeId}')">Copy</button>
                 </div>
                 <pre><code id="${codeId}" class="language-${language}">${formattedCode}</code></pre>
