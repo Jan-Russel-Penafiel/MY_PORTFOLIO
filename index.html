@@ -187,7 +187,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 15px;
         }
         
         .project-image-link::before {
@@ -1085,7 +1085,7 @@
         
         .upload-zone {
             border: 2px dashed #00fff7;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 40px;
             text-align: center;
             cursor: pointer;
@@ -1168,7 +1168,7 @@
             max-width: 200px;
             max-height: 200px;
             margin: 20px auto;
-            border-radius: 10px;
+            border-radius: 15px;
             border: 2px solid #00fff7;
             display: none;
         }
@@ -1183,7 +1183,7 @@
             right: 20px;
             background: #181825;
             border: 2px solid #00fff7;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 15px 25px;
             z-index: 10000;
             box-shadow: 0 0 30px #00fff7;
@@ -1222,7 +1222,7 @@
             background: #16181e;
             border: 1px solid #00fff7;
             color: #e0e0e0;
-            border-radius: 8px;
+            border-radius: 15px;
             padding: 10px;
         }
         
@@ -1303,7 +1303,7 @@
             border: 2px solid #ff0000;
             color: white;
             padding: 8px 16px;
-            border-radius: 8px;
+            border-radius: 15px;
             cursor: pointer;
             z-index: 100;
             display: none;
@@ -1359,7 +1359,7 @@
             border: 2px solid #00cc00;
             color: #0a0a0f;
             padding: 8px 15px;
-            border-radius: 8px;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0 15px #00ff00;
@@ -1386,7 +1386,7 @@
         .category-selection-option {
             border: 1.5px solid #00fff7;
             background: #12131b;
-            border-radius: 12px;
+            border-radius: 15px;
             padding: 15px;
             text-align: left;
             color: #e0e0e0;
@@ -1446,7 +1446,7 @@
             border: 1px solid #00fff7;
             color: #e0e0e0;
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 15px;
             width: 100%;
             margin-bottom: 15px;
         }
@@ -1510,7 +1510,7 @@
         /* Dynamic About Section Styles */
         .about-intro-card {
             background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 40px;
             box-shadow: 0 0 40px #00fff760;
             border: 2px solid #00fff7;
@@ -1702,7 +1702,7 @@
         /* Dynamic Why Hire Me Section Styles */
         .hire-section-card {
             background: linear-gradient(135deg, #1a1c2e 0%, #181825 100%);
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 45px;
             box-shadow: 0 0 50px #00fff780;
             border: 2px solid #00fff7;
@@ -1764,7 +1764,7 @@
             border-left: 4px solid #00fff7;
             padding: 25px;
             margin-bottom: 20px;
-            border-radius: 12px;
+            border-radius: 15px;
             backdrop-filter: blur(10px);
             transition: all 0.4s ease;
             animation: slideInLeft 0.8s ease-out backwards;
@@ -1879,7 +1879,7 @@
         #galleryModal .modal-content {
             background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
             border: 2px solid #00fff7;
-            border-radius: 16px;
+            border-radius: 15px;
             box-shadow: 0 0 40px rgba(0, 255, 247, 0.3);
             max-height: calc(100vh - 3.5rem);
             display: flex;
@@ -1913,7 +1913,7 @@
             height: calc(100vh - 250px);
             max-height: 550px;
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
+            border-radius: 15px;
             padding: 15px;
             position: relative;
         }
@@ -1925,7 +1925,7 @@
             height: auto;
             object-fit: contain;
             border: 3px solid #00fff7;
-            border-radius: 12px;
+            border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 255, 247, 0.4);
         }
 
@@ -1943,7 +1943,7 @@
             border: 2px solid #00fff7;
             color: #00fff7;
             padding: 10px 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             transition: all 0.3s ease;
         }
 
@@ -2118,7 +2118,7 @@
             /* Collapsed navbar dropdown styling */
             .navbar-collapse {
                 background: #000000;
-                border-radius: 0 0 12px 12px;
+                border-radius: 0 0 15px 15px;
                 padding: 10px 0;
                 margin-top: 5px;
                 border-bottom: 1px solid #00fff730;
@@ -2504,6 +2504,942 @@
             }
         }
 
+        /* === SCROLL ANIMATIONS === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-animate {
+            opacity: 0;
+        }
+
+        .scroll-animate.animate {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .scroll-animate.animate-fade {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Stagger animation for multiple elements */
+        .scroll-animate:nth-child(1) { animation-delay: 0s; }
+        .scroll-animate:nth-child(2) { animation-delay: 0.1s; }
+        .scroll-animate:nth-child(3) { animation-delay: 0.2s; }
+        .scroll-animate:nth-child(4) { animation-delay: 0.3s; }
+        .scroll-animate:nth-child(5) { animation-delay: 0.4s; }
+
+        /* ===== DARK/LIGHT MODE THEME ===== */
+        /* Smooth transition for theme switching */
+        body.theme-transition,
+        body.theme-transition *,
+        body.theme-transition *::before,
+        body.theme-transition *::after {
+            transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, fill 0.35s ease !important;
+        }
+
+        /* Theme Toggle Button - Facebook style */
+        .theme-toggle-btn {
+            background: none;
+            border: 2px solid #00fff7;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #00fff7;
+            font-size: 1.1rem;
+            padding: 0;
+            margin-left: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mobile Floating Theme Toggle */
+        #mobileThemeToggle {
+            position: fixed;
+            right: 12px;
+            bottom: 68px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1c25 100%);
+            border: 2px solid #00fff7;
+            color: #00fff7;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            box-shadow: 0 0 14px #00fff730;
+        }
+        #mobileThemeToggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 22px #00fff760;
+        }
+        #mobileThemeToggle .icon-sun,
+        #mobileThemeToggle .icon-moon {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+        #mobileThemeToggle .icon-sun {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0);
+        }
+        #mobileThemeToggle .icon-moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        body.light-mode #mobileThemeToggle {
+            background: #ffffff;
+            border-color: #1c1e21;
+            color: #1c1e21;
+            box-shadow: 0 2px 10px rgba(28,30,33,0.2);
+        }
+        body.light-mode #mobileThemeToggle .icon-sun {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        body.light-mode #mobileThemeToggle .icon-moon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0);
+        }
+        @media (max-width: 991.98px) {
+            #mobileThemeToggle {
+                display: flex;
+            }
+            .theme-toggle-btn {
+                display: none !important;
+            }
+        }
+        .theme-toggle-btn:hover {
+            background: #00fff720;
+            transform: rotate(30deg) scale(1.1);
+            box-shadow: 0 0 16px #00fff760;
+        }
+        .theme-toggle-btn .icon-sun,
+        .theme-toggle-btn .icon-moon {
+            position: absolute;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .theme-toggle-btn .icon-sun {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0);
+        }
+        .theme-toggle-btn .icon-moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+
+        /* ===== LIGHT MODE ===== */
+        body.light-mode {
+            background: #f0f2f5 !important;
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .hero-section {
+            background: #ffffff !important;
+            color: #1c1e21 !important;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08) inset !important;
+        }
+
+        body.light-mode .hero-section h1,
+        body.light-mode .hero-section .display-4 {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .typing-animation,
+        body.light-mode #typing-text {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .badge-custom {
+            background: #1c1e21 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(28,30,33,0.2) !important;
+        }
+        body.light-mode .badge-custom:hover {
+            background: #333333 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 16px rgba(28,30,33,0.3) !important;
+        }
+
+        body.light-mode .section-card {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
+            color: #1c1e21 !important;
+        }
+        body.light-mode .section-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
+        }
+
+        body.light-mode .project-card {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .project-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+        }
+        body.light-mode .project-card .card-body {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .project-card .card-title {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .project-card .card-text {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .highlight-box {
+            background: #f0f2f5 !important;
+            color: #1c1e21 !important;
+            border-color: #1c1e21 !important;
+            box-shadow: none !important;
+        }
+
+        body.light-mode .quote-box {
+            background: #f0f2f5 !important;
+            border-left-color: #1c1e21 !important;
+            color: #1c1e21 !important;
+            box-shadow: none !important;
+        }
+
+        body.light-mode .journey-timeline::before {
+            background: #1c1e21 !important;
+        }
+        body.light-mode .timeline-item::before {
+            background: #1c1e21 !important;
+            box-shadow: none !important;
+        }
+        body.light-mode .timeline-item {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .navbar {
+            background: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .navbar-brand {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .nav-link {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .nav-link:hover {
+            color: #1c1e21 !important;
+            opacity: 0.7;
+        }
+        body.light-mode .navbar-toggler {
+            border-color: #1c1e21 !important;
+        }
+        body.light-mode .navbar-toggler-icon {
+            filter: invert(1) !important;
+        }
+        /* Mobile nav dropdown in light mode */
+        body.light-mode .navbar-collapse {
+            background: #ffffff !important;
+            border-bottom: 1px solid #dddfe2 !important;
+            border-left: 1px solid #dddfe2 !important;
+            border-right: 1px solid #dddfe2 !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+        }
+        /* Desktop: remove the rectangle container from navbar-collapse */
+        @media (min-width: 992px) {
+            body.light-mode .navbar-collapse {
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+            }
+        }
+        body.light-mode .navbar-nav .nav-link {
+            color: #1c1e21 !important;
+            border-bottom: 1px solid #f0f2f5 !important;
+        }
+        body.light-mode .navbar-nav .nav-item:last-child .nav-link {
+            border-bottom: none !important;
+        }
+        body.light-mode .navbar-nav .nav-link:hover {
+            background: #f0f2f5 !important;
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode section {
+            background: #f0f2f5 !important;
+        }
+
+        body.light-mode #contact {
+            background: #ffffff !important;
+        }
+        body.light-mode #contact h2 {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+
+        body.light-mode .social-links a {
+            background: #1c1e21 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(28,30,33,0.2) !important;
+        }
+        body.light-mode .social-links a:hover {
+            background: #333333 !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+        }
+
+        body.light-mode footer {
+            background: #ffffff !important;
+            color: #1c1e21 !important;
+        }
+        body.light-mode footer p {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .text-primary {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .text-success,
+        body.light-mode .text-info,
+        body.light-mode .text-warning,
+        body.light-mode .text-danger {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+
+        body.light-mode h2,
+        body.light-mode h3,
+        body.light-mode h4,
+        body.light-mode h5,
+        body.light-mode h6 {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .bg-light {
+            background: #f0f2f5 !important;
+        }
+
+        body.light-mode .btn-primary {
+            background: #1c1e21 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(28,30,33,0.3) !important;
+        }
+        body.light-mode .btn-primary:hover {
+            background: #333333 !important;
+            box-shadow: 0 4px 12px rgba(28,30,33,0.4) !important;
+        }
+        body.light-mode .btn-success {
+            background: #42b72a !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 2px 8px rgba(66,183,42,0.3) !important;
+        }
+        body.light-mode .btn-success:hover {
+            background: #36a420 !important;
+            box-shadow: 0 4px 12px rgba(66,183,42,0.4) !important;
+        }
+        body.light-mode .btn-danger {
+            background: #1c1e21 !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(28,30,33,0.3) !important;
+        }
+
+        body.light-mode .about-greeting {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .about-text {
+            color: #1c1e21 !important;
+            background: rgba(255,255,255,0.8) !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+        }
+        body.light-mode .about-highlight {
+            color: #1c1e21 !important;
+            font-weight: 700 !important;
+        }
+        body.light-mode .stat-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f2f5 100%) !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .stat-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
+            border-color: #1c1e21 !important;
+        }
+        body.light-mode .stat-icon {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .stat-number {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .stat-label {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .stat-card::before {
+            background: linear-gradient(90deg, transparent, rgba(28,30,33,0.08), transparent) !important;
+        }
+
+        /* Light mode hero profile adjustments */
+        body.light-mode .hero-profile-picture::after {
+            border-top-color: #1c1e21 !important;
+            border-left-color: #1c1e21 !important;
+            box-shadow: none !important;
+        }
+        body.light-mode .hero-mobile-profile::after {
+            border-color: #1c1e21 !important;
+        }
+
+        /* Light mode upload/editor components */
+        body.light-mode .upload-content {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+        }
+        body.light-mode .upload-zone {
+            border-color: #dddfe2 !important;
+            background: #f0f2f5 !important;
+        }
+        body.light-mode .upload-close {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .toggle-notification {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+        }
+        body.light-mode .toggle-notification p {
+            color: #1c1e21 !important;
+        }
+
+        /* Light mode tech icons */
+        body.light-mode .tech-icon {
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+        }
+
+        /* Light mode scrollbar */
+        body.light-mode::-webkit-scrollbar-track {
+            background: #f0f2f5;
+        }
+        body.light-mode::-webkit-scrollbar-thumb {
+            background: #bec3c9;
+        }
+        body.light-mode::-webkit-scrollbar-thumb:hover {
+            background: #8a8d91;
+        }
+
+        body.light-mode ::selection {
+            background: #1c1e21;
+            color: #ffffff;
+        }
+
+        /* Light mode for viewer counter */
+        body.light-mode #viewerCounter {
+            background: #ffffff !important;
+            color: #1c1e21 !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Light mode toggle button style */
+        body.light-mode .theme-toggle-btn {
+            border-color: #1c1e21 !important;
+            color: #1c1e21 !important;
+        }
+        body.light-mode .theme-toggle-btn:hover {
+            background: rgba(28,30,33,0.1) !important;
+            box-shadow: 0 0 16px rgba(28,30,33,0.2) !important;
+        }
+        body.light-mode .theme-toggle-btn .icon-sun {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        body.light-mode .theme-toggle-btn .icon-moon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0);
+        }
+
+        /* ===== LIGHT MODE: ALL FONTS BLACK ===== */
+        body.light-mode,
+        body.light-mode p,
+        body.light-mode span,
+        body.light-mode div,
+        body.light-mode li,
+        body.light-mode td,
+        body.light-mode th,
+        body.light-mode label,
+        body.light-mode a:not(.btn):not(.badge-custom):not(.social-links a):not(.nav-link),
+        body.light-mode strong,
+        body.light-mode em,
+        body.light-mode small,
+        body.light-mode .lead,
+        body.light-mode .fw-bold,
+        body.light-mode .text-white,
+        body.light-mode .text-muted {
+            color: #1c1e21 !important;
+        }
+
+        /* Exclude chatbot UI from ALL light mode color overrides */
+        body.light-mode #chatbotToggle,
+        body.light-mode #chatbotToggle * {
+            color: #00fff7 !important;
+        }
+        body.light-mode .chat-header-name {
+            color: #00fff7 !important;
+        }
+        body.light-mode .chat-header-status,
+        body.light-mode .chat-header-status span,
+        body.light-mode #chatModelStatus {
+            color: #00ff88 !important;
+        }
+        body.light-mode .chat-close-btn {
+            color: #00fff780 !important;
+        }
+        body.light-mode .chat-close-btn:hover {
+            color: #ff4757 !important;
+        }
+        body.light-mode .chat-msg.bot,
+        body.light-mode .chat-msg.bot p,
+        body.light-mode .chat-msg.bot span,
+        body.light-mode .chat-msg.bot li,
+        body.light-mode .chat-msg.bot strong,
+        body.light-mode .chat-msg.bot em,
+        body.light-mode .chat-msg.bot small,
+        body.light-mode .chat-msg.bot div {
+            color: #e0e0e0 !important;
+        }
+        body.light-mode .chat-msg.user {
+            color: #00fff7 !important;
+        }
+        body.light-mode .chat-input {
+            color: #e0e0e0 !important;
+        }
+        body.light-mode .chat-input::placeholder {
+            color: #ffffff40 !important;
+        }
+        body.light-mode .chat-send-btn {
+            color: #0a0a0f !important;
+        }
+        body.light-mode .chat-chip {
+            color: #00fff7 !important;
+        }
+        body.light-mode .chat-powered,
+        body.light-mode .chat-powered span,
+        body.light-mode #chatPoweredModel {
+            color: #00fff7 !important;
+        }
+        body.light-mode .chat-typing span {
+            background: #00fff7 !important;
+        }
+        body.light-mode .prompt-limit-counter,
+        body.light-mode .prompt-limit-counter span {
+            color: #ffffffcc !important;
+        }
+        body.light-mode .tts-toggle {
+            color: #00fff7 !important;
+        }
+        body.light-mode .chat-msg code:not(pre code) {
+            color: #00fff7 !important;
+        }
+        body.light-mode .code-language {
+            color: #00fff7 !important;
+        }
+        body.light-mode .code-copy-btn {
+            color: #00fff7 !important;
+        }
+
+        /* Ensure headings are black */
+        body.light-mode h1,
+        body.light-mode h2,
+        body.light-mode h3,
+        body.light-mode h4,
+        body.light-mode h5,
+        body.light-mode h6,
+        body.light-mode .display-1,
+        body.light-mode .display-2,
+        body.light-mode .display-3,
+        body.light-mode .display-4,
+        body.light-mode .display-5,
+        body.light-mode .display-6 {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+
+        /* Override inline style="color: #00fff7" elements */
+        body.light-mode [style*="color: #00fff7"],
+        body.light-mode [style*="color:#00fff7"] {
+            color: #1c1e21 !important;
+        }
+        body.light-mode [style*="color: #e0e0e0"],
+        body.light-mode [style*="color:#e0e0e0"] {
+            color: #1c1e21 !important;
+        }
+
+        /* Footer - all black text */
+        body.light-mode footer,
+        body.light-mode footer * {
+            color: #1c1e21 !important;
+        }
+        body.light-mode footer .text-primary,
+        body.light-mode footer i.text-primary,
+        body.light-mode footer .fa-heart {
+            color: #e74c3c !important;
+        }
+
+        /* Contact section - black text */
+        body.light-mode #contact h2 {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode #contact p,
+        body.light-mode #contact span {
+            color: #1c1e21 !important;
+        }
+
+        /* Social link buttons keep white text */
+        body.light-mode .social-links a,
+        body.light-mode .social-links a * {
+            color: #ffffff !important;
+        }
+
+        /* Badge-custom keep white text on blue bg */
+        body.light-mode .badge-custom,
+        body.light-mode .badge-custom * {
+            color: #ffffff !important;
+        }
+
+        /* nav-link override - black text in light mode */
+        body.light-mode .nav-link {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .nav-link:hover,
+        body.light-mode .nav-link.active {
+            color: #1c1e21 !important;
+            opacity: 0.7;
+        }
+
+        /* About section overrides */
+        body.light-mode .about-greeting {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .about-highlight {
+            color: #1c1e21 !important;
+            font-weight: 700 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .about-text {
+            color: #1c1e21 !important;
+            background: rgba(255,255,255,0.9) !important;
+        }
+        body.light-mode .about-intro-card {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .about-intro-card::before {
+            background: none !important;
+        }
+
+        /* Hire Me / Journey section overrides */
+        body.light-mode .hire-section-card {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .hire-section-card::before {
+            background: none !important;
+        }
+        body.light-mode .hire-title {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .hire-point {
+            background: #f0f2f5 !important;
+            border-left-color: #1c1e21 !important;
+        }
+        body.light-mode .hire-point:hover {
+            background: #e4e6eb !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1) !important;
+        }
+        body.light-mode .hire-point-icon {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .hire-point-title {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .hire-point-text {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .hire-highlight {
+            color: #1c1e21 !important;
+            font-weight: 700 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .hire-content {
+            color: #1c1e21 !important;
+        }
+
+        /* Stat cards black text */
+        body.light-mode .stat-number {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+        body.light-mode .stat-label {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .stat-icon {
+            color: #1c1e21 !important;
+        }
+
+        /* Typing animation in hero */
+        body.light-mode .typing-animation,
+        body.light-mode #typing-text {
+            color: #1c1e21 !important;
+        }
+
+        /* Buttons keep white text */
+        body.light-mode .btn-primary,
+        body.light-mode .btn-success,
+        body.light-mode .btn-danger,
+        body.light-mode .btn-lg.btn-primary,
+        body.light-mode .btn-lg.btn-success {
+            color: #ffffff !important;
+        }
+
+        /* text-primary in light = black */
+        body.light-mode .text-primary {
+            color: #1c1e21 !important;
+            text-shadow: none !important;
+        }
+
+        /* Viewer counter */
+        body.light-mode #viewerCounter {
+            background: #ffffff !important;
+            color: #1c1e21 !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        /* Upload modals */
+        body.light-mode .upload-content {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+        }
+        body.light-mode .upload-content h3,
+        body.light-mode .upload-content h4,
+        body.light-mode .upload-content h5,
+        body.light-mode .upload-content p,
+        body.light-mode .upload-content label,
+        body.light-mode .upload-content span {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .upload-zone {
+            border-color: #dddfe2 !important;
+            background: #f0f2f5 !important;
+        }
+        body.light-mode .upload-zone p {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .upload-close {
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .toggle-notification {
+            background: #ffffff !important;
+            border-color: #dddfe2 !important;
+        }
+        body.light-mode .toggle-notification p {
+            color: #1c1e21 !important;
+        }
+
+        /* Tech icons */
+        body.light-mode .tech-icon {
+            border-color: #dddfe2 !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+        }
+
+        /* Scrollbar */
+        body.light-mode::-webkit-scrollbar-track {
+            background: #f0f2f5;
+        }
+        body.light-mode::-webkit-scrollbar-thumb {
+            background: #bec3c9;
+        }
+        body.light-mode::-webkit-scrollbar-thumb:hover {
+            background: #8a8d91;
+        }
+
+        body.light-mode ::selection {
+            background: #1c1e21;
+            color: #ffffff;
+        }
+
+        /* Light mode inline cards / forms */
+        body.light-mode .upload-btn-card,
+        body.light-mode .delete-btn-card,
+        body.light-mode .add-new-card-btn {
+            border-color: #dddfe2 !important;
+            color: #1c1e21 !important;
+        }
+        body.light-mode .upload-btn-card.enabled,
+        body.light-mode .delete-btn-card.enabled,
+        body.light-mode .add-new-card-btn.enabled {
+            border-color: #1c1e21 !important;
+            color: #1c1e21 !important;
+        }
+
+        body.light-mode .add-card-form input,
+        body.light-mode .add-card-form textarea,
+        body.light-mode .inline-add-card-container input,
+        body.light-mode .inline-add-card-container textarea {
+            background: #f0f2f5 !important;
+            color: #1c1e21 !important;
+            border-color: #dddfe2 !important;
+        }
+
+        /* Light mode project image link */
+        body.light-mode .project-image-link:hover {
+            box-shadow: 0 0 20px rgba(28,30,33,0.2) !important;
+        }
+        body.light-mode .project-image-link:hover::before {
+            background: rgba(28,30,33,0.05) !important;
+        }
+
+        /* Editable card content in light mode */
+        body.light-mode .project-card .card-title.edit-mode-active,
+        body.light-mode .project-card .card-text.edit-mode-active,
+        body.light-mode .project-card .badge.edit-mode-active {
+            border-color: #1c1e21 !important;
+            background: #f0f2f5 !important;
+            color: #1c1e21 !important;
+        }
+
+        /* Chatbot link color in light mode */
+        body.light-mode .chat-msg a {
+            color: #1c1e21 !important;
+        }
+
+        /* Energy rings and hero decorative elements */
+        body.light-mode .energy-ring {
+            border-color: rgba(28,30,33,0.15) !important;
+        }
+        body.light-mode .hex-particle {
+            background: rgba(28,30,33,0.15) !important;
+        }
+
+        /* ===== Light Mode: Project Gallery Modal ===== */
+        body.light-mode #galleryModal .modal-content {
+            background: #ffffff !important;
+            border: 2px solid #dddfe2 !important;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+            color: #1c1e21 !important;
+        }
+        body.light-mode #galleryModal .modal-content.text-white {
+            color: #1c1e21 !important;
+        }
+        body.light-mode #galleryModal .modal-header {
+            border-bottom: 1px solid #dddfe2 !important;
+            background: #f0f2f5 !important;
+        }
+        body.light-mode #galleryModal .modal-title {
+            color: #1c1e21 !important;
+        }
+        body.light-mode #galleryModal .btn-close {
+            filter: none !important;
+            opacity: 0.6;
+        }
+        body.light-mode #galleryModal .btn-close:hover {
+            opacity: 1;
+        }
+        body.light-mode #galleryModal .modal-body {
+            background: #ffffff !important;
+        }
+        body.light-mode .gallery-image-container {
+            background: #f0f2f5 !important;
+            border: 1px solid #dddfe2 !important;
+        }
+        body.light-mode #galleryMainImage {
+            border: 3px solid #1c1e21 !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12) !important;
+        }
+        body.light-mode .gallery-controls button {
+            background: #f0f2f5 !important;
+            border: 2px solid #1c1e21 !important;
+            color: #1c1e21 !important;
+        }
+        body.light-mode .gallery-controls button:hover {
+            background: #1c1e21 !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(28,30,33,0.25) !important;
+        }
+        body.light-mode #galleryCounter {
+            color: #1c1e21 !important;
+        }
+        body.light-mode #galleryLoadingSpinner .spinner-border {
+            color: #1c1e21 !important;
+        }
+        body.light-mode .modal-backdrop {
+            background: rgba(0,0,0,0.5) !important;
+        }
+
     </style>
 </head>
 <body>
@@ -2653,7 +3589,7 @@
         <input type="text" id="inlineCardInstitution" placeholder="e.g., Your Institution Name" required>
         
         <label style="color: #00fff7;">Category *</label>
-        <select id="inlineCardCategory" style="background: #1a1c25; border: 1px solid #00fff7; color: #e0e0e0; padding: 10px; border-radius: 8px; width: 100%; margin-bottom: 15px;" required>
+        <select id="inlineCardCategory" style="background: #1a1c25; border: 1px solid #00fff7; color: #e0e0e0; padding: 10px; border-radius: 15px; width: 100%; margin-bottom: 15px;" required>
             <option value="">Select a category...</option>
             <option value="flagship">★ Flagship Projects</option>
             <option value="business">▣ Business Solutions</option>
@@ -2691,7 +3627,7 @@
     </div>
     
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: #000000 !important;">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: #000000;">
         <div class="container">
             <a class="navbar-brand" href="#home">
                 <input type="file" id="profileFileInput" accept="image/*" style="display: none;" onchange="handleProfileFileSelect(event)">
@@ -2722,6 +3658,11 @@
                         <a class="nav-link text-center text-lg-start" href="#contact">Contact</a>
                     </li>
                 </ul>
+                <!-- Dark/Light Mode Toggle -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Switch theme">
+                    <i class="fas fa-moon icon-moon"></i>
+                    <i class="fas fa-sun icon-sun"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -2883,7 +3824,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-5" style="background: #000000;">
+    <section id="about" class="py-5">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="display-6 fw-bold">ABOUT ME</h2>
@@ -2952,12 +3893,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">SKSU Scholarship Management System (ON GOING)</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-university"></i> Sultan Kudarat State University</h6>
                             <p class="card-text text-center">The general objective of the study is to design and develop an Integrated Scholarship Management System that centralizes scholarship processing from application validation to disbursement and liquidation. The system aims to allow the Scholarship Chairman and Campus Registrar to upload CHED and enrollment masterlists for automated comparison to validate enrolled students, support Scholarship Coordinators in verifying eligibility, and generate payroll and billing forms for qualified scholars. It will provide a dislisting module for unenrolled students, manage disbursement and liquidation through manual and file-based data entry, support ATM-based liquidation with verified proof display, and implement an automated approval workflow that routes liquidation documents from the Scholarship Chairman to the Accounting Officer for final processing.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-graduation-cap me-1"></i> Scholarship Management</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-file-invoice-dollar me-1"></i> Liquidation Tracking</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-line me-1"></i> Reports & Analytics</span>
-                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-university me-1"></i> SKSU Official System</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('sksu-monitoring')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -2978,12 +3914,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">Russel's Chicken Delights HR System</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Complete HR Management for Restaurant Chain</h6>
                             <p class="card-text text-center">The general objective of the study is to develop Russel's Chicken Delights HR System, a comprehensive human resource management platform for the restaurant chain. The system aims to manage employee information, payroll, and recruitment processes while allowing employees to track their tasks, schedules, and performance. It will include a QR code-based recruitment feature that, when scanned, provides applicants with an online recruitment form, streamlining the hiring process and improving overall HR efficiency.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users me-1"></i> Employee Management</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-clock me-1"></i> Time Tracking</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-calendar-alt me-1"></i> Scheduling</span>
-                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-money-bill-wave me-1"></i> Payroll</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('russels-hr')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3005,11 +3936,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">KES-SMART</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-mobile-alt"></i> Student Monitoring with QR & SMS</h6>
                             <p class="card-text text-center">The general objective of the study is to design and develop a mobile-based attendance monitoring system that manages user information and accounts and provides role-based interfaces for administrators, teachers, students, and parents. The system aims to support efficient attendance tracking through QR code scanning, allow parents to view attendance records automatically, apply automated evaluation features, and send SMS notifications to parents in real time. It also seeks to generate structured reports, including student lists by section, student information sheets, QR codes, and detailed attendance records per section and per student, to support monitoring and record management.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-qrcode"></i> QR Attendance</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-envelope"></i> SMS Alerts</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-users"></i> Multi-User</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('kes-smart')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3031,11 +3958,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">BHC CONNECT</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-hospital"></i> Digital Barangay Health Center</h6>
                             <p class="card-text text-center">The general objective of the study is to design and develop a barangay health information system that manages barangay health worker accounts and supports comprehensive patient record management, including personal data, medical history, treatments, and immunization schedules for children and adults. The system aims to allow patients to schedule appointments, receive automated email reminders, and obtain printed appointment slips. It also seeks to track and manage dispensed medicines with dosage and frequency records, support real-time chat and patient feedback, and provide a dashboard with graphical summaries of appointments and patients. The system will generate structured reports such as appointment lists, patient lists, individual medical records, and medicine inventory to support daily operations and reporting needs.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-clipboard"></i> Patient Records</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-calendar"></i> Appointments</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-pills"></i> Medicine Tracker</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('bhc-connect')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3057,11 +3980,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">HealthConnect</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-hospital"></i> Mobile Health Center App</h6>
                             <p class="card-text text-center">The general objective of the study is to develop a web-based Health Monitoring Services system that manages barangay health worker accounts and supports nurses and midwives in maintaining comprehensive patient records, including personal information, medical history, and treatments. The system aims to enable patients to schedule appointments and receive automated SMS reminders, track and manage immunization schedules for children and adults, and provide a graphical dashboard to monitor daily, weekly, and monthly appointments and patient counts. It will also generate detailed reports, including appointment lists, patient lists, medical records, and appointment slips, and will be evaluated based on accuracy, security, functionality, and overall effectiveness.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-users"></i> Patient Management</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-syringe"></i> Immunization</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-bar"></i> Analytics</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('healthconnect')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3083,12 +4002,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">ImmuCare</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-syringe"></i> Smart Immunization Registry</h6>
                             <p class="card-text text-center">The general objective of the study is to design and develop a web-based immunization management system that manages accounts for administrators, midwives, and nurses, and records and stores patient immunization data. The system will allow clients to schedule appointments, provide SMS and email notifications to patients, and enable administrators to transfer files and data to the municipal health center. It will include search and filtering features by gender, purok, diagnosis, and patient information, and generate reports such as patient lists, appointments, personal information, and diagnoses. The system will be evaluated based on functionality, accuracy, effectiveness, and security.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-calendar-check"></i> Auto Scheduling</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-bell"></i> Smart Alerts</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-line"></i> Tracking Dashboard</span>
-                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-chart-area"></i> Progress Reports</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('immucare')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3110,12 +4024,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">AidTrack</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-chart-bar"></i> Aid Distribution System for Barangay Bual</h6>
                             <p class="card-text text-center">The general objective of the study is to develop a digital Barangay Aid Management System that manages user accounts for residents and administrators, provides secure authentication, and ensures accurate registration and verification of qualified beneficiaries. The system aims to track distributed and dismissed benefits, offer real-time monitoring of aid delivery, and support analytics and reporting on aid impact, utilization, and distribution progress. It will integrate SMS notifications, digital receipts and acknowledgments, and a feedback system for beneficiaries, while generating reports on residents and beneficiaries by category. The system will be evaluated based on functionality, accessibility, security, acceptability, and overall efficacy.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-box"></i> Aid Tracking</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-mobile-alt"></i> SMS Alerts</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-chart-bar"></i> Analytics</span>
-                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-comment"></i> Feedback</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('aidtrack')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3137,12 +4046,7 @@
                             <h5 class="card-title fw-bold text-center text-primary">BM-SCaPIS</h5>
                             <h6 class="text-center text-warning mb-3"><i class="fas fa-building"></i> Smart Clearance & Permit System</h6>
                             <p class="card-text text-center">The general objective of the study is to design and develop an online barangay clearance and permit management system that allows residents to register, apply, and track applications digitally while receiving real-time status updates. The system aims to support administrators in managing resident profiles, reviewing and approving applications, scheduling verification or document pickup, and monitoring approved and pending documents. It will integrate SMS and ringtone notifications for updates and reminders, generate comprehensive reports and statistical summaries on applications, issued clearances and permits, residents by category, and transaction logs, and will be evaluated based on functionality, usability, accuracy, acceptability, and security.</p>
-                            <div class="text-center mb-3">
-                                <span class="badge bg-primary me-1 mb-1"><i class="fas fa-file-alt me-1"></i> Online Forms</span>
-                                <span class="badge bg-success me-1 mb-1"><i class="fas fa-tasks me-1"></i> Status Tracking</span>
-                                <span class="badge bg-info me-1 mb-1"><i class="fas fa-calendar-alt me-1"></i> Scheduling</span>
-                                <span class="badge bg-warning me-1 mb-1"><i class="fas fa-chart-bar me-1"></i> Reports</span>
-                            </div>
+
                             <div class="text-center">
                                 <button class="delete-btn-card" onclick="deleteCard('bm-scapis')" title="Delete Card">
                                     <i class="fas fa-trash me-1"></i> Delete
@@ -3175,7 +4079,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="text-white text-center py-4" style="background: #000000 !important;">
+    <footer class="text-white text-center py-4" style="background: #000000;">
         <div class="container">
             <p class="mb-2">Date Created: 2024-03-19</p>
             <p class="mb-0">
@@ -3183,6 +4087,39 @@
             </p>
         </div>
     </footer>
+
+    <!-- Dark/Light Mode Toggle Script -->
+    <script>
+    (function() {
+        // Apply saved theme IMMEDIATELY to prevent flash
+        var saved = localStorage.getItem('portfolio-theme');
+        if (saved === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        // Expose toggle function globally
+        window.toggleTheme = function() {
+            document.body.classList.add('theme-transition');
+            document.body.classList.toggle('light-mode');
+            var isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('portfolio-theme', isLight ? 'light' : 'dark');
+
+            // Update meta theme-color for mobile browsers
+            var metaTheme = document.querySelector('meta[name="theme-color"]');
+            if (!metaTheme) {
+                metaTheme = document.createElement('meta');
+                metaTheme.name = 'theme-color';
+                document.head.appendChild(metaTheme);
+            }
+            metaTheme.content = isLight ? '#ffffff' : '#000000';
+
+            // Remove transition class after animation completes
+            setTimeout(function() {
+                document.body.classList.remove('theme-transition');
+            }, 400);
+        };
+    })();
+    </script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -3250,7 +4187,83 @@
                 }
             });
         });
-        
+
+        // Scroll Animation - Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+
+                    // Determine which animation class to add
+                    if (element.classList.contains('scroll-animate-left')) {
+                        element.classList.add('animate-left');
+                    } else if (element.classList.contains('scroll-animate-right')) {
+                        element.classList.add('animate-right');
+                    } else if (element.classList.contains('scroll-animate-fade')) {
+                        element.classList.add('animate-fade');
+                    } else {
+                        element.classList.add('animate');
+                    }
+
+                    // Stop observing this element
+                    observer.unobserve(element);
+                }
+            });
+        }, observerOptions);
+
+        // Apply scroll animations to all visible elements when page loads
+        window.addEventListener('load', function() {
+            // Animate section headings
+            document.querySelectorAll('section h2, section h3, section h4, section h1').forEach(el => {
+                if (!el.classList.contains('scroll-animate')) {
+                    el.classList.add('scroll-animate', 'scroll-animate-fade');
+                    observer.observe(el);
+                }
+            });
+
+            // Animate cards and content blocks
+            document.querySelectorAll('.section-card, .project-card, .highlight-box').forEach(el => {
+                if (!el.classList.contains('scroll-animate')) {
+                    el.classList.add('scroll-animate');
+                    observer.observe(el);
+                }
+            });
+
+            // Animate badge/button elements
+            document.querySelectorAll('.badge-custom, .btn-primary, .btn-secondary').forEach((el, idx) => {
+                if (!el.classList.contains('scroll-animate')) {
+                    if (idx % 2 === 0) {
+                        el.classList.add('scroll-animate', 'scroll-animate-left');
+                    } else {
+                        el.classList.add('scroll-animate', 'scroll-animate-right');
+                    }
+                    observer.observe(el);
+                }
+            });
+
+            // Animate timeline items
+            document.querySelectorAll('.timeline-item').forEach(el => {
+                if (!el.classList.contains('scroll-animate')) {
+                    el.classList.add('scroll-animate', 'scroll-animate-fade');
+                    observer.observe(el);
+                }
+            });
+
+            // Animate social links
+            document.querySelectorAll('.social-links a').forEach((el, idx) => {
+                if (!el.classList.contains('scroll-animate')) {
+                    el.classList.add('scroll-animate');
+                    el.style.animationDelay = (idx * 0.1) + 's';
+                    observer.observe(el);
+                }
+            });
+        });
+
         // Upload Modal Functions
         let currentProjectId = null;
         let selectedFiles = [];
@@ -4565,7 +5578,7 @@
         height: 520px;
         background: #0d0f14;
         border: 1px solid #00fff740;
-        border-radius: 16px;
+        border-radius: 15px;
         z-index: 10001;
         display: none;
         flex-direction: column;
@@ -4701,7 +5714,7 @@
     .chat-msg pre {
         background: #1e1e1e;
         border: 1px solid #00fff730;
-        border-radius: 8px;
+        border-radius: 15px;
         padding: 16px;
         margin: 8px 0;
         overflow-x: auto;
@@ -4743,7 +5756,7 @@
         padding: 8px 14px;
         background: #282c34;
         border-bottom: 1px solid #00fff730;
-        border-radius: 8px 8px 0 0;
+        border-radius: 15px 15px 0 0;
         margin: 0;
     }
     .code-language {
@@ -4781,7 +5794,7 @@
     }
     .code-block-wrapper {
         margin: 6px 0 8px 0;
-        border-radius: 8px;
+        border-radius: 15px;
         overflow: hidden;
         border: 1px solid #00fff730;
         box-shadow: 0 2px 8px rgba(0, 255, 247, 0.1);
@@ -4846,7 +5859,7 @@
         flex: 1;
         background: #1a1c25;
         border: 1px solid #00fff730;
-        border-radius: 20px;
+        border-radius: 15px;
         padding: 8px 16px;
         color: #e0e0e0;
         font-size: 0.85rem;
@@ -4919,7 +5932,7 @@
     .chat-chip {
         background: #1a1c25;
         border: 1px solid #00fff725;
-        border-radius: 16px;
+        border-radius: 15px;
         padding: 4px 12px;
         font-size: 0.72rem;
         color: #00fff7;
@@ -5027,6 +6040,7 @@
     /* Tablet & larger phones */
     @media (max-width: 768px) {
         #chatbotToggle { width: 56px; height: 56px; font-size: 1.4rem; right: 8px; bottom: 8px; }
+        #mobileThemeToggle { width: 56px; height: 56px; font-size: 1.2rem; right: 8px; bottom: 72px; }
         #chatbotWindow { 
             width: calc(100vw - 16px); 
             height: calc(100dvh - 16px);
@@ -5050,6 +6064,7 @@
     /* Standard phones */
     @media (max-width: 480px) {
         #chatbotToggle { width: 52px; height: 52px; font-size: 1.3rem; right: 6px; bottom: 6px; }
+        #mobileThemeToggle { width: 52px; height: 52px; font-size: 1.1rem; right: 6px; bottom: 66px; }
         #chatbotWindow { 
             position: fixed;
             width: 100vw;
@@ -5187,6 +6202,7 @@
     /* GPU-layer all fixed elements to prevent keyboard-induced jitter */
     .navbar.fixed-top,
     #chatbotToggle,
+    #mobileThemeToggle,
     #viewerCounter,
     #chatbotBackdrop {
         backface-visibility: hidden;
@@ -5197,7 +6213,8 @@
 
     /* Hide viewer counter & chatbot toggle when chatbot is fullscreen on mobile */
     body.chatbot-open #viewerCounter,
-    body.chatbot-open #chatbotToggle {
+    body.chatbot-open #chatbotToggle,
+    body.chatbot-open #mobileThemeToggle {
         opacity: 0 !important;
         pointer-events: none !important;
         transition: opacity 0.15s ease;
@@ -5213,6 +6230,7 @@
             will-change: transform;
         }
         #chatbotToggle,
+        #mobileThemeToggle,
         #viewerCounter {
             will-change: transform;
         }
@@ -5225,11 +6243,24 @@
             height: -webkit-fill-available;
         }
     }
+
+    /* Global glow removal */
+    *, *::before, *::after {
+        text-shadow: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+    }
     </style>
 
     <!-- Chatbot Toggle Button -->
     <button id="chatbotToggle" onclick="toggleChatbot()" title="Chat with AI Assistant">
         <i class="fas fa-robot"></i>
+    </button>
+
+    <!-- Mobile Floating Theme Toggle (above chatbot, mobile only) -->
+    <button id="mobileThemeToggle" onclick="toggleTheme()" title="Switch theme">
+        <i class="fas fa-moon icon-moon"></i>
+        <i class="fas fa-sun icon-sun"></i>
     </button>
 
     <!-- Backdrop Overlay -->
@@ -7110,7 +8141,7 @@ feeling good developer\n`;
         background: #00fff7;
         color: #0a0a0f;
         padding: 2px 5px;
-        border-radius: 8px;
+        border-radius: 15px;
         box-shadow: 0 0 4px #00fff720;
         font-weight: 600;
         font-size: 0.55rem;
