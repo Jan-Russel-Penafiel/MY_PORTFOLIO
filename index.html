@@ -76,6 +76,577 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <style>
+      /* Photo Gallery Section */
+      #gallery {
+        padding: 60px 0;
+        width: 100%;
+      }
+      #gallery .gallery-section-header {
+        margin-bottom: 2rem;
+      }
+      #gallery .gallery-section-header p {
+        color: rgba(255,255,255,0.6);
+        font-size: 1.05rem;
+      }
+      body.light-mode #gallery .gallery-section-header p {
+        color: rgba(28,30,33,0.6);
+      }
+
+      /* Photo Gallery Carousel Wrapper */
+      .gallery-carousel-wrapper {
+        position: relative;
+        max-width: 750px;
+        width: 100%;
+        margin: 0 auto;
+        border-radius: 14px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        box-shadow: none;
+        transition: all 0.3s ease;
+      }
+      .gallery-carousel-wrapper:hover {
+        border-color: #00fff7;
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
+      }
+      body.light-mode .gallery-carousel-wrapper {
+        background: #ffffff;
+        border: 1.5px solid #dddfe2;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      body.light-mode .gallery-carousel-wrapper:hover {
+        border-color: #1c1e21;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      }
+
+      /* Carousel fade transition */
+      #photoGalleryCarousel.carousel-fade .carousel-item {
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+      }
+      #photoGalleryCarousel.carousel-fade .carousel-item.active {
+        opacity: 1;
+      }
+
+      /* Photo Gallery Carousel Image Sizing */
+      #photoGalleryCarousel .carousel-item img {
+        max-width: 100%;
+        max-height: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        object-fit: cover;
+        width: 100%;
+        height: 420px;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+
+      /* Carousel overlay gradient for controls visibility */
+      .gallery-carousel-wrapper::before,
+      .gallery-carousel-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 80px;
+        z-index: 2;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gallery-carousel-wrapper::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+      }
+      .gallery-carousel-wrapper::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
+      }
+      .gallery-carousel-wrapper:hover::before,
+      .gallery-carousel-wrapper:hover::after {
+        opacity: 1;
+      }
+
+      /* Gallery outer flex container (holds side buttons + wrapper) */
+      .gallery-outer-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 880px;
+        margin: 0 auto;
+        gap: 14px;
+        padding: 0 8px;
+      }
+      .gallery-outer-container .gallery-carousel-wrapper {
+        flex: 1;
+        max-width: 750px;
+        margin: 0;
+      }
+
+      /* Carousel side buttons (outside wrapper) */
+      .gallery-side-btn {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,255,247,0.15);
+        border: 1.5px solid rgba(0,255,247,0.5);
+        border-radius: 50%;
+        opacity: 1;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        color: #fff;
+        cursor: pointer;
+      }
+      .gallery-side-btn:hover {
+        background: rgba(0,255,247,0.3);
+        box-shadow: 0 0 20px rgba(0,255,247,0.4);
+        transform: scale(1.1);
+      }
+      .gallery-side-btn .carousel-control-prev-icon,
+      .gallery-side-btn .carousel-control-next-icon {
+        width: 18px;
+        height: 18px;
+      }
+      body.light-mode .gallery-side-btn {
+        background: rgba(0,0,0,0.75);
+        border: 1.5px solid rgba(0,0,0,0.85);
+      }
+      body.light-mode .gallery-side-btn:hover {
+        background: rgba(0,0,0,0.9);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.35);
+      }
+      body.light-mode .gallery-side-btn .carousel-control-prev-icon,
+      body.light-mode .gallery-side-btn .carousel-control-next-icon {
+        filter: none;
+      }
+      @media (max-width: 480px) {
+        .gallery-side-btn { width: 38px; height: 38px; }
+      }
+
+      /* Carousel indicators */
+      #photoGalleryCarousel .carousel-indicators {
+        bottom: 12px;
+        margin-bottom: 0;
+        z-index: 3;
+        gap: 6px;
+      }
+      #photoGalleryCarousel .carousel-indicators [data-bs-target] {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(0,255,247,0.7);
+        background: transparent;
+        opacity: 0.6;
+        transition: all 0.3s ease;
+        margin: 0;
+      }
+      #photoGalleryCarousel .carousel-indicators .active {
+        background: #00fff7;
+        opacity: 1;
+        box-shadow: 0 0 8px rgba(0,255,247,0.6);
+        transform: scale(1.2);
+      }
+      body.light-mode #photoGalleryCarousel .carousel-indicators [data-bs-target] {
+        border-color: rgba(28,30,33,0.5);
+      }
+      body.light-mode #photoGalleryCarousel .carousel-indicators .active {
+        background: #1c1e21;
+        box-shadow: 0 0 6px rgba(28,30,33,0.3);
+      }
+
+      /* Image counter overlay */
+      .gallery-carousel-counter {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: rgba(0,0,0,0.6);
+        color: #00fff7;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 3;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(0,255,247,0.3);
+        letter-spacing: 1px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .gallery-carousel-wrapper:hover .gallery-carousel-counter {
+        opacity: 1;
+      }
+      body.light-mode .gallery-carousel-counter {
+        background: rgba(255,255,255,0.85);
+        color: #1c1e21;
+        border-color: #ccc;
+      }
+
+
+      /* Gallery responsive: Tablets & small laptops (max-width: 1024px) */
+      @media (max-width: 1024px) {
+        #gallery {
+          padding: 50px 0;
+        }
+        .gallery-carousel-wrapper {
+          max-width: 90%;
+        }
+        #photoGalleryCarousel .carousel-item img {
+          max-height: 380px;
+          height: 380px;
+        }
+      }
+
+      /* Gallery responsive: Tablets portrait (max-width: 768px) */
+      @media (max-width: 768px) {
+        #gallery {
+          padding: 30px 0;
+          min-height: 100vh;
+        }
+        #gallery .container {
+          padding-left: 0;
+          padding-right: 0;
+          max-width: 100%;
+        }
+        .gallery-carousel-wrapper {
+          max-width: 100%;
+          border-radius: 0;
+          border-left: none;
+          border-right: none;
+        }
+        #photoGalleryCarousel .carousel-item img {
+          max-width: 100%;
+          max-height: 55vw;
+          height: 55vw;
+          width: 100%;
+        }
+        #photoGalleryCarousel .carousel-control-prev,
+        #photoGalleryCarousel .carousel-control-next {
+          width: 40px;
+          height: 40px;
+          opacity: 0.85;
+        }
+        .gallery-carousel-counter {
+          opacity: 1;
+        }
+        #photoGalleryCarousel .carousel-indicators {
+          bottom: 8px;
+        }
+      }
+
+      /* Gallery responsive: Large phones (max-width: 540px) — Surface Duo, etc. */
+      @media (max-width: 540px) {
+        #gallery {
+          padding: 20px 0;
+        }
+        #gallery .gallery-section-header {
+          margin-bottom: 1rem;
+        }
+        #gallery .gallery-section-header h2 {
+          font-size: 1.3rem;
+        }
+        #gallery .gallery-section-header p {
+          font-size: 0.9rem;
+        }
+        #photoGalleryCarousel .carousel-item img {
+          max-height: 60vw;
+          height: 60vw;
+        }
+        #photoGalleryCarousel .carousel-control-prev,
+        #photoGalleryCarousel .carousel-control-next {
+          width: 36px;
+          height: 36px;
+        }
+        #photoGalleryCarousel .carousel-control-prev-icon,
+        #photoGalleryCarousel .carousel-control-next-icon {
+          width: 14px;
+          height: 14px;
+        }
+      }
+
+      /* Gallery responsive: Standard phones (max-width: 430px) — iPhone Pro Max, Galaxy S20 Ultra */
+      @media (max-width: 430px) {
+        #gallery {
+          padding: 15px 0;
+        }
+        #photoGalleryCarousel .carousel-item img {
+          max-height: 65vw;
+          height: 65vw;
+        }
+        .gallery-carousel-counter {
+          top: 10px;
+          right: 10px;
+          font-size: 0.7rem;
+          padding: 3px 10px;
+        }
+        #photoGalleryCarousel .carousel-indicators [data-bs-target] {
+          width: 8px;
+          height: 8px;
+        }
+      }
+
+      /* Gallery responsive: Small phones (max-width: 375px) — iPhone SE, Galaxy S8+ */
+      @media (max-width: 375px) {
+        #gallery {
+          padding: 10px 0;
+        }
+        #gallery .gallery-section-header h2 {
+          font-size: 1.1rem;
+        }
+        #gallery .gallery-section-header p {
+          font-size: 0.82rem;
+        }
+        #photoGalleryCarousel .carousel-item img {
+          max-height: 70vw;
+          height: 70vw;
+        }
+        #photoGalleryCarousel .carousel-control-prev,
+        #photoGalleryCarousel .carousel-control-next {
+          width: 32px;
+          height: 32px;
+        }
+        #photoGalleryCarousel .carousel-control-prev-icon,
+        #photoGalleryCarousel .carousel-control-next-icon {
+          width: 12px;
+          height: 12px;
+        }
+      }
+
+      /* Gallery responsive: Very small devices (max-width: 320px) — Galaxy Z Fold cover */
+      @media (max-width: 320px) {
+        #gallery .gallery-section-header h2 {
+          font-size: 1rem;
+        }
+        #gallery .gallery-section-header p {
+          font-size: 0.78rem;
+        }
+        #photoGalleryCarousel .carousel-item img {
+          max-height: 75vw;
+          height: 75vw;
+        }
+        #photoGalleryCarousel .carousel-control-prev,
+        #photoGalleryCarousel .carousel-control-next {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      /* ===== Photo Gallery Fullscreen Preview ===== */
+      .gallery-fullscreen-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.95);
+        z-index: 99999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        cursor: zoom-out;
+      }
+      .gallery-fullscreen-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+      .gallery-fullscreen-overlay img {
+        max-width: 98vw;
+        width: 98vw;
+        max-height: 92vh;
+        object-fit: contain;
+        border-radius: 4px;
+        box-shadow: 0 0 60px rgba(0,255,247,0.15);
+        transition: transform 0.3s ease;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+      .gallery-fullscreen-close {
+        position: absolute;
+        top: 18px;
+        right: 24px;
+        background: rgba(0,255,247,0.15);
+        border: 1.5px solid rgba(0,255,247,0.5);
+        color: #00fff7;
+        font-size: 1.6rem;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100000;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+      }
+      .gallery-fullscreen-close:hover {
+        background: rgba(0,255,247,0.3);
+        box-shadow: 0 0 20px rgba(0,255,247,0.4);
+        transform: scale(1.1);
+      }
+      .gallery-fullscreen-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0,255,247,0.12);
+        border: 1.5px solid rgba(0,255,247,0.4);
+        color: #00fff7;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100000;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        font-size: 1.2rem;
+      }
+      .gallery-fullscreen-nav:hover {
+        background: rgba(0,255,247,0.3);
+        box-shadow: 0 0 20px rgba(0,255,247,0.4);
+        transform: translateY(-50%) scale(1.1);
+      }
+      .gallery-fullscreen-prev { left: 20px; }
+      .gallery-fullscreen-next { right: 20px; }
+      .gallery-fullscreen-counter {
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #00fff7;
+        font-size: 0.9rem;
+        font-weight: 600;
+        background: rgba(0,0,0,0.6);
+        padding: 6px 18px;
+        border-radius: 20px;
+        border: 1px solid rgba(0,255,247,0.3);
+        backdrop-filter: blur(6px);
+        letter-spacing: 1px;
+        z-index: 100000;
+      }
+      body.light-mode .gallery-fullscreen-overlay {
+        background: rgba(255,255,255,0.97);
+      }
+      body.light-mode .gallery-fullscreen-overlay img {
+        box-shadow: 0 0 60px rgba(0,0,0,0.15);
+      }
+      body.light-mode .gallery-fullscreen-close,
+      body.light-mode .gallery-fullscreen-nav {
+        background: rgba(0,0,0,0.08);
+        border-color: rgba(0,0,0,0.2);
+        color: #1c1e21;
+      }
+      body.light-mode .gallery-fullscreen-close:hover,
+      body.light-mode .gallery-fullscreen-nav:hover {
+        background: rgba(0,0,0,0.15);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      }
+      body.light-mode .gallery-fullscreen-counter {
+        background: rgba(255,255,255,0.85);
+        color: #1c1e21;
+        border-color: #ccc;
+      }
+
+      /* Gallery fullscreen responsive */
+      @media (max-width: 768px) {
+        .gallery-fullscreen-nav {
+          width: 38px;
+          height: 38px;
+          font-size: 1rem;
+        }
+        .gallery-fullscreen-prev { left: 10px; }
+        .gallery-fullscreen-next { right: 10px; }
+        .gallery-fullscreen-close {
+          top: 12px;
+          right: 14px;
+          width: 38px;
+          height: 38px;
+          font-size: 1.3rem;
+        }
+        .gallery-fullscreen-overlay img {
+          max-width: 100vw;
+          width: 100vw;
+          max-height: 90vh;
+          border-radius: 0;
+        }
+      }
+
+      /* ===== Gallery Upload Button ===== */
+      .gallery-upload-btn {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: rgba(0,255,247,0.15);
+        border: 1.5px solid rgba(0,255,247,0.5);
+        color: #00fff7;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 4;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(8px);
+        font-size: 0.85rem;
+      }
+      .gallery-upload-btn.enabled {
+        display: flex;
+      }
+      .gallery-upload-btn:hover {
+        background: rgba(0,255,247,0.3);
+        box-shadow: 0 0 20px rgba(0,255,247,0.4);
+        transform: scale(1.1);
+      }
+      body.light-mode .gallery-upload-btn {
+        background: rgba(255,255,255,0.8);
+        border: 1.5px solid #ccc;
+        color: #1c1e21;
+      }
+      body.light-mode .gallery-upload-btn:hover {
+        background: rgba(255,255,255,0.95);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      }
+
+            /* Book Appointment button mobile/desktop visibility */
+            .book-appointment-mobile {
+              display: none;
+            }
+            .book-appointment-desktop {
+              display: block;
+            }
+            .book-appointment-btn {
+              width: 100%;
+              min-width: 220px !important;
+              max-width: 420px !important;
+              font-size: 1.05rem;
+              padding-top: 14px;
+              padding-bottom: 14px;
+            }
+            @media (max-width: 768px) {
+              .book-appointment-mobile {
+                display: block !important;
+              }
+              .book-appointment-desktop {
+                display: none !important;
+              }
+              .book-appointment-btn {
+                width: 100%;
+                min-width: 180px !important;
+                max-width: 100vw !important;
+                font-size: 1rem;
+                padding-top: 12px;
+                padding-bottom: 12px;
+              }
+            }
       body {
         font-family: "Poppins", sans-serif;
         line-height: 1.6;
@@ -150,12 +721,12 @@
       .badge-custom {
         background: linear-gradient(135deg, #0a0a0f 0%, #181825 100%);
         color: #00fff7;
-        padding: 10px 18px;
+        padding: 6px 12px;
         border-radius: 10px;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
-        margin: 5px;
+        margin: 3px;
         font-weight: 700;
         font-family: "Orbitron", sans-serif;
         letter-spacing: 0.8px;
@@ -165,10 +736,29 @@
           0 0 8px #00fff780,
           0 0 18px #00fff740,
           inset 0 0 10px #00fff720;
-        transition: all 0.28s ease;
+        transition: color 0.28s cubic-bezier(0.4,0,0.2,1), background 0.28s cubic-bezier(0.4,0,0.2,1), border-color 0.28s cubic-bezier(0.4,0,0.2,1), box-shadow 0.28s cubic-bezier(0.4,0,0.2,1), text-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
         position: relative;
         overflow: hidden;
+        min-width: 80px;
+        max-width: 120px;
+        font-size: 0.8rem;
+        word-break: break-word;
       }
+            @media (max-width: 600px) {
+              .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 98vw;
+              }
+              .badge-custom {
+                width: 100%;
+                font-size: 0.75rem;
+                padding: 10px 0;
+                min-width: unset;
+                max-width: unset;
+              }
+            }
+      
 
       .badge-custom::before {
         content: "";
@@ -224,18 +814,19 @@
       }
 
       .section-card {
-        background: #181825;
-        border-radius: 15px;
-        box-shadow: 0 0 24px #00fff7a0;
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
+        border-radius: 14px;
+        box-shadow: none;
         padding: 30px;
         margin: 20px 0;
-        transition: transform 0.3s ease;
-        border: 1.5px solid #00fff7;
+        transition: all 0.3s ease;
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
       }
 
       .section-card:hover {
-        transform: translateY(-5px) scale(1.01);
-        box-shadow: 0 0 32px #00fff7;
+        transform: translateY(-3px);
+        border-color: #00fff7;
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
       }
 
       .tech-badge {
@@ -248,19 +839,19 @@
       }
 
       .project-card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 0 24px #00fff7a0;
-        transition: transform 0.3s ease;
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        border-radius: 14px;
+        box-shadow: none;
+        transition: all 0.3s ease;
         margin-bottom: 20px;
-        background: #181825;
-        border: 1.5px solid #00fff7;
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
         min-height: 200px;
       }
 
       .project-card:hover {
-        transform: translateY(-5px) scale(1.01);
-        box-shadow: 0 0 32px #00fff7;
+        transform: translateY(-3px);
+        border-color: #00fff7;
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
       }
 
       .project-card .card-body {
@@ -268,8 +859,41 @@
         color: #e0e0e0;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         height: 100%;
+      }
+
+      .project-card .card-title {
+        min-height: 2.4em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .project-card .card-text.project-bullets {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        text-align: left;
+        flex-grow: 1;
+      }
+
+      .project-card .card-text.project-bullets li {
+        position: relative;
+        padding-left: 1.3em;
+        margin-bottom: 0.45em;
+        line-height: 1.5;
+      }
+
+      .project-card .card-text.project-bullets li::before {
+        content: '\f00c';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: #00fff7;
+        font-size: 0.75em;
+        top: 0.25em;
       }
 
       .project-meta-row {
@@ -290,7 +914,7 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        border-radius: 15px;
+        border-radius: 14px;
       }
 
       .project-image-link::before {
@@ -325,13 +949,14 @@
       }
 
       .highlight-box {
-        background: #16181e;
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
         color: #00fff7;
         padding: 20px;
-        border-radius: 15px;
+        border-radius: 14px;
         margin: 20px 0;
-        border: 1.5px solid #00fff7;
-        box-shadow: 0 0 8px #00fff730;
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        box-shadow: none;
+        transition: all 0.3s ease;
       }
 
       .journey-timeline {
@@ -1878,14 +2503,14 @@
       }
 
       .stat-card {
-        background: linear-gradient(135deg, #1a1c2e 0%, #181825 100%);
-        border: 2px solid #00fff7;
-        border-radius: 15px;
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        border-radius: 14px;
         padding: 25px;
         text-align: center;
         flex: 1;
         min-width: 200px;
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
         animation: slideInUp 0.6s ease-out backwards;
@@ -1928,8 +2553,8 @@
       }
 
       .stat-card:hover {
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 10px 40px #00fff780;
+        transform: translateY(-3px);
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
         border-color: #00fff7;
       }
 
@@ -2196,65 +2821,159 @@
 
       /* Gallery Modal Customization */
       #galleryModal .modal-dialog {
-        max-width: 85vw;
-        width: 900px;
+        max-width: 90vw;
+        width: 950px;
         margin: 1.75rem auto;
         max-height: calc(100vh - 3.5rem);
       }
 
       #galleryModal .modal-content {
-        background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
-        border: 2px solid #00fff7;
-        border-radius: 15px;
-        box-shadow: 0 0 40px rgba(0, 255, 247, 0.3);
+        background: linear-gradient(135deg, #12141f 0%, #0a0c12 100%);
+        border: 1.5px solid rgba(0,255,247,0.4);
+        border-radius: 20px;
+        box-shadow: 0 0 60px rgba(0,255,247,0.15), 0 25px 50px rgba(0,0,0,0.5);
         max-height: calc(100vh - 3.5rem);
         display: flex;
         flex-direction: column;
+        overflow: hidden;
       }
 
       #galleryModal .modal-header {
-        border-bottom: 1px solid rgba(0, 255, 247, 0.3);
-        padding: 15px 25px;
+        border-bottom: 1px solid rgba(0,255,247,0.15);
+        padding: 14px 24px;
         flex-shrink: 0;
+        background: rgba(0,0,0,0.3);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+      }
+
+      #galleryModal .modal-header-left {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      #galleryModal .modal-header-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+
+      .gallery-header-nav {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .gallery-header-nav button {
+        background: rgba(0,255,247,0.08);
+        border: 1.5px solid rgba(0,255,247,0.4);
+        color: #00fff7;
+        width: 26px;
+        height: 26px;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.65rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .gallery-header-nav button:hover {
+        background: rgba(0,255,247,0.2);
+        box-shadow: 0 0 12px rgba(0,255,247,0.4);
+        transform: scale(1.1);
+      }
+
+      #galleryCounter {
+        font-size: 0.72rem;
+        font-weight: 600;
+        min-width: 52px;
+        text-align: center;
+        color: #00fff7;
+        letter-spacing: 1px;
+      }
+
+      #galleryModal .modal-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        color: #00fff7;
+      }
+
+      /* Slideshow toggle button */
+      .gallery-slideshow-btn {
+        background: rgba(0,255,247,0.08);
+        border: 1.5px solid rgba(0,255,247,0.35);
+        color: #00fff7;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .gallery-slideshow-btn:hover {
+        background: rgba(0,255,247,0.18);
+        box-shadow: 0 0 15px rgba(0,255,247,0.3);
+        transform: scale(1.1);
+      }
+      .gallery-slideshow-btn.active {
+        background: rgba(0,255,247,0.25);
+        box-shadow: 0 0 20px rgba(0,255,247,0.5);
+        animation: gallerySlideshowPulse 2s ease-in-out infinite;
+      }
+      @keyframes gallerySlideshowPulse {
+        0%, 100% { box-shadow: 0 0 12px rgba(0,255,247,0.3); }
+        50% { box-shadow: 0 0 25px rgba(0,255,247,0.6); }
       }
 
       #galleryModal .btn-close {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300fff7'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") !important;
         opacity: 1 !important;
-        filter: drop-shadow(0 0 6px #00fff7) drop-shadow(0 0 14px rgba(0, 255, 247, 0.7)) !important;
+        filter: drop-shadow(0 0 4px rgba(0,255,247,0.5)) !important;
         transition: all 0.3s ease;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        margin: 0;
       }
 
       #galleryModal .btn-close:hover {
-        filter: drop-shadow(0 0 12px #00fff7) drop-shadow(0 0 28px #00fff7) !important;
-        transform: scale(1.2);
+        filter: drop-shadow(0 0 10px #00fff7) drop-shadow(0 0 20px rgba(0,255,247,0.5)) !important;
+        transform: scale(1.15) rotate(90deg);
         opacity: 1 !important;
       }
 
       #galleryModal .modal-body {
-        padding: 20px 25px;
+        padding: 0;
         overflow: hidden;
         display: flex;
         flex-direction: column;
-      }
-
-      #galleryModal .modal-title {
-        font-size: 1.3rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 2px;
+        flex: 1;
       }
 
       .gallery-image-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        height: calc(100vh - 250px);
-        max-height: 550px;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 15px;
-        padding: 15px;
+        flex: 1;
+        min-height: 0;
+        height: calc(100vh - 280px);
+        max-height: 520px;
+        background: rgba(0,0,0,0.5);
+        padding: 20px;
         position: relative;
+        overflow: hidden;
       }
 
       #galleryMainImage {
@@ -2263,76 +2982,211 @@
         width: auto;
         height: auto;
         object-fit: contain;
-        border: 3px solid #00fff7;
-        border-radius: 15px;
-        box-shadow: 0 0 30px rgba(0, 255, 247, 0.4);
+        border-radius: 12px;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        cursor: zoom-in;
+      }
+      #galleryMainImage.gallery-fade-out {
+        opacity: 0;
+        transform: scale(0.97);
+      }
+      #galleryMainImage.gallery-fade-in {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* Gallery bottom bar (controls + thumbnails) */
+      .gallery-bottom-bar {
+        background: rgba(0,0,0,0.4);
+        border-top: 1px solid rgba(0,255,247,0.1);
+        padding: 12px 20px;
+        flex-shrink: 0;
       }
 
       .gallery-controls {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        gap: 20px;
-        margin-bottom: 15px;
+        gap: 16px;
+        margin-bottom: 10px;
         flex-shrink: 0;
       }
 
       .gallery-controls button {
-        background: rgba(0, 255, 247, 0.1);
-        border: 2px solid #00fff7;
+        background: rgba(0,255,247,0.08);
+        border: 1.5px solid rgba(0,255,247,0.4);
         color: #00fff7;
-        padding: 10px 20px;
-        border-radius: 15px;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
         transition: all 0.3s ease;
+        cursor: pointer;
       }
 
       .gallery-controls button:hover {
-        background: rgba(0, 255, 247, 0.2);
-        box-shadow: 0 0 20px rgba(0, 255, 247, 0.5);
-        transform: scale(1.05);
+        background: rgba(0,255,247,0.2);
+        box-shadow: 0 0 20px rgba(0,255,247,0.4);
+        transform: scale(1.12);
       }
 
       #galleryCounter {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         font-weight: 600;
+        min-width: 100px;
+        text-align: center;
+        color: #00fff7;
+        letter-spacing: 1px;
+      }
+
+      /* Thumbnail strip */
+      .gallery-thumbnails {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        justify-content: center;
+        padding: 4px 0;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0,255,247,0.3) transparent;
+      }
+      .gallery-thumbnails::-webkit-scrollbar {
+        height: 4px;
+      }
+      .gallery-thumbnails::-webkit-scrollbar-thumb {
+        background: rgba(0,255,247,0.3);
+        border-radius: 4px;
+      }
+      .gallery-thumb {
+        width: 52px;
+        height: 52px;
+        border-radius: 8px;
+        object-fit: cover;
+        cursor: pointer;
+        border: 2px solid transparent;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+      }
+      .gallery-thumb:hover {
+        opacity: 0.85;
+        transform: scale(1.08);
+      }
+      .gallery-thumb.active {
+        border-color: #00fff7;
+        opacity: 1;
+        box-shadow: 0 0 12px rgba(0,255,247,0.4);
+        transform: scale(1.05);
+      }
+
+      /* Progress bar for slideshow */
+      .gallery-progress {
+        height: 3px;
+        background: rgba(0,255,247,0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+      .gallery-progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, #00fff7, #00b8d4);
+        border-radius: 3px;
+        width: 0%;
+        transition: width 0.1s linear;
+      }
+      .gallery-progress.hidden {
+        display: none;
+      }
+
+      /* Keyboard hint */
+      .gallery-keyboard-hint {
+        text-align: center;
+        font-size: 0.7rem;
+        color: rgba(0,255,247,0.35);
+        margin-top: 6px;
+        letter-spacing: 0.5px;
+      }
+      .gallery-keyboard-hint kbd {
+        background: rgba(0,255,247,0.1);
+        border: 1px solid rgba(0,255,247,0.2);
+        border-radius: 4px;
+        padding: 1px 6px;
+        font-size: 0.65rem;
+        color: rgba(0,255,247,0.5);
+        font-family: inherit;
       }
 
       @media (max-width: 768px) {
         #galleryModal .modal-dialog {
-          max-width: 95vw;
-          margin: 10px auto;
+          max-width: 98vw;
+          margin: 8px auto;
           max-height: none;
         }
 
         #galleryModal .modal-content {
           max-height: none;
+          border-radius: 14px;
         }
 
         .gallery-image-container {
-          min-height: 300px;
+          min-height: 260px;
           height: auto;
           max-height: none;
+          padding: 12px;
         }
 
         #galleryMainImage {
           max-height: 300px;
         }
 
-        #galleryModal .modal-body {
-          padding: 15px;
-          overflow: auto;
-        }
-
         #galleryModal .modal-header {
-          padding: 15px;
+          padding: 10px 12px;
         }
 
         #galleryModal .modal-title {
-          font-size: 1.1rem;
+          font-size: 0.8rem;
+          letter-spacing: 1px;
+        }
+
+        .gallery-header-nav {
+          gap: 4px;
+        }
+
+        .gallery-header-nav button {
+          width: 20px;
+          height: 20px;
+          font-size: 0.55rem;
+        }
+
+        #galleryCounter {
+          font-size: 0.6rem;
+          min-width: 36px;
+        }
+
+        .gallery-bottom-bar {
+          padding: 10px 12px;
         }
 
         .gallery-controls {
-          margin-bottom: 15px;
+          margin-bottom: 8px;
+        }
+
+        .gallery-controls button {
+          width: 38px;
+          height: 38px;
+        }
+
+        .gallery-thumb {
+          width: 42px;
+          height: 42px;
+        }
+
+        .gallery-keyboard-hint {
+          display: none;
         }
       }
 
@@ -2734,9 +3588,17 @@
         }
         .gallery-image-container {
           min-height: 200px;
+          padding: 8px;
         }
         #galleryMainImage {
           max-height: 200px;
+        }
+        .gallery-thumb {
+          width: 36px;
+          height: 36px;
+        }
+        .gallery-bottom-bar {
+          padding: 8px 10px;
         }
         .stat-card {
           padding: 18px;
@@ -3090,23 +3952,136 @@
           inset 0 0 12px #00fff730 !important;
       }
 
+      /* Profile picture color overrides for Light Mode (desktop & mobile) */
+      body.light-mode .hero-profile-picture {
+        filter: drop-shadow(0 6px 20px rgba(0,0,0,0.18)) !important;
+      }
+
+      body.light-mode .hero-profile-picture::before {
+        border: 1px solid rgba(0,0,0,0.12) !important;
+        background: repeating-linear-gradient(
+          0deg,
+          rgba(0,0,0,0.04) 0px,
+          rgba(0,0,0,0.04) 1px,
+          transparent 1px,
+          transparent 9px
+        ) !important;
+        box-shadow: inset 0 0 12px rgba(0,0,0,0.06), 0 0 24px rgba(0,0,0,0.08) !important;
+      }
+
+      body.light-mode .hero-profile-picture::after {
+        border: 2px dashed rgba(0,0,0,0.08) !important;
+        box-shadow: none !important;
+      }
+
+      body.light-mode .hero-profile-picture img {
+        border: 2px solid rgba(0,0,0,0.9) !important;
+        box-shadow: inset 0 0 12px rgba(0,0,0,0.04), 0 0 18px rgba(0,0,0,0.06) !important;
+      }
+
+      body.light-mode .hero-profile-picture .hero-orbit {
+        border-color: rgba(0,0,0,0.08) !important;
+        box-shadow: none !important;
+      }
+
+      body.light-mode .hero-profile-picture:hover {
+        filter: drop-shadow(0 6px 26px rgba(0,0,0,0.14)) !important;
+      }
+
+      /* Mobile profile picture overrides */
+      body.light-mode .hero-mobile-profile {
+        background: radial-gradient(circle, #ffffff 0%, #f3f4f6 100%) !important;
+        filter: drop-shadow(0 6px 16px rgba(0,0,0,0.12)) !important;
+      }
+
+      body.light-mode .hero-mobile-profile::before {
+        border: 3px solid rgba(0,0,0,0.12) !important;
+        box-shadow: 0 0 8px rgba(0,0,0,0.06) !important;
+      }
+
+      body.light-mode .hero-mobile-profile::after {
+        border: 2px dashed rgba(0,0,0,0.06) !important;
+        box-shadow: none !important;
+      }
+
+      body.light-mode .hero-mobile-profile img {
+        border: 3px solid rgba(0,0,0,0.9) !important;
+        box-shadow: 0 0 10px rgba(0,0,0,0.06) !important;
+      }
+
+      body.light-mode .hero-mobile-profile .corner-tl,
+      body.light-mode .hero-mobile-profile .corner-tr,
+      body.light-mode .hero-mobile-profile .corner-bl,
+      body.light-mode .hero-mobile-profile .corner-br {
+        border-color: rgba(0,0,0,0.12) !important;
+        filter: none !important;
+        box-shadow: none !important;
+      }
+
+      body.light-mode .hero-mobile-profile .energy-ring {
+        border-color: rgba(0,0,0,0.08) !important;
+      }
+
+      body.light-mode .hero-mobile-profile .hex-particle {
+        background: #000 !important;
+        box-shadow: none !important;
+        opacity: 0.65 !important;
+      }
+
+      /* Make specific hero action badges use black glow in Light Mode */
+      body.light-mode .badge-dark-glow {
+          transition: color 0.28s cubic-bezier(0.4,0,0.2,1), background 0.28s cubic-bezier(0.4,0,0.2,1), border-color 0.28s cubic-bezier(0.4,0,0.2,1), box-shadow 0.28s cubic-bezier(0.4,0,0.2,1), text-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
+        background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%) !important;
+        color: #000000 !important;
+        border-color: rgba(0,0,0,0.12) !important;
+        box-shadow: 0 0 12px rgba(0,0,0,0.36), 0 0 24px rgba(0,0,0,0.18) !important;
+        text-shadow: none !important;
+      }
+
+      body.light-mode .badge-dark-glow:hover {
+          transition: color 0.28s cubic-bezier(0.4,0,0.2,1), background 0.28s cubic-bezier(0.4,0,0.2,1), border-color 0.28s cubic-bezier(0.4,0,0.2,1), box-shadow 0.28s cubic-bezier(0.4,0,0.2,1), text-shadow 0.28s cubic-bezier(0.4,0,0.2,1);
+        background: linear-gradient(135deg, #f3f4f6 0%, #e9ecef 100%) !important;
+        color: #000000 !important;
+        box-shadow: 0 0 18px rgba(0,0,0,0.48), 0 0 36px rgba(0,0,0,0.24) !important;
+      }
+
+      /* Ensure icons and any SVGs inside these badges are also black in Light Mode */
+      body.light-mode a.badge-custom.badge-dark-glow,
+      body.light-mode a.badge-custom.badge-dark-glow i,
+      body.light-mode a.badge-custom.badge-dark-glow svg {
+        color: #000000 !important;
+        fill: #000000 !important;
+        opacity: 1 !important;
+        text-shadow: none !important;
+      }
+
+      /* Target FontAwesome icon classes explicitly for higher specificity */
+      body.light-mode a.badge-custom.badge-dark-glow i.fas,
+      body.light-mode a.badge-custom.badge-dark-glow i.fab,
+      body.light-mode a.badge-custom.badge-dark-glow i.far {
+        color: #000000 !important;
+        opacity: 1 !important;
+      }
+
       body.light-mode .section-card {
         background: #ffffff !important;
         border-color: #dddfe2 !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
         color: #1c1e21 !important;
       }
       body.light-mode .section-card:hover {
+        border-color: #1c1e21 !important;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
       }
 
       body.light-mode .project-card {
         background: #ffffff !important;
         border-color: #dddfe2 !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
       }
       body.light-mode .project-card:hover {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+        border-color: #1c1e21 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
       }
       body.light-mode .project-card .card-body {
         color: #1c1e21 !important;
@@ -3119,10 +4094,10 @@
       }
 
       body.light-mode .highlight-box {
-        background: #f0f2f5 !important;
+        background: #ffffff !important;
         color: #1c1e21 !important;
-        border-color: #1c1e21 !important;
-        box-shadow: none !important;
+        border-color: #dddfe2 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
       }
 
       body.light-mode .quote-box {
@@ -3286,17 +4261,13 @@
         font-weight: 700 !important;
       }
       body.light-mode .stat-card {
-        background: linear-gradient(
-          135deg,
-          #ffffff 0%,
-          #f0f2f5 100%
-        ) !important;
+        background: #ffffff !important;
         border-color: #dddfe2 !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
       }
       body.light-mode .stat-card:hover {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
         border-color: #1c1e21 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
       }
       body.light-mode .stat-icon {
         color: #1c1e21 !important;
@@ -3779,53 +4750,103 @@
       /* ===== Light Mode: Project Gallery Modal ===== */
       body.light-mode #galleryModal .modal-content {
         background: #ffffff !important;
-        border: 2px solid #dddfe2 !important;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+        border: 1.5px solid #dddfe2 !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
         color: #1c1e21 !important;
       }
       body.light-mode #galleryModal .modal-content.text-white {
         color: #1c1e21 !important;
       }
       body.light-mode #galleryModal .modal-header {
-        border-bottom: 1px solid #dddfe2 !important;
-        background: #f0f2f5 !important;
+        border-bottom: 1px solid #e4e6eb !important;
+        background: #f8f9fa !important;
       }
       body.light-mode #galleryModal .modal-title {
         color: #1c1e21 !important;
       }
       body.light-mode #galleryModal .btn-close {
         filter: none !important;
-        opacity: 0.6;
+        opacity: 0.5;
       }
       body.light-mode #galleryModal .btn-close:hover {
         opacity: 1;
+        transform: scale(1.15) rotate(90deg);
       }
       body.light-mode #galleryModal .modal-body {
         background: #ffffff !important;
       }
       body.light-mode .gallery-image-container {
         background: #f0f2f5 !important;
-        border: 1px solid #dddfe2 !important;
       }
       body.light-mode #galleryMainImage {
-        border: 3px solid #1c1e21 !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+        border: none !important;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.1) !important;
       }
-      body.light-mode .gallery-controls button {
-        background: #f0f2f5 !important;
-        border: 2px solid #1c1e21 !important;
+      body.light-mode .gallery-bottom-bar {
+        background: #f8f9fa !important;
+        border-top: 1px solid #e4e6eb !important;
+      }
+      body.light-mode .gallery-controls button,
+      body.light-mode .gallery-header-nav button {
+        background: #ffffff !important;
+        border: 1.5px solid #dddfe2 !important;
         color: #1c1e21 !important;
       }
-      body.light-mode .gallery-controls button:hover {
+      body.light-mode .gallery-controls button:hover,
+      body.light-mode .gallery-header-nav button:hover {
         background: #1c1e21 !important;
         color: #ffffff !important;
-        box-shadow: 0 4px 12px rgba(28, 30, 33, 0.25) !important;
+        box-shadow: 0 4px 12px rgba(28,30,33,0.2) !important;
       }
       body.light-mode #galleryCounter {
         color: #1c1e21 !important;
       }
       body.light-mode #galleryLoadingSpinner .spinner-border {
         color: #1c1e21 !important;
+      }
+      body.light-mode .gallery-slideshow-btn {
+        background: #ffffff !important;
+        border-color: #dddfe2 !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .gallery-slideshow-btn:hover {
+        background: #1c1e21 !important;
+        color: #ffffff !important;
+      }
+      body.light-mode .gallery-slideshow-btn.active {
+        background: #1c1e21 !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 12px rgba(28,30,33,0.2) !important;
+      }
+      body.light-mode .gallery-thumb {
+        border-color: transparent !important;
+      }
+      body.light-mode .gallery-thumb.active {
+        border-color: #1c1e21 !important;
+        box-shadow: 0 0 8px rgba(28,30,33,0.2) !important;
+      }
+      body.light-mode .gallery-progress {
+        background: #e4e6eb !important;
+      }
+      body.light-mode .gallery-progress-bar {
+        background: linear-gradient(90deg, #1c1e21, #555) !important;
+      }
+      body.light-mode .gallery-keyboard-hint {
+        color: rgba(28,30,33,0.35) !important;
+      }
+      body.light-mode .gallery-keyboard-hint kbd {
+        background: #f0f2f5 !important;
+        border-color: #dddfe2 !important;
+        color: rgba(28,30,33,0.5) !important;
+      }
+      body.light-mode .gallery-thumbnails::-webkit-scrollbar-thumb {
+        background: #ccc !important;
+      }
+      body.light-mode .project-card .card-text.project-bullets li::before {
+        color: #000000 !important;
+      }
+      body.light-mode .roadmap-desc.roadmap-bullets li::before {
+        color: #000000 !important;
       }
       body.light-mode .modal-backdrop {
         background: rgba(0, 0, 0, 0.5) !important;
@@ -3889,8 +4910,8 @@
       }
       .roadmap-card {
         background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
-        border: 1.5px solid #00fff750;
-        border-radius: 12px;
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        border-radius: 14px;
         padding: 20px 22px;
         max-width: 360px;
         min-width: 220px;
@@ -3899,7 +4920,7 @@
       }
       .roadmap-card:hover {
         border-color: #00fff7;
-        box-shadow: 0 0 20px #00fff740;
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
         transform: translateY(-3px);
       }
       .roadmap-year {
@@ -3916,6 +4937,9 @@
         font-weight: 700;
         color: #ffffff;
         margin-bottom: 8px;
+        min-height: 2.3em;
+        display: flex;
+        align-items: center;
       }
       .roadmap-desc {
         font-size: 0.88rem;
@@ -3925,8 +4949,31 @@
       }
 
       .roadmap-card .roadmap-desc {
-        text-align: justify;
-        text-justify: inter-word;
+        text-align: left;
+      }
+
+      .roadmap-desc.roadmap-bullets {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+
+      .roadmap-desc.roadmap-bullets li {
+        position: relative;
+        padding-left: 1.2em;
+        margin-bottom: 0.4em;
+        line-height: 1.6;
+      }
+
+      .roadmap-desc.roadmap-bullets li::before {
+        content: '\f00c';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: #00fff7;
+        font-size: 0.7em;
+        top: 0.3em;
       }
       .roadmap-tags {
         display: flex;
@@ -4073,10 +5120,50 @@
         line-height: 1.6;
         color: #b0b8c8;
       }
+      .about-bullets-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .about-bullets-col {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+        flex: 1;
+      }
+
+      .about-bullets-col li {
+        position: relative;
+        padding-left: 1.4em;
+        margin-bottom: 0.6em;
+        font-size: 0.92rem;
+        color: #b0b8c8;
+        line-height: 1.6;
+      }
+
+      .about-bullets-col li::before {
+        content: '\f00c';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: #00fff7;
+        font-size: 0.72em;
+        top: 0.3em;
+      }
+
+      @media (min-width: 992px) {
+        .about-bullets-grid {
+          flex-direction: row;
+          gap: 2rem;
+        }
+      }
+
       #about .about-intro-card {
         background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
-        border: 1.5px solid #00fff750;
-        border-radius: 12px;
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        border-radius: 14px;
         padding: 20px 22px;
         box-shadow: none;
         transition: all 0.3s ease;
@@ -4085,7 +5172,7 @@
       }
       #about .about-intro-card:hover {
         border-color: #00fff7;
-        box-shadow: 0 0 20px #00fff740;
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
         transform: translateY(-3px);
       }
       #about .about-intro-card::before {
@@ -4156,6 +5243,248 @@
         background: #f0f2f5 !important;
         border-color: #dddfe2 !important;
         color: #1c1e21 !important;
+      }
+      body.light-mode .about-bullets-col li::before,
+      body.light-mode .roadmap-desc.roadmap-bullets li::before,
+      body.light-mode .project-card .card-text.project-bullets li::before {
+        color: #1c1e21 !important;
+      }
+
+      /* ===== Experience Section ===== */
+      #experience {
+        background: #000000;
+      }
+      .experience-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .experience-card {
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        border-radius: 14px;
+        padding: 24px 26px;
+        position: relative;
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+      .experience-card:hover {
+        border-color: #00fff7;
+        box-shadow: 0 0 20px rgba(0, 255, 247, 0.25);
+        transform: translateY(-3px);
+      }
+      .experience-card-header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .experience-badges-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .experience-card-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin: 0;
+        line-height: 1.4;
+        text-align: center;
+      }
+      .experience-card-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 12px;
+      }
+      .experience-card-duration {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #00fff7;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        opacity: 0.85;
+        white-space: nowrap;
+      }
+      .experience-card-desc {
+        font-size: 0.88rem;
+        color: #b0b8c8;
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+      .experience-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .experience-badge {
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .experience-badge i {
+        font-size: 0.65rem;
+      }
+      .experience-badge.status-current {
+        background: #00fff7;
+        color: #0a0a0f;
+      }
+      .experience-badge.status-previous {
+        background: rgba(255, 255, 255, 0.12);
+        color: #b0b8c8;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .experience-badge.type-commission {
+        background: rgba(0, 255, 247, 0.1);
+        border: 1px solid #00fff740;
+        color: #00fff7;
+      }
+      .experience-badge.type-regular {
+        background: rgba(76, 175, 80, 0.12);
+        border: 1px solid rgba(76, 175, 80, 0.4);
+        color: #66bb6a;
+      }
+      .experience-badge.type-contractual {
+        background: rgba(255, 183, 77, 0.12);
+        border: 1px solid rgba(255, 183, 77, 0.4);
+        color: #ffb74d;
+      }
+      .experience-card.experience-active {
+        border-color: #00fff7;
+        box-shadow: 0 0 24px #00fff730;
+      }
+      .experience-card.experience-active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #00fff7, transparent);
+        animation: expGlow 3s ease-in-out infinite;
+      }
+      @keyframes expGlow {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+      .experience-bullets {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 14px 0;
+      }
+      .experience-bullets li {
+        position: relative;
+        padding-left: 1.3em;
+        margin-bottom: 0.4em;
+        font-size: 0.88rem;
+        color: #b0b8c8;
+        line-height: 1.6;
+      }
+      .experience-bullets li::before {
+        content: '\f00c';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: #00fff7;
+        font-size: 0.7em;
+        top: 0.3em;
+      }
+
+      /* Experience responsive */
+      @media (max-width: 768px) {
+        .experience-grid {
+          gap: 18px;
+        }
+        .experience-card {
+          padding: 18px 16px;
+        }
+        .experience-card-title {
+          font-size: 0.95rem;
+        }
+      }
+      @media (max-width: 430px) {
+        .experience-card {
+          padding: 14px 12px;
+        }
+        .experience-card-title {
+          font-size: 0.85rem;
+        }
+        .experience-card-desc,
+        .experience-bullets li {
+          font-size: 0.84rem;
+        }
+        .experience-badge {
+          font-size: 0.68rem;
+          padding: 2px 8px;
+        }
+      }
+
+      /* Experience light mode */
+      body.light-mode #experience {
+        background: #f0f2f5 !important;
+      }
+      body.light-mode .experience-card {
+        background: #ffffff !important;
+        border-color: #dddfe2 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+      }
+      body.light-mode .experience-card:hover {
+        border-color: #1c1e21 !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+      }
+      body.light-mode .experience-card.experience-active {
+        border-color: #1c1e21 !important;
+        box-shadow: 0 0 16px rgba(28, 30, 33, 0.15) !important;
+      }
+      body.light-mode .experience-card.experience-active::before {
+        background: linear-gradient(90deg, transparent, #1c1e21, transparent);
+      }
+      body.light-mode .experience-card-title {
+        color: #1c1e21 !important;
+      }
+      body.light-mode .experience-card-duration {
+        color: #555 !important;
+      }
+      body.light-mode .experience-card-desc,
+      body.light-mode .experience-bullets li {
+        color: #444 !important;
+      }
+      body.light-mode .experience-bullets li::before {
+        color: #1c1e21 !important;
+      }
+      body.light-mode .experience-badge.status-current {
+        background: #1c1e21 !important;
+        color: #ffffff !important;
+      }
+      body.light-mode .experience-badge.status-previous {
+        background: #f0f2f5 !important;
+        border-color: #dddfe2 !important;
+        color: #666 !important;
+      }
+      body.light-mode .experience-badge.type-commission {
+        background: #f0f2f5 !important;
+        border-color: #dddfe2 !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .experience-badge.type-regular {
+        background: rgba(76, 175, 80, 0.08) !important;
+        border-color: rgba(76, 175, 80, 0.3) !important;
+        color: #388e3c !important;
+      }
+      body.light-mode .experience-badge.type-contractual {
+        background: rgba(255, 152, 0, 0.08) !important;
+        border-color: rgba(255, 152, 0, 0.3) !important;
+        color: #e65100 !important;
       }
     </style>
   </head>
@@ -4324,33 +5653,32 @@
       </div>
     </div>
 
-    <!-- Gallery Modal (manual viewer, no slideshow) -->
+    <!-- Gallery Modal (enhanced viewer with slideshow) -->
     <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-white">
           <div class="modal-header">
-            <h5 class="modal-title" style="color: #00fff7">PROJECT GALLERY</h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            <div class="modal-header-left">
+              <h5 class="modal-title">PROJECT GALLERY</h5>
+            </div>
+            <div class="gallery-header-nav">
+              <button id="galleryPrevBtn" title="Previous (←)"><i class="fas fa-chevron-left"></i></button>
+              <div id="galleryCounter"></div>
+              <button id="galleryNextBtn" title="Next (→)"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="modal-header-actions">
+              <button class="gallery-slideshow-btn" id="gallerySlideshowBtn" title="Toggle slideshow">
+                <i class="fas fa-play" id="gallerySlideshowIcon"></i>
+              </button>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
           </div>
           <div class="modal-body">
-            <div class="gallery-controls">
-              <button id="galleryPrevBtn">
-                <i class="fas fa-chevron-left"></i>
-              </button>
-              <div
-                id="galleryCounter"
-                class="text-center"
-                style="flex: 1; color: #00fff7"
-              ></div>
-              <button id="galleryNextBtn">
-                <i class="fas fa-chevron-right"></i>
-              </button>
-            </div>
             <div class="gallery-image-container">
               <div
                 id="galleryLoadingSpinner"
@@ -4374,8 +5702,14 @@
                 id="galleryMainImage"
                 src=""
                 alt="Gallery"
+                class="gallery-fade-in"
                 style="display: none"
               />
+            </div>
+            <div class="gallery-bottom-bar">
+              <div class="gallery-progress hidden" id="galleryProgress">
+                <div class="gallery-progress-bar" id="galleryProgressBar"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -4416,48 +5750,21 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse text-center" id="navbarNav">
-          <ul class="navbar-nav mx-auto">
+          <ul class="navbar-nav mx-auto align-items-center">
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#home">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#about">About</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#experience">Experience</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#roadmap">Roadmap</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#tech">Tech Stack</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#gallery">Gallery</a></li>
             <li class="nav-item">
-              <a class="nav-link text-center text-lg-start" href="#home"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-center text-lg-start" href="#about"
-                >About</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-center text-lg-start" href="#roadmap"
-                >Roadmap</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-center text-lg-start" href="#tech"
-                >Tech Stack</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-center text-lg-start" href="#projects"
-                >Projects</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-center text-lg-start" href="#contact"
-                >Contact</a
-              >
+              <button class="theme-toggle-btn btn btn-sm btn-outline-light ms-2" id="themeToggleBtn" onclick="toggleTheme()" title="Switch theme">
+                <i class="fas fa-moon icon-moon"></i>
+                <i class="fas fa-sun icon-sun"></i>
+              </button>
             </li>
           </ul>
-          <!-- Dark/Light Mode Toggle -->
-          <button
-            class="theme-toggle-btn"
-            id="themeToggleBtn"
-            onclick="toggleTheme()"
-            title="Switch theme"
-          >
-            <i class="fas fa-moon icon-moon"></i>
-            <i class="fas fa-sun icon-sun"></i>
-          </button>
         </div>
       </div>
     </nav>
@@ -4489,42 +5796,67 @@
               Open for Commissions | Freelance Web Developer
             </p>
 
+            <!-- Book Appointment button for mobile (visible only on mobile, now below Web Developer) -->
+            <div class="book-appointment-mobile" style="margin-bottom: 1.5rem;">
+              <a
+                href="https://calendly.com/janrusselpenafiel01172005"
+                class="badge-custom badge-dark-glow fade-in-pulse book-appointment-btn"
+                target="_blank"
+                style="animation-delay:0.45s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both;"
+              >
+<i class="fa fa-hand-point-right me-1" aria-hidden="true"></i> Book Appointment <i class="fa fa-hand-point-left me-2" aria-hidden="true"></i>
+              </a>
+            </div>
+
             <div class="hero-actions">
-              <a
-                href="https://github.com/Jan-Russel-Penafiel"
-                class="badge-custom"
-                target="_blank"
-              >
-                <i class="fab fa-github me-2"></i>GitHub - View My Projects
-              </a>
-              <a
-                href="https://www.linkedin.com/in/jan-russel-peñafiel-a1799036b"
-                class="badge-custom"
-                target="_blank"
-              >
-                <i class="fab fa-linkedin me-2"></i>LinkedIn - Connect With Me
-              </a>
-              <a href="./resume.pdf" class="badge-custom" download>
-                <i class="fas fa-file-pdf me-2"></i>Resume - View Complete PDF
-              </a>
-              <a
-                href="https://www.facebook.com/share/1DmXaiWrjm/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="badge-custom"
-              >
-                <i class="fas fa-building me-2"></i>Development Team: Team
-                AsyncX
-              </a>
-              <a
-                href="https://maps.app.goo.gl/A7iNi3GtkMFKG2co6"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="badge-custom"
-              >
-                <i class="fas fa-map-marker-alt me-2"></i>Location: Panay, Santo
-                Niño, South Cotabato
-              </a>
+              <div class="hero-actions-grid">
+                <a
+                  href="https://github.com/Jan-Russel-Penafiel"
+                  class="badge-custom badge-dark-glow fade-in-pulse"
+                  target="_blank"
+                  style="animation-delay:0.05s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both; min-width:80px; max-width:120px;"
+                >
+                  <i class="fab fa-github me-2"></i>GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/jan-russel-peñafiel-a1799036b"
+                  class="badge-custom badge-dark-glow fade-in-pulse"
+                  target="_blank"
+                  style="animation-delay:0.15s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both; min-width:80px; max-width:120px;"
+                >
+                  <i class="fab fa-linkedin me-2"></i>LinkedIn
+                </a>
+                <a href="./resume.pdf" class="badge-custom badge-dark-glow fade-in-pulse" download style="animation-delay:0.25s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both; min-width:80px; max-width:120px;">
+                  <i class="fas fa-file-pdf me-2"></i>Resume
+                </a>
+                <a
+                  href="https://www.facebook.com/russelicioush"
+                  class="badge-custom badge-dark-glow fade-in-pulse"
+                  target="_blank"
+                  style="animation-delay:0.35s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both; min-width:80px; max-width:120px;"
+                >
+                  <i class="fab fa-facebook me-2"></i>Facebook
+                </a>
+                <a
+                  href="https://www.facebook.com/share/1FMnnSXYZV/"
+                  class="badge-custom badge-dark-glow fade-in-pulse"
+                  target="_blank"
+                  style="animation-delay:0.36s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both; min-width:120px; max-width:150px;"
+                >
+                  <i class="fab fa-facebook me-2"></i>Team AsyncX
+                </a>
+              </div>
+              <!-- Book Appointment button for desktop (hidden on mobile) -->
+              <div class="hero-actions-bottom book-appointment-desktop">
+                <a
+                  href="https://calendly.com/janrusselpenafiel01172005"
+                  class="badge-custom badge-dark-glow fade-in-pulse book-appointment-btn"
+                  target="_blank"
+                  style="animation-delay:0.45s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both;"
+                >
+<i class="fa fa-hand-point-right me-1" aria-hidden="true"></i>Book Appointment <i class="fa fa-hand-point-left me-2" aria-hidden="true"></i>
+      </a>
+              </div>
             </div>
           </div>
 
@@ -4748,34 +6080,65 @@
         </div>
 
         <div class="about-intro-card">
-          <div class="about-content-wrapper">
-            <h3
-              class="roadmap-section-title text-center"
-              style="font-size: 1.8rem; margin-bottom: 1.5rem"
-            >
-              Hey, I'm Jan Russel! <i class="fas fa-hand-wave"></i>
-            </h3>
+          <h3
+            class="roadmap-section-title text-center"
+            style="font-size: 1.8rem; margin-bottom: 1.5rem"
+          >
+            Hey, I'm Jan Russel! <i class="fas fa-hand-wave"></i>
+          </h3>
 
-            <div class="about-text">
-              <p class="roadmap-desc" style="margin-bottom: 1.5rem">
-                I am a Bachelor of Science in Information Technology student at
-                Sultan Kudarat State University – Isulan Campus, specializing in
-                web technologies. I build clean, functional, and user-focused
-                web applications, including government systems, POS systems,
-                healthcare systems, and custom solutions.
-              </p>
-              <p class="roadmap-desc" style="margin-bottom: 1.5rem">
-                I turn ideas into production-ready systems fast while keeping
-                code quality high. I use AI-assisted development to speed up
-                work without lowering standards. I solve problems by breaking
-                them down, exploring practical options, and writing maintainable
-                code even under pressure.
-              </p>
-              <p class="roadmap-desc" style="margin-bottom: 1.5rem">
-                I work well with others, welcome feedback, and share knowledge openly. I stay focused until tasks are completed and delivered on time. You can expect consistent progress, strong ownership of responsibilities, and reliable results. I continuously improve my skills to keep up with modern tools and industry practices. I adapt quickly to new technologies and workflows to deliver better solutions. I take pride in creating systems that are intuitive and easy to use for end users. I aim to make every project not just functional, but efficient and scalable for future growth.
-              </p>
+          <p class="roadmap-desc" style="margin-bottom: 1rem; text-align: center; color: #b0b8c8; font-size: 0.92rem">
+            BSIT student at Sultan Kudarat State University – Isulan Campus
+          </p>
+
+          <div class="about-bullets-grid">
+            <ul class="about-bullets-col">
+              <li>Specializing in web technologies & full-stack development</li>
+              <li>Builds clean, functional, user-focused web applications</li>
+              <li>Covers government systems, POS, healthcare & custom solutions</li>
+              <li>Turns ideas into production-ready systems fast & efficiently</li>
+            </ul>
+            <ul class="about-bullets-col">
+              <li>Uses AI-assisted development to accelerate without cutting standards</li>
+              <li>Solves problems methodically with maintainable code under pressure</li>
+              <li>Collaborative, delivers on time, and adapts quickly to new tools & scalable systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-6 fw-bold roadmap-section-title">EXPERIENCE</h2>
+          <p class="roadmap-desc" style="margin-top: 0.5rem">
+            Professional journey, roles, and the work that defines my craft
+          </p>
+        </div>
+
+        <div class="experience-grid">
+          <!-- Experience 1: Freelance Web Developer (Current) -->
+          <div class="experience-card experience-active">
+            <div class="experience-card-header">
+              <div class="experience-badges-row">
+                <span class="experience-badge status-current">Currently Active</span>
+                <span class="experience-badge type-commission"></i> Commissions</span>
+              </div>
+              <h3 class="experience-card-title">Freelance Web Developer</h3>
+            </div>
+            <ul class="experience-bullets">
+              <li>Building custom web applications for clients across healthcare, government, education, and small business sectors</li>
+              <li>Full-stack development using <span class="roadmap-tag">PHP</span>, <span class="roadmap-tag">CodeIgniter 4</span>, <span class="roadmap-tag">Tailwind CSS</span>,  <span class="roadmap-tag">MySQL</span> &amp; <span class="roadmap-tag">Bootstrap 5</span></li>
+              <li>Completed multiple capstone commissions and real-world deployed systems</li>
+              <li>Handling end-to-end project lifecycle: requirements, design, development, testing, and deployment</li>
+            </ul>
+            <div class="experience-card-footer">
+              <span class="experience-card-duration">2024 &mdash; Present &middot; 2 yrs+</span>
             </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -4788,110 +6151,50 @@
             MY WEB DEVELOPMENT ROADMAP
           </h2>
           <p style="color: #b0b8c8; margin-top: 0.5rem">
-            The path I walked — from first line of code to full-stack systems
-          </p>
+From coding basics to full-stack, with achievements and certifications.          </p>
         </div>
 
         <div class="roadmap-timeline">
-          <!-- Stage 1 -->
+          <!-- Stage 1 (Combined) -->
           <div class="roadmap-item">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
-              <div class="roadmap-year">2023 — Early</div>
-              <div class="roadmap-stage">The Foundation</div>
-              <div class="roadmap-desc">
-                Started the journey with web fundamentals using
-                <span class="roadmap-tag">HTML5</span>,
-                <span class="roadmap-tag">CSS3</span>, and
-                <span class="roadmap-tag">JavaScript</span>. Learned how
-                browsers work, how pages are structured.
-              </div>
+              <div class="roadmap-year">2023 — 2025</div>
+              <div class="roadmap-stage">The Foundation & First Real Systems</div>
+              <ul class="roadmap-desc roadmap-bullets">
+                <li>Mastered <span class="roadmap-tag">HTML5</span>, <span class="roadmap-tag">CSS3</span>, <span class="roadmap-tag">JavaScript</span>, <span class="roadmap-tag">PHP</span> &amp; <span class="roadmap-tag">MySQL</span></li>
+                <li>Built &amp; deployed real-world <span class="roadmap-tag">Healthcare</span> and <span class="roadmap-tag">POS Systems</span></li>
+                <li>Implemented <span class="roadmap-tag">CRUD Operations</span>, <span class="roadmap-tag">Authentication</span> &amp; <span class="roadmap-tag">Responsive Design</span></li>
+              </ul>
             </div>
           </div>
 
-          <!-- Stage 2 -->
-          <div class="roadmap-item right">
-            <div class="roadmap-node"></div>
-            <div class="roadmap-card">
-              <div class="roadmap-year">2023 — Late</div>
-              <div class="roadmap-stage">Backend Basics</div>
-              <div class="roadmap-desc">
-                Dove into server-side programming with
-                <span class="roadmap-tag">PHP</span> and
-                <span class="roadmap-tag">MySQL</span>, running a local
-                environment on <span class="roadmap-tag">XAMPP</span>. Learned
-                how to connect web pages to databases and handle
-                <span class="roadmap-tag">CRUD Operations</span>, user accounts,
-                and file uploads.
-              </div>
-            </div>
-          </div>
-
-          <!-- Stage 3 -->
-          <div class="roadmap-item">
-            <div class="roadmap-node"></div>
-            <div class="roadmap-card">
-              <div class="roadmap-year">2024 - 2025</div>
-              <div class="roadmap-stage">First Real Systems</div>
-              <div class="roadmap-desc">
-                Built actual systems deployed in real environments —
-                <span class="roadmap-tag">Healthcare Systems</span> and
-                <span class="roadmap-tag">POS Systems</span> with full
-                <span class="roadmap-tag">Authentication</span>,
-                <span class="roadmap-tag">Role Management</span>, and build
-                <span class="roadmap-tag">Responsive Design</span> web applications.
-              </div>
-            </div>
-          </div>
-
-          <!-- Stage 4 -->
+          <!-- Stage 4 (Combined) -->
           <div class="roadmap-item right">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
               <div class="roadmap-year">2025 - 2026</div>
-              <div class="roadmap-stage">Frameworks & Structure</div>
-              <div class="roadmap-desc">
-                Adopted <span class="roadmap-tag">Bootstrap 5</span> for rapid
-                responsive styling and
-                <span class="roadmap-tag">CodeIgniter 4</span> for structured
-                backend development. Shifted to a proper
-                <span class="roadmap-tag">MVC Pattern</span> workflow with
-                clean, organized code.
-              </div>
-            </div>
-          </div>
-
-          <!-- Stage 5 -->
-          <div class="roadmap-item">
-            <div class="roadmap-node"></div>
-            <div class="roadmap-card">
-              <div class="roadmap-year">2025 - 2026</div>
-              <div class="roadmap-stage">Full-Stack Mastery</div>
-              <div class="roadmap-desc">
-                Leveled up with <span class="roadmap-tag">REST APIs</span> and
-                <span class="roadmap-tag">AJAX</span> for real-time features,
-                building complex
-                <span class="roadmap-tag">Government Systems</span>. I have built so many projects, including 5 commissioned capstone projects.
-              </div>
+              <div class="roadmap-stage">Frameworks & Full-Stack Mastery</div>
+              <ul class="roadmap-desc roadmap-bullets">
+                <li>Adopted <span class="roadmap-tag">Bootstrap 5</span>, <span class="roadmap-tag">CodeIgniter 4</span> &amp; proper <span class="roadmap-tag">MVC Pattern</span> workflow</li>
+                <li>Built complex <span class="roadmap-tag">Government Systems</span> with <span class="roadmap-tag">REST APIs</span> &amp; <span class="roadmap-tag">AJAX</span></li>
+                <li>Completed 5 commissioned capstone projects</li>
+              </ul>
             </div>
           </div>
 
           <!-- Stage 6 — Current -->
-          <div class="roadmap-item right roadmap-current">
+          <div class="roadmap-item roadmap-current">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
               <div class="roadmap-current-badge">Now</div>
               <div class="roadmap-year">2026</div>
               <div class="roadmap-stage">AI-Assisted Development & Beyond</div>
-              <div class="roadmap-desc">
-                Integrating
-                <span class="roadmap-tag">AI Integration</span> tools like the
-                <span class="roadmap-tag">Gemini API</span> into the workflow
-                for faster, smarter delivery. Focused on
-                <span class="roadmap-tag">UI/UX Design</span> polish and
-                <span class="roadmap-tag">Clean Backend Architecture</span> — currently
-                open for <span class="roadmap-tag">Freelance</span> commissions.
-              </div>
+              <ul class="roadmap-desc roadmap-bullets">
+                <li>Integrating <span class="roadmap-tag">AI Tools</span> like <span class="roadmap-tag">Gemini API</span> for faster, smarter delivery</li>
+                <li>Focused on <span class="roadmap-tag">UI/UX Design</span> polish &amp; <span class="roadmap-tag">Clean Backend Architecture</span></li>
+                <li>Currently open for <span class="roadmap-tag">Freelance</span> commissions</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -4925,7 +6228,7 @@
               <div class="card-body p-3">
                 <div class="project-meta-row">
                   <span class="badge border border-info text-info"
-                    >Capstone Project</span
+                    >My Capstone Project</span
                   >
                   <span class="badge border border-warning text-warning"
                     >Ongoing</span
@@ -4954,23 +6257,14 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   SKSU Scholarship Management System
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to design and develop an
-                  Integrated Scholarship Management System that centralizes
-                  scholarship processing from application validation to
-                  disbursement and liquidation. The system aims to allow the
-                  Scholarship Chairman and Campus Registrar to upload CHED and
-                  enrollment masterlists for automated comparison to validate
-                  enrolled students, support Scholarship Coordinators in
-                  verifying eligibility, and generate payroll and billing forms
-                  for qualified scholars. It will provide a dislisting module
-                  for unenrolled students, manage disbursement and liquidation
-                  through manual and file-based data entry, support ATM-based
-                  liquidation with verified proof display, and implement an
-                  automated approval workflow that routes liquidation documents
-                  from the Scholarship Chairman to the Accounting Officer for
-                  final processing.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Centralized scholarship processing from application to disbursement</li>
+                  <li>Automated CHED & enrollment masterlist comparison for student validation</li>
+                  <li>Payroll and billing generation for qualified scholars</li>
+                  <li>Dislisting module for unenrolled students</li>
+                  <li>ATM-based liquidation with verified proof display</li>
+                  <li>Automated approval workflow routing to Accounting Officer</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5015,22 +6309,13 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   Russel's Chicken Delights HR System
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to design and develop
-                  Russel's Chicken Delights HR System, a comprehensive human
-                  resource management platform for the restaurant chain that
-                  centralizes employee data management, payroll processing,
-                  recruitment activities, task tracking, scheduling, and
-                  performance evaluation. The system aims to allow HR personnel
-                  and branch managers to maintain accurate employee records,
-                  automate payroll processing, and manage recruitment. It will
-                  include a QR code-based recruitment feature that, when
-                  scanned, provides applicants with an online recruitment form,
-                  streamlining the hiring process, support task assignment and
-                  performance monitoring, and implement an automated approval
-                  workflow that routes requests from branch managers to central
-                  HR for final processing to improve overall efficiency.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Comprehensive HR platform for restaurant chain management</li>
+                  <li>Centralized employee records, payroll & scheduling</li>
+                  <li>QR code-based recruitment with online application form</li>
+                  <li>Task assignment and performance monitoring</li>
+                  <li>Automated approval workflow from branch to central HR</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5076,24 +6361,13 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   KES-SMART
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to design and develop a
-                  mobile-based attendance monitoring system that manages user
-                  information and accounts and provides role-based interfaces
-                  for administrators, teachers, students, and parents. The
-                  system aims to support efficient attendance tracking through
-                  QR code scanning, allow parents to view attendance records
-                  automatically, apply automated evaluation features, and send
-                  SMS notifications to parents in real time. It also seeks to
-                  generate structured reports, including student lists by
-                  section, student information sheets, QR codes, and detailed
-                  attendance records per section and per student, to support
-                  monitoring and record management. The system will also improve
-                  data accuracy by reducing manual input errors and speeding up
-                  attendance recording in classrooms. It will provide secure
-                  data storage with controlled access to protect user
-                  information and maintain data integrity.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Mobile-based attendance monitoring with QR code scanning</li>
+                  <li>Role-based interfaces for admins, teachers, students & parents</li>
+                  <li>Real-time SMS notifications to parents</li>
+                  <li>Structured reports: student lists, attendance records & QR codes</li>
+                  <li>Secure data storage with controlled access</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5139,23 +6413,13 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   BHC CONNECT
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to design and develop a
-                  barangay health information system that manages barangay
-                  health worker accounts and supports comprehensive patient
-                  record management, including personal data, medical history,
-                  treatments, and immunization schedules for children and
-                  adults. The system aims to allow patients to schedule
-                  appointments, receive automated email reminders, and obtain
-                  printed appointment slips. It also seeks to track and manage
-                  dispensed medicines with dosage and frequency records, support
-                  real-time chat and patient feedback, and provide a dashboard
-                  with graphical summaries of appointments and patients. The
-                  system will generate structured reports such as appointment
-                  lists, patient lists, individual medical records, and medicine
-                  inventory, while reducing paperwork and improving coordination
-                  by centralizing health data for faster service delivery.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Barangay health information system for patient record management</li>
+                  <li>Appointment scheduling with automated email reminders</li>
+                  <li>Medicine dispensing tracker with dosage & frequency records</li>
+                  <li>Real-time chat and patient feedback system</li>
+                  <li>Dashboard with graphical summaries & structured reports</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5204,21 +6468,13 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   HealthConnect
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to develop a web-based
-                  Health Monitoring Services system that manages barangay health
-                  worker accounts and supports nurses and midwives in
-                  maintaining comprehensive patient records, including personal
-                  information, medical history, and treatments. The system aims
-                  to enable patients to schedule appointments and receive
-                  automated SMS reminders, track and manage immunization
-                  schedules for children and adults, and provide a graphical
-                  dashboard to monitor daily, weekly, and monthly appointments
-                  and patient counts. It will also generate detailed reports,
-                  including appointment lists, patient lists, medical records,
-                  and appointment slips, and will be evaluated based on
-                  accuracy, security, functionality, and overall effectiveness.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Web-based health monitoring for nurses and midwives</li>
+                  <li>Comprehensive patient records with medical history tracking</li>
+                  <li>Appointment scheduling with automated SMS reminders</li>
+                  <li>Immunization schedule management for children & adults</li>
+                  <li>Graphical dashboard for daily, weekly & monthly analytics</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5264,22 +6520,14 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   ImmuCare
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to design and develop a
-                  web-based immunization management system that manages accounts
-                  for administrators, midwives, and nurses, and records and
-                  stores patient immunization data. The system will allow
-                  clients to schedule appointments, provide SMS and email
-                  notifications to patients, and enable administrators to
-                  transfer files and data to the municipal health center. It
-                  will include search and filtering features by gender, purok,
-                  diagnosis, and patient information, and generate reports such
-                  as patient lists, appointments, personal information, and
-                  diagnoses. The system will be evaluated based on
-                  functionality, accuracy, effectiveness, and security.The
-                  system will also help improve monitoring and decision-making
-                  through organized immunization records.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Web-based immunization management for health workers</li>
+                  <li>Patient immunization data recording & storage</li>
+                  <li>SMS and email appointment notifications</li>
+                  <li>Data transfer to municipal health center</li>
+                  <li>Advanced search & filtering by gender, purok & diagnosis</li>
+                  <li>Report generation for patients, appointments & diagnoses</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5325,22 +6573,13 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   AidTrack
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to develop a digital
-                  Barangay Aid Management System that manages user accounts for
-                  residents and administrators, provides secure authentication,
-                  and ensures accurate registration and verification of
-                  qualified beneficiaries. The system aims to track distributed
-                  and dismissed benefits, provide real-time monitoring of aid
-                  delivery, support analytics and reporting on aid impact and
-                  distribution progress, integrate SMS notifications, digital
-                  receipts, acknowledgments, and a beneficiary feedback system,
-                  generate reports on residents and beneficiaries by category,
-                  and reduce manual processing while improving transparency in
-                  barangay aid distribution; it will be evaluated based on
-                  functionality, accessibility, security, acceptability, and
-                  overall efficacy.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Digital barangay aid management with secure authentication</li>
+                  <li>Beneficiary registration, verification & tracking</li>
+                  <li>Real-time monitoring of aid delivery & distribution</li>
+                  <li>SMS notifications, digital receipts & feedback system</li>
+                  <li>Analytics and reporting on aid impact by category</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5386,21 +6625,13 @@
                 <h5 class="card-title fw-bold text-center text-primary">
                   BM-SCaPIS
                 </h5>
-                <p class="card-text text-center">
-                  The general objective of the study is to design and develop an
-                  online barangay clearance and permit management system that
-                  allows residents to register, apply, and track applications
-                  digitally while receiving real-time status updates. The system
-                  aims to support administrators in managing resident profiles,
-                  reviewing and approving applications, scheduling verification
-                  or document pickup, and monitoring approved and pending
-                  documents. It will integrate SMS and ringtone notifications
-                  for updates and reminders, generate comprehensive reports and
-                  statistical summaries on applications, issued clearances and
-                  permits, residents by category, and transaction logs, and will
-                  be evaluated based on functionality, usability, accuracy,
-                  acceptability, and security.
-                </p>
+                <ul class="card-text project-bullets">
+                  <li>Online barangay clearance & permit management system</li>
+                  <li>Digital application, tracking & real-time status updates</li>
+                  <li>Resident profile management & application approval workflow</li>
+                  <li>SMS & ringtone notifications for updates and reminders</li>
+                  <li>Comprehensive reports on clearances, permits & transaction logs</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -5408,33 +6639,63 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-      <div class="container">
-        <div class="text-center">
-          <h2 class="roadmap-section-title">CONNECT WITH ME</h2>
+    <!-- Photo Gallery Section -->
+    <section id="gallery">
+      <div class="container-fluid px-0 px-md-3">
+        <div class="text-center gallery-section-header px-3">
+          <h2 class="roadmap-section-title">PHOTO GALLERY</h2>
+          <p class="roadmap-desc" style="margin-top: 0.5rem">
+            A collection of my favorite moments and memories.
+          </p>
         </div>
-
-        <div class="text-center social-links">
-          <a
-            href="https://www.facebook.com/russelicioush"
-            class="btn btn-lg"
-            target="_blank"
-          >
-            <i class="fab fa-facebook me-2"></i>Facebook
-          </a>
-          <a
-            href="mailto:janrusselpenafiel01172005@gmail.com"
-            class="btn btn-lg"
-          >
-            <i class="fas fa-envelope me-2"></i>Email
-          </a>
-          <a href="tel:+639677726912" class="btn btn-lg">
-            <i class="fas fa-phone me-2"></i>Call: +63 967 772 6912
-          </a>
+        <div class="gallery-outer-container">
+          <button class="gallery-side-btn" type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide="prev" aria-label="Previous">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <div class="gallery-carousel-wrapper">
+            <button class="gallery-upload-btn" id="galleryUploadBtn" onclick="openGalleryUpload()" title="Upload to Gallery (Ctrl+Alt+E)">
+              <i class="fas fa-plus"></i>
+            </button>
+            <div class="gallery-carousel-counter" id="carouselCounter">1 / 2</div>
+            <div id="photoGalleryCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="uploads/self.jpg" class="d-block gallery-preview-trigger" alt="Gallery Photo 1" style="cursor:zoom-in">
+                </div>
+                <div class="carousel-item">
+                  <img src="uploads/grupo.jpg" class="d-block gallery-preview-trigger" alt="Gallery Photo 2" style="cursor:zoom-in">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="gallery-side-btn" type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide="next" aria-label="Next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
       </div>
     </section>
+
+    <!-- Photo Gallery Fullscreen Preview Overlay -->
+    <div class="gallery-fullscreen-overlay" id="galleryFullscreenOverlay">
+      <button class="gallery-fullscreen-close" id="galleryFullscreenClose" title="Close (Esc)">&times;</button>
+      <button class="gallery-fullscreen-nav gallery-fullscreen-prev" id="galleryFullscreenPrev" title="Previous (←)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <img id="galleryFullscreenImage" src="" alt="Fullscreen Preview" />
+      <button class="gallery-fullscreen-nav gallery-fullscreen-next" id="galleryFullscreenNext" title="Next (→)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="gallery-fullscreen-counter" id="galleryFullscreenCounter">1 / 4</div>
+    </div>
+
+    <!-- Hidden file input for gallery uploads -->
+    <input type="file" id="galleryFileInput" accept="image/jpeg,image/png,image/gif,image/webp" multiple style="display:none" />
 
     <!-- Footer -->
     <footer class="text-white text-center py-4" style="background: #000000">
@@ -5447,6 +6708,8 @@
       </div>
     </footer>
 
+    <!-- Bootstrap JS (for Carousel & Navbar) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Dark/Light Mode Toggle Script -->
     <script>
       (function () {
@@ -5480,8 +6743,7 @@
       })();
     </script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- Typing Animation Script -->
     <script>
@@ -5538,10 +6800,15 @@
               block: "start",
             });
           }
-          // Auto-close navbar on mobile after click
+          // Auto-close navbar on mobile after click (only for nav links, not buttons)
           const navbarToggler = document.querySelector(".navbar-toggler");
           const navbarCollapse = document.getElementById("navbarNav");
-          if (navbarToggler && navbarCollapse.classList.contains("show")) {
+          if (
+            navbarToggler &&
+            navbarCollapse.classList.contains("show") &&
+            window.innerWidth < 992 &&
+            this.classList.contains("nav-link")
+          ) {
             navbarToggler.click();
           }
         });
@@ -5597,10 +6864,12 @@
             }
           });
 
-        // Animate badge/button elements
+        // Animate badge/button elements, but skip hero-action badges to avoid duplicate/flicker
         document
           .querySelectorAll(".badge-custom, .btn-primary, .btn-secondary")
           .forEach((el, idx) => {
+            // Skip hero-actions badges
+            if (el.closest('.hero-actions')) return;
             if (!el.classList.contains("scroll-animate")) {
               if (idx % 2 === 0) {
                 el.classList.add("scroll-animate", "scroll-animate-left");
@@ -5658,12 +6927,21 @@
       let currentGalleryImages = [];
       let currentGalleryIndex = 0;
       let galleryClosedByBackButton = false;
+      let gallerySlideshowTimer = null;
+      let gallerySlideshowActive = false;
+      let gallerySlideshowInterval = 3000;
+      let galleryProgressAnimFrame = null;
 
       // Keyboard shortcut: Ctrl+Alt+E to toggle upload buttons
       document.addEventListener("keydown", function (e) {
         if (e.ctrlKey && e.altKey && e.key === "e") {
           e.preventDefault();
           toggleUploadButtons();
+          // Also toggle gallery upload button
+          const galleryBtn = document.getElementById('galleryUploadBtn');
+          if (galleryBtn) {
+            galleryBtn.classList.toggle('enabled');
+          }
         }
         // Ctrl + Alt + X to delete current gallery image
         if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "x") {
@@ -5987,34 +7265,81 @@
         const mainImg = document.getElementById("galleryMainImage");
         const counter = document.getElementById("galleryCounter");
         const spinner = document.getElementById("galleryLoadingSpinner");
-        if (!mainImg || !counter || !currentGalleryImages.length) return;
+        const thumbsContainer = document.getElementById("galleryThumbnails");
+        if (!mainImg || !currentGalleryImages.length) return;
         currentGalleryIndex = Math.max(
           0,
           Math.min(currentGalleryIndex, currentGalleryImages.length - 1),
         );
 
-        // Show spinner, hide image
-        if (spinner) spinner.style.display = "block";
-        mainImg.style.display = "none";
+        // Fade out current image
+        mainImg.classList.remove("gallery-fade-in");
+        mainImg.classList.add("gallery-fade-out");
+
+        // Show spinner after brief delay if image not loaded
+        let spinnerTimeout = setTimeout(function() {
+          if (spinner) spinner.style.display = "block";
+        }, 200);
 
         // Preload current image
         const img = new Image();
         img.onload = function () {
+          clearTimeout(spinnerTimeout);
           mainImg.src = currentGalleryImages[currentGalleryIndex];
           mainImg.style.display = "block";
           if (spinner) spinner.style.display = "none";
-
+          // Fade in
+          requestAnimationFrame(function() {
+            mainImg.classList.remove("gallery-fade-out");
+            mainImg.classList.add("gallery-fade-in");
+          });
           // Preload adjacent images for smooth navigation
           preloadAdjacentImages();
         };
         img.onerror = function () {
+          clearTimeout(spinnerTimeout);
           mainImg.src = currentGalleryImages[currentGalleryIndex];
           mainImg.style.display = "block";
           if (spinner) spinner.style.display = "none";
+          mainImg.classList.remove("gallery-fade-out");
+          mainImg.classList.add("gallery-fade-in");
         };
         img.src = currentGalleryImages[currentGalleryIndex];
 
-        counter.textContent = `Image ${currentGalleryIndex + 1} of ${currentGalleryImages.length}`;
+        if (counter) counter.textContent = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+
+        // Render thumbnails
+        if (thumbsContainer) {
+          // Only rebuild if needed
+          if (thumbsContainer.children.length !== currentGalleryImages.length) {
+            thumbsContainer.innerHTML = "";
+            currentGalleryImages.forEach(function(src, idx) {
+              const thumb = document.createElement("img");
+              thumb.src = src;
+              thumb.alt = "Thumb " + (idx + 1);
+              thumb.className = "gallery-thumb" + (idx === currentGalleryIndex ? " active" : "");
+              thumb.addEventListener("click", function() {
+                currentGalleryIndex = idx;
+                renderGalleryViewer();
+                resetSlideshowProgress();
+              });
+              thumbsContainer.appendChild(thumb);
+            });
+          } else {
+            // Just update active state
+            Array.from(thumbsContainer.children).forEach(function(thumb, idx) {
+              thumb.classList.toggle("active", idx === currentGalleryIndex);
+            });
+          }
+          // Scroll active thumb into view
+          const activeThumb = thumbsContainer.querySelector(".gallery-thumb.active");
+          if (activeThumb) {
+            activeThumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+          }
+        }
+
+        // Reset slideshow progress bar
+        resetSlideshowProgress();
       }
 
       function preloadAdjacentImages() {
@@ -6134,10 +7459,103 @@
       if (nextBtn) nextBtn.addEventListener("click", showGalleryNext);
       if (prevBtn) prevBtn.addEventListener("click", showGalleryPrev);
 
+      // ===== Slideshow functionality =====
+      function resetSlideshowProgress() {
+        const progressBar = document.getElementById("galleryProgressBar");
+        if (progressBar) {
+          progressBar.style.transition = "none";
+          progressBar.style.width = "0%";
+        }
+        if (galleryProgressAnimFrame) {
+          cancelAnimationFrame(galleryProgressAnimFrame);
+          galleryProgressAnimFrame = null;
+        }
+        if (gallerySlideshowActive) {
+          startSlideshowProgress();
+        }
+      }
+
+      function startSlideshowProgress() {
+        const progressBar = document.getElementById("galleryProgressBar");
+        if (!progressBar) return;
+        const startTime = performance.now();
+        function animate(now) {
+          const elapsed = now - startTime;
+          const pct = Math.min((elapsed / gallerySlideshowInterval) * 100, 100);
+          progressBar.style.transition = "none";
+          progressBar.style.width = pct + "%";
+          if (pct < 100) {
+            galleryProgressAnimFrame = requestAnimationFrame(animate);
+          }
+        }
+        galleryProgressAnimFrame = requestAnimationFrame(animate);
+      }
+
+      function startGallerySlideshow() {
+        gallerySlideshowActive = true;
+        const btn = document.getElementById("gallerySlideshowBtn");
+        const icon = document.getElementById("gallerySlideshowIcon");
+        const progress = document.getElementById("galleryProgress");
+        if (btn) btn.classList.add("active");
+        if (icon) { icon.classList.remove("fa-play"); icon.classList.add("fa-pause"); }
+        if (progress) progress.classList.remove("hidden");
+        resetSlideshowProgress();
+        gallerySlideshowTimer = setInterval(function() {
+          showGalleryNext();
+        }, gallerySlideshowInterval);
+      }
+
+      function stopGallerySlideshow() {
+        gallerySlideshowActive = false;
+        const btn = document.getElementById("gallerySlideshowBtn");
+        const icon = document.getElementById("gallerySlideshowIcon");
+        const progress = document.getElementById("galleryProgress");
+        const progressBar = document.getElementById("galleryProgressBar");
+        if (btn) btn.classList.remove("active");
+        if (icon) { icon.classList.remove("fa-pause"); icon.classList.add("fa-play"); }
+        if (progress) progress.classList.add("hidden");
+        if (progressBar) { progressBar.style.width = "0%"; }
+        if (gallerySlideshowTimer) { clearInterval(gallerySlideshowTimer); gallerySlideshowTimer = null; }
+        if (galleryProgressAnimFrame) { cancelAnimationFrame(galleryProgressAnimFrame); galleryProgressAnimFrame = null; }
+      }
+
+      function toggleGallerySlideshow() {
+        if (gallerySlideshowActive) {
+          stopGallerySlideshow();
+        } else {
+          startGallerySlideshow();
+        }
+      }
+
+      const slideshowBtn = document.getElementById("gallerySlideshowBtn");
+      if (slideshowBtn) slideshowBtn.addEventListener("click", toggleGallerySlideshow);
+
+      // ===== Enhanced keyboard navigation =====
+      document.addEventListener("keydown", function(e) {
+        const modalEl = document.getElementById("galleryModal");
+        if (!modalEl || !modalEl.classList.contains("show")) return;
+
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          showGalleryNext();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          showGalleryPrev();
+        } else if (e.key === " " || e.code === "Space") {
+          e.preventDefault();
+          toggleGallerySlideshow();
+        }
+      });
+
       // Handle gallery modal close to manage history
       const galleryModalEl = document.getElementById("galleryModal");
       if (galleryModalEl) {
         galleryModalEl.addEventListener("hidden.bs.modal", function () {
+          // Stop slideshow on close
+          stopGallerySlideshow();
+          // Clear thumbnails
+          const thumbsContainer = document.getElementById("galleryThumbnails");
+          if (thumbsContainer) thumbsContainer.innerHTML = "";
           // Only go back in history if modal wasn't closed by back button
           if (
             !galleryClosedByBackButton &&
@@ -6148,6 +7566,187 @@
           }
           // Reset the flag
           galleryClosedByBackButton = false;
+        });
+      }
+
+      // ===== Carousel counter =====
+      (function() {
+        const carousel = document.getElementById("photoGalleryCarousel");
+        const counterEl = document.getElementById("carouselCounter");
+        if (!carousel) return;
+
+        const items = carousel.querySelectorAll(".carousel-item");
+        const total = items.length;
+
+        function updateCarouselCounter() {
+          const activeItem = carousel.querySelector(".carousel-item.active");
+          if (!activeItem || !counterEl) return;
+          const idx = Array.from(items).indexOf(activeItem) + 1;
+          counterEl.textContent = idx + " / " + total;
+        }
+
+        carousel.addEventListener("slid.bs.carousel", updateCarouselCounter);
+        updateCarouselCounter();
+      })();
+
+      // ===== Photo Gallery Fullscreen Preview =====
+      (function() {
+        const overlay = document.getElementById('galleryFullscreenOverlay');
+        const fsImage = document.getElementById('galleryFullscreenImage');
+        const fsCounter = document.getElementById('galleryFullscreenCounter');
+        const fsClose = document.getElementById('galleryFullscreenClose');
+        const fsPrev = document.getElementById('galleryFullscreenPrev');
+        const fsNext = document.getElementById('galleryFullscreenNext');
+        if (!overlay) return;
+
+        let fsIndex = 0;
+
+        function getCarouselImages() {
+          const imgs = document.querySelectorAll('#photoGalleryCarousel .carousel-item img');
+          return Array.from(imgs).map(img => img.src);
+        }
+
+        function getActiveIndex() {
+          const items = document.querySelectorAll('#photoGalleryCarousel .carousel-item');
+          for (let i = 0; i < items.length; i++) {
+            if (items[i].classList.contains('active')) return i;
+          }
+          return 0;
+        }
+
+        function openFullscreen(index) {
+          const images = getCarouselImages();
+          if (!images.length) return;
+          fsIndex = (typeof index === 'number') ? index : getActiveIndex();
+          updateFullscreen(images);
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          // Pause carousel
+          const carouselEl = document.getElementById('photoGalleryCarousel');
+          if (carouselEl) {
+            const bsCarousel = bootstrap.Carousel.getInstance(carouselEl);
+            if (bsCarousel) bsCarousel.pause();
+          }
+        }
+
+        function closeFullscreen() {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+          // Resume carousel
+          const carouselEl = document.getElementById('photoGalleryCarousel');
+          if (carouselEl) {
+            const bsCarousel = bootstrap.Carousel.getInstance(carouselEl);
+            if (bsCarousel) bsCarousel.cycle();
+          }
+        }
+
+        function updateFullscreen(images) {
+          if (!images) images = getCarouselImages();
+          if (fsIndex < 0) fsIndex = images.length - 1;
+          if (fsIndex >= images.length) fsIndex = 0;
+          fsImage.src = images[fsIndex];
+          fsCounter.textContent = (fsIndex + 1) + ' / ' + images.length;
+          // Sync carousel
+          const carouselEl = document.getElementById('photoGalleryCarousel');
+          if (carouselEl) {
+            const bsCarousel = bootstrap.Carousel.getInstance(carouselEl);
+            if (bsCarousel) bsCarousel.to(fsIndex);
+          }
+        }
+
+        function fsNextSlide() {
+          fsIndex++;
+          updateFullscreen();
+        }
+
+        function fsPrevSlide() {
+          fsIndex--;
+          updateFullscreen();
+        }
+
+        // Click on carousel image opens fullscreen
+        document.addEventListener('click', function(e) {
+          const trigger = e.target.closest('.gallery-preview-trigger');
+          if (!trigger) return;
+          e.preventDefault();
+          e.stopPropagation();
+          openFullscreen(getActiveIndex());
+        });
+
+        // Close button
+        fsClose.addEventListener('click', function(e) {
+          e.stopPropagation();
+          closeFullscreen();
+        });
+
+        // Click overlay background to close
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) closeFullscreen();
+        });
+
+        // Nav buttons
+        fsNext.addEventListener('click', function(e) { e.stopPropagation(); fsNextSlide(); });
+        fsPrev.addEventListener('click', function(e) { e.stopPropagation(); fsPrevSlide(); });
+
+        // Keyboard navigation for fullscreen
+        document.addEventListener('keydown', function(e) {
+          if (!overlay.classList.contains('active')) return;
+          if (e.key === 'Escape') { e.preventDefault(); closeFullscreen(); }
+          else if (e.key === 'ArrowRight') { e.preventDefault(); fsNextSlide(); }
+          else if (e.key === 'ArrowLeft') { e.preventDefault(); fsPrevSlide(); }
+        });
+
+        // Touch swipe support for fullscreen
+        let touchStartX = 0;
+        overlay.addEventListener('touchstart', function(e) {
+          touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        overlay.addEventListener('touchend', function(e) {
+          const diff = e.changedTouches[0].screenX - touchStartX;
+          if (Math.abs(diff) > 50) {
+            if (diff < 0) fsNextSlide();
+            else fsPrevSlide();
+          }
+        }, {passive: true});
+      })();
+
+      // ===== Photo Gallery Upload (Ctrl+Alt+E when on gallery section) =====
+      function openGalleryUpload() {
+        document.getElementById('galleryFileInput').click();
+      }
+
+      document.getElementById('galleryFileInput').addEventListener('change', function(e) {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) return;
+        uploadGalleryImages(files);
+        e.target.value = '';
+      });
+
+      function uploadGalleryImages(files) {
+        const formData = new FormData();
+        formData.append('action', 'gallery_upload');
+        files.forEach(function(file) {
+          formData.append('images[]', file);
+        });
+
+        // Show uploading notification
+        showToggleNotification('<i class="fas fa-spinner fa-spin me-2"></i>Uploading to gallery...');
+
+        fetch('upload.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data.success) {
+            showToggleNotification('<i class="fas fa-check-circle me-2"></i>Gallery updated! Reloading...');
+            setTimeout(function() { location.reload(); }, 1200);
+          } else {
+            showToggleNotification('<i class="fas fa-exclamation-circle me-2"></i>' + (data.message || 'Upload failed'));
+          }
+        })
+        .catch(function(err) {
+          showToggleNotification('<i class="fas fa-exclamation-circle me-2"></i>Upload error: ' + err.message);
         });
       }
 
@@ -9394,6 +10993,9 @@ feeling good developer\n`;
         });
       })();
     </script>
+
+    <!-- Performance & UI Optimizer -->
+    <script src="optimize.js" defer></script>
 
     <!-- Viewer counter badge + script -->
     <style>

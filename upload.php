@@ -441,6 +441,120 @@ switch ($action) {
         ]);
         break;
 
+    case 'gallery_upload':
+        // Handle photo gallery section image upload
+        $files = [];
+        if (isset($_FILES['images'])) {
+            $files = normalizeFilesArray($_FILES['images']);
+        } elseif (isset($_FILES['image'])) {
+            $files = normalizeFilesArray($_FILES['image']);
+        }
+
+        if (empty($files)) {
+            sendResponse(false, 'No files uploaded');
+        }
+
+        $savedPaths = [];
+        foreach ($files as $file) {
+            if ($file['error'] !== UPLOAD_ERR_OK) {
+                sendResponse(false, 'Upload error: ' . $file['error']);
+            }
+            if ($file['size'] > $maxFileSize) {
+                sendResponse(false, 'File size exceeds 5MB limit');
+            }
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+            if (!in_array($mimeType, $allowedTypes)) {
+                sendResponse(false, 'Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed');
+            }
+            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $newFilename = 'gallery_' . uniqid('', true) . '.' . $extension;
+            $targetPath = $uploadDir . $newFilename;
+            if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+                sendResponse(false, 'Failed to save file');
+            }
+            $savedPaths[] = 'uploads/' . $newFilename;
+        }
+
+        // Update the photo gallery carousel in index.html
+        $backupResult = createBackup($htmlFile);
+        if (!$backupResult['success']) {
+            sendResponse(false, 'Failed to create backup');
+        }
+
+        $htmlContent = file_get_contents($htmlFile);
+        if ($htmlContent === false) {
+            sendResponse(false, 'Failed to read HTML file');
+        }
+
+        // Find carousel-inner and extract existing images
+        if (preg_match('/<div id="photoGalleryCarousel"[^>]*>.*?<div class="carousel-inner">(.*?)<\/div>/s', $htmlContent, $carouselMatch)) {
+            // Extract existing image sources
+            $existingImages = [];
+            if (preg_match_all('/<img[^>]+src="([^"]+)"/i', $carouselMatch[1], $imgMatches)) {
+                $existingImages = $imgMatches[1];
+            }
+
+            // Merge existing + new images
+            $allImages = array_merge($existingImages, $savedPaths);
+            $totalImages = count($allImages);
+
+            // Build new carousel-inner HTML
+            $carouselInnerHtml = "\n";
+            foreach ($allImages as $i => $imgSrc) {
+                $activeClass = ($i === 0) ? ' active' : '';
+                $num = $i + 1;
+                $carouselInnerHtml .= '              <div class="carousel-item' . $activeClass . '">' . "\n";
+                $carouselInnerHtml .= '                <img src="' . $imgSrc . '" class="d-block gallery-preview-trigger" alt="Gallery Photo ' . $num . '" style="cursor:zoom-in">' . "\n";
+                $carouselInnerHtml .= '              </div>' . "\n";
+            }
+
+            // Build new indicators HTML
+            $indicatorsHtml = "\n";
+            foreach ($allImages as $i => $imgSrc) {
+                $activeAttr = ($i === 0) ? ' class="active" aria-current="true"' : '';
+                $num = $i + 1;
+                $indicatorsHtml .= '              <button type="button" data-bs-target="#photoGalleryCarousel" data-bs-slide-to="' . $i . '"' . $activeAttr . ' aria-label="Slide ' . $num . '"></button>' . "\n";
+            }
+
+            // Replace carousel-inner
+            $htmlContent = preg_replace(
+                '/(<div class="carousel-inner">).*?(<\/div>\s*<button class="carousel-control-prev")/s',
+                '$1' . $carouselInnerHtml . '            $2',
+                $htmlContent,
+                1
+            );
+
+            // Replace indicators
+            $htmlContent = preg_replace(
+                '/(<div class="carousel-indicators">).*?(<\/div>\s*<div class="carousel-inner">)/s',
+                '$1' . $indicatorsHtml . '            $2',
+                $htmlContent,
+                1
+            );
+
+            // Update counter text
+            $htmlContent = preg_replace(
+                '/<div class="gallery-carousel-counter" id="carouselCounter">[^<]*<\/div>/',
+                '<div class="gallery-carousel-counter" id="carouselCounter">1 / ' . $totalImages . '</div>',
+                $htmlContent,
+                1
+            );
+
+            if (file_put_contents($htmlFile, $htmlContent) === false) {
+                sendResponse(false, 'Failed to write HTML file');
+            }
+
+            sendResponse(true, 'Gallery updated successfully', [
+                'paths' => $savedPaths,
+                'total_images' => $totalImages
+            ]);
+        } else {
+            sendResponse(false, 'Could not find photo gallery carousel in HTML');
+        }
+        break;
+
     case 'delete_image':
         $projectId = $_POST['project_id'] ?? null;
         $imagePath = $_POST['image_path'] ?? null;
