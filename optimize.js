@@ -1308,6 +1308,51 @@
   }
 
   /* ===================================================================
+   *  PROFILE PHOTO SMOOTH THEME SWITCH
+   *  Fades the profile photo out, swaps its src, then fades it back in
+   *  whenever the dark/light theme is toggled.
+   * =================================================================== */
+
+  function initProfilePhotoSwitch() {
+    var photo = document.getElementById("cv-profile-photo");
+    if (!photo) return;
+
+    var LIGHT_SRC = "./RUSSELS.png";
+    var DARK_SRC  = "./RUSSELS1.png";
+
+    // Ensure GPU-composited opacity transitions
+    photo.style.transition = "opacity 0.35s ease";
+    photo.style.willChange  = "opacity";
+
+    // Sync to current theme immediately (no flash)
+    photo.src = document.body.classList.contains("light-mode") ? LIGHT_SRC : DARK_SRC;
+
+    // Wrap window.toggleTheme: fade out → swap → fade in
+    var _orig = window.toggleTheme;
+    if (typeof _orig !== "function") return;
+
+    window.toggleTheme = function () {
+      photo.style.opacity = "0";
+      setTimeout(function () {
+        _orig();
+        var isLight = document.body.classList.contains("light-mode");
+        photo.src = isLight ? LIGHT_SRC : DARK_SRC;
+
+        // Fade back in as soon as the new image loads (200 ms fallback)
+        var done = false;
+        function restore() {
+          if (done) return;
+          done = true;
+          photo.onload = null;
+          photo.style.opacity = "1";
+        }
+        photo.onload = restore;
+        setTimeout(restore, 200);
+      }, 180);
+    };
+  }
+
+  /* ===================================================================
    *  INIT — Run all optimizations
    * =================================================================== */
 
@@ -1334,6 +1379,7 @@
     optimizeCodeDetection();
     optimizeCreateCodeBlock();
     optimizeThemeToggle();
+    initProfilePhotoSwitch();
 
     // Heavy patches (may clear intervals, modify prototypes)
     killScrollPollInterval();
