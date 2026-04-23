@@ -1,0 +1,12 @@
+﻿ chatInput.setAttribute("autocomplete", "off");
+          chatInput.setAttribute("autocorrect", "off");
+          chatInput.setAttribute("autocapitalize", "off");
+          chatInput.setAttribute("spellcheck", "false");
+
+          // Force re-apply on focus (some browsers re-enable it)
+          chatInput.addEventListener(
+            "focus",
+            function () {
+              this.setAttribute("autocomplete", "off");
+              this.setAttribute("autocomplete", "disabled");
+

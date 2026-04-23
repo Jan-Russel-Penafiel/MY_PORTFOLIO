@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -41,7 +41,7 @@
                 overlay.innerHTML =
                   '<div style="color:#00fff7;font-size:1.3rem;font-weight:700;margin-bottom:16px;">Open in Browser</div>' +
                   '<div style="color:#e0e0e0;font-size:0.95rem;margin-bottom:20px;">For the best experience, please open this page in your default browser.</div>' +
-                  '<div style="color:#aaa;font-size:0.85rem;">Tap the <b style="color:#00fff7;">⋯</b> or <b style="color:#00fff7;">Share</b> button, then choose <b style="color:#00fff7;">"Open in Browser"</b> or <b style="color:#00fff7;">"Open in Safari/Chrome"</b>.</div>';
+                  '<div style="color:#aaa;font-size:0.85rem;">Tap the <b style="color:#00fff7;">?</b> or <b style="color:#00fff7;">Share</b> button, then choose <b style="color:#00fff7;">"Open in Browser"</b> or <b style="color:#00fff7;">"Open in Safari/Chrome"</b>.</div>';
                 document.body.appendChild(overlay);
               }
             }, 1500);
@@ -2827,6 +2827,143 @@
         max-height: calc(100vh - 3.5rem);
       }
 
+      /* Name View Modal - Rectangular shape to complement picture */
+      #nameViewModal .modal-dialog {
+        max-width: 700px;
+        width: 700px;
+        margin: 1.75rem auto;
+      }
+
+      #nameViewModal .modal-content {
+        background: linear-gradient(135deg, #12141f 0%, #0a0c12 100%);
+        border: 1.5px solid rgba(0,255,247,0.4);
+        border-radius: 16px;
+        box-shadow: 0 0 60px rgba(0,255,247,0.15), 0 25px 50px rgba(0,0,0,0.5);
+        overflow: hidden;
+      }
+
+      #nameViewModal .modal-header {
+        border-bottom: 1px solid rgba(0,255,247,0.15);
+        padding: 12px 20px;
+        flex-shrink: 0;
+        background: rgba(0,0,0,0.3);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      #nameViewModal .modal-header-left {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      #nameViewModal .modal-header-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      #nameViewModal .modal-body {
+        padding: 16px;
+        background: rgba(0,0,0,0.2);
+      }
+
+      #nameViewModal .gallery-image-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 150px;
+        max-height: 40vh;
+      }
+
+      #nameViewModal .modal-title {
+        color: #00fff7;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        margin: 0;
+      }
+
+      #nameViewModal .btn-close {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300fff7'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") !important;
+        opacity: 1 !important;
+        filter: drop-shadow(0 0 4px rgba(0,255,247,0.5)) !important;
+        transition: all 0.3s ease;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        margin: 0;
+      }
+
+      #nameViewModal .btn-close:hover {
+        filter: drop-shadow(0 0 10px #00fff7) drop-shadow(0 0 20px rgba(0,255,247,0.5)) !important;
+        transform: scale(1.15) rotate(90deg);
+        opacity: 1 !important;
+      }
+
+      /* Name View Modal - Mobile Responsive */
+      @media (max-width: 768px) {
+        #nameViewModal .modal-dialog {
+          max-width: 95vw;
+          width: 95vw;
+          margin: 1rem auto;
+        }
+
+        #nameViewModal .modal-content {
+          border-radius: 12px;
+        }
+
+        #nameViewModal .modal-header {
+          padding: 10px 16px;
+        }
+
+        #nameViewModal .modal-title {
+          font-size: 0.95rem;
+        }
+
+        #nameViewModal .modal-body {
+          padding: 12px;
+        }
+
+        #nameViewModal .gallery-image-container {
+          min-height: 120px;
+          max-height: 35vh;
+        }
+      }
+
+      @media (max-width: 576px) {
+        #nameViewModal .modal-dialog {
+          max-width: 98vw;
+          width: 98vw;
+          margin: 0.75rem auto;
+        }
+
+        #nameViewModal .modal-content {
+          border-radius: 10px;
+        }
+
+        #nameViewModal .modal-header {
+          padding: 8px 12px;
+        }
+
+        #nameViewModal .modal-title {
+          font-size: 0.85rem;
+          letter-spacing: 1px;
+        }
+
+        #nameViewModal .modal-body {
+          padding: 10px;
+        }
+
+        #nameViewModal .gallery-image-container {
+          min-height: 100px;
+          max-height: 30vh;
+        }
+      }
+
       #galleryModal .modal-content {
         background: linear-gradient(135deg, #12141f 0%, #0a0c12 100%);
         border: 1.5px solid rgba(0,255,247,0.4);
@@ -4788,9 +4925,58 @@
       }
       body.light-mode .gallery-controls button,
       body.light-mode .gallery-header-nav button {
+        background: rgba(28, 30, 33, 0.08) !important;
+        border-color: rgba(28, 30, 33, 0.2) !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .gallery-controls button:hover,
+      body.light-mode .gallery-header-nav button:hover {
+        background: rgba(28, 30, 33, 0.15) !important;
+      }
+      body.light-mode #galleryCounter {
+        color: #1c1e21 !important;
+      }
+      body.light-mode .gallery-progress {
+        background: #e4e6eb !important;
+      }
+      body.light-mode .gallery-progress-bar {
+        background: #1c1e21 !important;
+      }
+
+      /* ===== Light Mode: Name View Modal ===== */
+      body.light-mode #nameViewModal .modal-content {
         background: #ffffff !important;
         border: 1.5px solid #dddfe2 !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
         color: #1c1e21 !important;
+      }
+      body.light-mode #nameViewModal .modal-content.text-white {
+        color: #1c1e21 !important;
+      }
+      body.light-mode #nameViewModal .modal-header {
+        border-bottom: 1px solid #e4e6eb !important;
+        background: #f8f9fa !important;
+      }
+      body.light-mode #nameViewModal .modal-title {
+        color: #1c1e21 !important;
+      }
+      body.light-mode #nameViewModal .btn-close {
+        filter: none !important;
+        opacity: 0.5;
+      }
+      body.light-mode #nameViewModal .btn-close:hover {
+        opacity: 1;
+        transform: scale(1.15) rotate(90deg);
+      }
+      body.light-mode #nameViewModal .modal-body {
+        background: #ffffff !important;
+      }
+      body.light-mode #nameViewModal .gallery-image-container {
+        background: #f0f2f5 !important;
+      }
+      body.light-mode #nameViewImage {
+        border: none !important;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.1) !important;
       }
       body.light-mode .gallery-controls button:hover,
       body.light-mode .gallery-header-nav button:hover {
@@ -5486,6 +5672,156 @@
         border-color: rgba(255, 152, 0, 0.3) !important;
         color: #e65100 !important;
       }
+
+      /* ===== Client Payment Section ===== */
+      #payment {
+        background: #000000;
+      }
+      .client-payment-card {
+        background: linear-gradient(135deg, #181825 0%, #1a1c2e 100%);
+        border: 1.5px solid rgba(0, 255, 247, 0.3);
+        border-radius: 14px;
+        padding: 24px 26px;
+      }
+      .client-payment-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .client-payment-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+      .client-payment-text {
+        font-size: 0.9rem;
+        color: #b0b8c8;
+        line-height: 1.6;
+        margin-bottom: 12px;
+      }
+      .client-payment-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+      .client-payment-list li {
+        position: relative;
+        padding-left: 1.3em;
+        margin-bottom: 0.4em;
+        font-size: 0.85rem;
+        color: #b0b8c8;
+      }
+      .client-payment-list li::before {
+        content: '\f058';
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 0;
+        color: #00fff7;
+        font-size: 0.8em;
+        top: 0.25em;
+      }
+      .client-payment-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .client-payment-form .form-label {
+        color: #b0b8c8;
+        font-size: 0.82rem;
+        margin-bottom: 4px;
+      }
+      .client-payment-form .form-control {
+        background: #10131f;
+        border: 1px solid rgba(0, 255, 247, 0.3);
+        color: #ffffff;
+      }
+      .client-payment-form .form-control:focus {
+        border-color: #00fff7;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 247, 0.18);
+      }
+      .client-payment-btn {
+        margin-top: 4px;
+      }
+      .client-payment-note {
+        color: #7f8ea8;
+        font-size: 0.76rem;
+        line-height: 1.45;
+      }
+      .client-payment-status {
+        display: none;
+        margin-top: 14px;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 0.84rem;
+        font-weight: 600;
+      }
+      .client-payment-status.is-visible {
+        display: block;
+      }
+      .client-payment-status.is-info {
+        background: rgba(33, 150, 243, 0.15);
+        border: 1px solid rgba(33, 150, 243, 0.4);
+        color: #64b5f6;
+      }
+      .client-payment-status.is-success {
+        background: rgba(76, 175, 80, 0.15);
+        border: 1px solid rgba(76, 175, 80, 0.4);
+        color: #81c784;
+      }
+      .client-payment-status.is-error {
+        background: rgba(244, 67, 54, 0.14);
+        border: 1px solid rgba(244, 67, 54, 0.4);
+        color: #ef9a9a;
+      }
+
+      @media (max-width: 991px) {
+        .client-payment-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Client payment light mode */
+      body.light-mode #payment {
+        background: #f0f2f5 !important;
+      }
+      body.light-mode .client-payment-card {
+        background: #ffffff !important;
+        border-color: #dddfe2 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+      }
+      body.light-mode .client-payment-title {
+        color: #1c1e21 !important;
+      }
+      body.light-mode .client-payment-text,
+      body.light-mode .client-payment-list li,
+      body.light-mode .client-payment-form .form-label,
+      body.light-mode .client-payment-note {
+        color: #444 !important;
+      }
+      body.light-mode .client-payment-list li::before {
+        color: #1c1e21 !important;
+      }
+      body.light-mode .client-payment-form .form-control {
+        background: #ffffff !important;
+        color: #1c1e21 !important;
+        border-color: #dddfe2 !important;
+      }
+      body.light-mode .client-payment-form .form-control:focus {
+        border-color: #1c1e21 !important;
+        box-shadow: 0 0 0 0.2rem rgba(28, 30, 33, 0.15) !important;
+      }
+      body.light-mode .client-payment-status.is-info {
+        color: #1565c0 !important;
+      }
+      body.light-mode .client-payment-status.is-success {
+        color: #2e7d32 !important;
+      }
+      body.light-mode .client-payment-status.is-error {
+        color: #b71c1c !important;
+      }
     </style>
   </head>
   <body>
@@ -5548,7 +5884,7 @@
                 Click to upload or drag & drop
               </p>
               <p style="color: #e0e0e0; font-size: 0.8rem">
-                JPG, PNG, GIF, WebP (Max 5MB each) • Multiple files supported
+                JPG, PNG, GIF, WebP (Max 5MB each) — Multiple files supported
               </p>
             </div>
 
@@ -5662,9 +5998,9 @@
               <h5 class="modal-title">PROJECT GALLERY</h5>
             </div>
             <div class="gallery-header-nav">
-              <button id="galleryPrevBtn" title="Previous (←)"><i class="fas fa-chevron-left"></i></button>
+              <button id="galleryPrevBtn" title="Previous (?)"><i class="fas fa-chevron-left"></i></button>
               <div id="galleryCounter"></div>
-              <button id="galleryNextBtn" title="Next (→)"><i class="fas fa-chevron-right"></i></button>
+              <button id="galleryNextBtn" title="Next (?)"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="modal-header-actions">
               <button class="gallery-slideshow-btn" id="gallerySlideshowBtn" title="Toggle slideshow">
@@ -5757,6 +6093,7 @@
             <li class="nav-item"><a class="nav-link text-lg-start" href="#roadmap">Roadmap</a></li>
             <li class="nav-item"><a class="nav-link text-lg-start" href="#tech">Tech Stack</a></li>
             <li class="nav-item"><a class="nav-link text-lg-start" href="#projects">Projects</a></li>
+            <li class="nav-item"><a class="nav-link text-lg-start" href="#payment">Payment</a></li>
             <li class="nav-item"><a class="nav-link text-lg-start" href="#gallery">Gallery</a></li>
             <li class="nav-item">
               <button class="theme-toggle-btn btn btn-sm btn-outline-light ms-2" id="themeToggleBtn" onclick="toggleTheme()" title="Switch theme">
@@ -6088,7 +6425,7 @@
           </h3>
 
           <p class="roadmap-desc" style="margin-bottom: 1rem; text-align: center; color: #b0b8c8; font-size: 0.92rem">
-            BSIT student at Sultan Kudarat State University – Isulan Campus
+            BSIT student at Sultan Kudarat State University ñ Isulan Campus
           </p>
 
           <div class="about-bullets-grid">
@@ -6159,7 +6496,7 @@ From coding basics to full-stack, with achievements and certifications.         
           <div class="roadmap-item">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
-              <div class="roadmap-year">2023 — 2025</div>
+              <div class="roadmap-year">2023 ñ 2025</div>
               <div class="roadmap-stage">The Foundation & First Real Systems</div>
               <ul class="roadmap-desc roadmap-bullets">
                 <li>Mastered <span class="roadmap-tag">HTML5</span>, <span class="roadmap-tag">CSS3</span>, <span class="roadmap-tag">JavaScript</span>, <span class="roadmap-tag">PHP</span> &amp; <span class="roadmap-tag">MySQL</span></li>
@@ -6183,7 +6520,7 @@ From coding basics to full-stack, with achievements and certifications.         
             </div>
           </div>
 
-          <!-- Stage 6 — Current -->
+          <!-- Stage 6 ñ Current -->
           <div class="roadmap-item roadmap-current">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
@@ -6639,6 +6976,61 @@ From coding basics to full-stack, with achievements and certifications.         
       </div>
     </section>
 
+    <!-- Client Payment Section -->
+    <section id="payment" class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="roadmap-section-title">PROJECT PAYMENT</h2>
+          <p class="roadmap-desc" style="margin-top: 0.5rem">
+            Submit your GCash payment details below.
+          </p>
+        </div>
+
+        <div class="client-payment-card">
+          <div class="client-payment-grid">
+            <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+              <h3 class="client-payment-title">Send Payment </h3>
+              <div style="padding: 10px 0 20px;">
+                <img src="gcash.jpg" alt="GCash Logo" style="max-width: 100%; height: auto; max-height: 320px; object-fit: contain;" />
+              </div>
+              <button type="button" class="btn btn-primary client-payment-btn" id="viewNameBtn" style="margin-top: auto;">
+                <i class="fas fa-user me-2"></i>View GCash Details
+              </button>
+            </div>
+
+            <form id="clientPaymentForm" class="client-payment-form" novalidate style="display: flex; flex-direction: column;">
+              <h3 class="client-payment-title" style="text-align: center;">Payment Details</h3>
+              <div>
+                <label class="form-label" for="paymentClientName">Client Name</label>
+                <input id="paymentClientName" name="clientName" class="form-control" type="text" maxlength="80" placeholder="Juan Dela Cruz" />
+              </div>
+              <div>
+                <label class="form-label" for="paymentClientEmail">Client Email</label>
+                <input id="paymentClientEmail" name="clientEmail" class="form-control" type="email" required maxlength="120" placeholder="juan@example.com" />
+              </div>
+              <div>
+                <label class="form-label" for="paymentAmount">Amount (PHP)</label>
+                <input id="paymentAmount" name="amount" class="form-control" type="number" inputmode="decimal" min="1" step="0.01" required placeholder="5000.00" />
+              </div>
+              <div>
+                <label class="form-label" for="gcashReferenceNumber">GCash Reference Number</label>
+                <div class="input-group">
+                  <span class="input-group-text">Ref No.</span>
+                  <input id="gcashReferenceNumber" name="gcashReferenceNumber" class="form-control" type="text" required maxlength="13" minlength="13" pattern="\d{13}" inputmode="numeric" placeholder="1001543610110" />
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary client-payment-btn" style="margin-top: auto;">
+                <i class="fas fa-paper-plane me-2"></i>Submit Payment Details
+              </button>
+            </form>
+          </div>
+
+          <div id="clientPaymentStatus" class="client-payment-status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section id="gallery">
       <div class="container-fluid px-0 px-md-3">
@@ -6684,11 +7076,11 @@ From coding basics to full-stack, with achievements and certifications.         
     <!-- Photo Gallery Fullscreen Preview Overlay -->
     <div class="gallery-fullscreen-overlay" id="galleryFullscreenOverlay">
       <button class="gallery-fullscreen-close" id="galleryFullscreenClose" title="Close (Esc)">&times;</button>
-      <button class="gallery-fullscreen-nav gallery-fullscreen-prev" id="galleryFullscreenPrev" title="Previous (←)">
+      <button class="gallery-fullscreen-nav gallery-fullscreen-prev" id="galleryFullscreenPrev" title="Previous (?)">
         <i class="fas fa-chevron-left"></i>
       </button>
       <img id="galleryFullscreenImage" src="" alt="Fullscreen Preview" />
-      <button class="gallery-fullscreen-nav gallery-fullscreen-next" id="galleryFullscreenNext" title="Next (→)">
+      <button class="gallery-fullscreen-nav gallery-fullscreen-next" id="galleryFullscreenNext" title="Next (?)">
         <i class="fas fa-chevron-right"></i>
       </button>
       <div class="gallery-fullscreen-counter" id="galleryFullscreenCounter">1 / 4</div>
@@ -6896,7 +7288,7 @@ From coding basics to full-stack, with achievements and certifications.         
           }
         });
 
-        // Animate roadmap items — left items slide from left, right items slide from right
+        // Animate roadmap items ñ left items slide from left, right items slide from right
         document.querySelectorAll(".roadmap-item").forEach((el, idx) => {
           if (!el.classList.contains("scroll-animate")) {
             if (el.classList.contains("right")) {
@@ -6918,6 +7310,106 @@ From coding basics to full-stack, with achievements and certifications.         
           }
         });
       });
+
+      // Client payment form submission (GCash Reference Number submission with email notification)
+      const clientPaymentForm = document.getElementById("clientPaymentForm");
+      const clientPaymentStatus = document.getElementById("clientPaymentStatus");
+      const clientPaymentSubmitBtn = clientPaymentForm
+        ? clientPaymentForm.querySelector('button[type="submit"]')
+        : null;
+
+      function showClientPaymentStatus(message, type) {
+        if (!clientPaymentStatus) return;
+
+        clientPaymentStatus.textContent = message;
+        clientPaymentStatus.classList.add("is-visible");
+        clientPaymentStatus.classList.remove("is-info", "is-success", "is-error");
+
+        if (type === "success") {
+          clientPaymentStatus.classList.add("is-success");
+          return;
+        }
+
+        if (type === "error") {
+          clientPaymentStatus.classList.add("is-error");
+          return;
+        }
+
+        clientPaymentStatus.classList.add("is-info");
+      }
+
+      if (clientPaymentForm) {
+        clientPaymentForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const payload = {
+            clientName: document.getElementById("paymentClientName")?.value?.trim() || "",
+            clientEmail: document.getElementById("paymentClientEmail")?.value?.trim() || "",
+            amount: Number(document.getElementById("paymentAmount")?.value),
+            gcashReferenceNumber: document.getElementById("gcashReferenceNumber")?.value?.trim() || "",
+          };
+
+          if (!payload.clientName || !payload.amount || !payload.gcashReferenceNumber) {
+            showClientPaymentStatus("Please complete all required fields.", "error");
+            return;
+          }
+
+          // Validate GCash Reference Number is exactly 13 digits
+          const refNoRegex = /^\d{13}$/;
+          if (!refNoRegex.test(payload.gcashReferenceNumber)) {
+            showClientPaymentStatus("GCash Reference Number must be exactly 13 digits.", "error");
+            return;
+          }
+
+          if (!payload.clientEmail) {
+            showClientPaymentStatus("Client email is required.", "error");
+            return;
+          }
+
+          // Basic email validation
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(payload.clientEmail)) {
+            showClientPaymentStatus("Please enter a valid email address.", "error");
+            return;
+          }
+
+          if (payload.amount <= 0) {
+            showClientPaymentStatus("Amount must be greater than zero.", "error");
+            return;
+          }
+
+          try {
+            if (clientPaymentSubmitBtn) {
+              clientPaymentSubmitBtn.disabled = true;
+            }
+
+            showClientPaymentStatus("Submitting your payment details...", "info");
+            
+            const response = await fetch("gcash_notification.php", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(payload),
+            });
+
+            const result = await response.json().catch(() => ({}));
+            
+            if (!response.ok || !result.ok) {
+              throw new Error(result.error || "Failed to submit payment details.");
+            }
+
+            showClientPaymentStatus("Payment details submitted successfully! You will receive a confirmation email shortly.", "success");
+            clientPaymentForm.reset();
+          } catch (err) {
+            showClientPaymentStatus(err.message || "Could not submit payment details.", "error");
+          } finally {
+            if (clientPaymentSubmitBtn) {
+              clientPaymentSubmitBtn.disabled = false;
+            }
+          }
+        });
+      }
 
       // Upload Modal Functions
       let currentProjectId = null;
@@ -8485,7 +8977,7 @@ From coding basics to full-stack, with achievements and certifications.         
         }
       }
 
-      /* Prevent body scroll when chatbot is open — scroll position saved/restored via JS */
+      /* Prevent body scroll when chatbot is open ñ scroll position saved/restored via JS */
       body.chatbot-open {
         overflow: hidden !important;
         position: fixed !important;
@@ -8978,7 +9470,7 @@ From coding basics to full-stack, with achievements and certifications.         
       </div>
     </div>
 
-    <!-- Chatbot Script — Gemini AI -->
+    <!-- Chatbot Script ñ Gemini AI -->
     <script>
       (function () {
         // API calls now handled by PHP backend (chat.php) to keep API key secure
@@ -9172,7 +9664,7 @@ feeling good developer\n`;
           prompt += `   - Provide a brief plain text explanation BEFORE the code block (no markdown formatting)\\n`;
           prompt += `   - Add helpful comments inside the code itself\\n`;
           prompt += `   - Keep explanations concise and clear - max 1-2 sentences\\n`;
-          prompt += `   - Structure: Plain text explanation with filename → Code Block (with comments)\\n`;
+          prompt += `   - Structure: Plain text explanation with filename ? Code Block (with comments)\\n`;
           prompt += `   - For inline code references: use single backticks \\\`like this\\\`\\n`;
           prompt += `   - For non-programming responses: Plain text only, no formatting\\n`;
           prompt += `5. NO EMOJIS: Never use any emojis or emoticons in any response.\n`;
@@ -9204,7 +9696,7 @@ feeling good developer\n`;
           prompt += `   - Use appropriate language: PHP for backend, JavaScript for frontend, etc.\n`;
           prompt += `27. Code examples should be practical, tested patterns that students can learn from and adapt.\n`;
           prompt += `28. Always specify the programming language in code blocks for proper syntax highlighting.\n`;
-          prompt += `29. Format: Brief summary → Code with comments → Optional tip if needed (1 sentence max).\n`;
+          prompt += `29. Format: Brief summary ? Code with comments ? Optional tip if needed (1 sentence max).\n`;
           prompt += `30. Technical Explanations Format: When explaining how technologies work together or describing technical concepts:\n`;
           prompt += `   - Use plain text only - absolutely NO asterisks, NO markdown formatting, NO special emphasis characters\n`;
           prompt += `   - Structure explanations with simple numbered lists (1. 2. 3.) or plain paragraphs\n`;
@@ -10411,7 +10903,7 @@ feeling good developer\n`;
           // Detect standalone code blocks without backticks (e.g., "html\n<!DOCTYPE..." or "php\n<?php...")
           // This catches when AI outputs language name followed by code
           html = html.replace(
-            /\n(html|javascript|js|typescript|ts|python|py|php|css|java|sql|json|xml|bash|sh|csharp|cs)\n(&lt;[^&]*(?:&[^;]*;[^&]*)*&gt;[\s\S]{20,}?)(?=\n\n|$)/gi,
+            new RegExp('(?:^|\n)(html|javascript|js|typescript|ts|python|py|php|css|java|sql|json|xml|bash|sh|csharp|cs)\n(&lt;[^&]*(?:&[^;]*;[^&]*)*&gt;[\s\S]{20,}?)(?=\n\n|$)', 'gi'),
             function (match, lang, code) {
               // Only process if it looks like actual code (has multiple lines and tags/brackets)
               if (code.includes("&lt;") && code.includes("&gt;")) {
@@ -10881,7 +11373,7 @@ feeling good developer\n`;
           });
         }
 
-        // Main speak function — prioritizes newer messages over older ones
+        // Main speak function ñ prioritizes newer messages over older ones
         function speakText(text) {
           if (!ttsEnabled) return;
 
@@ -10903,7 +11395,7 @@ feeling good developer\n`;
 
             // Remove standalone code patterns (language name followed by code)
             cleanText = cleanText.replace(
-              /\n(html|javascript|js|typescript|ts|python|py|php|css|java|sql|json|xml|bash|sh|csharp|cs)\n[<\[][\s\S]{20,}?(?=\n\n|$)/gi,
+              new RegExp('(?:^|\n)(html|javascript|js|typescript|ts|python|py|php|css|java|sql|json|xml|bash|sh|csharp|cs)[<\[][\s\S]{20,}?(?=\n\n|$)', 'gi'),
               "",
             );
 
@@ -11037,7 +11529,7 @@ feeling good developer\n`;
       }
     </style>
 
-    <div id="viewerCounter">Viewers: <span id="viewerUnique">—</span></div>
+    <div id="viewerCounter">Viewers: <span id="viewerUnique">ñ</span></div>
 
     <script>
       (function () {
@@ -11079,4 +11571,53 @@ feeling good developer\n`;
       })();
     </script>
   </body>
+
+  <!-- Name Fullscreen Preview Overlay -->
+    <!-- Name View Modal (matching PROJECT GALLERY style) -->
+    <div class="modal fade" id="nameViewModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-white">
+          <div class="modal-header">
+            <div class="modal-header-left">
+              <h5 class="modal-title">GCASH DETAILS</h5>
+            </div>
+            <div class="modal-header-actions">
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="gallery-image-container">
+              <img
+                id="nameViewImage"
+                src="name.jpg"
+                alt="Name"
+                class="gallery-fade-in"
+                style="display: block; max-width: 100%; max-height: 38vh; object-fit: contain; border-radius: 8px;"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script>
+    // Name view modal functionality (matching PROJECT GALLERY style)
+    (function() {
+      const viewNameBtn = document.getElementById('viewNameBtn');
+      const nameModal = document.getElementById('nameViewModal');
+
+      if (viewNameBtn && nameModal) {
+        const bsModal = new bootstrap.Modal(nameModal);
+        
+        viewNameBtn.addEventListener('click', function() {
+          bsModal.show();
+        });
+      }
+    })();
+  </script>
 </html>

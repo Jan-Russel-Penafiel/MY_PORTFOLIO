@@ -9,6 +9,12 @@ php_flag log_errors on
     Require all granted
 </Files>
 
+<Files "gcash_payment.php">
+    Order allow,deny
+    Allow from all
+    Require all granted
+</Files>
+
 # Security headers
 <IfModule mod_headers.c>
     Header set Access-Control-Allow-Origin "*"
@@ -16,8 +22,23 @@ php_flag log_errors on
     Header set Access-Control-Allow-Headers "Content-Type"
 </IfModule>
 
-# Protect config.json from direct access
+# Protect sensitive files from direct access
 <Files "config.json">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files ".env">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files ".env.example">
+    Order deny,allow
+    Deny from all
+</Files>
+
+<Files "test_*.php">
     Order deny,allow
     Deny from all
 </Files>

@@ -2,6 +2,9 @@
 chatbot-proxy.php
 config.php
 config.json
+.env
+.env.local
+.env.*.local
 
 # Ignore backup files
 backups/
