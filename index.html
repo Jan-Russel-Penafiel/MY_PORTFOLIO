@@ -616,37 +616,6 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       }
 
-            /* Book Appointment button mobile/desktop visibility */
-            .book-appointment-mobile {
-              display: none;
-            }
-            .book-appointment-desktop {
-              display: block;
-            }
-            .book-appointment-btn {
-              width: 100%;
-              min-width: 220px !important;
-              max-width: 420px !important;
-              font-size: 1.05rem;
-              padding-top: 14px;
-              padding-bottom: 14px;
-            }
-            @media (max-width: 768px) {
-              .book-appointment-mobile {
-                display: block !important;
-              }
-              .book-appointment-desktop {
-                display: none !important;
-              }
-              .book-appointment-btn {
-                width: 100%;
-                min-width: 180px !important;
-                max-width: 100vw !important;
-                font-size: 1rem;
-                padding-top: 12px;
-                padding-bottom: 12px;
-              }
-            }
       body {
         font-family: "Poppins", sans-serif;
         line-height: 1.6;
@@ -5822,6 +5791,50 @@
       body.light-mode .client-payment-status.is-error {
         color: #b71c1c !important;
       }
+      .gcash-image-wrapper {
+        position: relative;
+        display: inline-block;
+        padding: 10px 0 20px;
+      }
+      .gcash-lock-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(10, 12, 22, 0.72);
+        border-radius: 12px;
+        backdrop-filter: blur(3px);
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      .gcash-lock-overlay i {
+        font-size: 2.8rem;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .gcash-lock-overlay p {
+        color: rgba(255, 255, 255, 0.75);
+        margin-top: 10px;
+        font-size: 0.82rem;
+        text-align: center;
+        padding: 0 8px;
+      }
+      #gcashImage.gcash-locked {
+        opacity: 0.45;
+        filter: grayscale(60%);
+        transition: opacity 0.3s, filter 0.3s;
+      }
+      #gcashImage {
+        transition: opacity 0.3s, filter 0.3s;
+      }
+      body.light-mode .gcash-lock-overlay {
+        background: rgba(240, 242, 247, 0.78);
+      }
+      body.light-mode .gcash-lock-overlay i,
+      body.light-mode .gcash-lock-overlay p {
+        color: rgba(30, 30, 30, 0.75);
+      }
     </style>
   </head>
   <body>
@@ -6133,18 +6146,6 @@
               Open for Commissions | Freelance Web Developer
             </p>
 
-            <!-- Book Appointment button for mobile (visible only on mobile, now below Web Developer) -->
-            <div class="book-appointment-mobile" style="margin-bottom: 1.5rem;">
-              <a
-                href="https://calendly.com/janrusselpenafiel01172005"
-                class="badge-custom badge-dark-glow fade-in-pulse book-appointment-btn"
-                target="_blank"
-                style="animation-delay:0.45s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both;"
-              >
-<i class="fa fa-hand-point-right me-1" aria-hidden="true"></i> Book Appointment <i class="fa fa-hand-point-left me-2" aria-hidden="true"></i>
-              </a>
-            </div>
-
             <div class="hero-actions">
               <div class="hero-actions-grid">
                 <a
@@ -6182,17 +6183,6 @@
                 >
                   <i class="fab fa-facebook me-2"></i>Team AsyncX
                 </a>
-              </div>
-              <!-- Book Appointment button for desktop (hidden on mobile) -->
-              <div class="hero-actions-bottom book-appointment-desktop">
-                <a
-                  href="https://calendly.com/janrusselpenafiel01172005"
-                  class="badge-custom badge-dark-glow fade-in-pulse book-appointment-btn"
-                  target="_blank"
-                  style="animation-delay:0.45s;animation:fadeInPulse 0.7s cubic-bezier(0.4,0,0.2,1) both;"
-                >
-<i class="fa fa-hand-point-right me-1" aria-hidden="true"></i>Book Appointment <i class="fa fa-hand-point-left me-2" aria-hidden="true"></i>
-      </a>
               </div>
             </div>
           </div>
@@ -6425,7 +6415,7 @@
           </h3>
 
           <p class="roadmap-desc" style="margin-bottom: 1rem; text-align: center; color: #b0b8c8; font-size: 0.92rem">
-            BSIT student at Sultan Kudarat State University ñ Isulan Campus
+            BSIT student at Sultan Kudarat State University — Isulan Campus
           </p>
 
           <div class="about-bullets-grid">
@@ -6496,7 +6486,7 @@ From coding basics to full-stack, with achievements and certifications.         
           <div class="roadmap-item">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
-              <div class="roadmap-year">2023 ñ 2025</div>
+              <div class="roadmap-year">2023 — 2025</div>
               <div class="roadmap-stage">The Foundation & First Real Systems</div>
               <ul class="roadmap-desc roadmap-bullets">
                 <li>Mastered <span class="roadmap-tag">HTML5</span>, <span class="roadmap-tag">CSS3</span>, <span class="roadmap-tag">JavaScript</span>, <span class="roadmap-tag">PHP</span> &amp; <span class="roadmap-tag">MySQL</span></li>
@@ -6520,7 +6510,7 @@ From coding basics to full-stack, with achievements and certifications.         
             </div>
           </div>
 
-          <!-- Stage 6 ñ Current -->
+          <!-- Stage 6 — Current -->
           <div class="roadmap-item roadmap-current">
             <div class="roadmap-node"></div>
             <div class="roadmap-card">
@@ -6990,11 +6980,15 @@ From coding basics to full-stack, with achievements and certifications.         
           <div class="client-payment-grid">
             <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
               <h3 class="client-payment-title">Send Payment </h3>
-              <div style="padding: 10px 0 20px;">
-                <img src="gcash.jpg" alt="GCash Logo" style="max-width: 100%; height: auto; max-height: 320px; object-fit: contain;" />
+              <div class="gcash-image-wrapper" id="gcashImageWrapper">
+                <img src="gcash.jpg" alt="GCash Logo" id="gcashImage" class="gcash-locked" style="max-width: 100%; height: auto; max-height: 320px; object-fit: contain;" />
+                <div class="gcash-lock-overlay" id="gcashLockOverlay">
+                  <i class="fas fa-lock"></i>
+                  <p>Complete the payment form to unlock</p>
+                </div>
               </div>
-              <button type="button" class="btn btn-primary client-payment-btn" id="viewNameBtn" style="margin-top: auto;">
-                <i class="fas fa-user me-2"></i>View GCash Details
+              <button type="button" class="btn btn-primary client-payment-btn" id="viewNameBtn" style="margin-top: auto;" disabled>
+                <i class="fas fa-lock me-2" id="viewNameBtnIcon"></i>View GCash Details
               </button>
             </div>
 
@@ -7013,10 +7007,9 @@ From coding basics to full-stack, with achievements and certifications.         
                 <input id="paymentAmount" name="amount" class="form-control" type="number" inputmode="decimal" min="1" step="0.01" required placeholder="5000.00" />
               </div>
               <div>
-                <label class="form-label" for="gcashReferenceNumber">GCash Reference Number</label>
+                <label class="form-label" for="gcashReferenceNumber">Client GCash Number</label>
                 <div class="input-group">
-                  <span class="input-group-text">Ref No.</span>
-                  <input id="gcashReferenceNumber" name="gcashReferenceNumber" class="form-control" type="text" required maxlength="13" minlength="13" pattern="\d{13}" inputmode="numeric" placeholder="1001543610110" />
+                  <input id="gcashReferenceNumber" name="gcashReferenceNumber" class="form-control" type="text" required maxlength="11" minlength="11" pattern="\d{11}" inputmode="numeric" placeholder="09123456789" />
                 </div>
               </div>
 
@@ -7288,7 +7281,7 @@ From coding basics to full-stack, with achievements and certifications.         
           }
         });
 
-        // Animate roadmap items ñ left items slide from left, right items slide from right
+        // Animate roadmap items — left items slide from left, right items slide from right
         document.querySelectorAll(".roadmap-item").forEach((el, idx) => {
           if (!el.classList.contains("scroll-animate")) {
             if (el.classList.contains("right")) {
@@ -7310,6 +7303,23 @@ From coding basics to full-stack, with achievements and certifications.         
           }
         });
       });
+
+      // Payment section lock/unlock — locked by default, unlocked after successful submission
+      (function () {
+        const viewBtn = document.getElementById("viewNameBtn");
+        const viewBtnIcon = document.getElementById("viewNameBtnIcon");
+        const gcashImg = document.getElementById("gcashImage");
+        const gcashOverlay = document.getElementById("gcashLockOverlay");
+
+        window.unlockPaymentSection = function () {
+          if (viewBtn) {
+            viewBtn.disabled = false;
+            if (viewBtnIcon) viewBtnIcon.className = "fas fa-user me-2";
+          }
+          if (gcashImg) gcashImg.classList.remove("gcash-locked");
+          if (gcashOverlay) gcashOverlay.style.display = "none";
+        };
+      })();
 
       // Client payment form submission (GCash Reference Number submission with email notification)
       const clientPaymentForm = document.getElementById("clientPaymentForm");
@@ -7354,10 +7364,10 @@ From coding basics to full-stack, with achievements and certifications.         
             return;
           }
 
-          // Validate GCash Reference Number is exactly 13 digits
-          const refNoRegex = /^\d{13}$/;
+          // Validate Client GCash Number is exactly 11 digits
+          const refNoRegex = /^\d{11}$/;
           if (!refNoRegex.test(payload.gcashReferenceNumber)) {
-            showClientPaymentStatus("GCash Reference Number must be exactly 13 digits.", "error");
+            showClientPaymentStatus("Client GCash Number must be exactly 11 digits.", "error");
             return;
           }
 
@@ -7401,6 +7411,7 @@ From coding basics to full-stack, with achievements and certifications.         
 
             showClientPaymentStatus("Payment details submitted successfully! You will receive a confirmation email shortly.", "success");
             clientPaymentForm.reset();
+            if (typeof unlockPaymentSection === "function") unlockPaymentSection();
           } catch (err) {
             showClientPaymentStatus(err.message || "Could not submit payment details.", "error");
           } finally {
@@ -8977,7 +8988,7 @@ From coding basics to full-stack, with achievements and certifications.         
         }
       }
 
-      /* Prevent body scroll when chatbot is open ñ scroll position saved/restored via JS */
+      /* Prevent body scroll when chatbot is open — scroll position saved/restored via JS */
       body.chatbot-open {
         overflow: hidden !important;
         position: fixed !important;
@@ -9470,7 +9481,7 @@ From coding basics to full-stack, with achievements and certifications.         
       </div>
     </div>
 
-    <!-- Chatbot Script ñ Gemini AI -->
+    <!-- Chatbot Script — Gemini AI -->
     <script>
       (function () {
         // API calls now handled by PHP backend (chat.php) to keep API key secure
@@ -11373,7 +11384,7 @@ feeling good developer\n`;
           });
         }
 
-        // Main speak function ñ prioritizes newer messages over older ones
+        // Main speak function — prioritizes newer messages over older ones
         function speakText(text) {
           if (!ttsEnabled) return;
 
@@ -11529,7 +11540,7 @@ feeling good developer\n`;
       }
     </style>
 
-    <div id="viewerCounter">Viewers: <span id="viewerUnique">ñ</span></div>
+    <div id="viewerCounter">Viewers: <span id="viewerUnique">0</span></div>
 
     <script>
       (function () {
