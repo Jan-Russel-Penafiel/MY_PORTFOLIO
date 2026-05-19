@@ -7219,8 +7219,11 @@ From coding basics to full-stack, with achievements and certifications.         
                 <input id="appointmentFacebookName" name="facebookName" class="form-control" type="text" maxlength="80" required placeholder="Your Facebook display name" />
               </div>
               <div>
-                <label class="form-label" for="appointmentDeadline">Deadline of the Project</label>
-                <input id="appointmentDeadline" name="deadline" class="form-control" type="date" required />
+                <label class="form-label">Appointment Date</label>
+                <div id="appointmentDateDisplay" class="form-control appointment-date-display">
+                  Tap a date on the calendar
+                </div>
+                <input id="appointmentDeadline" name="deadline" type="hidden" />
               </div>
 
               <button type="submit" class="btn btn-primary client-payment-btn" style="margin-top: auto;">
