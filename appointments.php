@@ -166,6 +166,13 @@ function sendOwnerEmail(array $appointment): void
         throw new RuntimeException('SMTP credentials not configured in .env');
     }
 
+    $token = generateAppointmentToken($appointment['id']);
+    $base = getBaseUrl();
+    $approveLink = $base . '/appointment_approval.php?action=approve&id='
+        . urlencode($appointment['id']) . '&token=' . $token;
+    $disapproveLink = $base . '/appointment_approval.php?action=disapprove&id='
+        . urlencode($appointment['id']) . '&token=' . $token;
+
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = $smtpHost;
@@ -180,15 +187,15 @@ function sendOwnerEmail(array $appointment): void
     $mail->addAddress($recipientEmail, 'Jan Russel Penaflor');
 
     $mail->isHTML(true);
-    $mail->Subject = '📅 New Appointment - ' . $appointment['projectName'];
-    $mail->Body = generateOwnerEmailBody($appointment);
+    $mail->Subject = '📅 Appointment Request - ' . $appointment['projectName'];
+    $mail->Body = generateOwnerEmailBody($appointment, $approveLink, $disapproveLink);
     $mail->AltBody = strip_tags(str_replace('<br>', "\n", $mail->Body));
 
     $mail->send();
-    error_log('Appointments: owner email sent for project ' . $appointment['projectName']);
+    error_log('Appointments: approval email sent for ' . $appointment['id']);
 }
 
-function generateOwnerEmailBody(array $a): string
+function generateOwnerEmailBody(array $a, string $approveLink, string $disapproveLink): string
 {
     $projectName = htmlspecialchars($a['projectName'], ENT_QUOTES);
     $projectType = htmlspecialchars($a['projectType'], ENT_QUOTES);
@@ -204,11 +211,11 @@ function generateOwnerEmailBody(array $a): string
 <body style="font-family: Arial, sans-serif; background:#0a0e1a; color:#e0e6ed; margin:0; padding:20px;">
     <div style="max-width:650px; margin:0 auto; background:linear-gradient(135deg,#181825 0%,#1a1c2e 100%); border:1.5px solid rgba(0,255,247,0.3); border-radius:14px; overflow:hidden;">
         <div style="background:linear-gradient(135deg,#00fff7 0%,#00d4d4 100%); color:#0a0e1a; padding:35px 30px; text-align:center;">
-            <h1 style="margin:0; font-size:26px;">📅 New Appointment Booked</h1>
-            <p style="margin:8px 0 0 0; font-size:14px;">A client has booked a project appointment</p>
+            <h1 style="margin:0; font-size:26px;">📅 New Appointment Request</h1>
+            <p style="margin:8px 0 0 0; font-size:14px;">Review and approve or disapprove this booking</p>
         </div>
         <div style="padding:35px 30px;">
-            <p style="color:#b0b8c8;">A new appointment has been booked through your portfolio website:</p>
+            <p style="color:#b0b8c8;">A client has requested a project appointment. It is <strong style="color:#ffb74d;">pending your decision</strong>:</p>
             <div style="padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
                 <span style="color:#7f8ea8; font-weight:600;">📁 Project Name:</span>
                 <span style="color:#ffffff; float:right; font-weight:600;">{$projectName}</span>
@@ -226,9 +233,14 @@ function generateOwnerEmailBody(array $a): string
                 <span style="color:#00fff7; float:right; font-weight:700;">{$deadline}</span>
             </div>
             <div style="padding:16px 0;">
-                <span style="color:#7f8ea8; font-weight:600;">🕒 Booked On:</span>
+                <span style="color:#7f8ea8; font-weight:600;">🕒 Requested On:</span>
                 <span style="color:#ffffff; float:right; font-weight:600;">{$bookedAt}</span>
             </div>
+            <div style="text-align:center; margin-top:30px;">
+                <a href="{$approveLink}" style="display:inline-block; background:linear-gradient(135deg,#28a745 0%,#20c997 100%); color:#ffffff; padding:14px 32px; border-radius:10px; text-decoration:none; font-weight:700; font-size:15px; margin:6px;">✓ APPROVE</a>
+                <a href="{$disapproveLink}" style="display:inline-block; background:linear-gradient(135deg,#ff4757 0%,#ff6b81 100%); color:#ffffff; padding:14px 32px; border-radius:10px; text-decoration:none; font-weight:700; font-size:15px; margin:6px;">✕ DISAPPROVE</a>
+            </div>
+            <p style="color:#7f8ea8; font-size:13px; margin-top:25px; text-align:center;">Approving marks the date confirmed. Disapproving frees the date for other clients.</p>
         </div>
         <div style="background:rgba(0,0,0,0.3); padding:25px 30px; text-align:center; color:#7f8ea8; font-size:12px;">
             <p style="margin:5px 0;">This is an automated notification from your Portfolio Appointment System.</p>
@@ -305,4 +317,21 @@ function respond(int $statusCode, array $payload): void
     http_response_code($statusCode);
     echo json_encode($payload, JSON_UNESCAPED_SLASHES);
     exit;
+}
+
+function generateAppointmentToken(string $appointmentId): string
+{
+    $secret = envValue('APPROVAL_SECRET') ?: 'default-secret-change-me';
+    return hash_hmac('sha256', $appointmentId, $secret);
+}
+
+function getBaseUrl(): string
+{
+    $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    $scheme = $isHttps ? 'https' : 'http';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $basePath = dirname((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    $basePath = str_replace('\\', '/', $basePath);
+    $basePath = rtrim($basePath, '/');
+    return $scheme . '://' . $host . $basePath;
 }
