@@ -5919,6 +5919,68 @@
       .calendar-day.booked:hover {
         background: rgba(0, 255, 247, 0.3);
       }
+      .calendar-day.selectable {
+        cursor: pointer;
+      }
+      .calendar-day.selectable:hover {
+        border-color: rgba(0, 255, 247, 0.6);
+        background: rgba(0, 255, 247, 0.07);
+      }
+      .calendar-day.selected {
+        outline: 2px solid #00fff7;
+        outline-offset: -2px;
+        color: #ffffff;
+        font-weight: 700;
+      }
+      .calendar-day.pending {
+        background: rgba(255, 167, 38, 0.18);
+        border-color: #ffa726;
+        color: #ffffff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .calendar-day.pending::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #ffa726;
+      }
+      .calendar-day.pending:hover {
+        background: rgba(255, 167, 38, 0.32);
+      }
+      .calendar-day.approved {
+        background: rgba(0, 255, 247, 0.16);
+        border-color: #00fff7;
+        color: #ffffff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .calendar-day.approved::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #00fff7;
+      }
+      .calendar-day.approved:hover {
+        background: rgba(0, 255, 247, 0.3);
+      }
+      .appointment-date-display {
+        display: flex;
+        align-items: center;
+        min-height: 38px;
+        color: #00fff7;
+        font-weight: 600;
+      }
+      .appointment-date-display.is-empty {
+        color: #7f8ea8;
+        font-weight: 400;
+      }
       .appointment-detail {
         margin-top: 14px;
         background: #10131f;
@@ -5962,6 +6024,36 @@
       }
       body.light-mode .calendar-day.booked::after {
         background: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day.selectable:hover {
+        border-color: rgba(28, 30, 33, 0.5) !important;
+        background: rgba(28, 30, 33, 0.06) !important;
+      }
+      body.light-mode .calendar-day.selected {
+        outline-color: #1c1e21 !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day.pending {
+        background: rgba(230, 126, 0, 0.16) !important;
+        border-color: #e67e00 !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day.pending::after {
+        background: #e67e00 !important;
+      }
+      body.light-mode .calendar-day.approved {
+        background: rgba(28, 30, 33, 0.1) !important;
+        border-color: #1c1e21 !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day.approved::after {
+        background: #1c1e21 !important;
+      }
+      body.light-mode .appointment-date-display {
+        color: #1565c0 !important;
+      }
+      body.light-mode .appointment-date-display.is-empty {
+        color: #7f8ea8 !important;
       }
       body.light-mode .calendar-day.today {
         border-color: rgba(28, 30, 33, 0.5) !important;
