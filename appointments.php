@@ -86,7 +86,11 @@ if (!is_array($appointments)) {
 }
 
 foreach ($appointments as $existing) {
-    if (($existing['deadline'] ?? '') === $deadline) {
+    $existingStatus = $existing['status'] ?? 'pending';
+    if (
+        ($existing['deadline'] ?? '') === $deadline
+        && $existingStatus !== 'disapproved'
+    ) {
         flock($fp, LOCK_UN);
         fclose($fp);
         respond(409, [
@@ -97,11 +101,14 @@ foreach ($appointments as $existing) {
 }
 
 $appointment = [
+    'id' => 'APT-' . time() . '-' . strtoupper(substr(md5(uniqid('', true)), 0, 8)),
     'projectName' => $projectName,
     'projectType' => $projectType,
     'facebookName' => $facebookName,
     'deadline' => $deadline,
+    'status' => 'pending',
     'bookedAt' => date('Y-m-d H:i:s'),
+    'decidedAt' => null,
 ];
 $appointments[] = $appointment;
 
