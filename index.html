@@ -5835,6 +5835,142 @@
       body.light-mode .gcash-lock-overlay p {
         color: rgba(30, 30, 30, 0.75);
       }
+
+      /* ===== Appointments / Calendar View ===== */
+      .appointment-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .calendar-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+      .calendar-nav-btn {
+        background: #10131f;
+        border: 1px solid rgba(0, 255, 247, 0.3);
+        color: #00fff7;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+      .calendar-nav-btn:hover {
+        background: rgba(0, 255, 247, 0.15);
+      }
+      .calendar-weekdays,
+      .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+      }
+      .calendar-weekday {
+        text-align: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #7f8ea8;
+        text-transform: uppercase;
+        padding: 4px 0;
+      }
+      .calendar-day {
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.82rem;
+        color: #b0b8c8;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        position: relative;
+      }
+      .calendar-day.empty {
+        border: none;
+      }
+      .calendar-day.today {
+        border-color: rgba(0, 255, 247, 0.5);
+        color: #ffffff;
+        font-weight: 700;
+      }
+      .calendar-day.booked {
+        background: rgba(0, 255, 247, 0.16);
+        border-color: #00fff7;
+        color: #ffffff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .calendar-day.booked::after {
+        content: '';
+        position: absolute;
+        bottom: 5px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #00fff7;
+      }
+      .calendar-day.booked:hover {
+        background: rgba(0, 255, 247, 0.3);
+      }
+      .appointment-detail {
+        margin-top: 14px;
+        background: #10131f;
+        border: 1px solid rgba(0, 255, 247, 0.3);
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 0.84rem;
+        color: #b0b8c8;
+      }
+      .appointment-detail strong {
+        color: #ffffff;
+      }
+      .appointment-detail .detail-empty {
+        color: #7f8ea8;
+      }
+      @media (max-width: 991px) {
+        .appointment-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      body.light-mode #appointments {
+        background: #f0f2f5 !important;
+      }
+      body.light-mode .calendar-title,
+      body.light-mode .calendar-day.today,
+      body.light-mode .calendar-day.booked,
+      body.light-mode .appointment-detail strong {
+        color: #1c1e21 !important;
+      }
+      body.light-mode .calendar-nav-btn {
+        background: #ffffff !important;
+        border-color: #dddfe2 !important;
+        color: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day {
+        color: #444 !important;
+      }
+      body.light-mode .calendar-day.booked {
+        background: rgba(28, 30, 33, 0.1) !important;
+        border-color: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day.booked::after {
+        background: #1c1e21 !important;
+      }
+      body.light-mode .calendar-day.today {
+        border-color: rgba(28, 30, 33, 0.5) !important;
+      }
+      body.light-mode .appointment-detail {
+        background: #ffffff !important;
+        border-color: #dddfe2 !important;
+        color: #444 !important;
+      }
     </style>
   </head>
   <body>
