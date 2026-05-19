@@ -11834,11 +11834,221 @@ feeling good developer\n`;
 
       if (viewNameBtn && nameModal) {
         const bsModal = new bootstrap.Modal(nameModal);
-        
+
         viewNameBtn.addEventListener('click', function() {
           bsModal.show();
         });
       }
+    })();
+  </script>
+
+  <!-- Appointments / Calendar View logic -->
+  <script>
+    (function () {
+      var calendarDays = document.getElementById("calendarDays");
+      var calendarTitle = document.getElementById("calendarTitle");
+      var prevBtn = document.getElementById("calendarPrevBtn");
+      var nextBtn = document.getElementById("calendarNextBtn");
+      var detail = document.getElementById("appointmentDetail");
+      var form = document.getElementById("appointmentForm");
+      var statusEl = document.getElementById("appointmentStatus");
+      var deadlineInput = document.getElementById("appointmentDeadline");
+      if (!calendarDays || !form) {
+        return;
+      }
+
+      var MONTHS = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+      ];
+      var viewDate = new Date();
+      viewDate.setDate(1);
+      // Map of "YYYY-MM-DD" -> appointment object.
+      var appointmentsByDate = {};
+
+      function pad(n) {
+        return n < 10 ? "0" + n : "" + n;
+      }
+
+      function dateKey(year, month, day) {
+        return year + "-" + pad(month + 1) + "-" + pad(day);
+      }
+
+      function todayKey() {
+        var t = new Date();
+        return dateKey(t.getFullYear(), t.getMonth(), t.getDate());
+      }
+
+      function setStatus(message, kind) {
+        statusEl.textContent = message;
+        statusEl.className = "client-payment-status is-visible is-" + kind;
+      }
+
+      function clearStatus() {
+        statusEl.textContent = "";
+        statusEl.className = "client-payment-status";
+      }
+
+      function escapeHtml(value) {
+        var div = document.createElement("div");
+        div.textContent = value == null ? "" : String(value);
+        return div.innerHTML;
+      }
+
+      function showDetail(key) {
+        var a = appointmentsByDate[key];
+        if (!a) {
+          detail.innerHTML =
+            '<span class="detail-empty">Click a highlighted date to see the appointment.</span>';
+          return;
+        }
+        detail.innerHTML =
+          "<div><strong>" + escapeHtml(a.projectName) + "</strong></div>" +
+          "<div>Type: " + escapeHtml(a.projectType) + "</div>" +
+          "<div>Facebook: " + escapeHtml(a.facebookName) + "</div>" +
+          "<div>Deadline: <strong>" + escapeHtml(a.deadline) + "</strong></div>";
+      }
+
+      function renderCalendar() {
+        var year = viewDate.getFullYear();
+        var month = viewDate.getMonth();
+        calendarTitle.textContent = MONTHS[month] + " " + year;
+        calendarDays.innerHTML = "";
+
+        var firstWeekday = new Date(year, month, 1).getDay();
+        var daysInMonth = new Date(year, month + 1, 0).getDate();
+        var tKey = todayKey();
+
+        for (var i = 0; i < firstWeekday; i++) {
+          var blank = document.createElement("div");
+          blank.className = "calendar-day empty";
+          calendarDays.appendChild(blank);
+        }
+
+        for (var day = 1; day <= daysInMonth; day++) {
+          var cell = document.createElement("div");
+          cell.className = "calendar-day";
+          cell.textContent = day;
+          var key = dateKey(year, month, day);
+          if (key === tKey) {
+            cell.classList.add("today");
+          }
+          if (appointmentsByDate[key]) {
+            cell.classList.add("booked");
+            cell.title = appointmentsByDate[key].projectName;
+            (function (k) {
+              cell.addEventListener("click", function () {
+                showDetail(k);
+              });
+            })(key);
+          }
+          calendarDays.appendChild(cell);
+        }
+      }
+
+      function loadAppointments() {
+        return fetch("appointments.php")
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (data) {
+            appointmentsByDate = {};
+            if (data && data.ok && Array.isArray(data.appointments)) {
+              data.appointments.forEach(function (a) {
+                if (a && a.deadline) {
+                  appointmentsByDate[a.deadline] = a;
+                }
+              });
+            }
+            renderCalendar();
+          })
+          .catch(function () {
+            renderCalendar();
+          });
+      }
+
+      // Set the deadline input's minimum to today.
+      deadlineInput.min = todayKey();
+
+      prevBtn.addEventListener("click", function () {
+        viewDate.setMonth(viewDate.getMonth() - 1);
+        renderCalendar();
+      });
+      nextBtn.addEventListener("click", function () {
+        viewDate.setMonth(viewDate.getMonth() + 1);
+        renderCalendar();
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        clearStatus();
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        var deadline = deadlineInput.value;
+        if (appointmentsByDate[deadline]) {
+          setStatus(
+            "That date is already booked. Please choose another date.",
+            "error"
+          );
+          return;
+        }
+
+        var payload = {
+          projectName: document
+            .getElementById("appointmentProjectName")
+            .value.trim(),
+          projectType: document.getElementById("appointmentProjectType").value,
+          facebookName: document
+            .getElementById("appointmentFacebookName")
+            .value.trim(),
+          deadline: deadline,
+        };
+
+        var submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        setStatus("Booking your appointment...", "info");
+
+        fetch("appointments.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { status: res.status, data: data };
+            });
+          })
+          .then(function (result) {
+            if (result.data && result.data.ok) {
+              setStatus(
+                result.data.message || "Appointment booked successfully.",
+                result.data.emailWarning ? "info" : "success"
+              );
+              form.reset();
+              return loadAppointments();
+            }
+            setStatus(
+              (result.data && result.data.error) ||
+                "Could not book the appointment. Please try again.",
+              "error"
+            );
+          })
+          .catch(function () {
+            setStatus(
+              "Network error. Please check your connection and try again.",
+              "error"
+            );
+          })
+          .then(function () {
+            submitBtn.disabled = false;
+          });
+      });
+
+      loadAppointments();
     })();
   </script>
 </html>
