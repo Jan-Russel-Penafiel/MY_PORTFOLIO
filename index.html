@@ -7161,6 +7161,79 @@ From coding basics to full-stack, with achievements and certifications.         
       </div>
     </section>
 
+    <!-- Appointments / Calendar View Section -->
+    <section id="appointments" class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="roadmap-section-title">CALENDAR VIEW</h2>
+          <p class="roadmap-desc" style="margin-top: 0.5rem">
+            View client project appointments and book a new one below.
+          </p>
+        </div>
+
+        <div class="client-payment-card">
+          <div class="appointment-grid">
+            <div>
+              <div class="calendar-header">
+                <button type="button" class="calendar-nav-btn" id="calendarPrevBtn" title="Previous month">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="calendar-title" id="calendarTitle">Month Year</span>
+                <button type="button" class="calendar-nav-btn" id="calendarNextBtn" title="Next month">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+              <div class="calendar-weekdays">
+                <div class="calendar-weekday">Sun</div>
+                <div class="calendar-weekday">Mon</div>
+                <div class="calendar-weekday">Tue</div>
+                <div class="calendar-weekday">Wed</div>
+                <div class="calendar-weekday">Thu</div>
+                <div class="calendar-weekday">Fri</div>
+                <div class="calendar-weekday">Sat</div>
+              </div>
+              <div class="calendar-days" id="calendarDays"></div>
+              <div class="appointment-detail" id="appointmentDetail">
+                <span class="detail-empty">Click a highlighted date to see the appointment.</span>
+              </div>
+            </div>
+
+            <form id="appointmentForm" class="client-payment-form" novalidate style="display: flex; flex-direction: column;">
+              <h3 class="client-payment-title" style="text-align: center;">Book an Appointment</h3>
+              <div>
+                <label class="form-label" for="appointmentProjectName">Project Name</label>
+                <input id="appointmentProjectName" name="projectName" class="form-control" type="text" maxlength="120" required placeholder="e.g. Library Management System" />
+              </div>
+              <div>
+                <label class="form-label" for="appointmentProjectType">Type of Project</label>
+                <select id="appointmentProjectType" name="projectType" class="form-control" required>
+                  <option value="" disabled selected>Select a type...</option>
+                  <option value="Simple Project">Simple Project</option>
+                  <option value="Documentation Project">Documentation Project</option>
+                  <option value="Capstone Project">Capstone Project</option>
+                  <option value="Business Project">Business Project</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" for="appointmentFacebookName">Facebook Name</label>
+                <input id="appointmentFacebookName" name="facebookName" class="form-control" type="text" maxlength="80" required placeholder="Your Facebook display name" />
+              </div>
+              <div>
+                <label class="form-label" for="appointmentDeadline">Deadline of the Project</label>
+                <input id="appointmentDeadline" name="deadline" class="form-control" type="date" required />
+              </div>
+
+              <button type="submit" class="btn btn-primary client-payment-btn" style="margin-top: auto;">
+                <i class="fas fa-calendar-check me-2"></i>Book Appointment
+              </button>
+            </form>
+          </div>
+
+          <div id="appointmentStatus" class="client-payment-status" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- Photo Gallery Section -->
     <section id="gallery">
       <div class="container-fluid px-0 px-md-3">
