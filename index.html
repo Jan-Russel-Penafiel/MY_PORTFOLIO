@@ -7285,9 +7285,7 @@ From coding basics to full-stack, with achievements and certifications.         
                 <div class="calendar-weekday">Sat</div>
               </div>
               <div class="calendar-days" id="calendarDays"></div>
-              <div class="appointment-detail" id="appointmentDetail">
-                <span class="detail-empty">Click a highlighted date to see the appointment.</span>
-              </div>
+              <div class="appointment-detail" id="appointmentDetail"></div>
             </div>
 
             <form id="appointmentForm" class="client-payment-form" novalidate style="display: flex; flex-direction: column;">
@@ -11996,16 +11994,15 @@ feeling good developer\n`;
       function showDetail(key) {
         var a = bookedByDate[key];
         if (!a) {
-          detail.innerHTML =
-            '<span class="detail-empty">Click a highlighted date to see the appointment.</span>';
+          detail.innerHTML = "";
           return;
         }
         var statusLabel = a.status === "approved" ? "Approved" : "Pending approval";
         detail.innerHTML =
           "<div><strong>" + escapeHtml(a.projectName) + "</strong></div>" +
           "<div>Type: " + escapeHtml(a.projectType) + "</div>" +
-          "<div>Facebook: " + escapeHtml(a.facebookName) + "</div>" +
-          "<div>Deadline: <strong>" + escapeHtml(a.deadline) + "</strong></div>" +
+          "<div>Client (FB Name): " + escapeHtml(a.facebookName) + "</div>" +
+          "<div>Deadline date of project: <strong>" + escapeHtml(a.deadline) + "</strong></div>" +
           "<div>Status: <strong>" + statusLabel + "</strong></div>";
       }
 
