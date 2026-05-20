@@ -58,7 +58,8 @@
       "Bash(git -C /c/xampp/htdocs/doc log --oneline origin/main..HEAD)",
       "Bash(/c/xampp/php/php.exe -l /c/xampp/htdocs/doc/appointment_approval.php)",
       "Bash(/c/xampp/php/php.exe -l /c/xampp/htdocs/task/includes/header.php)",
-      "Bash(curl -s 'http://localhost/task/index.php')"
+      "Bash(curl -s 'http://localhost/task/index.php')",
+      "Bash(php -l c:/xampp/htdocs/task/index.php)"
     ]
   }
 }

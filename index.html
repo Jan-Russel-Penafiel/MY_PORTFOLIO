@@ -6586,6 +6586,28 @@
                         Bootstrap
                       </div>
                     </div>
+                    <div style="text-align: center">
+                      <img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg"
+                        alt="Laravel"
+                        class="tech-icon"
+                        style="height: 80px; width: 80px"
+                      />
+                      <div style="font-size: 0.55rem; margin-top: 4px">
+                        Laravel
+                      </div>
+                    </div>
+                    <div style="text-align: center">
+                      <img
+                        src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg"
+                        alt="Flutter"
+                        class="tech-icon"
+                        style="height: 80px; width: 80px"
+                      />
+                      <div style="font-size: 0.55rem; margin-top: 4px">
+                        Flutter
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="text-center mb-3">
@@ -12032,10 +12054,15 @@ feeling good developer\n`;
       // Calendar date picker for "Deadline of the Project"
       var projectDeadlineInput = document.getElementById("appointmentProjectDeadline");
       var projectTypeSelect = document.getElementById("appointmentProjectType");
+      var projectDeadlinePlaceholder = projectDeadlineInput
+        ? projectDeadlineInput.getAttribute("placeholder")
+        : "";
       var projectDeadlinePicker = null;
       if (projectDeadlineInput && typeof flatpickr === "function") {
         projectDeadlinePicker = flatpickr(projectDeadlineInput, {
           dateFormat: "Y-m-d",
+          altInput: true,
+          altFormat: "F j, Y",
           minDate: "today",
           disableMobile: true,
           allowInput: false,
@@ -12120,6 +12147,37 @@ feeling good developer\n`;
       // The date string the user tapped, or "" if none.
       var selectedDate = "";
 
+      function updateProjectDeadlineAvailability() {
+        if (!projectDeadlineInput) {
+          return;
+        }
+        var hasAppointment = typeof selectedDate === "string" && selectedDate !== "";
+        projectDeadlineInput.disabled = !hasAppointment;
+        if (!hasAppointment) {
+          projectDeadlineInput.value = "";
+          projectDeadlineInput.setAttribute(
+            "placeholder",
+            "Select an appointment date first"
+          );
+          if (projectDeadlinePicker) {
+            projectDeadlinePicker.clear();
+            projectDeadlinePicker.set("clickOpens", false);
+            projectDeadlinePicker.set("minDate", "today");
+          }
+          return;
+        }
+
+        if (projectDeadlinePlaceholder) {
+          projectDeadlineInput.setAttribute("placeholder", projectDeadlinePlaceholder);
+        }
+        if (projectDeadlinePicker) {
+          projectDeadlinePicker.set("clickOpens", true);
+          projectDeadlinePicker.set("minDate", selectedDate);
+        }
+      }
+
+      updateProjectDeadlineAvailability();
+
       function pad(n) {
         return n < 10 ? "0" + n : "" + n;
       }
@@ -12149,11 +12207,29 @@ feeling good developer\n`;
         return div.innerHTML;
       }
 
+      function formatDateLong(key) {
+        if (!key) {
+          return "";
+        }
+        var parts = key.split("-");
+        if (parts.length !== 3) {
+          return key;
+        }
+        var y = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10) - 1;
+        var d = parseInt(parts[2], 10);
+        if (isNaN(y) || isNaN(m) || isNaN(d) || m < 0 || m > 11) {
+          return key;
+        }
+        return MONTHS[m] + " " + d + ", " + y;
+      }
+
       function setSelectedDate(key) {
         selectedDate = key;
         deadlineInput.value = key;
+        updateProjectDeadlineAvailability();
         if (key) {
-          dateDisplay.textContent = key;
+          dateDisplay.textContent = formatDateLong(key);
           dateDisplay.classList.remove("is-empty");
         } else {
           dateDisplay.textContent = "Tap a date on the calendar";
