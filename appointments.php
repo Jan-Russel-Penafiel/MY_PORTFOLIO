@@ -12,8 +12,9 @@ $dataFile = __DIR__ . '/appointments.json';
 
 const ALLOWED_PROJECT_TYPES = [
     'Simple Project',
-    'Documentation Project',
-    'Capstone Project',
+    'Documentation Project (Papers only)',
+    'Capstone Project (System only)',
+    'Capstone Thesis Project',
     'Business Project',
 ];
 
@@ -52,6 +53,7 @@ $projectName = sanitizeText(trim((string) ($input['projectName'] ?? '')), 120);
 $projectType = trim((string) ($input['projectType'] ?? ''));
 $facebookName = sanitizeText(trim((string) ($input['facebookName'] ?? '')), 80);
 $deadline = trim((string) ($input['deadline'] ?? ''));
+$projectDeadline = trim((string) ($input['projectDeadline'] ?? ''));
 
 if ($projectName === '') {
     respond(422, ['ok' => false, 'error' => 'Project Name is required.']);
@@ -63,10 +65,16 @@ if ($facebookName === '') {
     respond(422, ['ok' => false, 'error' => 'Facebook Name is required.']);
 }
 if (!isValidDate($deadline)) {
-    respond(422, ['ok' => false, 'error' => 'Please choose a valid Deadline date.']);
+    respond(422, ['ok' => false, 'error' => 'Please choose a valid Appointment Date.']);
 }
 if ($deadline < date('Y-m-d')) {
-    respond(422, ['ok' => false, 'error' => 'Deadline cannot be in the past.']);
+    respond(422, ['ok' => false, 'error' => 'Appointment Date cannot be in the past.']);
+}
+if (!isValidDate($projectDeadline)) {
+    respond(422, ['ok' => false, 'error' => 'Please choose a valid Deadline of the Project.']);
+}
+if ($projectDeadline < date('Y-m-d')) {
+    respond(422, ['ok' => false, 'error' => 'Deadline of the Project cannot be in the past.']);
 }
 
 // Append under an exclusive lock so two same-date bookings cannot both win.
@@ -106,6 +114,7 @@ $appointment = [
     'projectType' => $projectType,
     'facebookName' => $facebookName,
     'deadline' => $deadline,
+    'projectDeadline' => $projectDeadline,
     'status' => 'pending',
     'bookedAt' => date('Y-m-d H:i:s'),
     'decidedAt' => null,
@@ -201,6 +210,7 @@ function generateOwnerEmailBody(array $a, string $approveLink, string $disapprov
     $projectType = htmlspecialchars($a['projectType'], ENT_QUOTES);
     $facebookName = htmlspecialchars($a['facebookName'], ENT_QUOTES);
     $deadline = htmlspecialchars($a['deadline'], ENT_QUOTES);
+    $projectDeadline = htmlspecialchars($a['projectDeadline'] ?? '', ENT_QUOTES);
     $bookedAt = htmlspecialchars($a['bookedAt'], ENT_QUOTES);
     $year = date('Y');
 
@@ -229,8 +239,12 @@ function generateOwnerEmailBody(array $a, string $approveLink, string $disapprov
                 <span style="color:#ffffff; float:right; font-weight:600;">{$facebookName}</span>
             </div>
             <div style="padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
-                <span style="color:#7f8ea8; font-weight:600;">⏰ Deadline:</span>
+                <span style="color:#7f8ea8; font-weight:600;">📆 Appointment Date:</span>
                 <span style="color:#00fff7; float:right; font-weight:700;">{$deadline}</span>
+            </div>
+            <div style="padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+                <span style="color:#7f8ea8; font-weight:600;">⏰ Deadline of the Project:</span>
+                <span style="color:#00fff7; float:right; font-weight:700;">{$projectDeadline}</span>
             </div>
             <div style="padding:16px 0;">
                 <span style="color:#7f8ea8; font-weight:600;">🕒 Requested On:</span>

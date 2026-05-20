@@ -75,6 +75,71 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
+    <!-- Flatpickr (calendar date picker) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+      /* Light-mode tweaks for the Flatpickr calendar on the appointments form. */
+      .flatpickr-calendar {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+        border-radius: 12px;
+      }
+      .flatpickr-months,
+      .flatpickr-month,
+      .flatpickr-current-month,
+      .flatpickr-monthDropdown-months,
+      .flatpickr-weekday {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        fill: #0f172a !important;
+      }
+      .flatpickr-current-month .flatpickr-monthDropdown-months,
+      .flatpickr-current-month input.cur-year {
+        color: #0f172a !important;
+      }
+      .flatpickr-prev-month,
+      .flatpickr-next-month {
+        color: #0f172a !important;
+        fill: #0f172a !important;
+      }
+      .flatpickr-prev-month:hover svg,
+      .flatpickr-next-month:hover svg {
+        fill: #00b8b8 !important;
+      }
+      .flatpickr-day {
+        color: #1e293b;
+      }
+      .flatpickr-day:hover,
+      .flatpickr-day:focus {
+        background: #e6fbfb;
+        border-color: #e6fbfb;
+      }
+      .flatpickr-day.today {
+        border-color: #00b8b8;
+        color: #00b8b8;
+      }
+      .flatpickr-day.today:hover {
+        background: #00b8b8;
+        color: #ffffff;
+      }
+      .flatpickr-day.selected,
+      .flatpickr-day.selected:hover,
+      .flatpickr-day.startRange,
+      .flatpickr-day.endRange {
+        background: #00b8b8;
+        border-color: #00b8b8;
+        color: #ffffff;
+      }
+      .flatpickr-day.flatpickr-disabled,
+      .flatpickr-day.flatpickr-disabled:hover,
+      .flatpickr-day.prevMonthDay,
+      .flatpickr-day.nextMonthDay {
+        color: #cbd5e1;
+      }
+    </style>
+
     <style>
       /* Photo Gallery Section */
       #gallery {
@@ -6000,6 +6065,16 @@
         .appointment-grid {
           grid-template-columns: 1fr;
         }
+        /* On mobile, hide the booking form until the client taps a date on
+           the calendar. setSelectedDate() in the appointments script adds
+           .is-revealed once a date is chosen, and a scrollIntoView call
+           brings it into view. */
+        #appointmentForm {
+          display: none !important;
+        }
+        #appointmentForm.is-revealed {
+          display: flex !important;
+        }
       }
       body.light-mode #appointments {
         background: #f0f2f5 !important;
@@ -7285,7 +7360,6 @@ From coding basics to full-stack, with achievements and certifications.         
                 <div class="calendar-weekday">Sat</div>
               </div>
               <div class="calendar-days" id="calendarDays"></div>
-              <div class="appointment-detail" id="appointmentDetail"></div>
             </div>
 
             <form id="appointmentForm" class="client-payment-form" novalidate style="display: flex; flex-direction: column;">
@@ -7299,8 +7373,9 @@ From coding basics to full-stack, with achievements and certifications.         
                 <select id="appointmentProjectType" name="projectType" class="form-control" required>
                   <option value="" disabled selected>Select a type...</option>
                   <option value="Simple Project">Simple Project</option>
-                  <option value="Documentation Project">Documentation Project</option>
-                  <option value="Capstone Project">Capstone Project</option>
+                  <option value="Documentation Project (Papers only)">Documentation Project (Papers only)</option>
+                  <option value="Capstone Project (System only)">Capstone Project (System only)</option>
+                  <option value="Capstone Thesis Project">Capstone Thesis Project</option>
                   <option value="Business Project">Business Project</option>
                 </select>
               </div>
@@ -7314,6 +7389,10 @@ From coding basics to full-stack, with achievements and certifications.         
                   Tap a date on the calendar
                 </div>
                 <input id="appointmentDeadline" name="deadline" type="hidden" />
+              </div>
+              <div>
+                <label class="form-label" for="appointmentProjectDeadline">Deadline of the Project</label>
+                <input id="appointmentProjectDeadline" name="projectDeadline" class="form-control" type="text" placeholder="Select a date" autocomplete="off" readonly required />
               </div>
 
               <button type="submit" class="btn btn-primary client-payment-btn" style="margin-top: auto;">
@@ -11942,13 +12021,92 @@ feeling good developer\n`;
       var calendarTitle = document.getElementById("calendarTitle");
       var prevBtn = document.getElementById("calendarPrevBtn");
       var nextBtn = document.getElementById("calendarNextBtn");
-      var detail = document.getElementById("appointmentDetail");
       var form = document.getElementById("appointmentForm");
       var statusEl = document.getElementById("appointmentStatus");
       var deadlineInput = document.getElementById("appointmentDeadline");
       var dateDisplay = document.getElementById("appointmentDateDisplay");
       if (!calendarDays || !form) {
         return;
+      }
+
+      // Calendar date picker for "Deadline of the Project"
+      var projectDeadlineInput = document.getElementById("appointmentProjectDeadline");
+      var projectTypeSelect = document.getElementById("appointmentProjectType");
+      var projectDeadlinePicker = null;
+      if (projectDeadlineInput && typeof flatpickr === "function") {
+        projectDeadlinePicker = flatpickr(projectDeadlineInput, {
+          dateFormat: "Y-m-d",
+          minDate: "today",
+          disableMobile: true,
+          allowInput: false,
+        });
+      }
+
+      // Auto-fill the Deadline of the Project based on the appointment date
+      // and selected project type. The user can still override with the picker.
+      //   Simple Project                         → appointment + 4 days  (the "3 to 5 days" rule, mid-value)
+      //   Documentation Project (Papers only)    → appointment + 3 months
+      //   Capstone Project (System only)         → appointment + 3 months
+      //   Capstone Thesis Project                → appointment + 6 months
+      //   Business Project                       → appointment + 6 months
+      function computeProjectDeadline(apptDateStr, projectType) {
+        if (!apptDateStr) {
+          return "";
+        }
+        var parts = apptDateStr.split("-");
+        if (parts.length !== 3) {
+          return "";
+        }
+        var d = new Date(
+          parseInt(parts[0], 10),
+          parseInt(parts[1], 10) - 1,
+          parseInt(parts[2], 10)
+        );
+        if (isNaN(d.getTime())) {
+          return "";
+        }
+        switch (projectType) {
+          case "Simple Project":
+            d.setDate(d.getDate() + 4);
+            break;
+          case "Documentation Project (Papers only)":
+          case "Capstone Project (System only)":
+            d.setMonth(d.getMonth() + 3);
+            break;
+          case "Capstone Thesis Project":
+          case "Business Project":
+            d.setMonth(d.getMonth() + 6);
+            break;
+          default:
+            return "";
+        }
+        return (
+          d.getFullYear() +
+          "-" +
+          String(d.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(d.getDate()).padStart(2, "0")
+        );
+      }
+
+      function autofillProjectDeadline() {
+        if (!projectDeadlineInput || !projectTypeSelect) {
+          return;
+        }
+        var apptDate = (typeof selectedDate === "string") ? selectedDate : "";
+        var result = computeProjectDeadline(apptDate, projectTypeSelect.value);
+        if (!result) {
+          return;
+        }
+        if (projectDeadlinePicker) {
+          projectDeadlinePicker.setDate(result, true);
+        } else {
+          projectDeadlineInput.value = result;
+        }
+      }
+
+      if (projectTypeSelect) {
+        projectTypeSelect.addEventListener("change", autofillProjectDeadline);
       }
 
       var MONTHS = [
@@ -11991,21 +12149,6 @@ feeling good developer\n`;
         return div.innerHTML;
       }
 
-      function showDetail(key) {
-        var a = bookedByDate[key];
-        if (!a) {
-          detail.innerHTML = "";
-          return;
-        }
-        var statusLabel = a.status === "approved" ? "Approved" : "Pending approval";
-        detail.innerHTML =
-          "<div><strong>" + escapeHtml(a.projectName) + "</strong></div>" +
-          "<div>Type: " + escapeHtml(a.projectType) + "</div>" +
-          "<div>Client (FB Name): " + escapeHtml(a.facebookName) + "</div>" +
-          "<div>Deadline date of project: <strong>" + escapeHtml(a.deadline) + "</strong></div>" +
-          "<div>Status: <strong>" + statusLabel + "</strong></div>";
-      }
-
       function setSelectedDate(key) {
         selectedDate = key;
         deadlineInput.value = key;
@@ -12017,6 +12160,30 @@ feeling good developer\n`;
           dateDisplay.classList.add("is-empty");
         }
         renderCalendar();
+        autofillProjectDeadline();
+
+        // Mobile-only: reveal the booking form (hidden by CSS until a date is
+        // chosen) and scroll to it so the client sees the next step. The
+        // 992px threshold matches the .appointment-grid breakpoint.
+        if (key && window.matchMedia("(max-width: 991px)").matches) {
+          form.classList.add("is-revealed");
+          // Wait one frame so display:flex takes effect before measuring,
+          // then compute the exact scroll target. Using scrollTo with an
+          // explicit offset (instead of scrollIntoView) lets us subtract
+          // the fixed navbar height so the form's top sits flush below it.
+          requestAnimationFrame(function () {
+            var navbar = document.querySelector(".navbar.fixed-top");
+            var navH = navbar ? navbar.getBoundingClientRect().height : 0;
+            var formTop =
+              form.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+              top: formTop - navH - 8,
+              behavior: "smooth",
+            });
+          });
+        } else if (!key) {
+          form.classList.remove("is-revealed");
+        }
       }
 
       function renderCalendar() {
@@ -12049,12 +12216,8 @@ feeling good developer\n`;
           if (booked) {
             // Pending or approved appointment occupies this date.
             cell.classList.add(booked.status === "approved" ? "approved" : "pending");
-            cell.title = booked.projectName;
-            (function (k) {
-              cell.addEventListener("click", function () {
-                showDetail(k);
-              });
-            })(key);
+            cell.title =
+              booked.projectName + " - Client: " + booked.facebookName;
           } else if (key >= tKey) {
             // Free, today or future: selectable.
             cell.classList.add("selectable");
@@ -12143,6 +12306,8 @@ feeling good developer\n`;
             .getElementById("appointmentFacebookName")
             .value.trim(),
           deadline: selectedDate,
+          projectDeadline: document.getElementById("appointmentProjectDeadline")
+            .value,
         };
 
         var submitBtn = form.querySelector('button[type="submit"]');

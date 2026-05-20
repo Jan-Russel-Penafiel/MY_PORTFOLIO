@@ -22,6 +22,7 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     ]);
 }
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/gcash_validation.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -60,12 +61,12 @@ if ($amount <= 0) {
 }
 
 if ($gcashReferenceNumber === '') {
-    respond(422, ['ok' => false, 'error' => 'GCash Reference Number is required.']);
+    respond(422, ['ok' => false, 'error' => 'Client GCash Number is required.']);
 }
 
-// Validate GCash Reference Number is exactly 13 digits
-if (!preg_match('/^\d{13}$/', $gcashReferenceNumber)) {
-    respond(422, ['ok' => false, 'error' => 'GCash Reference Number must be exactly 13 digits.']);
+// Validate Client GCash Number is exactly 11 digits
+if (!isValidClientGcashNumber($gcashReferenceNumber)) {
+    respond(422, ['ok' => false, 'error' => 'Client GCash Number must be exactly 11 digits.']);
 }
 
 // Email configuration
